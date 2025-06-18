@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <a href="#home" className={styles.logoLink} aria-label="Home">
-        <Logo size="xlarge" className={styles.logo} />
+        <Logo className={styles.logo} />
       </a>
       <button
         className={styles.hamburger}
