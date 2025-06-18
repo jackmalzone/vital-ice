@@ -34,16 +34,16 @@ export default function Header() {
         <div className={styles.overlayMenu} onClick={() => setOpen(false)}>
           <nav className={styles.overlayNav} onClick={e => e.stopPropagation()}>
             <ul className={styles.overlayNavList}>
-              {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link) => (
                 <li key={link.href} className={styles.overlayNavItem}>
                   <a href={link.href} className={styles.overlayNavLink} onClick={() => setOpen(false)}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
           </nav>
-        </div>
+      </div>
       )}
     </header>
   );

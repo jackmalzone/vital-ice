@@ -1,10 +1,24 @@
-import styles from './OurPurpose.module.css';
+"use client";
+import { motion } from "framer-motion";
+import styles from "./OurPurpose.module.css";
 
 export default function OurPurpose() {
   return (
-    <section id="services" className={styles.ourPurpose}>
-      <h2>Our Purpose</h2>
-      <p>We're here to redefine what it means to take care of yourself. Through our cold plunge and sauna experiences, we aim to empower you to prioritize recovery and self-care as integral parts of your wellness journey. This is more than a business—it's a movement to make recovery as celebrated as the workout itself.</p>
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+        >
+          <div className={styles.accentLine} />
+          <h2 className={styles.heading}>Our Purpose</h2>
+          <p className={styles.text}>
+            We're here to redefine what it means to take care of yourself. Through our cold plunge and sauna experiences, we aim to empower you to prioritize recovery and self-care as integral parts of your wellness journey. This is more than a business—it's a movement to make recovery as celebrated as the workout itself.
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 } 

@@ -11,7 +11,7 @@ const Hero: FC = () => {
   return (
     <section className={styles.hero}>
       <VideoBackground
-        videoSrc="/videos/ambient.mp4"
+        videoSrc="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ambient.mp4"
         posterSrc="/images/hero-poster.jpg"
         overlayOpacity={0}
       />
