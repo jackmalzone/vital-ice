@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/utils/animations';

@@ -1,0 +1,47 @@
+.about {
+  position: relative;
+  padding: 6rem 0;
+  background-color: black;
+  color: white;
+}
+
+.about__container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.about__title {
+  margin-bottom: 2rem;
+  font-size: 2.25rem;
+  font-weight: bold;
+}
+
+.about__grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.about__item {
+  margin-bottom: 1rem;
+}
+
+.about__itemTitle {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.about__itemText {
+  color: rgb(209, 213, 219);
+}
+
+@media (min-width: 768px) {
+  .about__title {
+    font-size: 3rem;
+  }
+
+  .about__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

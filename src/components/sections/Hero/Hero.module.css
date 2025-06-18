@@ -1,0 +1,96 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero__videoContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.hero__textContainer {
+  max-width: 64rem;
+  text-align: center;
+  color: white;
+}
+
+.hero__title {
+  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero__subtitle {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+}
+
+.hero__button {
+  padding: 0.75rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: black;
+  background-color: white;
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+
+.hero__button:hover {
+  background-color: rgb(243, 244, 246);
+}
+
+.hero__scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero__scrollIndicatorContainer {
+  height: 2rem;
+  width: 1.5rem;
+  padding: 0.25rem;
+  border: 2px solid white;
+  border-radius: 9999px;
+}
+
+.hero__scrollIndicatorDot {
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: white;
+  border-radius: 9999px;
+}
+
+@media (min-width: 768px) {
+  .hero__title {
+    font-size: 4.5rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.5rem;
+  }
+}
