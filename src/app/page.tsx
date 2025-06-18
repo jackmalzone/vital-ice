@@ -20,6 +20,6 @@ export default function Home() {
       <OurValues />
       <JoinUs />
       <About />
-      </main>
+    </main>
   );
 }

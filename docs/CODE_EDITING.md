@@ -5,6 +5,7 @@
 ### TypeScript/JavaScript
 
 1. **General Rules**
+
    - Use TypeScript for all new code
    - Prefer functional components over class components
    - Use arrow functions for component definitions
@@ -12,6 +13,7 @@
    - Use interfaces for component props
 
 2. **Naming Conventions**
+
    - PascalCase for components and types
    - camelCase for variables, functions, and methods
    - UPPER_CASE for constants
@@ -19,6 +21,7 @@
    - Suffix type definitions with 'Type' (e.g., ButtonType)
 
 3. **Component Structure**
+
    ```tsx
    // Example component structure
    import { FC } from 'react';
@@ -42,40 +45,43 @@
 ### CSS/SCSS
 
 1. **Module Structure**
+
    - One CSS module per component
    - Use BEM naming convention within modules
    - Keep selectors shallow (max 2 levels)
    - Use CSS variables for theming
 
 2. **Naming Convention**
+
    ```css
    /* Example CSS module */
    .container {
      /* Base styles */
    }
-   
+
    .container__header {
      /* Child element */
    }
-   
+
    .container--active {
      /* Modifier */
    }
    ```
 
 3. **Media Queries**
+
    ```css
    /* Mobile first approach */
    .element {
      /* Base styles */
    }
-   
+
    @media (min-width: 768px) {
      .element {
        /* Tablet styles */
      }
    }
-   
+
    @media (min-width: 1024px) {
      .element {
        /* Desktop styles */
@@ -95,14 +101,16 @@
 ### Commit Messages
 
 1. **Format**
+
    ```
    type(scope): description
-   
+
    [optional body]
    [optional footer]
    ```
 
 2. **Types**
+
    - `feat`: New feature
    - `fix`: Bug fix
    - `docs`: Documentation changes
@@ -123,16 +131,19 @@
 ### What to Review
 
 1. **Functionality**
+
    - Does the code work as intended?
    - Are edge cases handled?
    - Is error handling implemented?
 
 2. **Code Quality**
+
    - Is the code readable and maintainable?
    - Are there any code smells?
    - Is the code DRY (Don't Repeat Yourself)?
 
 3. **Performance**
+
    - Are there any performance bottlenecks?
    - Is the code optimized?
    - Are there unnecessary re-renders?
@@ -145,12 +156,14 @@
 ### Review Process
 
 1. **Before Review**
+
    - Self-review your changes
    - Run tests locally
    - Check for linting errors
    - Update documentation if needed
 
 2. **During Review**
+
    - Be constructive and specific
    - Explain the "why" behind suggestions
    - Consider the bigger picture
@@ -167,17 +180,18 @@
 ### Unit Tests
 
 1. **Component Tests**
+
    ```tsx
    // Example component test
    import { render, screen } from '@testing-library/react';
    import { Button } from './Button';
-   
+
    describe('Button', () => {
      it('renders correctly', () => {
        render(<Button>Click me</Button>);
        expect(screen.getByText('Click me')).toBeInTheDocument();
      });
-   
+
      it('handles click events', () => {
        const handleClick = jest.fn();
        render(<Button onClick={handleClick}>Click me</Button>);
@@ -188,11 +202,12 @@
    ```
 
 2. **Hook Tests**
+
    ```tsx
    // Example hook test
    import { renderHook, act } from '@testing-library/react-hooks';
    import { useCounter } from './useCounter';
-   
+
    describe('useCounter', () => {
      it('increments counter', () => {
        const { result } = renderHook(() => useCounter());
@@ -207,11 +222,12 @@
 ### Integration Tests
 
 1. **Page Tests**
+
    ```tsx
    // Example page test
    import { render, screen } from '@testing-library/react';
    import HomePage from './pages/Home';
-   
+
    describe('HomePage', () => {
      it('loads and displays content', async () => {
        render(<HomePage />);
@@ -225,6 +241,7 @@
 ### Code Comments
 
 1. **When to Comment**
+
    - Complex business logic
    - Non-obvious solutions
    - Workarounds
@@ -246,27 +263,36 @@
 ### README Updates
 
 1. **What to Document**
+
    - New features
    - Configuration changes
    - Breaking changes
    - Dependencies updates
 
 2. **Format**
-   ```markdown
+
+   ````markdown
    ## Feature Name
-   
+
    ### Description
+
    Brief description of the feature
-   
+
    ### Usage
+
    ```tsx
    <Component prop="value" />
    ```
-   
+   ````
+
    ### Props
-   | Prop | Type | Required | Description |
-   |------|------|----------|-------------|
-   | prop | string | Yes | Description |
+
+   | Prop | Type   | Required | Description |
+   | ---- | ------ | -------- | ----------- |
+   | prop | string | Yes      | Description |
+
+   ```
+
    ```
 
 ## Performance Considerations
@@ -274,17 +300,18 @@
 ### React Optimization
 
 1. **Memoization**
+
    ```tsx
    // Use memo for expensive calculations
    const MemoizedComponent = React.memo(({ data }) => {
      return <div>{data}</div>;
    });
-   
+
    // Use useMemo for computed values
    const computedValue = useMemo(() => {
      return expensiveCalculation(data);
    }, [data]);
-   
+
    // Use useCallback for function props
    const handleClick = useCallback(() => {
      doSomething();
@@ -292,22 +319,24 @@
    ```
 
 2. **Code Splitting**
+
    ```tsx
    // Lazy load components
    const LazyComponent = React.lazy(() => import('./LazyComponent'));
-   
+
    // Use with Suspense
    <Suspense fallback={<Loading />}>
      <LazyComponent />
-   </Suspense>
+   </Suspense>;
    ```
 
 ### Image Optimization
 
 1. **Next.js Image Component**
+
    ```tsx
    import Image from 'next/image';
-   
+
    <Image
      src="/image.jpg"
      alt="Description"
@@ -315,7 +344,7 @@
      height={300}
      priority={false}
      loading="lazy"
-   />
+   />;
    ```
 
 2. **Responsive Images**
@@ -334,6 +363,7 @@
 ### ARIA Guidelines
 
 1. **Common Patterns**
+
    ```tsx
    // Button with loading state
    <button
@@ -342,7 +372,7 @@
    >
      {isLoading ? 'Loading...' : 'Submit'}
    </button>
-   
+
    // Navigation
    <nav aria-label="Main navigation">
      <ul role="menubar">
@@ -380,11 +410,11 @@
 ```tsx
 class ErrorBoundary extends React.Component {
   state = { hasError: false, error: null };
-  
+
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
-  
+
   render() {
     if (this.state.hasError) {
       return <ErrorFallback error={this.state.error} />;
@@ -412,6 +442,6 @@ const apiClient = {
       // Rethrow for component handling
       throw error;
     }
-  }
+  },
 };
-``` 
+```

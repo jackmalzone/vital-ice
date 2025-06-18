@@ -10,7 +10,7 @@ interface ISmoothScrollProviderProps {
 export const SmoothScrollProvider: FC<ISmoothScrollProviderProps> = ({ children }) => {
   useEffect(() => {
     const lenis = setupSmoothScroll();
-    
+
     if (!lenis) return;
 
     return () => {
@@ -19,4 +19,4 @@ export const SmoothScrollProvider: FC<ISmoothScrollProviderProps> = ({ children 
   }, []);
 
   return <>{children}</>;
-}; 
+};

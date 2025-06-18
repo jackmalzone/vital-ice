@@ -1,6 +1,6 @@
-"use client";
-import { useState } from "react";
-import styles from "./Newsletter.module.css";
+'use client';
+import { useState } from 'react';
+import styles from './Newsletter.module.css';
 
 export default function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
@@ -32,23 +32,18 @@ export default function Newsletter() {
               disabled={submitted}
             />
           </label>
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={submitted}
-            aria-live="polite"
-          >
+          <button type="submit" className={styles.button} disabled={submitted} aria-live="polite">
             Notify Me
           </button>
         </form>
         <div
           className={styles.feedback}
           aria-live="polite"
-          style={{ opacity: submitted ? 1 : 0, pointerEvents: "none" }}
+          style={{ opacity: submitted ? 1 : 0, pointerEvents: 'none' }}
         >
-          Thanks, you're on the list.
+          Thanks, you&apos;re on the list.
         </div>
       </div>
     </section>
   );
-} 
+}

@@ -12,21 +12,14 @@ interface VideoBackgroundProps {
 const VideoBackground: FC<VideoBackgroundProps> = ({
   videoSrc,
   posterSrc,
-  overlayOpacity = 0.5
+  overlayOpacity = 0.5,
 }) => {
   return (
     <div className={styles.videoContainer}>
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className={styles.video}
-        poster={posterSrc}
-      >
+      <video autoPlay muted loop playsInline className={styles.video} poster={posterSrc}>
         <source src={videoSrc} type="video/mp4" />
       </video>
-      <div 
+      <div
         className={styles.overlay}
         style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
       />
@@ -34,4 +27,4 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
   );
 };
 
-export default VideoBackground; 
+export default VideoBackground;

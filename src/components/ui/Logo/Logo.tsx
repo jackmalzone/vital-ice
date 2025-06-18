@@ -22,4 +22,4 @@ const Logo: FC<LogoProps> = ({ className = '' }) => {
   );
 };
 
-export default Logo; 
+export default Logo;

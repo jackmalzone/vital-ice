@@ -15,6 +15,7 @@
 ## Site Pages
 
 1. **Home**
+
    - Hero section with video background
    - About section
    - Services overview
@@ -23,12 +24,14 @@
    - Location map
 
 2. **Services**
+
    - Individual service pages
    - Pricing
    - Booking integration
    - FAQ section
 
 3. **About**
+
    - Company history
    - Team members
    - Mission statement
@@ -123,12 +126,14 @@ vital-ice/
 ## Development Workflow
 
 1. **Branch Strategy**
+
    - `main` - Production branch
    - `develop` - Development branch
    - Feature branches for new features
    - Hotfix branches for urgent fixes
 
 2. **Commit Convention**
+
    - feat: New feature
    - fix: Bug fix
    - docs: Documentation
@@ -164,11 +169,13 @@ vital-ice/
 ## Testing Strategy
 
 1. **Unit Tests**
+
    - Component testing
    - Utility functions
    - Hooks testing
 
 2. **Integration Tests**
+
    - Page flows
    - Form submissions
    - API interactions
@@ -181,6 +188,7 @@ vital-ice/
 ## Documentation Requirements
 
 1. **Code Documentation**
+
    - JSDoc comments
    - Type definitions
    - Component props
@@ -195,6 +203,7 @@ vital-ice/
 ## Security Measures
 
 1. **Form Security**
+
    - Input validation
    - CSRF protection
    - Rate limiting
@@ -209,6 +218,7 @@ vital-ice/
 ## Monitoring & Analytics
 
 1. **Performance Monitoring**
+
    - Core Web Vitals
    - Error tracking
    - User behavior
@@ -218,4 +228,4 @@ vital-ice/
    - Plausible/GA setup
    - Event tracking
    - Conversion tracking
-   - User flow analysis 
+   - User flow analysis

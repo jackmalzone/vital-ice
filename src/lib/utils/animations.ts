@@ -13,15 +13,15 @@ if (typeof window !== 'undefined') {
 export const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.6 },
 };
 
 export const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 // GSAP animations
@@ -33,9 +33,9 @@ export const scrollReveal = (element: string, options = {}) => {
     scrollTrigger: {
       trigger: element,
       start: 'top 80%',
-      toggleActions: 'play none none reverse'
+      toggleActions: 'play none none reverse',
     },
-    ...options
+    ...options,
   });
 };
 
@@ -47,8 +47,8 @@ export const parallaxEffect = (element: string, speed = 0.5) => {
       trigger: element,
       start: 'top bottom',
       end: 'bottom top',
-      scrub: true
-    }
+      scrub: true,
+    },
   });
 };
 

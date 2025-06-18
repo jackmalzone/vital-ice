@@ -21,4 +21,4 @@ export const AnimatedSection: FC<IAnimatedSectionProps> = ({ children, className
       <motion.div variants={fadeInUp}>{children}</motion.div>
     </motion.section>
   );
-}; 
+};
