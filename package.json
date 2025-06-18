@@ -9,23 +9,27 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACMR | grep -E \"\\.(ts|tsx|js|jsx|json|css|scss|md)\" | xargs)",
     "clean": "rm -rf .next out",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
+    "next": "15.3.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.3"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
-    "@eslint/eslintrc": "^3",
-    "prettier": "^3.2.5",
-    "@next/bundle-analyzer": "^15.3.3"
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5"
   }
 }
