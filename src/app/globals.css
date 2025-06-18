@@ -49,6 +49,16 @@ body {
   background-color: var(--color-void);
 }
 
+main {
+  padding-top: 56px;
+}
+
+@media (min-width: 768px) {
+  body,
+  main {
+  }
+}
+
 /* Typography */
 h1,
 h2,

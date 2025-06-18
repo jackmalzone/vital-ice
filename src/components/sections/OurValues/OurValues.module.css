@@ -1,0 +1,24 @@
+.ourValues {
+  padding: 5rem 0 3rem 0;
+  text-align: center;
+  color: white;
+  background: none;
+}
+
+.ourValues h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ourValues ul {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ourValues li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}

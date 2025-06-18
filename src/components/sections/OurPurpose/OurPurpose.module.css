@@ -1,0 +1,17 @@
+.ourPurpose {
+  padding: 5rem 0 3rem 0;
+  text-align: center;
+  color: white;
+  background: none;
+}
+
+.ourPurpose h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ourPurpose p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}

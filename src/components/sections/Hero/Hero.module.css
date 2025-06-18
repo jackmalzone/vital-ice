@@ -5,37 +5,44 @@
   overflow: hidden;
 }
 
-.hero__videoContainer {
+.hero__gradientOverlay {
   position: absolute;
   inset: 0;
-}
-
-.hero__video {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .hero__content {
-  position: relative;
-  z-index: 10;
+  position: absolute;
+  top: 55vh;
+  left: 0;
+  width: 100%;
+  z-index: 2;
   display: flex;
-  height: 100%;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  transform: translateY(-55%);
   padding: 0 1rem;
 }
 
 .hero__textContainer {
-  max-width: 64rem;
-  text-align: center;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.heroLogo {
+  position: relative;
+  width: 220px;
+  height: 70px;
+  margin-top: 40px;
+  margin-bottom: 32px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-self: center;
+  letter-spacing: 0.25em;
 }
 
 .hero__title {
@@ -45,22 +52,96 @@
 }
 
 .hero__subtitle {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   font-size: 1.25rem;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero__headline {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(235, 237, 229, 0.95);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.hero__subhead {
+  font-size: 1.1rem;
+  color: #bbbbbb;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 28px;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
 }
 
 .hero__button {
-  padding: 0.75rem 2rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: black;
-  background-color: white;
+  min-height: 48px;
+  padding: 1rem 2.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(90deg, #00b7b5 60%, #9ec7c5 100%);
   border-radius: 9999px;
-  transition: background-color 0.2s;
+  border: none;
+  box-shadow: 0 4px 24px 0 rgba(0, 183, 181, 0.1);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s,
+    transform 0.2s;
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero__button:hover {
-  background-color: rgb(243, 244, 246);
+.hero__button:hover,
+.hero__button:focus-visible {
+  filter: brightness(1.12) drop-shadow(0 0 12px #00b7b5aa);
+  background: linear-gradient(90deg, #00b7b5 60%, #9ec7c5 100%);
+  color: #fff;
+  box-shadow: 0 8px 32px 0 rgba(0, 183, 181, 0.18);
+  transform: translateY(-2px) scale(1.04);
+  animation: pulse 0.5s;
+}
+
+.hero__buttonIcon {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  margin-left: 0.25em;
+  vertical-align: middle;
+  transition: transform 0.2s;
+}
+
+.hero__button:hover .hero__buttonIcon,
+.hero__button:focus-visible .hero__buttonIcon {
+  transform: translateX(4px) scale(1.08);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #00b7b555;
+  }
+  70% {
+    box-shadow: 0 0 0 8px #00b7b500;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #00b7b500;
+  }
 }
 
 .hero__scrollIndicator {
@@ -83,6 +164,17 @@
   width: 0.5rem;
   background-color: white;
   border-radius: 9999px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(12px);
+  }
 }
 
 @media (min-width: 768px) {
@@ -90,7 +182,60 @@
     font-size: 4.5rem;
   }
 
+  .hero__logo {
+    margin-bottom: 4rem;
+  }
+
   .hero__subtitle {
     font-size: 1.5rem;
+  }
+
+  .hero__headline {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__button {
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__logo {
+    margin-bottom: 5rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero__content {
+    top: 50vh;
+    transform: translateY(-50%);
+  }
+  .heroLogo {
+    width: 140px;
+    height: 44px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+  }
+  .hero__headline {
+    font-size: 2rem;
+    margin-bottom: 14px;
+  }
+  .hero__subhead {
+    font-size: 1rem;
+    margin-bottom: 18px;
+  }
+  .hero__button {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    min-height: 44px;
+    width: 80%;
+    max-width: 340px;
   }
 }
