@@ -9,11 +9,10 @@ interface LogoProps {
 }
 
 const Logo: FC<LogoProps> = ({ className = '' }) => {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   return (
     <div className={`${styles.logo} ${className}`}>
       <Image
-        src={`${basePath}/images/logo-dark.png`}
+        src="/images/logo-dark.png"
         alt="Vital Ice Logo"
         fill
         style={{ objectFit: 'contain' }}
