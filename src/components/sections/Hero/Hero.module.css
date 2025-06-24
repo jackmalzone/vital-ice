@@ -45,6 +45,13 @@
   letter-spacing: 0.25em;
 }
 
+.heroLogo :global(img) {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .hero__title {
   margin-bottom: 1.5rem;
   font-size: 3rem;

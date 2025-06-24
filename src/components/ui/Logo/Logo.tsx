@@ -13,8 +13,8 @@ interface LogoProps {
 
 const Logo: FC<LogoProps> = ({ 
   className = '', 
-  width = 120, 
-  height = 40, 
+  width, 
+  height, 
   priority = false 
 }) => {
   return (
@@ -22,8 +22,7 @@ const Logo: FC<LogoProps> = ({
       <Image
         src="/images/logo-dark.png"
         alt="Vital Ice Logo"
-        width={width}
-        height={height}
+        {...(width && height ? { width, height } : { fill: true })}
         style={{ objectFit: 'contain' }}
         priority={priority}
       />

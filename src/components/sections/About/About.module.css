@@ -1,7 +1,7 @@
 .about {
   padding: 6rem 0;
-  background: #ffffff;
-  color: #1a1a1a;
+  color: #ffffff;
+  position: relative;
 }
 
 .about__container {
@@ -18,7 +18,7 @@
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: 300;
   letter-spacing: 0.04em;
-  color: #1a1a1a;
+  color: #ffffff;
   margin-bottom: 3rem;
   text-transform: uppercase;
 }
@@ -38,21 +38,23 @@
 .about__text p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #4a4a4a;
+  color: #bbbbbb;
   margin: 0;
 }
 
 .about__vision {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 2.5rem;
   border-radius: 16px;
+  backdrop-filter: blur(10px);
   border-left: 4px solid #00b7b5;
 }
 
 .about__vision h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #ffffff;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
@@ -60,7 +62,7 @@
 .about__vision p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #4a4a4a;
+  color: #bbbbbb;
   margin: 0;
 }
 

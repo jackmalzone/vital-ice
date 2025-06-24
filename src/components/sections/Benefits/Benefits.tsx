@@ -1,14 +1,17 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Benefits.module.css';
 
 const Benefits: FC = () => {
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+
   const benefits = [
     {
       title: 'Cold Plunge',
       description: 'Recovery, clarity, vagus nerve activation',
+      details: 'Experience the transformative power of cold water therapy. Our state-of-the-art cold plunge pools are maintained at optimal temperatures to activate your vagus nerve, reduce inflammation, and accelerate recovery. Each session is designed to enhance mental clarity and boost your body\'s natural healing processes.',
       icon: (
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -29,6 +32,7 @@ const Benefits: FC = () => {
     {
       title: 'Infrared Sauna',
       description: 'Detox, circulation, immune support',
+      details: 'Step into our advanced infrared sauna chambers where deep-penetrating heat works at the cellular level. This gentle yet powerful therapy promotes detoxification, improves circulation, and strengthens your immune system. Experience deep relaxation while your body naturally eliminates toxins and rejuvenates.',
       icon: (
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="3" fill="currentColor" />
@@ -44,6 +48,7 @@ const Benefits: FC = () => {
     {
       title: 'Community Ritual',
       description: 'Connection, breath, nervous system repair',
+      details: 'Join a community of like-minded individuals committed to their wellness journey. Our guided sessions combine breathwork, meditation, and recovery practices in a supportive environment. Experience the power of collective intention and build lasting connections while repairing your nervous system.',
       icon: (
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -72,6 +77,10 @@ const Benefits: FC = () => {
       ),
     },
   ];
+
+  const handleCardClick = (index: number) => {
+    setExpandedCard(expandedCard === index ? null : index);
+  };
 
   return (
     <section id="benefits" className={styles.benefits}>
@@ -109,17 +118,21 @@ const Benefits: FC = () => {
             {benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
-                className={styles.benefit__card}
+                className={`${styles.benefit__card} ${expandedCard === index ? styles.expanded : ''}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                 whileHover={{ y: -5 }}
+                onClick={() => handleCardClick(index)}
               >
                 <div className={styles.benefit__icon}>
                   {benefit.icon}
                 </div>
                 <h3 className={styles.benefit__title}>{benefit.title}</h3>
                 <p className={styles.benefit__description}>{benefit.description}</p>
+                <div className={styles.benefit__details}>
+                  <p>{benefit.details}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>

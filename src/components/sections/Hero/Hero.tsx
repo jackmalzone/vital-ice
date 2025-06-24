@@ -55,7 +55,7 @@ const Hero: FC = () => {
               document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            Book Now
+            Stay in the Loop
             <span className={styles.hero__buttonIcon} aria-hidden="true">
               <svg
                 width="20"
