@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import styles from './About.module.css';
 
 const About: FC = () => {
@@ -22,7 +23,7 @@ const About: FC = () => {
           >
             Our Story
           </motion.h2>
-
+          
           <motion.div 
             className={styles.about__story}
             initial={{ opacity: 0, y: 20 }}
@@ -37,13 +38,33 @@ const About: FC = () => {
                 Our founders, having experienced the transformative effects of cold plunge and infrared sauna therapy firsthand, envisioned a space where people could reconnect with these ancient wellness practices in a modern, accessible way. We believe that true recovery isn&apos;t just about physical healing—it&apos;s about creating moments of presence, clarity, and connection.
               </p>
             </div>
-            
-            <div className={styles.about__vision}>
-              <h3>What Sets Us Apart</h3>
-              <p>
-                Unlike traditional wellness centers, Vital Ice combines cutting-edge technology with time-tested practices. Our approach integrates the latest research in cold therapy and infrared sauna benefits with a focus on creating a community of individuals committed to their recovery journey.
-              </p>
-            </div>
+
+            <motion.div 
+              className={styles.about__image}
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <Image
+                src="/images/founders-seanstephen.png"
+                alt="Vital Ice founders"
+                width={500}
+                height={400}
+                className={styles.about__imageElement}
+              />
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className={styles.about__vision}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <h3>What Sets Us Apart</h3>
+            <p>
+              Unlike traditional wellness centers, Vital Ice combines cutting-edge technology with time-tested practices. Our approach integrates the latest research in cold therapy and infrared sauna benefits with a focus on creating a community of individuals committed to their recovery journey.
+            </p>
           </motion.div>
         </motion.div>
       </div>
@@ -51,4 +72,4 @@ const About: FC = () => {
   );
 };
 
-export default About;
+export default About; 

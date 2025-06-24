@@ -2,6 +2,7 @@
 
 import { FC, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import styles from './Benefits.module.css';
 
 const Benefits: FC = () => {
@@ -10,6 +11,8 @@ const Benefits: FC = () => {
   const benefits = [
     {
       title: 'Cold Plunge',
+      quote: '"The moment I stepped into that cold water, everything else just... stopped. It was like hitting a reset button on my entire nervous system."',
+      author: '— Sarah M., Early Member',
       description: 'Recovery, clarity, vagus nerve activation',
       details: 'Experience the transformative power of cold water therapy. Our state-of-the-art cold plunge pools are maintained at optimal temperatures to activate your vagus nerve, reduce inflammation, and accelerate recovery. Each session is designed to enhance mental clarity and boost your body\'s natural healing processes.',
       icon: (
@@ -31,6 +34,8 @@ const Benefits: FC = () => {
     },
     {
       title: 'Infrared Sauna',
+      quote: '"I\'ve tried everything for my recovery, but nothing compares to the deep, cellular-level healing I feel after an infrared session."',
+      author: '— Marcus T., Athlete',
       description: 'Detox, circulation, immune support',
       details: 'Step into our advanced infrared sauna chambers where deep-penetrating heat works at the cellular level. This gentle yet powerful therapy promotes detoxification, improves circulation, and strengthens your immune system. Experience deep relaxation while your body naturally eliminates toxins and rejuvenates.',
       icon: (
@@ -47,6 +52,8 @@ const Benefits: FC = () => {
     },
     {
       title: 'Community Ritual',
+      quote: '"There\'s something magical about breathing together, plunging together, healing together. This isn\'t just recovery—it\'s transformation."',
+      author: '— Elena K., Community Member',
       description: 'Connection, breath, nervous system repair',
       details: 'Join a community of like-minded individuals committed to their wellness journey. Our guided sessions combine breathwork, meditation, and recovery practices in a supportive environment. Experience the power of collective intention and build lasting connections while repairing your nervous system.',
       icon: (
@@ -84,6 +91,14 @@ const Benefits: FC = () => {
 
   return (
     <section id="benefits" className={styles.benefits}>
+      <div className={styles.benefits__background}>
+        <Image
+          src="/images/benefits-background.jpg"
+          alt="Wellness background"
+          fill
+          className={styles.benefits__backgroundImage}
+        />
+      </div>
       <div className={styles.benefits__container}>
         <motion.div
           initial="initial"
@@ -122,13 +137,17 @@ const Benefits: FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -5, scale: 1.02 }}
                 onClick={() => handleCardClick(index)}
               >
                 <div className={styles.benefit__icon}>
                   {benefit.icon}
                 </div>
                 <h3 className={styles.benefit__title}>{benefit.title}</h3>
+                <div className={styles.benefit__quote}>
+                  <p className={styles.benefit__quoteText}>{benefit.quote}</p>
+                  <p className={styles.benefit__quoteAuthor}>{benefit.author}</p>
+                </div>
                 <p className={styles.benefit__description}>{benefit.description}</p>
                 <div className={styles.benefit__details}>
                   <p>{benefit.details}</p>

@@ -1,6 +1,8 @@
 import Hero from '@/components/sections/Hero/Hero';
 import About from '@/components/sections/About/About';
 import Benefits from '@/components/sections/Benefits/Benefits';
+import MeetFounders from '@/components/sections/MeetFounders/MeetFounders';
+import Testimonials from '@/components/sections/Testimonials/Testimonials';
 import Newsletter from '@/components/sections/Newsletter/Newsletter';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
@@ -11,8 +13,10 @@ export default function Home() {
       <Hero />
       <About />
       <Benefits />
+      <MeetFounders />
+      <Testimonials />
       <Newsletter />
       <Footer />
-    </main>
+      </main>
   );
 }

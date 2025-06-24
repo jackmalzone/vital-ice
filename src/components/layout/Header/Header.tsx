@@ -40,13 +40,13 @@ export default function Header() {
                     className={styles.overlayNavLink}
                     onClick={() => setOpen(false)}
                   >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
           </nav>
-        </div>
+      </div>
       )}
     </header>
   );
