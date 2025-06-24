@@ -1,7 +1,8 @@
 'use client';
 
 import { FC } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
@@ -16,7 +17,22 @@ const Hero: FC = () => {
         overlayOpacity={0}
       />
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
-      
+
+      {/* Animated Blue Blob Overlay */}
+      <motion.div
+        className={styles.hero__blueBlob}
+        animate={{
+          x: [0, -20, 20, -10, 0],
+          scaleX: [1, 1.1, 0.9, 1.05, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        aria-hidden="true"
+      />
+
       {/* Logo positioned separately */}
       <motion.div
         className={styles.hero__logoContainer}
