@@ -54,7 +54,7 @@ const Footer: FC = () => {
             <h3 className={styles.footer__sectionTitle}>Follow Us</h3>
             <div className={styles.footer__socialLinks}>
               <a 
-                href="https://instagram.com/vitalice" 
+                href="https://instagram.com/vitalice.sf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.footer__socialLink}
@@ -67,7 +67,7 @@ const Footer: FC = () => {
                 </svg>
               </a>
               <a 
-                href="https://linktr.ee/vitalice" 
+                href="https://linktr.ee/vitalicesf" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.footer__socialLink}
