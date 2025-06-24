@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
+import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
 import styles from './Hero.module.css';
 
 const Hero: FC = () => {
@@ -15,48 +16,91 @@ const Hero: FC = () => {
         overlayOpacity={0}
       />
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
+      
+      {/* Logo positioned separately */}
+      <motion.div
+        className={styles.hero__logoContainer}
+        variants={textRevealVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          ...springConfigs.gentle,
+          duration: 0.8,
+        }}
+      >
+        <Logo className={styles.heroLogo} />
+      </motion.div>
+      
       <div className={styles.hero__content}>
-        <motion.div className={styles.hero__textContainer} initial="initial" animate="animate">
-          <motion.div
-            variants={{
-              initial: { opacity: 0, y: 24 },
-              animate: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0 } },
-            }}
-          >
-            <Logo className={styles.heroLogo} />
-          </motion.div>
-          <motion.h1
+        <motion.div 
+          className={styles.hero__textContainer} 
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.3,
+              },
+            },
+          }}
+        >
+          <motion.h1 
             className={styles.hero__headline}
-            variants={{
-              initial: { opacity: 0, y: 24 },
-              animate: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.3 } },
+            variants={textRevealVariants}
+            transition={{
+              ...springConfigs.responsive,
+              duration: 0.8,
             }}
           >
-            ELEVATE YOUR RECOVERY
+            VITAL ICE SAN FRANCISCO
           </motion.h1>
-          <motion.p
+          
+          <motion.p 
             className={styles.hero__subhead}
-            variants={{
-              initial: { opacity: 0, y: 24 },
-              animate: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6 } },
+            variants={textRevealVariants}
+            transition={{
+              ...springConfigs.gentle,
+              duration: 0.8,
             }}
           >
-            Cold plunge and sauna experiences
-            <br />
-            reimagined for modern wellness.
+            Cold Plunges. Saunas. Community Recovery.
           </motion.p>
+          
           <motion.button
             className={styles.hero__button}
-            variants={{
-              initial: { opacity: 0, y: 24 },
-              animate: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.9 } },
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            transition={{
+              ...springConfigs.responsive,
+              duration: 0.6,
             }}
             onClick={() => {
               document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            Stay in the Loop
-            <span className={styles.hero__buttonIcon} aria-hidden="true">
+            <motion.span
+              className={styles.hero__buttonText}
+              whileHover={{ scale: 1.02 }}
+              transition={springConfigs.quick}
+            >
+              Stay in the Loop
+            </motion.span>
+            <motion.span 
+              className={styles.hero__buttonIcon} 
+              aria-hidden="true"
+              animate={{
+                x: [0, 4, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
               <svg
                 width="20"
                 height="20"
@@ -72,18 +116,39 @@ const Hero: FC = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </span>
+            </motion.span>
           </motion.button>
         </motion.div>
       </div>
 
-      <div className={styles.hero__scrollIndicator}>
+      <motion.div 
+        className={styles.hero__scrollIndicator}
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
         <div className={styles.hero__scrollIndicatorContainer}>
-          <div className={styles.hero__scrollIndicatorDot} />
+          <motion.div 
+            className={styles.hero__scrollIndicatorDot}
+            animate={{
+              y: [0, 10, 0],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
-export default Hero;
+export default Hero; 
