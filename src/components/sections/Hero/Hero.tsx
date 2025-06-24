@@ -8,7 +8,7 @@ import styles from './Hero.module.css';
 
 const Hero: FC = () => {
   return (
-    <section className={styles.hero}>
+    <section id="home" className={styles.hero}>
       <VideoBackground
         videoSrc="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ambient.mp4"
         posterSrc="/images/hero-poster.jpg"
@@ -55,7 +55,7 @@ const Hero: FC = () => {
               document.getElementById('newsletter')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            Join the Waitlist
+            Book Now
             <span className={styles.hero__buttonIcon} aria-hidden="true">
               <svg
                 width="20"

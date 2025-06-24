@@ -2,55 +2,48 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { fadeInUp, staggerContainer } from '@/lib/utils/animations';
 import styles from './About.module.css';
 
 const About: FC = () => {
   return (
-    <section className={styles.about}>
+    <section id="about" className={styles.about}>
       <div className={styles.about__container}>
         <motion.div
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          variants={staggerContainer}
+          className={styles.about__content}
         >
-          <motion.h2 className={styles.about__title} variants={fadeInUp}>
-            Experience the Power of Cold Therapy
+          <motion.h2 
+            className={styles.about__title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Our Story
           </motion.h2>
 
-          <motion.div className={styles.about__grid} variants={staggerContainer}>
-            <motion.div className={styles.about__item} variants={fadeInUp}>
-              <h3 className={styles.about__itemTitle}>Recovery</h3>
-              <p className={styles.about__itemText}>
-                Accelerate your recovery with our state-of-the-art cold therapy treatments. Reduce
-                inflammation, relieve pain, and enhance your body&apos;s natural healing process.
+          <motion.div 
+            className={styles.about__story}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className={styles.about__text}>
+              <p>
+                Vital Ice was born from a simple yet profound realization: modern life has disconnected us from the natural rhythms that our bodies evolved with. In a world of constant stimulation and stress, we&apos;ve lost touch with the restorative power of intentional cold exposure and mindful heat therapy.
               </p>
-            </motion.div>
-
-            <motion.div className={styles.about__item} variants={fadeInUp}>
-              <h3 className={styles.about__itemTitle}>Wellness</h3>
-              <p className={styles.about__itemText}>
-                Boost your overall wellness through controlled cold exposure. Improve circulation,
-                strengthen your immune system, and increase energy levels.
+              <p>
+                Our founders, having experienced the transformative effects of cold plunge and infrared sauna therapy firsthand, envisioned a space where people could reconnect with these ancient wellness practices in a modern, accessible way. We believe that true recovery isn&apos;t just about physical healing—it&apos;s about creating moments of presence, clarity, and connection.
               </p>
-            </motion.div>
-
-            <motion.div className={styles.about__item} variants={fadeInUp}>
-              <h3 className={styles.about__itemTitle}>Performance</h3>
-              <p className={styles.about__itemText}>
-                Enhance your athletic performance with our specialized cold therapy protocols.
-                Optimize recovery time and maintain peak condition.
+            </div>
+            
+            <div className={styles.about__vision}>
+              <h3>What Sets Us Apart</h3>
+              <p>
+                Unlike traditional wellness centers, Vital Ice combines cutting-edge technology with time-tested practices. Our approach integrates the latest research in cold therapy and infrared sauna benefits with a focus on creating a community of individuals committed to their recovery journey.
               </p>
-            </motion.div>
-
-            <motion.div className={styles.about__item} variants={fadeInUp}>
-              <h3 className={styles.about__itemTitle}>Community</h3>
-              <p className={styles.about__itemText}>
-                Join a community of like-minded individuals committed to their health and wellness
-                journey. Share experiences and support each other&apos;s growth.
-              </p>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>
