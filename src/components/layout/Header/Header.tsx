@@ -6,9 +6,8 @@ import styles from './Header.module.css';
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Booking', href: '#booking' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Benefits', href: '#benefits' },
+  { label: 'Contact', href: '#newsletter' },
 ];
 
 export default function Header() {

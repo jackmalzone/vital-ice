@@ -14,9 +14,9 @@ export default function Newsletter() {
   return (
     <section id="newsletter" className={styles.newsletter}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Stay in the Loop</h2>
+        <h2 className={styles.title}>Stay Connected</h2>
         <p className={styles.subtext}>
-          Sign up to get updates on our opening, exclusive offers, and wellness tips. No spam, ever.
+          Get updates, early access, and recovery tips. No spam, ever.
         </p>
         <form className={styles.form} onSubmit={handleSubmit} autoComplete="off">
           <label htmlFor="newsletter-email" className={styles.label}>
@@ -33,7 +33,7 @@ export default function Newsletter() {
             />
           </label>
           <button type="submit" className={styles.button} disabled={submitted} aria-live="polite">
-            Notify Me
+            Subscribe
           </button>
         </form>
         <div

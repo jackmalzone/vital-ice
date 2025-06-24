@@ -166,3 +166,38 @@ a.secondary {
     filter: invert();
   }
 }
+
+.mainContainer {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #0a0a0a 15%,
+    #1a1a1a 35%,
+    #0f0f0f 55%,
+    #000000 75%,
+    #000000 85%,
+    #0a0a0a 100%
+  );
+  min-height: 100vh;
+  position: relative;
+}
+
+.mainContainer::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(0, 123, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mainContainer > * {
+  position: relative;
+  z-index: 1;
+}
