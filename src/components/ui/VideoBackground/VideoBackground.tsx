@@ -5,7 +5,7 @@ import styles from './VideoBackground.module.css';
 
 interface VideoBackgroundProps {
   videoSrc: string;
-  posterSrc: string;
+  posterSrc?: string;
   overlayOpacity?: number;
 }
 

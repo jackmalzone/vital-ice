@@ -1,8 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
@@ -13,7 +12,7 @@ const Hero: FC = () => {
     <section id="home" className={styles.hero}>
       <VideoBackground
         videoSrc="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ambient.mp4"
-        posterSrc="/images/hero-poster.jpg"
+        // posterSrc="/images/hero-poster.jpg" // TODO: Add hero poster image
         overlayOpacity={0}
       />
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
@@ -28,7 +27,7 @@ const Hero: FC = () => {
         transition={{
           duration: 20,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
         aria-hidden="true"
       />
@@ -46,10 +45,10 @@ const Hero: FC = () => {
       >
         <Logo className={styles.heroLogo} />
       </motion.div>
-      
+
       <div className={styles.hero__content}>
-        <motion.div 
-          className={styles.hero__textContainer} 
+        <motion.div
+          className={styles.hero__textContainer}
           initial="hidden"
           animate="visible"
           variants={{
@@ -63,7 +62,7 @@ const Hero: FC = () => {
             },
           }}
         >
-          <motion.h1 
+          <motion.h1
             className={styles.hero__headline}
             variants={textRevealVariants}
             transition={{
@@ -73,8 +72,8 @@ const Hero: FC = () => {
           >
             VITAL ICE SAN FRANCISCO
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className={styles.hero__subhead}
             variants={textRevealVariants}
             transition={{
@@ -84,7 +83,7 @@ const Hero: FC = () => {
           >
             Cold Plunges. Saunas. Community Recovery.
           </motion.p>
-          
+
           <motion.button
             className={styles.hero__button}
             variants={buttonVariants}
@@ -105,8 +104,8 @@ const Hero: FC = () => {
             >
               Stay in the Loop
             </motion.span>
-            <motion.span 
-              className={styles.hero__buttonIcon} 
+            <motion.span
+              className={styles.hero__buttonIcon}
               aria-hidden="true"
               animate={{
                 x: [0, 4, 0],
@@ -114,7 +113,7 @@ const Hero: FC = () => {
               transition={{
                 duration: 2,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
             >
               <svg
@@ -137,7 +136,7 @@ const Hero: FC = () => {
         </motion.div>
       </div>
 
-      <motion.div 
+      <motion.div
         className={styles.hero__scrollIndicator}
         animate={{
           y: [0, 10, 0],
@@ -145,11 +144,11 @@ const Hero: FC = () => {
         transition={{
           duration: 2,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
       >
         <div className={styles.hero__scrollIndicatorContainer}>
-          <motion.div 
+          <motion.div
             className={styles.hero__scrollIndicatorDot}
             animate={{
               y: [0, 10, 0],
@@ -158,7 +157,7 @@ const Hero: FC = () => {
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
           />
         </div>
@@ -167,4 +166,4 @@ const Hero: FC = () => {
   );
 };
 
-export default Hero; 
+export default Hero;

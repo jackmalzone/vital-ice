@@ -2,7 +2,6 @@
 
 import { FC, useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import styles from './Benefits.module.css';
 
 const Benefits: FC = () => {
@@ -11,12 +10,20 @@ const Benefits: FC = () => {
   const benefits = [
     {
       title: 'Cold Plunge',
-      quote: '"The moment I stepped into that cold water, everything else just... stopped. It was like hitting a reset button on my entire nervous system."',
+      quote:
+        '"The moment I stepped into that cold water, everything else just... stopped. It was like hitting a reset button on my entire nervous system."',
       author: '— Sarah M., Early Member',
       description: 'Recovery, clarity, vagus nerve activation',
-      details: 'Experience the transformative power of cold water therapy. Our state-of-the-art cold plunge pools are maintained at optimal temperatures to activate your vagus nerve, reduce inflammation, and accelerate recovery. Each session is designed to enhance mental clarity and boost your body\'s natural healing processes.',
+      details:
+        "Experience the transformative power of cold water therapy. Our state-of-the-art cold plunge pools are maintained at optimal temperatures to activate your vagus nerve, reduce inflammation, and accelerate recovery. Each session is designed to enhance mental clarity and boost your body's natural healing processes.",
       icon: (
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"
             fill="currentColor"
@@ -34,12 +41,20 @@ const Benefits: FC = () => {
     },
     {
       title: 'Infrared Sauna',
-      quote: '"I\'ve tried everything for my recovery, but nothing compares to the deep, cellular-level healing I feel after an infrared session."',
+      quote:
+        '"I\'ve tried everything for my recovery, but nothing compares to the deep, cellular-level healing I feel after an infrared session."',
       author: '— Marcus T., Athlete',
       description: 'Detox, circulation, immune support',
-      details: 'Step into our advanced infrared sauna chambers where deep-penetrating heat works at the cellular level. This gentle yet powerful therapy promotes detoxification, improves circulation, and strengthens your immune system. Experience deep relaxation while your body naturally eliminates toxins and rejuvenates.',
+      details:
+        'Step into our advanced infrared sauna chambers where deep-penetrating heat works at the cellular level. This gentle yet powerful therapy promotes detoxification, improves circulation, and strengthens your immune system. Experience deep relaxation while your body naturally eliminates toxins and rejuvenates.',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <circle cx="12" cy="12" r="3" fill="currentColor" />
           <path
             d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"
@@ -52,12 +67,20 @@ const Benefits: FC = () => {
     },
     {
       title: 'Community Ritual',
-      quote: '"There\'s something magical about breathing together, plunging together, healing together. This isn\'t just recovery—it\'s transformation."',
+      quote:
+        "\"There's something magical about breathing together, plunging together, healing together. This isn't just recovery—it's transformation.\"",
       author: '— Elena K., Community Member',
       description: 'Connection, breath, nervous system repair',
-      details: 'Join a community of like-minded individuals committed to their wellness journey. Our guided sessions combine breathwork, meditation, and recovery practices in a supportive environment. Experience the power of collective intention and build lasting connections while repairing your nervous system.',
+      details:
+        'Join a community of like-minded individuals committed to their wellness journey. Our guided sessions combine breathwork, meditation, and recovery practices in a supportive environment. Experience the power of collective intention and build lasting connections while repairing your nervous system.',
       icon: (
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
             stroke="currentColor"
@@ -92,12 +115,12 @@ const Benefits: FC = () => {
   return (
     <section id="benefits" className={styles.benefits}>
       <div className={styles.benefits__background}>
-        <Image
+        {/* <Image
           src="/images/benefits-background.jpg"
           alt="Wellness background"
           fill
           className={styles.benefits__backgroundImage}
-        />
+        /> */}
       </div>
       <div className={styles.benefits__container}>
         <motion.div
@@ -106,7 +129,7 @@ const Benefits: FC = () => {
           viewport={{ once: true }}
           className={styles.benefits__content}
         >
-          <motion.h2 
+          <motion.h2
             className={styles.benefits__title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -114,8 +137,8 @@ const Benefits: FC = () => {
           >
             Transform Your Recovery
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className={styles.benefits__subtitle}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -124,7 +147,7 @@ const Benefits: FC = () => {
             Experience the science-backed benefits of cold therapy and infrared sauna
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className={styles.benefits__grid}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -140,9 +163,7 @@ const Benefits: FC = () => {
                 whileHover={{ y: -5, scale: 1.02 }}
                 onClick={() => handleCardClick(index)}
               >
-                <div className={styles.benefit__icon}>
-                  {benefit.icon}
-                </div>
+                <div className={styles.benefit__icon}>{benefit.icon}</div>
                 <h3 className={styles.benefit__title}>{benefit.title}</h3>
                 <div className={styles.benefit__quote}>
                   <p className={styles.benefit__quoteText}>{benefit.quote}</p>
@@ -161,4 +182,4 @@ const Benefits: FC = () => {
   );
 };
 
-export default Benefits; 
+export default Benefits;

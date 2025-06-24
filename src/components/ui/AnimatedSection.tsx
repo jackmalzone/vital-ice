@@ -1,19 +1,26 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, Variants } from 'framer-motion';
 import { useRef } from 'react';
-import { 
-  fadeInVariants, 
-  slideVariants, 
-  scaleVariants, 
+import {
+  fadeInVariants,
+  slideVariants,
+  scaleVariants,
   parallaxVariants,
-  springConfigs 
+  springConfigs,
 } from '@/lib/utils/animations';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
   className?: string;
-  animation?: 'fadeIn' | 'slideLeft' | 'slideRight' | 'slideUp' | 'slideDown' | 'scale' | 'parallax';
+  animation?:
+    | 'fadeIn'
+    | 'slideLeft'
+    | 'slideRight'
+    | 'slideUp'
+    | 'slideDown'
+    | 'scale'
+    | 'parallax';
   delay?: number;
   duration?: number;
   springConfig?: keyof typeof springConfigs;
@@ -33,11 +40,11 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   once = true,
   as = 'section',
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { 
-    amount: threshold, 
+  const ref = useRef<HTMLElement | null>(null);
+  const isInView = useInView(ref, {
+    amount: threshold,
     once,
-    margin: '-100px 0px -100px 0px'
+    margin: '-100px 0px -100px 0px',
   });
 
   const getVariants = () => {
@@ -49,7 +56,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
     };
 
     const selectedVariant = baseVariants[animation];
-    
+
     if (!selectedVariant) return fadeInVariants;
 
     // Customize the transition with spring physics
@@ -68,7 +75,16 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
     };
   };
 
-  const MotionComponent = motion[as as keyof typeof motion] as any;
+  const MotionComponent = motion[as as keyof typeof motion] as React.ComponentType<{
+    children?: React.ReactNode;
+    className?: string;
+    variants?: Variants;
+    initial?: string;
+    animate?: string;
+    whileHover?: string | undefined;
+    whileTap?: string | undefined;
+    ref?: React.RefObject<HTMLElement | null>;
+  }>;
 
   return (
     <MotionComponent
@@ -76,9 +92,9 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
       className={className}
       variants={getVariants()}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      whileHover={animation === 'scale' ? "hover" : undefined}
-      whileTap={animation === 'scale' ? "tap" : undefined}
+      animate={isInView ? 'visible' : 'hidden'}
+      whileHover={animation === 'scale' ? 'hover' : undefined}
+      whileTap={animation === 'scale' ? 'tap' : undefined}
     >
       {children}
     </MotionComponent>

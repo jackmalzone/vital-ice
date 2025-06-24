@@ -65,8 +65,8 @@ const Card: React.FC<CardProps> = ({
       variants={customVariants}
       initial="hidden"
       whileInView="visible"
-      whileHover={interactive ? "hover" : undefined}
-      whileTap={interactive ? "tap" : undefined}
+      whileHover={interactive ? 'hover' : undefined}
+      whileTap={interactive ? 'tap' : undefined}
       viewport={{ once: true, margin: '-50px' }}
       style={{ cursor: interactive ? 'pointer' : 'default' }}
     >
@@ -87,4 +87,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card; 
+export default Card;

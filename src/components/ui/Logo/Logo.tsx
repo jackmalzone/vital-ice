@@ -11,12 +11,7 @@ interface LogoProps {
   priority?: boolean;
 }
 
-const Logo: FC<LogoProps> = ({ 
-  className = '', 
-  width, 
-  height, 
-  priority = false 
-}) => {
+const Logo: FC<LogoProps> = ({ className = '', width, height, priority = false }) => {
   return (
     <div className={`${styles.logo} ${className}`}>
       <Image
@@ -31,4 +26,3 @@ const Logo: FC<LogoProps> = ({
 };
 
 export default Logo;
- 

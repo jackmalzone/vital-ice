@@ -3,7 +3,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { SpringOptions, Variants } from 'framer-motion';
+import { Variants } from 'framer-motion';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export const initLenis = () => {
   const lenis = new Lenis({
     duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   });
 
   function raf(time: number) {
@@ -29,7 +29,7 @@ export const initLenis = () => {
 export const springConfigs = {
   // Gentle, organic spring for subtle animations
   gentle: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 100,
     damping: 20,
     mass: 0.8,
@@ -37,7 +37,7 @@ export const springConfigs = {
 
   // Responsive spring for interactive elements
   responsive: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 300,
     damping: 25,
     mass: 0.5,
@@ -45,7 +45,7 @@ export const springConfigs = {
 
   // Bouncy spring for playful animations
   bouncy: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 400,
     damping: 15,
     mass: 0.8,
@@ -53,7 +53,7 @@ export const springConfigs = {
 
   // Smooth spring for page transitions
   smooth: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 150,
     damping: 30,
     mass: 1,
@@ -61,7 +61,7 @@ export const springConfigs = {
 
   // Quick spring for micro-interactions
   quick: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 500,
     damping: 35,
     mass: 0.3,
@@ -69,7 +69,7 @@ export const springConfigs = {
 
   // Heavy spring for dramatic effects
   heavy: {
-    type: "spring" as const,
+    type: 'spring' as const,
     stiffness: 80,
     damping: 18,
     mass: 1.2,
@@ -78,17 +78,17 @@ export const springConfigs = {
 
 // Fade in animations with spring physics
 export const fadeInVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 20,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
       ...springConfigs.gentle,
       duration: 0.6,
-    }
+    },
   },
 };
 
@@ -100,37 +100,37 @@ export const staggerFadeInVariants: Variants = {
     transition: {
       staggerChildren: 0.1,
       delayChildren: 0.2,
-    }
+    },
   },
 };
 
 // Scale animations with spring physics
 export const scaleVariants: Variants = {
-  hidden: { 
+  hidden: {
     scale: 0.8,
     opacity: 0,
   },
-  visible: { 
+  visible: {
     scale: 1,
     opacity: 1,
     transition: {
       ...springConfigs.responsive,
       duration: 0.5,
-    }
+    },
   },
   hover: {
     scale: 1.05,
     transition: {
       ...springConfigs.quick,
       duration: 0.2,
-    }
+    },
   },
   tap: {
     scale: 0.95,
     transition: {
       ...springConfigs.quick,
       duration: 0.1,
-    }
+    },
   },
 };
 
@@ -138,100 +138,100 @@ export const scaleVariants: Variants = {
 export const slideVariants = {
   // Slide from left
   slideLeft: {
-    hidden: { 
+    hidden: {
       x: -50,
       opacity: 0,
     },
-    visible: { 
+    visible: {
       x: 0,
       opacity: 1,
       transition: {
         ...springConfigs.smooth,
         duration: 0.6,
-      }
+      },
     },
   },
-  
+
   // Slide from right
   slideRight: {
-    hidden: { 
+    hidden: {
       x: 50,
       opacity: 0,
     },
-    visible: { 
+    visible: {
       x: 0,
       opacity: 1,
       transition: {
         ...springConfigs.smooth,
         duration: 0.6,
-      }
+      },
     },
   },
-  
+
   // Slide from bottom
   slideUp: {
-    hidden: { 
+    hidden: {
       y: 50,
       opacity: 0,
     },
-    visible: { 
+    visible: {
       y: 0,
       opacity: 1,
       transition: {
         ...springConfigs.gentle,
         duration: 0.7,
-      }
+      },
     },
   },
-  
+
   // Slide from top
   slideDown: {
-    hidden: { 
+    hidden: {
       y: -50,
       opacity: 0,
     },
-    visible: { 
+    visible: {
       y: 0,
       opacity: 1,
       transition: {
         ...springConfigs.gentle,
         duration: 0.7,
-      }
+      },
     },
   },
 };
 
 // Parallax scroll animations with spring physics
 export const parallaxVariants: Variants = {
-  hidden: { 
+  hidden: {
     y: 100,
     opacity: 0,
   },
-  visible: { 
+  visible: {
     y: 0,
     opacity: 1,
     transition: {
       ...springConfigs.heavy,
       duration: 1,
-    }
+    },
   },
 };
 
 // Card hover animations with spring physics
 export const cardVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 30,
     scale: 0.95,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
       ...springConfigs.responsive,
       duration: 0.5,
-    }
+    },
   },
   hover: {
     y: -10,
@@ -239,60 +239,60 @@ export const cardVariants: Variants = {
     transition: {
       ...springConfigs.quick,
       duration: 0.3,
-    }
+    },
   },
   tap: {
     scale: 0.98,
     transition: {
       ...springConfigs.quick,
       duration: 0.1,
-    }
+    },
   },
 };
 
 // Button animations with spring physics
 export const buttonVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     scale: 0.9,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     scale: 1,
     transition: {
       ...springConfigs.responsive,
       duration: 0.4,
-    }
+    },
   },
   hover: {
     scale: 1.05,
     transition: {
       ...springConfigs.quick,
       duration: 0.2,
-    }
+    },
   },
   tap: {
     scale: 0.95,
     transition: {
       ...springConfigs.quick,
       duration: 0.1,
-    }
+    },
   },
 };
 
 // Text reveal animations with spring physics
 export const textRevealVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     y: 20,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
       ...springConfigs.gentle,
       duration: 0.6,
-    }
+    },
   },
 };
 
@@ -304,68 +304,68 @@ export const staggerTextVariants: Variants = {
     transition: {
       staggerChildren: 0.05,
       delayChildren: 0.1,
-    }
+    },
   },
 };
 
 // Floating animation with spring physics
 export const floatVariants: Variants = {
-  hidden: { 
+  hidden: {
     y: 0,
   },
-  visible: { 
+  visible: {
     y: [-10, 10, -10],
     transition: {
       duration: 3,
       repeat: Infinity,
-      ease: "easeInOut",
-    }
+      ease: 'easeInOut',
+    },
   },
 };
 
 // Pulse animation with spring physics
 export const pulseVariants: Variants = {
-  hidden: { 
+  hidden: {
     scale: 1,
   },
-  visible: { 
+  visible: {
     scale: [1, 1.05, 1],
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut",
-    }
+      ease: 'easeInOut',
+    },
   },
 };
 
 // Rotate animation with spring physics
 export const rotateVariants: Variants = {
-  hidden: { 
+  hidden: {
     rotate: 0,
   },
-  visible: { 
+  visible: {
     rotate: 360,
     transition: {
       duration: 20,
       repeat: Infinity,
-      ease: "linear",
-    }
+      ease: 'linear',
+    },
   },
 };
 
 // Page transition animations
 export const pageTransitionVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     x: -20,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     x: 0,
     transition: {
       ...springConfigs.smooth,
       duration: 0.6,
-    }
+    },
   },
   exit: {
     opacity: 0,
@@ -373,25 +373,25 @@ export const pageTransitionVariants: Variants = {
     transition: {
       ...springConfigs.quick,
       duration: 0.3,
-    }
+    },
   },
 };
 
 // Modal animations with spring physics
 export const modalVariants: Variants = {
-  hidden: { 
+  hidden: {
     opacity: 0,
     scale: 0.8,
     y: 50,
   },
-  visible: { 
+  visible: {
     opacity: 1,
     scale: 1,
     y: 0,
     transition: {
       ...springConfigs.responsive,
       duration: 0.4,
-    }
+    },
   },
   exit: {
     opacity: 0,
@@ -400,7 +400,7 @@ export const modalVariants: Variants = {
     transition: {
       ...springConfigs.quick,
       duration: 0.2,
-    }
+    },
   },
 };
 
@@ -410,7 +410,7 @@ export const createSpringAnimation = (
   damping: number = 20,
   mass: number = 1
 ) => ({
-  type: "spring" as const,
+  type: 'spring' as const,
   stiffness,
   damping,
   mass,
@@ -427,7 +427,7 @@ export const createStaggerAnimation = (
     transition: {
       staggerChildren: staggerDelay,
       delayChildren: 0.2,
-    }
+    },
   },
   ...childAnimation,
 });

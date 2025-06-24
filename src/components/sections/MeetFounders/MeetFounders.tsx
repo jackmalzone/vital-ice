@@ -11,23 +11,26 @@ const MeetFounders: FC = () => {
       name: 'Sean',
       role: 'Co-Founder',
       image: '/images/founder-sean.png',
-      philosophy: 'Recovery isn\'t just about physical healing—it\'s about creating moments of presence and clarity in our fast-paced world. I believe everyone deserves access to these ancient wellness practices reimagined for modern life.',
-      linkedin: 'https://linkedin.com/in/sean-vitalice'
+      philosophy:
+        "Recovery isn't just about physical healing—it's about creating moments of presence and clarity in our fast-paced world. I believe everyone deserves access to these ancient wellness practices reimagined for modern life.",
+      linkedin: 'https://linkedin.com/in/sean-vitalice',
     },
     {
       name: 'Stephen',
       role: 'Co-Founder',
       image: '/images/founder-stephen.jpg',
-      philosophy: 'Technology should enhance our connection to natural healing, not replace it. We\'re building the bridge between cutting-edge wellness science and time-tested recovery practices.',
-      linkedin: 'https://linkedin.com/in/stephen-vitalice'
+      philosophy:
+        "Technology should enhance our connection to natural healing, not replace it. We're building the bridge between cutting-edge wellness science and time-tested recovery practices.",
+      linkedin: 'https://linkedin.com/in/stephen-vitalice',
     },
     {
       name: 'Barry',
       role: 'Co-Founder',
       image: '/images/founder-barry.jpg',
-      philosophy: 'Community is the foundation of sustainable wellness. When people come together with shared intention, the healing potential multiplies exponentially.',
-      linkedin: 'https://linkedin.com/in/barry-vitalice'
-    }
+      philosophy:
+        'Community is the foundation of sustainable wellness. When people come together with shared intention, the healing potential multiplies exponentially.',
+      linkedin: 'https://linkedin.com/in/barry-vitalice',
+    },
   ];
 
   return (
@@ -39,7 +42,7 @@ const MeetFounders: FC = () => {
           viewport={{ once: true }}
           className={styles.founders__content}
         >
-          <motion.h2 
+          <motion.h2
             className={styles.founders__title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -47,8 +50,8 @@ const MeetFounders: FC = () => {
           >
             Meet the Founders
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className={styles.founders__subtitle}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +60,7 @@ const MeetFounders: FC = () => {
             Three friends united by a shared vision of accessible, community-driven recovery
           </motion.p>
 
-          <motion.div 
+          <motion.div
             className={styles.founders__grid}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,15 +88,27 @@ const MeetFounders: FC = () => {
                   <h3 className={styles.founder__name}>{founder.name}</h3>
                   <p className={styles.founder__role}>{founder.role}</p>
                   <p className={styles.founder__philosophy}>{founder.philosophy}</p>
-                  <a 
+                  <a
                     href={founder.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.founder__linkedin}
                   >
                     Connect on LinkedIn
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7 17L17 7M17 7H7M17 7V17"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </a>
                 </div>
@@ -106,4 +121,4 @@ const MeetFounders: FC = () => {
   );
 };
 
-export default MeetFounders; 
+export default MeetFounders;

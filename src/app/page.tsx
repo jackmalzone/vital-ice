@@ -17,6 +17,6 @@ export default function Home() {
       <Testimonials />
       <Newsletter />
       <Footer />
-      </main>
+    </main>
   );
 }

@@ -10,34 +10,38 @@ const Testimonials: FC = () => {
 
   const testimonials = [
     {
-      quote: '"After my first cold plunge session, I felt like I had just woken up from the deepest sleep of my life. My mind was crystal clear, and I had this incredible sense of calm that lasted for days."',
+      quote:
+        '"After my first cold plunge session, I felt like I had just woken up from the deepest sleep of my life. My mind was crystal clear, and I had this incredible sense of calm that lasted for days."',
       author: 'Alex Chen',
       role: 'Software Engineer',
-      image: '/images/testimonial-1.jpg'
+      image: '/images/testimonial-1.jpg',
     },
     {
-      quote: '"The community here is unlike anything I\'ve experienced. We\'re not just people working out—we\'re a tribe supporting each other\'s recovery and growth. It\'s transformative."',
+      quote:
+        "\"The community here is unlike anything I've experienced. We're not just people working out—we're a tribe supporting each other's recovery and growth. It's transformative.\"",
       author: 'Maya Rodriguez',
       role: 'Yoga Instructor',
-      image: '/images/testimonial-2.jpg'
+      image: '/images/testimonial-2.jpg',
     },
     {
-      quote: '"I was skeptical about infrared sauna, but after just a few sessions, my chronic pain started to fade. It\'s like my body finally remembered how to heal itself."',
+      quote:
+        '"I was skeptical about infrared sauna, but after just a few sessions, my chronic pain started to fade. It\'s like my body finally remembered how to heal itself."',
       author: 'David Kim',
       role: 'Physical Therapist',
-      image: '/images/testimonial-3.jpg'
+      image: '/images/testimonial-3.jpg',
     },
     {
-      quote: '"Vital Ice has become my sanctuary. In a city that never stops, this is where I find my pause button. The rituals have taught me to breathe again."',
+      quote:
+        '"Vital Ice has become my sanctuary. In a city that never stops, this is where I find my pause button. The rituals have taught me to breathe again."',
       author: 'Sarah Thompson',
       role: 'Marketing Director',
-      image: '/images/testimonial-4.jpg'
-    }
+      image: '/images/testimonial-4.jpg',
+    },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex(prev => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [testimonials.length]);
@@ -51,7 +55,7 @@ const Testimonials: FC = () => {
           viewport={{ once: true }}
           className={styles.testimonials__content}
         >
-          <motion.h2 
+          <motion.h2
             className={styles.testimonials__title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,8 +63,8 @@ const Testimonials: FC = () => {
           >
             Voices of Recovery
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             className={styles.testimonials__subtitle}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -76,9 +80,9 @@ const Testimonials: FC = () => {
                   key={index}
                   className={`${styles.testimonial__slide} ${index === currentIndex ? styles.active : ''}`}
                   initial={{ opacity: 0, x: 50 }}
-                  animate={{ 
+                  animate={{
                     opacity: index === currentIndex ? 1 : 0,
-                    x: index === currentIndex ? 0 : 50
+                    x: index === currentIndex ? 0 : 50,
                   }}
                   transition={{ duration: 0.5 }}
                 >
@@ -103,7 +107,7 @@ const Testimonials: FC = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             <div className={styles.testimonials__dots}>
               {testimonials.map((_, index) => (
                 <button
@@ -121,4 +125,4 @@ const Testimonials: FC = () => {
   );
 };
 
-export default Testimonials; 
+export default Testimonials;
