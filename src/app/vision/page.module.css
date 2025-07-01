@@ -34,14 +34,16 @@
 }
 
 .hero__title {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 1.5rem;
   background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1.1;
+  letter-spacing: 0.02em;
 }
 
 .hero__subtitle {
@@ -71,11 +73,13 @@
 }
 
 .philosophy__title {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 2rem;
   color: #00b7b5;
   line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .philosophy__text {
@@ -116,10 +120,12 @@
 }
 
 .element__title {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
   color: #9ec7c5;
+  letter-spacing: 0.02em;
 }
 
 .element__description {
@@ -142,11 +148,13 @@
 }
 
 .cta__title {
+  font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1.5rem;
   color: #00b7b5;
   line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .cta__text {

@@ -40,8 +40,10 @@ export default function Header() {
     setActiveDropdown(null);
   };
 
+  const isTimelinePage = pathname === '/historical-timeline';
+  
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isTimelinePage ? styles.transparent : ''}`}>
       <Link href="/" className={styles.logoLink} aria-label="Home">
         <Logo className={styles.logo} />
       </Link>
