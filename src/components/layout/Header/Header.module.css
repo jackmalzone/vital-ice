@@ -11,12 +11,14 @@
   padding: 0 1.5rem;
   height: 56px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
 }
 
 .logoLink {
   display: flex;
   align-items: center;
   height: 100%;
+  text-decoration: none;
 }
 
 .logo {
@@ -33,6 +35,131 @@
   display: block;
 }
 
+/* Desktop Navigation */
+.desktopNav {
+  display: none;
+}
+
+.desktopNavList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.desktopNavItem {
+  position: relative;
+}
+
+.desktopNavLink {
+  color: #ebede5;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.desktopNavLink:hover,
+.desktopNavLink.active {
+  color: #00b7b5;
+}
+
+/* Dropdown Styles */
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdownTrigger {
+  background: none;
+  border: none;
+  color: #ebede5;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.dropdownTrigger:hover,
+.dropdownTrigger.active {
+  color: #00b7b5;
+}
+
+.dropdownIcon {
+  transition: transform 0.3s ease;
+}
+
+.dropdownTrigger.active .dropdownIcon {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(0, 183, 181, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  min-width: 200px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.dropdownList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownItem {
+  margin: 0;
+}
+
+.dropdownLink {
+  display: block;
+  color: #ebede5;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.dropdownLink:hover {
+  background: rgba(0, 183, 181, 0.1);
+  color: #00b7b5;
+}
+
+/* Book Now Button */
+.bookButton {
+  display: none;
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  color: #000000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bookButton:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 183, 181, 0.3);
+}
+
+/* Mobile Menu Button */
 .hamburger {
   background: none;
   border: none;
@@ -62,6 +189,25 @@
   transition: background 0.2s;
 }
 
+.hamburgerInner::before,
+.hamburgerInner::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+
+.hamburgerInner::before {
+  top: -8px;
+}
+
+.hamburgerInner::after {
+  bottom: -8px;
+}
+
 /* Overlay menu styles */
 .overlayMenu {
   position: fixed;
@@ -72,30 +218,125 @@
   align-items: center;
   justify-content: center;
 }
+
 .overlayNav {
   width: 100%;
+  padding: 2rem;
 }
+
 .overlayNavList {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
   align-items: center;
 }
+
 .overlayNavItem {
+  width: 100%;
+  text-align: center;
 }
+
 .overlayNavLink {
-  color: #fff;
+  color: #ebede5;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   transition: color 0.2s;
+  display: block;
+  padding: 1rem 0;
 }
-.overlayNavLink:hover {
-  color: #9ec7c5;
+
+.overlayNavLink:hover,
+.overlayNavLink.active {
+  color: #00b7b5;
+}
+
+/* Mobile Dropdown Styles */
+.mobileDropdownContainer {
+  width: 100%;
+}
+
+.mobileDropdownTrigger {
+  background: none;
+  border: none;
+  color: #ebede5;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+  width: 100%;
+}
+
+.mobileDropdownTrigger:hover,
+.mobileDropdownTrigger.active {
+  color: #00b7b5;
+}
+
+.mobileDropdownIcon {
+  transition: transform 0.3s ease;
+}
+
+.mobileDropdownTrigger.active .mobileDropdownIcon {
+  transform: rotate(180deg);
+}
+
+.mobileDropdownList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 183, 181, 0.1);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.mobileDropdownItem {
+  margin: 0;
+}
+
+.mobileDropdownLink {
+  display: block;
+  color: #ebede5;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.mobileDropdownLink:hover {
+  background: rgba(0, 183, 181, 0.2);
+  color: #00b7b5;
+}
+
+.mobileBookButton {
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  color: #000000;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  max-width: 200px;
+}
+
+.mobileBookButton:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 183, 181, 0.3);
 }
 
 @media (min-width: 768px) {
@@ -103,9 +344,22 @@
     height: 72px;
     padding: 0 3rem;
   }
+
   .logo {
     width: 160px;
     height: 40px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .desktopNav {
+    display: block;
+  }
+
+  .bookButton {
+    display: block;
   }
 }
 
@@ -113,5 +367,9 @@
   .logo {
     width: 200px;
     height: 48px;
+  }
+
+  .desktopNavList {
+    gap: 3rem;
   }
 }
