@@ -4,6 +4,9 @@ import { FC, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './page.module.css';
 
+// Import images - removed unused imports
+
+
 const HistoricalTimeline: FC = () => {
   const [currentEra, setCurrentEra] = useState(0);
   const { scrollYProgress } = useScroll();
@@ -14,7 +17,14 @@ const HistoricalTimeline: FC = () => {
   const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 0.8]);
 
   // Timeline eras with background images and colors
-  const timelineEras = [
+  const timelineEras: Array<{
+    id: number;
+    period: string;
+    title: string;
+    background: string;
+    image: string;
+    content: string;
+  }> = [
     {
       id: 0,
       period: '~2500 BCE',
@@ -36,7 +46,7 @@ const HistoricalTimeline: FC = () => {
       period: '1st–4th Century CE',
       title: 'Roman Thermae: The Golden Age of Public Baths',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #8b4513 100%)',
-      image: '/images/hero-ambient-water.jpg',
+      image: '/images/romanThermae.jpg',
       content: 'The Roman Empire elevated communal bathing to a grand scale. Building on Greek ideas, Romans made bathing a daily regimen for health and social life.'
     },
     {
@@ -81,6 +91,14 @@ const HistoricalTimeline: FC = () => {
     },
     {
       id: 8,
+      period: '18th–19th Century',
+      title: 'Irish Sweathouses: A Folk Sauna Tradition',
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #3a5f3a 100%)',
+      image: '/images/hero-ambient-water.jpg',
+      content: 'In rural Ireland, communities had their own distinct take on sweat bathing. Small stone huts known as sweathouses were used widely in Ireland up until the late 19th century.'
+    },
+    {
+      id: 9,
       period: '1896',
       title: 'Sutro Baths in San Francisco: A Gilded Age Bathing Palace',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #3d5a80 100%)',
@@ -88,7 +106,15 @@ const HistoricalTimeline: FC = () => {
       content: 'By the late 19th century, public bathing had made its way to the American West Coast in spectacular fashion. In 1896, San Francisco unveiled the Sutro Baths, an enormous indoor bathhouse and swimming facility.'
     },
     {
-      id: 9,
+      id: 10,
+      period: '20th Century',
+      title: 'From Bathhouse Decline to Wellness Rebirth',
+      background: 'linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%)',
+      image: '/images/hero-ambient-water.jpg',
+      content: 'During much of the 20th century, especially mid-century, communal bathhouses in the West saw a decline. Yet, the idea of hot water therapy never truly vanished – it lived on in different forms.'
+    },
+    {
+      id: 11,
       period: '2010s',
       title: 'The Cold Comeback and Wim Hof Method',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%)',
@@ -96,7 +122,7 @@ const HistoricalTimeline: FC = () => {
       content: 'In the 2010s, ancient wisdom about hot-cold therapy found a charismatic modern champion: Wim Hof, a Dutch athlete nicknamed "The Iceman."'
     },
     {
-      id: 10,
+      id: 12,
       period: '2020s',
       title: 'Modern Revival: Communal Saunas and Bathhouses in San Francisco',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #00b7b5 100%)',
@@ -114,7 +140,10 @@ const HistoricalTimeline: FC = () => {
       const scrollProgress = scrollPosition / documentHeight;
       
       const eraIndex = Math.floor(scrollProgress * timelineEras.length);
-      setCurrentEra(Math.max(0, Math.min(eraIndex, timelineEras.length - 1)));
+      const newEra = Math.max(0, Math.min(eraIndex, timelineEras.length - 1));
+      setCurrentEra(newEra);
+      
+
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -123,6 +152,8 @@ const HistoricalTimeline: FC = () => {
 
   return (
     <div className={styles.main}>
+
+
       {/* Dynamic Background */}
       <motion.div 
         className={styles.background}
@@ -132,12 +163,14 @@ const HistoricalTimeline: FC = () => {
           background: timelineEras[currentEra]?.background || timelineEras[0].background
         }}
       >
+
+        
         {timelineEras[currentEra]?.image && (
-          <div 
+          <img 
+            src={timelineEras[currentEra].image}
+            alt={`Background for ${timelineEras[currentEra].title}`}
             className={styles.backgroundImage}
-            style={{
-              backgroundImage: `url(${timelineEras[currentEra].image})`
-            }}
+
           />
         )}
       </motion.div>
