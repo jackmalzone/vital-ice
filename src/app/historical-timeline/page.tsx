@@ -1,28 +1,59 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { FC, useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import AdaptiveMedia from '@/components/ui/AdaptiveMedia/AdaptiveMedia';
 import styles from './page.module.css';
-
-// Import images - removed unused imports
 
 
 const HistoricalTimeline: FC = () => {
   const [currentEra, setCurrentEra] = useState(0);
+  const [activeEra, setActiveEra] = useState(0);
   const { scrollYProgress } = useScroll();
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  // Helper functions for adaptive text colors
+  const getTextColorForBackground = (background: string): string => {
+    if (background.includes('#00b7b5') || background.includes('arctic')) {
+      return '#ffffff'; // White for arctic/blue backgrounds
+    } else if (background.includes('#f56f0d') || background.includes('orange')) {
+      return '#ffffff'; // White for orange backgrounds
+    } else if (background.includes('#2d1810') || background.includes('brown')) {
+      return '#ffffff'; // White for brown backgrounds
+    } else if (background.includes('#1e3a5f') || background.includes('blue')) {
+      return '#ffffff'; // White for blue backgrounds
+    } else {
+      return '#ffffff'; // Default white
+    }
+  };
+
+  const getTextShadowForBackground = (background: string): string => {
+    if (background.includes('#00b7b5') || background.includes('arctic')) {
+      return '0 2px 8px rgba(0, 0, 0, 0.6)'; // Stronger shadow for light backgrounds
+    } else if (background.includes('#f56f0d') || background.includes('orange')) {
+      return '0 2px 8px rgba(0, 0, 0, 0.6)'; // Stronger shadow for orange backgrounds
+    } else {
+      return '0 2px 8px rgba(0, 0, 0, 0.5)'; // Default shadow
+    }
+  };
   
   // Background transforms for parallax effect
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 0.8]);
 
-  // Timeline eras with background images and colors
+  // Timeline eras with adaptive media sources
   const timelineEras: Array<{
     id: number;
     period: string;
     title: string;
     background: string;
     image: string;
+    videoSources?: {
+      high?: string;
+      medium?: string;
+      low?: string;
+    };
     content: string;
   }> = [
     {
@@ -30,7 +61,12 @@ const HistoricalTimeline: FC = () => {
       period: '~2500 BCE',
       title: 'Water as Medicine in Early Civilizations',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #2d1810 100%)',
-      image: '/images/hero-ambient-water.jpg',
+      image: '/images/indusValley.png',
+      videoSources: {
+        high: '/videos/indus-valley-ambient.mp4',
+        medium: '/videos/indus-valley-ambient-720p.mp4',
+        low: '/videos/indus-valley-ambient-480p.mp4'
+      },
       content: 'Even the earliest civilizations recognized the healing power of water. The Great Bath of Mohenjo-daro (Indus Valley) is one of the oldest public bathing pools, suggesting ritual bathing was practiced 4,500 years ago.'
     },
     {
@@ -39,6 +75,11 @@ const HistoricalTimeline: FC = () => {
       title: 'Ancient Greek Bathhouses and Hydrotherapy',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #1e3a5f 100%)',
       image: '/images/hero-ambient-water.jpg',
+      videoSources: {
+        high: '/videos/greek-bathhouse-ambient.mp4',
+        medium: '/videos/greek-bathhouse-ambient-720p.mp4',
+        low: '/videos/greek-bathhouse-ambient-480p.mp4'
+      },
       content: 'Ancient Greece birthed many principles of modern spa culture. Public bathhouses (often part of gymnasia) and natural hot springs were used for relaxation, socializing, and health.'
     },
     {
@@ -47,6 +88,11 @@ const HistoricalTimeline: FC = () => {
       title: 'Roman Thermae: The Golden Age of Public Baths',
       background: 'linear-gradient(135deg, #1a1a1a 0%, #8b4513 100%)',
       image: '/images/romanThermae.jpg',
+      videoSources: {
+        high: '/videos/roman-thermae-ambient.mp4',
+        medium: '/videos/roman-thermae-ambient-720p.mp4',
+        low: '/videos/roman-thermae-ambient-480p.mp4'
+      },
       content: 'The Roman Empire elevated communal bathing to a grand scale. Building on Greek ideas, Romans made bathing a daily regimen for health and social life.'
     },
     {
@@ -142,19 +188,41 @@ const HistoricalTimeline: FC = () => {
       const eraIndex = Math.floor(scrollProgress * timelineEras.length);
       const newEra = Math.max(0, Math.min(eraIndex, timelineEras.length - 1));
       setCurrentEra(newEra);
-      
-
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Enhanced scroll tracking for active era detection
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '-20% 0px -20% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const eraIndex = parseInt(entry.target.getAttribute('data-era') || '0');
+          setActiveEra(eraIndex);
+        }
+      });
+    }, observerOptions);
+
+    const eraElements = document.querySelectorAll('[data-era]');
+    eraElements.forEach((element) => observer.observe(element));
+
+    return () => {
+      eraElements.forEach((element) => observer.unobserve(element));
+    };
+  }, []);
+
   return (
     <div className={styles.main}>
 
 
-      {/* Dynamic Background */}
+      {/* Dynamic Background with Adaptive Media */}
       <motion.div 
         className={styles.background}
         style={{
@@ -163,14 +231,16 @@ const HistoricalTimeline: FC = () => {
           background: timelineEras[currentEra]?.background || timelineEras[0].background
         }}
       >
-
-        
         {timelineEras[currentEra]?.image && (
-          <img 
-            src={timelineEras[currentEra].image}
+          <AdaptiveMedia
+            videoSources={timelineEras[currentEra].videoSources || {}}
+            imageSource={timelineEras[currentEra].image}
             alt={`Background for ${timelineEras[currentEra].title}`}
             className={styles.backgroundImage}
-
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            playsInline={true}
           />
         )}
       </motion.div>
@@ -197,23 +267,50 @@ const HistoricalTimeline: FC = () => {
         </div>
       </section>
 
+      {/* Timeline Thread */}
+      <div className={styles.timeline__thread} />
+
+      {/* Progress Tracker */}
+      <div className={styles.timeline__progress}>
+        {timelineEras.map((era, index) => (
+          <div
+            key={`progress-${era.id}`}
+            className={`${styles['timeline__progress-dot']} ${activeEra === index ? styles.active : ''}`}
+            onClick={() => {
+              const element = document.querySelector(`[data-era="${index}"]`);
+              element?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
+        ))}
+      </div>
+
       {/* Timeline Content */}
-      <section className={styles.timeline}>
+      <section className={styles.timeline} ref={timelineRef}>
         <div className={styles.timeline__container}>
           {timelineEras.map((era, index) => (
             <motion.div
               key={era.id}
-              className={styles.timeline__era}
+              className={`${styles.timeline__era} ${activeEra === index ? styles.active : ''}`}
+              data-era={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-20% 0px -20% 0px' }}
             >
+              {/* Timeline Marker */}
+              <div className={styles.timeline__marker} />
+              
               <div className={styles.timeline__content}>
                 <div className={styles.timeline__period}>
                   {era.period}
                 </div>
-                <h2 className={styles.timeline__title}>
+                <h2 
+                  className={styles.timeline__title}
+                  style={{
+                    color: getTextColorForBackground(era.background),
+                    textShadow: getTextShadowForBackground(era.background)
+                  }}
+                >
                   {era.title}
                 </h2>
                 <p className={styles.timeline__description}>
