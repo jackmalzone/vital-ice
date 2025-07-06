@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -7,9 +7,8 @@ import Logo from '@/components/ui/Logo/Logo';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/' },
   { 
-    label: 'Services', 
+    label: 'Experience', 
     href: '/services',
     dropdown: [
       { label: 'Infrared Sauna', href: '/services/infrared-sauna' },
@@ -21,9 +20,8 @@ const NAV_LINKS = [
     ]
   },
   { label: 'Vision', href: '/vision' },
-  { label: 'Historical Timeline', href: '/historical-timeline' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Origins', href: '/historical-timeline' },
+  { label: 'Our Story', href: '/about' },
 ];
 
 export default function Header() {
@@ -40,6 +38,25 @@ export default function Header() {
     setActiveDropdown(null);
   };
 
+  const handleLinkClick = () => {
+    setActiveDropdown(null);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest(`.${styles.dropdownContainer}`)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const isTimelinePage = pathname === '/historical-timeline';
   
   return (
@@ -54,11 +71,14 @@ export default function Header() {
           {NAV_LINKS.map(link => (
             <li key={link.href} className={styles.desktopNavItem}>
               {link.dropdown ? (
-                <div className={styles.dropdownContainer}>
+                <div 
+                  className={styles.dropdownContainer}
+                  onMouseEnter={() => setActiveDropdown(link.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
                   <button
                     className={`${styles.dropdownTrigger} ${activeDropdown === link.label ? styles.active : ''}`}
                     onClick={() => handleDropdownToggle(link.label)}
-                    onMouseEnter={() => setActiveDropdown(link.label)}
                   >
                     {link.label}
                     <svg
@@ -79,17 +99,17 @@ export default function Header() {
                     </svg>
                   </button>
                   {activeDropdown === link.label && (
-                    <div 
-                      className={styles.dropdown}
-                      onMouseLeave={() => setActiveDropdown(null)}
-                    >
+                    <div className={styles.dropdown}>
                       <ul className={styles.dropdownList}>
                         {link.dropdown.map(dropdownItem => (
                           <li key={dropdownItem.href} className={styles.dropdownItem}>
                             <Link
                               href={dropdownItem.href}
                               className={styles.dropdownLink}
-                              onClick={closeMenu}
+                              onClick={() => {
+                                closeMenu();
+                                setActiveDropdown(null);
+                              }}
                             >
                               {dropdownItem.label}
                             </Link>
@@ -103,6 +123,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
+                  onClick={handleLinkClick}
                 >
                   {link.label}
                 </Link>
@@ -112,22 +133,15 @@ export default function Header() {
         </ul>
       </nav>
 
-      {/* Book Now Button */}
-      <motion.button
-        className={styles.bookButton}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => window.open('https://mindbody.com', '_blank')}
-      >
-        Book Now
-      </motion.button>
-
       {/* Mobile Menu Button */}
       <button
         className={styles.hamburger}
         aria-label="Open navigation menu"
         aria-expanded={open}
-        onClick={() => setOpen(v => !v)}
+        onClick={() => {
+          setOpen(v => !v);
+          setActiveDropdown(null);
+        }}
       >
         <span className={styles.hamburgerBox}>
           <span className={styles.hamburgerInner} />
@@ -172,7 +186,10 @@ export default function Header() {
                               <Link
                                 href={dropdownItem.href}
                                 className={styles.mobileDropdownLink}
-                                onClick={closeMenu}
+                                onClick={() => {
+                                  closeMenu();
+                                  setActiveDropdown(null);
+                                }}
                               >
                                 {dropdownItem.label}
                               </Link>
@@ -185,7 +202,10 @@ export default function Header() {
                     <Link
                       href={link.href}
                       className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
-                      onClick={closeMenu}
+                      onClick={() => {
+                        closeMenu();
+                        setActiveDropdown(null);
+                      }}
                     >
                       {link.label}
                     </Link>

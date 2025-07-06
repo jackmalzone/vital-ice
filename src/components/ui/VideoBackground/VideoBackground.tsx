@@ -55,6 +55,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         className={styles.overlay}
         style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
       />
+      <div className={styles.bottomGradient} />
     </div>
   );
 };
