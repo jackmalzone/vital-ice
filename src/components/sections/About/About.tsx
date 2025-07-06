@@ -1,85 +1,90 @@
 'use client';
 
-import { FC } from 'react';
-import { motion } from 'framer-motion';
+import { FC, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import styles from './About.module.css';
 
-const About: FC = () => {
+const Vision: FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  });
+
+  // Scroll-triggered animations for each sentence
+  const firstSentenceOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6], [0, 1, 1, 0]);
+  const firstSentenceY = useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6], [50, 0, 0, -50]);
+  
+  const secondSentenceOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7, 0.9], [0, 1, 1, 0]);
+  const secondSentenceY = useTransform(scrollYProgress, [0.3, 0.5, 0.7, 0.9], [50, 0, 0, -50]);
+  
+  const thirdSentenceOpacity = useTransform(scrollYProgress, [0.6, 0.8, 1], [0, 1, 0]);
+  const thirdSentenceY = useTransform(scrollYProgress, [0.6, 0.8, 1], [50, 0, -50]);
+
+  // Background parallax effect
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   return (
-    <section id="about" className={styles.about}>
-      <div className={styles.about__container}>
+    <section ref={sectionRef} id="vision" className={styles.vision}>
+      {/* Background Image with Parallax */}
+      <motion.div 
+        className={styles.vision__background}
+        style={{ y: backgroundY }}
+      >
+        <Image
+          src="/images/vision-forest.jpg"
+          alt="Visionary forest scene"
+          fill
+          className={styles.vision__backgroundImage}
+          priority
+        />
+        <div className={styles.vision__overlay} />
+      </motion.div>
+
+      {/* Content Container */}
+      <div className={styles.vision__container}>
+        {/* First Sentence */}
         <motion.div
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className={styles.about__content}
+          className={styles.vision__sentence}
+          style={{
+            opacity: firstSentenceOpacity,
+            y: firstSentenceY,
+          }}
         >
-          <motion.h2
-            className={styles.about__title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Our Story
-          </motion.h2>
+          <h2 className={styles.vision__text}>
+            Born from a need to reset.
+          </h2>
+        </motion.div>
 
-          <motion.div
-            className={styles.about__story}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className={styles.about__text}>
-              <p>
-                Vital Ice was born from a simple yet profound realization: modern life has
-                disconnected us from the natural rhythms that our bodies evolved with. In a world of
-                constant stimulation and stress, we&apos;ve lost touch with the restorative power of
-                intentional cold exposure and mindful heat therapy.
-              </p>
-              <p>
-                Our founders, having experienced the transformative effects of cold plunge and
-                infrared sauna therapy firsthand, envisioned a space where people could reconnect
-                with these ancient wellness practices in a modern, accessible way. We believe that
-                true recovery isn&apos;t just about physical healing—it&apos;s about creating
-                moments of presence, clarity, and connection.
-              </p>
-            </div>
+        {/* Second Sentence */}
+        <motion.div
+          className={styles.vision__sentence}
+          style={{
+            opacity: secondSentenceOpacity,
+            y: secondSentenceY,
+          }}
+        >
+          <h2 className={styles.vision__text}>
+            Vital Ice brings ancient rituals to modern rhythms.
+          </h2>
+        </motion.div>
 
-            <motion.div
-              className={styles.about__image}
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <Image
-                src="/images/founders-seanstephen.png"
-                alt="Vital Ice founders"
-                width={500}
-                height={400}
-                className={styles.about__imageElement}
-              />
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className={styles.about__vision}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <h3>What Sets Us Apart</h3>
-            <p>
-              Unlike traditional wellness centers, Vital Ice combines cutting-edge technology with
-              time-tested practices. Our approach integrates the latest research in cold therapy and
-              infrared sauna benefits with a focus on creating a community of individuals committed
-              to their recovery journey.
-            </p>
-          </motion.div>
+        {/* Third Sentence */}
+        <motion.div
+          className={styles.vision__sentence}
+          style={{
+            opacity: thirdSentenceOpacity,
+            y: thirdSentenceY,
+          }}
+        >
+          <h2 className={styles.vision__text}>
+            Here, recovery is clarity.
+          </h2>
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default About;
+export default Vision;
