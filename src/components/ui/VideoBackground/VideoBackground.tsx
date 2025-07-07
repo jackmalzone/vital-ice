@@ -51,7 +51,6 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           setIsPlaying(false);
         }
       } catch (error) {
-        console.warn('Video autoplay failed:', error);
         setHasError(true);
         setIsPlaying(false);
       }
@@ -70,7 +69,6 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           setIsPlaying(true);
           setHasError(false);
         } catch (error) {
-          console.warn('Video play failed after user interaction:', error);
         }
       }
     };
@@ -95,7 +93,6 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
   };
 
   const handleVideoError = () => {
-    console.error('Video failed to load:', videoSrc);
     setHasError(true);
     setIsLoaded(false);
   };

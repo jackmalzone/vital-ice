@@ -92,6 +92,14 @@ const About: FC = () => {
               By blending time-tested rituals with leading-edge wellness, we empower individuals and
               communities to recover, thrive, and evolve.
             </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.4, duration: 0.6 }}
+            >
+              We&apos;re committed to making wellness accessible for everyone.
+            </motion.p>
           </motion.div>
         </motion.div>
       </div>

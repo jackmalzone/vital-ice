@@ -231,7 +231,7 @@ const HistoricalTimeline: FC = () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(debounceTimer);
     };
-  }, [isTransitioning]);
+  }, [isTransitioning, timelineErasLength]);
 
   // Enhanced scroll tracking for active era detection with smoother transitions
   useEffect(() => {
@@ -376,8 +376,8 @@ const HistoricalTimeline: FC = () => {
             The timeline of communal bathing and wellness has truly come full circle – reminding us
             that sometimes the path to innovation leads right back to the wisdom of the ancients.
             Whether in a rustic sweat lodge or a state-of-the-art city spa, the elemental ritual of
-            &quot;heat, sweat, cold, rest&quot; continues to heal, connect, and inspire people as it has for
-            thousands of years.
+            &quot;heat, sweat, cold, rest&quot; continues to heal, connect, and inspire people as it
+            has for thousands of years.
           </p>
         </div>
       </motion.section>

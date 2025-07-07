@@ -74,7 +74,7 @@ const PerformanceDemoPage: FC = () => {
             <div className={styles.infoCard}>
               <h3>🔍 Detection</h3>
               <p>
-                The system analyzes your device's capabilities including memory, CPU cores,
+                The system analyzes your device&apos;s capabilities including memory, CPU cores,
                 connection quality, and video support to determine the optimal media strategy.
               </p>
             </div>

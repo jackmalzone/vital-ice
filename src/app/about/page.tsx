@@ -113,8 +113,8 @@ const AboutPage: FC = () => {
               Our founders, having experienced the transformative effects of cold plunge and
               infrared sauna therapy firsthand, envisioned a space where people could reconnect with
               these ancient wellness practices in a modern, accessible way. We believe that true
-              recovery isn&apos;t just about physical healing—it&apos;s about creating moments of presence,
-              clarity, and connection.
+              recovery isn&apos;t just about physical healing—it&apos;s about creating moments of
+              presence, clarity, and connection.
             </p>
           </motion.div>
           <motion.div

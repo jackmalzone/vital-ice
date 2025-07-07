@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Benefits.module.css';
 

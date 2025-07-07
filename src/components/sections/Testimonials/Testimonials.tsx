@@ -7,7 +7,6 @@ import styles from './Testimonials.module.css';
 
 const Testimonials: FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const testimonials = [
@@ -47,10 +46,8 @@ const Testimonials: FC = () => {
 
   useEffect(() => {
     const nextTestimonial = () => {
-      setIsTransitioning(true);
       setTimeout(() => {
         setCurrentIndex(prev => (prev + 1) % testimonials.length);
-        setIsTransitioning(false);
       }, 400);
     };
 
@@ -66,10 +63,8 @@ const Testimonials: FC = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    setIsTransitioning(true);
     setTimeout(() => {
       setCurrentIndex(index);
-      setIsTransitioning(false);
     }, 400);
   };
 
@@ -166,7 +161,7 @@ const Testimonials: FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                 >
-                  {testimonials[currentIndex].quote}
+                  {testimonials[currentIndex].quote.replace(/"/g, '&quot;')}
                 </motion.blockquote>
 
                 <motion.div

@@ -41,7 +41,6 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
     imageSource
   );
   const [hasError, setHasError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   // Fallback to image if video fails
   const handleVideoError = () => {
@@ -50,12 +49,10 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   };
 
   const handleVideoLoad = () => {
-    setIsLoaded(true);
     onLoad?.();
   };
 
   const handleImageLoad = () => {
-    setIsLoaded(true);
     onLoad?.();
   };
 
@@ -67,7 +64,6 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   // Reset error state when media source changes
   useEffect(() => {
     setHasError(false);
-    setIsLoaded(false);
   }, [mediaSource]);
 
   if (isLoading) {

@@ -95,8 +95,7 @@ const NewsletterWrapper: FC = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Ready to begin your recovery journey? Join our community and discover the transformative
-            power of cold therapy and heat therapy.
+            We&apos;re here to support your journey.
           </motion.p>
 
           <motion.div
