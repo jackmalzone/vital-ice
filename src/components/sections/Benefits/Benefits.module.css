@@ -1,0 +1,346 @@
+.benefits {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000000;
+  margin: 0;
+}
+
+.benefits__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.benefits__backgroundImage {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.4;
+}
+
+.benefits__backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 2;
+}
+
+.benefits__ambient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(0, 183, 181, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(158, 199, 197, 0.02) 0%, transparent 60%);
+  z-index: 3;
+}
+
+.benefits__gradientTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  z-index: 4;
+}
+
+.benefits__gradientBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    transparent 100%
+  );
+  z-index: 4;
+}
+
+.benefits__floatingElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.benefits__floatingElement {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(0, 183, 181, 0.3);
+  border-radius: 50%;
+  animation: float var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.benefits__floatingElement:nth-child(1) {
+  left: 10%;
+  top: 15%;
+}
+.benefits__floatingElement:nth-child(2) {
+  left: 85%;
+  top: 25%;
+}
+.benefits__floatingElement:nth-child(3) {
+  left: 20%;
+  top: 65%;
+}
+.benefits__floatingElement:nth-child(4) {
+  left: 75%;
+  top: 75%;
+}
+.benefits__floatingElement:nth-child(5) {
+  left: 50%;
+  top: 45%;
+}
+.benefits__floatingElement:nth-child(6) {
+  left: 35%;
+  top: 85%;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-12px) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+.benefits__container {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  margin: 4rem 0;
+  gap: 4rem;
+}
+
+.benefit__image {
+  flex: 1;
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.benefit__imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.benefit__imageElement {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.benefit__image:hover .benefit__imageElement {
+  transform: scale(1.05);
+}
+
+.benefit__imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 1;
+}
+
+.benefit__imageGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 183, 181, 0.1) 0%, transparent 70%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.benefit__image:hover .benefit__imageGlow {
+  opacity: 1;
+}
+
+.benefit__text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.benefit__textContent {
+  max-width: 500px;
+}
+
+.benefit__titleContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.benefit__icon {
+  position: absolute;
+  top: -0.5rem;
+  right: -2rem;
+  opacity: 0.8;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  z-index: 1;
+}
+
+.benefit__icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.benefit__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.benefit__tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 0 1.5rem 0;
+  font-style: italic;
+}
+
+.benefit__description {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Alternating layout */
+.benefit:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .benefit {
+    flex-direction: column !important;
+    gap: 2rem;
+    min-height: auto;
+    margin: 3rem 0;
+  }
+
+  .benefit__image {
+    height: 40vh;
+    width: 100%;
+  }
+
+  .benefit__text {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .benefit__textContent {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .benefits__container {
+    padding: 2rem 1rem;
+  }
+
+  .benefit {
+    margin: 2rem 0;
+    gap: 1.5rem;
+  }
+
+  .benefit__image {
+    height: 30vh;
+  }
+
+  .benefit__icon {
+    top: -0.3rem;
+    right: -1.5rem;
+    transform: scale(0.8);
+  }
+
+  .benefit__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .benefit__tagline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .benefit__description {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+
+  .benefits__floatingElement {
+    width: 1px;
+    height: 1px;
+  }
+}

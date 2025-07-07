@@ -1,0 +1,338 @@
+.main {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: #ebede5;
+}
+
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  background: url('/images/cold-plunge.jpg') center/cover;
+  opacity: 0.4;
+}
+
+.hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 183, 181, 0.2) 100%);
+}
+
+.hero__content {
+  max-width: 800px;
+  padding: 0 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: #9ec7c5;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__cta {
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  color: #000000;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero__cta:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 183, 181, 0.3);
+}
+
+.overview {
+  padding: 6rem 0;
+  background: #000000;
+}
+
+.overview__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.overview__content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.overview__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #00b7b5;
+  line-height: 1.2;
+}
+
+.overview__text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #ebede5;
+  font-weight: 300;
+}
+
+.benefits {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+}
+
+.benefits__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.benefits__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  margin-bottom: 4rem;
+  text-align: center;
+  color: #00b7b5;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+}
+
+.benefit {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 183, 181, 0.05);
+  border: 1px solid rgba(0, 183, 181, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.benefit:hover {
+  background: rgba(0, 183, 181, 0.1);
+  border-color: rgba(0, 183, 181, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 183, 181, 0.1);
+}
+
+.benefit__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.benefit__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #9ec7c5;
+  letter-spacing: 0.02em;
+}
+
+.benefit__description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ebede5;
+  font-weight: 300;
+}
+
+.process {
+  padding: 6rem 0;
+  background: #000000;
+}
+
+.process__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.process__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  margin-bottom: 4rem;
+  text-align: center;
+  color: #00b7b5;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.process__steps {
+  display: grid;
+  gap: 3rem;
+}
+
+.process__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(0, 183, 181, 0.05);
+  border: 1px solid rgba(0, 183, 181, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.process__step:hover {
+  background: rgba(0, 183, 181, 0.1);
+  border-color: rgba(0, 183, 181, 0.3);
+  transform: translateX(10px);
+}
+
+.process__stepNumber {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00b7b5;
+  min-width: 60px;
+  text-align: center;
+}
+
+.process__stepContent {
+  flex: 1;
+}
+
+.process__stepTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: #9ec7c5;
+  letter-spacing: 0.02em;
+}
+
+.process__stepDescription {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #ebede5;
+  font-weight: 300;
+}
+
+.cta {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #000000 0%, rgba(0, 183, 181, 0.1) 100%);
+  text-align: center;
+}
+
+.cta__container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.cta__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: #00b7b5;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.cta__text {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: #ebede5;
+  font-weight: 300;
+}
+
+.cta__button {
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  color: #000000;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cta__button:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 183, 181, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero__content {
+    padding: 0 1rem;
+  }
+
+  .overview__container,
+  .benefits__container,
+  .process__container,
+  .cta__container {
+    padding: 0 1rem;
+  }
+
+  .benefits__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .process__step {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .process__stepNumber {
+    min-width: auto;
+  }
+}

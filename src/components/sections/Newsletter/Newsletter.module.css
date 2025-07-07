@@ -1,134 +1,172 @@
 .newsletter {
-  min-height: 60vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(120deg, #000 60%, #111 100%);
   padding: 0 1rem;
+  position: relative;
+  background: transparent;
 }
 
-.container {
-  max-width: 480px;
+.content {
+  max-width: 600px;
   width: 100%;
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 2rem;
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.18);
-  padding: 3rem 2rem 2.5rem 2rem;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 3;
 }
 
 .title {
   color: #fff;
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 300;
+  text-align: left;
   margin-bottom: 1.5rem;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
 }
 
 .subtext {
-  color: #aaa;
-  font-size: 1.1rem;
-  text-align: center;
-  max-width: 60ch;
-  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  text-align: left;
+  max-width: 50ch;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
+  align-items: flex-start;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-.label {
+.inputGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
   width: 100%;
-  max-width: 360px;
+  max-width: 500px;
 }
 
 .input {
-  width: 100%;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
+  flex: 1;
+  padding: 1rem 0;
   border: none;
-  background: #ebede5;
-  color: #222;
-  font-size: 1.1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #ffffff;
+  font-size: 1.2rem;
   outline: none;
-  transition: box-shadow 0.2s;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  font-weight: 300;
 }
 
 .input::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.4);
   opacity: 1;
+  font-weight: 300;
 }
 
 .input:focus {
-  box-shadow: 0 0 0 2px #00b7b5;
+  border-bottom-color: rgba(0, 183, 181, 0.8);
+  background: transparent;
 }
 
 .button {
-  padding: 0.75rem 2.5rem;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, #00b7b5 60%, #9ec7c5 100%);
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.1rem;
+  padding: 1rem 2rem;
   border: none;
+  background: transparent;
+  color: rgba(0, 183, 181, 0.8);
+  font-weight: 400;
+  font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 12px 0 rgba(0, 183, 181, 0.08);
-  transition:
-    background 0.2s,
-    box-shadow 0.2s,
-    filter 0.2s;
+  transition: all 0.3s ease;
   outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   position: relative;
-  overflow: hidden;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: rgba(0, 183, 181, 0.8);
+  transition: width 0.3s ease;
+}
+
+.button:hover:not(:disabled)::after,
+.button:focus-visible:not(:disabled)::after {
+  width: 100%;
 }
 
 .button:hover:not(:disabled),
 .button:focus-visible:not(:disabled) {
-  filter: brightness(1.15) drop-shadow(0 0 8px #00b7b5aa);
-  box-shadow: 0 4px 24px 0 rgba(0, 183, 181, 0.18);
-  animation: pulse 0.5s;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 #00b7b555;
-  }
-  70% {
-    box-shadow: 0 0 0 8px #00b7b500;
-  }
-  100% {
-    box-shadow: 0 0 0 0 #00b7b500;
-  }
+  color: rgba(0, 183, 181, 1);
 }
 
 .button:disabled {
-  opacity: 0.7;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .feedback {
-  color: #9ec7c5;
-  font-size: 1.1rem;
+  color: rgba(0, 183, 181, 0.8);
+  font-size: 1rem;
   margin-top: 1.5rem;
   min-height: 1.5em;
-  text-align: center;
-  transition: opacity 0.3s;
+  text-align: left;
+  font-weight: 300;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
 }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 2rem 0.5rem 2rem 0.5rem;
+@media (max-width: 768px) {
+  .content {
+    padding: 0 1.5rem;
   }
+
   .title {
-    font-size: 1.75rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .subtext {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-bottom: 2.5rem;
+  }
+
+  .inputGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .input {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 0.75rem 0;
+    margin-left: 0;
   }
 }

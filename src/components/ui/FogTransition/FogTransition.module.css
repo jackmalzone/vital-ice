@@ -1,0 +1,15 @@
+.fogTransition {
+  position: absolute;
+  top: calc(100vh - 150px);
+  width: 100vw;
+  height: 300px;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.fogTransition canvas {
+  display: block !important;
+  width: 100vw !important;
+  height: 100% !important;
+}
