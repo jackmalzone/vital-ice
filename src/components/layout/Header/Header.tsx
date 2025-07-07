@@ -7,8 +7,8 @@ import Logo from '@/components/ui/Logo/Logo';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
-  { 
-    label: 'Experience', 
+  {
+    label: 'Experience',
     href: '/services',
     dropdown: [
       { label: 'Infrared Sauna', href: '/services/infrared-sauna' },
@@ -17,7 +17,7 @@ const NAV_LINKS = [
       { label: 'Compression Boots', href: '/services/compression-boots' },
       { label: 'Percussion Massage', href: '/services/percussion-massage' },
       { label: 'Red Light Therapy', href: '/services/red-light-therapy' },
-    ]
+    ],
   },
   { label: 'Vision', href: '/vision' },
   { label: 'Origins', href: '/historical-timeline' },
@@ -58,20 +58,20 @@ export default function Header() {
   }, []);
 
   const isTimelinePage = pathname === '/historical-timeline';
-  
+
   return (
     <header className={`${styles.header} ${isTimelinePage ? styles.transparent : ''}`}>
       <Link href="/" className={styles.logoLink} aria-label="Home">
         <Logo className={styles.logo} />
       </Link>
-      
+
       {/* Desktop Navigation */}
       <nav className={styles.desktopNav}>
         <ul className={styles.desktopNavList}>
           {NAV_LINKS.map(link => (
             <li key={link.href} className={styles.desktopNavItem}>
               {link.dropdown ? (
-                <div 
+                <div
                   className={styles.dropdownContainer}
                   onMouseEnter={() => setActiveDropdown(link.label)}
                   onMouseLeave={() => setActiveDropdown(null)}
@@ -133,9 +133,9 @@ export default function Header() {
         </ul>
       </nav>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button - Ice Cube */}
       <button
-        className={styles.hamburger}
+        className={`${styles.iceCube} ${open ? styles.active : ''}`}
         aria-label="Open navigation menu"
         aria-expanded={open}
         onClick={() => {
@@ -143,9 +143,15 @@ export default function Header() {
           setActiveDropdown(null);
         }}
       >
-        <span className={styles.hamburgerBox}>
-          <span className={styles.hamburgerInner} />
-        </span>
+        <div className={styles.iceCubeContainer}>
+          {/* Ice Cube Faces */}
+          <div className={styles.iceCubeFace} />
+          <div className={styles.iceCubeFace} />
+          <div className={styles.iceCubeFace} />
+          <div className={styles.iceCubeFace} />
+          <div className={styles.iceCubeFace} />
+          <div className={styles.iceCubeFace} />
+        </div>
       </button>
 
       {/* Mobile Overlay Menu */}

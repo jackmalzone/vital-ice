@@ -8,4 +8,4 @@ const ColdPlungePage: FC = () => {
   return <ServiceTemplate data={servicesData['cold-plunge']} />;
 };
 
-export default ColdPlungePage; 
+export default ColdPlungePage;

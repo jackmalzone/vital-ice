@@ -8,4 +8,4 @@ const CompressionBootsPage: FC = () => {
   return <ServiceTemplate data={servicesData['compression-boots']} />;
 };
 
-export default CompressionBootsPage; 
+export default CompressionBootsPage;

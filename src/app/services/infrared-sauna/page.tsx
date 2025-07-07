@@ -8,4 +8,4 @@ const InfraredSaunaPage: FC = () => {
   return <ServiceTemplate data={servicesData['infrared-sauna']} />;
 };
 
-export default InfraredSaunaPage; 
+export default InfraredSaunaPage;

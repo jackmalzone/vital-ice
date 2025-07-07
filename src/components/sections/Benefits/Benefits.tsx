@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { FC, useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Benefits.module.css';
 
@@ -9,7 +9,7 @@ const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'end start']
+    offset: ['start end', 'end start'],
   });
 
   const benefits = [
@@ -17,78 +17,199 @@ const Benefits: FC = () => {
       title: 'Cold Plunge',
       tagline: 'Stillness that sharpens.',
       description: 'Nervous system reset through vagus nerve activation',
-      image: '/images/ice-vitalblue.jpg',
-      alt: 'Frozen lake scene with surface breaking'
+      image: '/images/coldplunge_woman.jpg',
+      alt: 'Frozen lake scene with surface breaking',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"
+            fill="currentColor"
+          />
+          <path
+            d="M6 14L7.5 18L12 16.5L16.5 18L18 14L12 15.5L6 14Z"
+            fill="currentColor"
+            opacity="0.7"
+          />
+        </svg>
+      ),
+      color: 'rgba(0, 183, 181, 0.8)',
     },
     {
       title: 'Infrared Sauna',
       tagline: 'Light that heals.',
       description: 'Circulatory restoration and cellular detoxification',
       image: '/images/sauna-infraredwide.jpg',
-      alt: 'Warm interior glow with cedar panels'
+      alt: 'Warm interior glow with cedar panels',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="8" fill="currentColor" opacity="0.3" />
+          <circle cx="12" cy="12" r="4" fill="currentColor" />
+          <path
+            d="M12 2V6M12 18V22M22 12H18M6 12H2"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            opacity="0.6"
+          />
+        </svg>
+      ),
+      color: 'rgba(255, 0, 0, 0.8)',
     },
     {
       title: 'Traditional Sauna',
       tagline: 'Fire that remembers.',
       description: 'Mental clarity and emotional regulation',
       image: '/images/sauna-traditional.jpg',
-      alt: 'Steam-filled dark wood with water hissing on rock'
+      alt: 'Steam-filled dark wood with water hissing on rock',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Heat waves emanating from center */}
+          <path
+            d="M12 4C8 4 4 6 4 10C4 14 8 18 12 20C16 18 20 14 20 10C20 6 16 4 12 4Z"
+            fill="currentColor"
+            opacity="0.2"
+          />
+          {/* Fire/heat wave lines */}
+          <path
+            d="M8 8C8 8 10 6 12 8C14 6 16 8 16 8"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            opacity="0.8"
+          />
+          <path
+            d="M7 10C7 10 9 8 12 10C15 8 17 10 17 10"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            opacity="0.6"
+          />
+          <path
+            d="M6 12C6 12 8 10 12 12C16 10 18 12 18 12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            opacity="0.4"
+          />
+          {/* Central heat source */}
+          <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.8" />
+        </svg>
+      ),
+      color: 'rgba(255, 165, 0, 0.8)',
     },
     {
       title: 'Red Light Therapy',
       tagline: 'Deeper than the skin.',
       description: 'Cellular repair and nervous system restoration',
       image: '/images/sunset-redhorizon.jpg',
-      alt: 'Abstract light pulses or cellular microshot'
-    }
+      alt: 'Abstract light pulses or cellular microshot',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2" />
+          <circle cx="12" cy="12" r="6" fill="currentColor" opacity="0.4" />
+          <circle cx="12" cy="12" r="3" fill="currentColor" />
+          <path
+            d="M12 2L13 8L20 9L13 10L12 16L11 10L4 9L11 8L12 2Z"
+            fill="currentColor"
+            opacity="0.6"
+          />
+        </svg>
+      ),
+      color: 'rgba(255, 20, 147, 0.8)',
+    },
   ];
-
-  // Parallax effect for unified background
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
     <section ref={sectionRef} id="benefits" className={styles.benefits}>
-      {/* Unified Background */}
-      <motion.div 
-        className={styles.benefits__background}
-        style={{ y: backgroundY }}
-      >
-        <div className={styles.benefits__backgroundGradient} />
-      </motion.div>
+      {/* Background Image */}
+      <div className={styles.benefits__background}>
+        <Image
+          src="/images/texture_blacksand.jpg"
+          alt="Black sand texture background"
+          fill
+          className={styles.benefits__backgroundImage}
+          priority
+        />
+        <div className={styles.benefits__backgroundOverlay} />
+      </div>
+
+      {/* Ambient Background */}
+      <div className={styles.benefits__ambient} />
+
+      {/* Gradient Overlays */}
+      <div className={styles.benefits__gradientTop} />
+      <div className={styles.benefits__gradientBottom} />
+
+      {/* Floating Elements */}
+      <div className={styles.benefits__floatingElements}>
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className={styles.benefits__floatingElement}
+            style={
+              {
+                '--delay': `${i * 0.3}s`,
+                '--duration': `${4 + i * 0.5}s`,
+              } as React.CSSProperties
+            }
+          />
+        ))}
+      </div>
 
       {/* Benefits Content */}
       <div className={styles.benefits__container}>
         {benefits.map((benefit, index) => {
           const benefitRef = useRef<HTMLDivElement>(null);
-          const { scrollYProgress: benefitScrollYProgress } = useScroll({
-            target: benefitRef,
-            offset: ['start end', 'end start']
+          const isInView = useInView(benefitRef, {
+            once: true,
+            margin: '-50px',
+            amount: 0.05,
           });
-
-          // Animation values
-          const imageOpacity = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.3]);
-          const imageScale = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
-          const textOpacity = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-          const textX = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [index % 2 === 0 ? 50 : -50, 0, 0, index % 2 === 0 ? -50 : 50]);
 
           const isImageLeft = index % 2 === 0;
 
           return (
-            <motion.div 
-              key={benefit.title} 
-              ref={benefitRef} 
+            <motion.div
+              key={benefit.title}
+              ref={benefitRef}
               className={styles.benefit}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.2,
+                ease: [0.4, 0, 0.2, 1],
+              }}
             >
               {/* Image Side */}
-              <motion.div 
+              <motion.div
                 className={`${styles.benefit__image} ${isImageLeft ? styles.left : styles.right}`}
-                style={{
-                  opacity: imageOpacity,
-                  scale: imageScale,
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                transition={{
+                  duration: 1,
+                  delay: index * 0.2 + 0.3,
+                  ease: [0.4, 0, 0.2, 1],
                 }}
               >
                 <div className={styles.benefit__imageContainer}>
@@ -100,21 +221,81 @@ const Benefits: FC = () => {
                     priority={index < 2}
                   />
                   <div className={styles.benefit__imageOverlay} />
+
+                  {/* Image Accent Glow */}
+                  <div className={styles.benefit__imageGlow} />
                 </div>
               </motion.div>
 
               {/* Text Side */}
-              <motion.div 
+              <motion.div
                 className={`${styles.benefit__text} ${isImageLeft ? styles.right : styles.left}`}
-                style={{
-                  opacity: textOpacity,
-                  x: textX,
+                initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
+                animate={
+                  isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isImageLeft ? 30 : -30 }
+                }
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.2 + 0.5,
+                  ease: [0.4, 0, 0.2, 1],
                 }}
               >
                 <div className={styles.benefit__textContent}>
-                  <h2 className={styles.benefit__title}>{benefit.title}</h2>
-                  <p className={styles.benefit__tagline}>{benefit.tagline}</p>
-                  <p className={styles.benefit__description}>{benefit.description}</p>
+                  <motion.div
+                    className={styles.benefit__titleContainer}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.2 + 0.7,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                  >
+                    <h2 className={styles.benefit__title}>{benefit.title}</h2>
+                    {/* Icon as superscript */}
+                    <motion.div
+                      className={styles.benefit__icon}
+                      style={{ color: benefit.color }}
+                      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                      animate={
+                        isInView
+                          ? { opacity: 1, scale: 1, rotate: 0 }
+                          : { opacity: 0, scale: 0.8, rotate: -10 }
+                      }
+                      transition={{
+                        duration: 0.6,
+                        delay: index * 0.2 + 0.8,
+                        ease: [0.4, 0, 0.2, 1],
+                      }}
+                    >
+                      {benefit.icon}
+                    </motion.div>
+                  </motion.div>
+
+                  <motion.p
+                    className={styles.benefit__tagline}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.2 + 0.9,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                  >
+                    {benefit.tagline}
+                  </motion.p>
+                  <motion.p
+                    className={styles.benefit__description}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.2 + 1.1,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                  >
+                    {benefit.description}
+                  </motion.p>
                 </div>
               </motion.div>
             </motion.div>

@@ -9,14 +9,14 @@ const ContactPage: FC = () => {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -31,26 +31,26 @@ const ContactPage: FC = () => {
       title: 'Email',
       value: 'hello@vitalice.com',
       link: 'mailto:hello@vitalice.com',
-      icon: '✉️'
+      icon: '✉️',
     },
     {
       title: 'Phone',
       value: '(415) 555-1234',
       link: 'tel:+14155551234',
-      icon: '📞'
+      icon: '📞',
     },
     {
       title: 'Address',
       value: '2400 Chestnut St\nSan Francisco, CA 94123',
       link: 'https://maps.google.com',
-      icon: '📍'
-    }
+      icon: '📍',
+    },
   ];
 
   const hours = [
     { day: 'Monday - Friday', time: '6:00 AM - 10:00 PM' },
     { day: 'Saturday', time: '7:00 AM - 9:00 PM' },
-    { day: 'Sunday', time: '8:00 AM - 8:00 PM' }
+    { day: 'Sunday', time: '8:00 AM - 8:00 PM' },
   ];
 
   return (
@@ -101,7 +101,7 @@ const ContactPage: FC = () => {
               <p className={styles.contact__infoText}>
                 Have questions about our services or want to learn more? We'd love to hear from you.
               </p>
-              
+
               <div className={styles.contact__details}>
                 {contactInfo.map((info, index) => (
                   <motion.div
@@ -158,7 +158,9 @@ const ContactPage: FC = () => {
               <h2 className={styles.contact__formTitle}>Send us a Message</h2>
               <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.form__group}>
-                  <label htmlFor="name" className={styles.form__label}>Name</label>
+                  <label htmlFor="name" className={styles.form__label}>
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -169,9 +171,11 @@ const ContactPage: FC = () => {
                     required
                   />
                 </div>
-                
+
                 <div className={styles.form__group}>
-                  <label htmlFor="email" className={styles.form__label}>Email</label>
+                  <label htmlFor="email" className={styles.form__label}>
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -182,9 +186,11 @@ const ContactPage: FC = () => {
                     required
                   />
                 </div>
-                
+
                 <div className={styles.form__group}>
-                  <label htmlFor="phone" className={styles.form__label}>Phone (Optional)</label>
+                  <label htmlFor="phone" className={styles.form__label}>
+                    Phone (Optional)
+                  </label>
                   <input
                     type="tel"
                     id="phone"
@@ -194,9 +200,11 @@ const ContactPage: FC = () => {
                     className={styles.form__input}
                   />
                 </div>
-                
+
                 <div className={styles.form__group}>
-                  <label htmlFor="message" className={styles.form__label}>Message</label>
+                  <label htmlFor="message" className={styles.form__label}>
+                    Message
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -207,7 +215,7 @@ const ContactPage: FC = () => {
                     required
                   />
                 </div>
-                
+
                 <motion.button
                   type="submit"
                   className={styles.form__button}
@@ -243,4 +251,4 @@ const ContactPage: FC = () => {
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

@@ -37,7 +37,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         transition={{ duration: 1 }}
       >
         <div className={styles.hero__background}>
-          <div 
+          <div
             className={styles.hero__image}
             style={{ backgroundImage: `url(${data.backgroundImage})` }}
           />
@@ -90,9 +90,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
             viewport={{ once: true }}
           >
             <h2 className={styles.overview__title}>What is {data.title}?</h2>
-            <p className={styles.overview__text}>
-              {data.description}
-            </p>
+            <p className={styles.overview__text}>{data.description}</p>
           </motion.div>
         </div>
       </motion.section>
@@ -180,9 +178,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
       >
         <div className={styles.cta__container}>
           <h2 className={styles.cta__title}>{data.ctaTitle}</h2>
-          <p className={styles.cta__text}>
-            {data.ctaText}
-          </p>
+          <p className={styles.cta__text}>{data.ctaText}</p>
           <motion.button
             className={styles.cta__button}
             whileHover={{ scale: 1.05 }}
@@ -197,4 +193,4 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
   );
 };
 
-export default ServiceTemplate; 
+export default ServiceTemplate;

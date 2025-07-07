@@ -12,7 +12,7 @@ const services = [
     description: 'Deep tissue warming with infrared technology for detoxification and relaxation',
     benefits: ['Detoxification', 'Pain Relief', 'Stress Reduction', 'Improved Circulation'],
     image: '/images/sauna-infraredwide.jpg',
-    link: '/services/infrared-sauna'
+    link: '/services/infrared-sauna',
   },
   {
     id: 'traditional-sauna',
@@ -20,7 +20,7 @@ const services = [
     description: 'Classic Finnish-style sauna experience with dry heat therapy',
     benefits: ['Cardiovascular Health', 'Muscle Recovery', 'Immune Support', 'Mental Clarity'],
     image: '/images/sauna-traditional.jpg',
-    link: '/services/traditional-sauna'
+    link: '/services/traditional-sauna',
   },
   {
     id: 'cold-plunge',
@@ -28,23 +28,33 @@ const services = [
     description: 'Ice-cold water therapy for enhanced recovery and mental resilience',
     benefits: ['Faster Recovery', 'Reduced Inflammation', 'Mental Toughness', 'Improved Sleep'],
     image: '/images/coldplunge_woman.jpg',
-    link: '/services/cold-plunge'
+    link: '/services/cold-plunge',
   },
   {
     id: 'compression-boots',
     title: 'Compression Boots',
     description: 'Advanced compression therapy for enhanced circulation and recovery',
-    benefits: ['Improved Circulation', 'Faster Recovery', 'Reduced Swelling', 'Enhanced Performance'],
+    benefits: [
+      'Improved Circulation',
+      'Faster Recovery',
+      'Reduced Swelling',
+      'Enhanced Performance',
+    ],
     image: '/images/cells-bloodcells.jpg',
-    link: '/services/compression-boots'
+    link: '/services/compression-boots',
   },
   {
     id: 'percussion-massage',
     title: 'Percussion Massage',
     description: 'Deep tissue percussion therapy for muscle recovery and tension relief',
-    benefits: ['Muscle Recovery', 'Tension Relief', 'Improved Range of Motion', 'Enhanced Performance'],
+    benefits: [
+      'Muscle Recovery',
+      'Tension Relief',
+      'Improved Range of Motion',
+      'Enhanced Performance',
+    ],
     image: '/images/texture_blackmarble-cracks.jpg',
-    link: '/services/percussion-massage'
+    link: '/services/percussion-massage',
   },
   {
     id: 'red-light-therapy',
@@ -52,8 +62,8 @@ const services = [
     description: 'Therapeutic light treatment for cellular regeneration and skin health',
     benefits: ['Cellular Regeneration', 'Skin Health', 'Pain Relief', 'Anti-Aging'],
     image: '/images/redlight_jellyfish.jpg',
-    link: '/services/red-light-therapy'
-  }
+    link: '/services/red-light-therapy',
+  },
 ];
 
 const ServicesPage: FC = () => {
@@ -102,7 +112,7 @@ const ServicesPage: FC = () => {
           >
             Wellness Experiences
           </motion.h2>
-          
+
           <div className={styles.services__grid}>
             {services.map((service, index) => (
               <motion.div
@@ -115,7 +125,7 @@ const ServicesPage: FC = () => {
                 whileHover={{ y: -5 }}
               >
                 <div className={styles.service__image}>
-                  <div 
+                  <div
                     className={styles.service__imageBg}
                     style={{ backgroundImage: `url(${service.image})` }}
                   />
@@ -123,7 +133,7 @@ const ServicesPage: FC = () => {
                 <div className={styles.service__content}>
                   <h3 className={styles.service__title}>{service.title}</h3>
                   <p className={styles.service__description}>{service.description}</p>
-                  
+
                   <div className={styles.service__benefits}>
                     <h4 className={styles.service__benefitsTitle}>Key Benefits</h4>
                     <ul className={styles.service__benefitsList}>
@@ -134,7 +144,7 @@ const ServicesPage: FC = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <Link href={service.link} className={styles.service__link}>
                     Learn More
                     <svg
@@ -186,4 +196,4 @@ const ServicesPage: FC = () => {
   );
 };
 
-export default ServicesPage; 
+export default ServicesPage;

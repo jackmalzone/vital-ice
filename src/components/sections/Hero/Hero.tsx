@@ -9,19 +9,22 @@ import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos
 const VIDEOS = [
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ripples-ambient.mp4", type: "ripples" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient.mp4", type: "cold" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient.mp4", type: "hot" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.mp4", type: "cold" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.mp4", type: "hot" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.mp4", type: "cold" },
-  { src: "https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.mp4", type: "hot" },
+  {
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ripples-ambient.mp4',
+    type: 'ripples',
+  },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient.mp4', type: 'cold' },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient.mp4', type: 'hot' },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.mp4', type: 'cold' },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.mp4', type: 'hot' },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.mp4', type: 'cold' },
+  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.mp4', type: 'hot' },
 ];
 
 const Hero: FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const { scrollYProgress } = useScroll();
-  
+
   // Scroll-based transforms for glassmorphic effects
   const blurAmount = useTransform(scrollYProgress, [0, 0.1], [8, 0]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
@@ -43,7 +46,7 @@ const Hero: FC = () => {
     preloadNextVideo();
 
     const interval = setInterval(() => {
-      setCurrentVideoIndex((prev) => (prev + 1) % VIDEOS.length);
+      setCurrentVideoIndex(prev => (prev + 1) % VIDEOS.length);
     }, 8000);
 
     return () => clearInterval(interval);
@@ -54,13 +57,13 @@ const Hero: FC = () => {
       {/* Multiple Video Backgrounds with opacity transitions */}
       {VIDEOS.map((video, index) => (
         <VideoBackground
-          key={video.src}
+          key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
           videoSrc={video.src}
           overlayOpacity={0}
           isActive={index === currentVideoIndex}
         />
       ))}
-      
+
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
 
       {/* Animated Blue Blob Overlay */}
@@ -198,7 +201,8 @@ const Hero: FC = () => {
           {useMemo(() => {
             const videoType = VIDEOS[currentVideoIndex].type;
             return videoType === 'cold' ? '❄️ Cold' : videoType === 'hot' ? '🔥 Hot' : '💧 Ripples';
-          }, [currentVideoIndex])} Ambience
+          }, [currentVideoIndex])}{' '}
+          Ambience
         </div>
       </motion.div>
 

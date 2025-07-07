@@ -38,7 +38,7 @@ const PerformanceDemo: FC = () => {
         transition={{ duration: 0.5 }}
       >
         <h3 className={styles.title}>Device Performance Analysis</h3>
-        
+
         <div className={styles.sections}>
           {/* Device Capabilities */}
           <div className={styles.section}>
@@ -46,19 +46,25 @@ const PerformanceDemo: FC = () => {
             <div className={styles.capabilities}>
               <div className={styles.capability}>
                 <span className={styles.label}>Video Support:</span>
-                <span className={`${styles.value} ${profile.canHandleVideo ? styles.positive : styles.negative}`}>
+                <span
+                  className={`${styles.value} ${profile.canHandleVideo ? styles.positive : styles.negative}`}
+                >
                   {profile.canHandleVideo ? '✅ Yes' : '❌ No'}
                 </span>
               </div>
               <div className={styles.capability}>
                 <span className={styles.label}>Animation Support:</span>
-                <span className={`${styles.value} ${profile.canHandleComplexAnimations ? styles.positive : styles.negative}`}>
+                <span
+                  className={`${styles.value} ${profile.canHandleComplexAnimations ? styles.positive : styles.negative}`}
+                >
                   {profile.canHandleComplexAnimations ? '✅ Yes' : '❌ No'}
                 </span>
               </div>
               <div className={styles.capability}>
                 <span className={styles.label}>Connection Quality:</span>
-                <span className={`${styles.value} ${profile.hasGoodConnection ? styles.positive : styles.negative}`}>
+                <span
+                  className={`${styles.value} ${profile.hasGoodConnection ? styles.positive : styles.negative}`}
+                >
                   {profile.hasGoodConnection ? '✅ Good' : '❌ Poor'}
                 </span>
               </div>
@@ -70,7 +76,9 @@ const PerformanceDemo: FC = () => {
               </div>
               <div className={styles.capability}>
                 <span className={styles.label}>Performance Level:</span>
-                <span className={`${styles.value} ${profile.isLowEndDevice ? styles.negative : styles.positive}`}>
+                <span
+                  className={`${styles.value} ${profile.isLowEndDevice ? styles.negative : styles.positive}`}
+                >
                   {profile.isLowEndDevice ? '🐌 Low-end' : '🚀 High-end'}
                 </span>
               </div>
@@ -83,33 +91,45 @@ const PerformanceDemo: FC = () => {
             <div className={styles.strategy}>
               <div className={styles.strategyItem}>
                 <span className={styles.label}>Media Type:</span>
-                <span className={`${styles.value} ${strategy.useVideo ? styles.video : styles.image}`}>
+                <span
+                  className={`${styles.value} ${strategy.useVideo ? styles.video : styles.image}`}
+                >
                   {strategy.useVideo ? '🎥 Video' : '🖼️ Image'}
                 </span>
               </div>
               <div className={styles.strategyItem}>
                 <span className={styles.label}>Video Quality:</span>
                 <span className={styles.value}>
-                  {strategy.videoQuality === 'high' ? '🔴 High' :
-                   strategy.videoQuality === 'medium' ? '🟡 Medium' :
-                   strategy.videoQuality === 'low' ? '🟢 Low' : '⚪ None'}
+                  {strategy.videoQuality === 'high'
+                    ? '🔴 High'
+                    : strategy.videoQuality === 'medium'
+                      ? '🟡 Medium'
+                      : strategy.videoQuality === 'low'
+                        ? '🟢 Low'
+                        : '⚪ None'}
                 </span>
               </div>
               <div className={styles.strategyItem}>
                 <span className={styles.label}>Animations:</span>
-                <span className={`${styles.value} ${strategy.useAnimations ? styles.positive : styles.negative}`}>
+                <span
+                  className={`${styles.value} ${strategy.useAnimations ? styles.positive : styles.negative}`}
+                >
                   {strategy.useAnimations ? '✅ Enabled' : '❌ Disabled'}
                 </span>
               </div>
               <div className={styles.strategyItem}>
                 <span className={styles.label}>Parallax Effects:</span>
-                <span className={`${styles.value} ${strategy.useParallax ? styles.positive : styles.negative}`}>
+                <span
+                  className={`${styles.value} ${strategy.useParallax ? styles.positive : styles.negative}`}
+                >
                   {strategy.useParallax ? '✅ Enabled' : '❌ Disabled'}
                 </span>
               </div>
               <div className={styles.strategyItem}>
                 <span className={styles.label}>Reduced Motion:</span>
-                <span className={`${styles.value} ${strategy.reducedMotion ? styles.negative : styles.positive}`}>
+                <span
+                  className={`${styles.value} ${strategy.reducedMotion ? styles.negative : styles.positive}`}
+                >
                   {strategy.reducedMotion ? '✅ Enabled' : '❌ Disabled'}
                 </span>
               </div>
@@ -128,15 +148,14 @@ const PerformanceDemo: FC = () => {
               </div>
               <div className={styles.metric}>
                 <span className={styles.label}>CPU Cores:</span>
-                <span className={styles.value}>
-                  {navigator.hardwareConcurrency || 'Unknown'}
-                </span>
+                <span className={styles.value}>{navigator.hardwareConcurrency || 'Unknown'}</span>
               </div>
               <div className={styles.metric}>
                 <span className={styles.label}>Connection:</span>
                 <span className={styles.value}>
-                  {'connection' in navigator ? 
-                    (navigator as any).connection.effectiveType || 'Unknown' : 'Unknown'}
+                  {'connection' in navigator
+                    ? (navigator as any).connection.effectiveType || 'Unknown'
+                    : 'Unknown'}
                 </span>
               </div>
               <div className={styles.metric}>
@@ -185,4 +204,4 @@ const PerformanceDemo: FC = () => {
   );
 };
 
-export default PerformanceDemo; 
+export default PerformanceDemo;

@@ -8,4 +8,4 @@ const PercussionMassagePage: FC = () => {
   return <ServiceTemplate data={servicesData['percussion-massage']} />;
 };
 
-export default PercussionMassagePage; 
+export default PercussionMassagePage;

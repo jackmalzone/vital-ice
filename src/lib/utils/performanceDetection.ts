@@ -24,7 +24,9 @@ export interface MediaStrategy {
 
 // Core performance detection functions
 export const detectDeviceCapabilities = (): PerformanceProfile => {
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
   const isLowEndDevice = detectLowEndDevice();
   const hasGoodConnection = detectConnectionQuality();
   const canHandleVideo = detectVideoCapability();
@@ -91,8 +93,7 @@ const detectConnectionQuality = (): boolean => {
     const connection = (navigator as any).connection;
     if (connection) {
       // Good connection: 4g, 3g, or fast wifi
-      return ['4g', '3g'].includes(connection.effectiveType) || 
-             connection.downlink > 1.5; // > 1.5 Mbps
+      return ['4g', '3g'].includes(connection.effectiveType) || connection.downlink > 1.5; // > 1.5 Mbps
     }
   }
 
@@ -109,7 +110,7 @@ const detectVideoCapability = (): boolean => {
   // Test for common video formats
   const canPlayMP4 = video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
   const canPlayWebM = video.canPlayType('video/webm; codecs="vp8, vorbis"');
-  
+
   return canPlayMP4 !== '' || canPlayWebM !== '';
 };
 
@@ -159,11 +160,11 @@ export class PerformanceMonitor {
   // Monitor video loading performance
   async monitorVideoLoad(videoUrl: string): Promise<number> {
     const startTime = performance.now();
-    
-    return new Promise((resolve) => {
+
+    return new Promise(resolve => {
       const video = document.createElement('video');
       video.src = videoUrl;
-      
+
       video.addEventListener('loadeddata', () => {
         const loadTime = performance.now() - startTime;
         this.metrics.set(`video_load_${videoUrl}`, loadTime);
@@ -185,10 +186,10 @@ export class PerformanceMonitor {
 
   // Monitor animation frame rate
   monitorFrameRate(duration: number = 5000): Promise<number> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       let frameCount = 0;
       const startTime = performance.now();
-      
+
       const countFrame = () => {
         frameCount++;
         if (performance.now() - startTime < duration) {
@@ -199,7 +200,7 @@ export class PerformanceMonitor {
           resolve(fps);
         }
       };
-      
+
       requestAnimationFrame(countFrame);
     });
   }
@@ -212,8 +213,8 @@ export class PerformanceMonitor {
   // Check if device should downgrade media
   shouldDowngradeMedia(): boolean {
     const fps = this.metrics.get('fps');
-    const hasVideoErrors = Array.from(this.metrics.keys()).some(key => 
-      key.startsWith('video_error_') || key.startsWith('video_timeout_')
+    const hasVideoErrors = Array.from(this.metrics.keys()).some(
+      key => key.startsWith('video_error_') || key.startsWith('video_timeout_')
     );
 
     return (fps && fps < 30) || hasVideoErrors;
@@ -229,13 +230,13 @@ export const usePerformanceDetection = () => {
   useEffect(() => {
     const detectPerformance = async () => {
       setIsLoading(true);
-      
+
       // Wait for DOM to be ready
       await new Promise(resolve => setTimeout(resolve, 100));
-      
+
       const detectedProfile = detectDeviceCapabilities();
       const generatedStrategy = generateMediaStrategy(detectedProfile);
-      
+
       setProfile(detectedProfile);
       setStrategy(generatedStrategy);
       setIsLoading(false);
@@ -271,10 +272,7 @@ export const getOptimalMediaSource = (
 };
 
 // React hook for media loading
-export const useAdaptiveMedia = (
-  videoSources: { [key: string]: string },
-  imageSource: string
-) => {
+export const useAdaptiveMedia = (videoSources: { [key: string]: string }, imageSource: string) => {
   const { strategy, isLoading } = usePerformanceDetection();
   const [mediaSource, setMediaSource] = useState<string>(imageSource);
   const [mediaType, setMediaType] = useState<'video' | 'image'>('image');
@@ -293,4 +291,4 @@ export const useAdaptiveMedia = (
     strategy,
     isLoading,
   };
-}; 
+};

@@ -8,4 +8,4 @@ const TraditionalSaunaPage: FC = () => {
   return <ServiceTemplate data={servicesData['traditional-sauna']} />;
 };
 
-export default TraditionalSaunaPage; 
+export default TraditionalSaunaPage;

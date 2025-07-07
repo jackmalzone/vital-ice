@@ -36,7 +36,10 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   onLoad,
   onError,
 }) => {
-  const { mediaSource, mediaType, strategy, isLoading } = useAdaptiveMedia(videoSources, imageSource);
+  const { mediaSource, mediaType, strategy, isLoading } = useAdaptiveMedia(
+    videoSources,
+    imageSource
+  );
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -136,7 +139,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
           />
         )}
       </AnimatePresence>
-      
+
       {/* Performance indicator (debug mode) */}
       {process.env.NODE_ENV === 'development' && (
         <div className={styles.debugInfo}>
@@ -149,4 +152,4 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   );
 };
 
-export default AdaptiveMedia; 
+export default AdaptiveMedia;

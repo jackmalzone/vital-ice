@@ -2,6 +2,7 @@
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 /* Dynamic Background */
@@ -12,7 +13,7 @@
   width: 100%;
   height: 100vh;
   z-index: -10;
-  transition: all 0.5s ease;
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
@@ -25,8 +26,12 @@
   object-fit: cover;
   object-position: center;
   opacity: 0.6;
-  transition: opacity 0.5s ease;
+  transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -9;
+  will-change: opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  filter: blur(0px);
 }
 
 /* Removed overlay - clean background */
@@ -114,7 +119,7 @@
   transform: translateX(-50%);
   box-shadow: 0 0 15px rgba(0, 183, 181, 0.5);
   z-index: 6;
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timeline__era.active .timeline__marker {
@@ -152,7 +157,7 @@
   height: 8px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
@@ -163,14 +168,16 @@
 }
 
 .timeline__era {
-  min-height: 100vh;
+  min-height: 120vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   scroll-snap-align: center;
   margin: 0;
-  padding: 4rem 0;
+  padding: 6rem 0;
+  scroll-margin-top: 2rem;
+  scroll-margin-bottom: 2rem;
 }
 
 .timeline__era:last-child {
@@ -183,7 +190,7 @@
   position: relative;
   z-index: 10;
   padding: 2rem;
-  transition: all 0.5s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   /* Pure floating text - no containers */
   /* Ensure no background interference */
   background: transparent;

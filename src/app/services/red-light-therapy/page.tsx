@@ -8,4 +8,4 @@ const RedLightTherapyPage: FC = () => {
   return <ServiceTemplate data={servicesData['red-light-therapy']} />;
 };
 
-export default RedLightTherapyPage; 
+export default RedLightTherapyPage;

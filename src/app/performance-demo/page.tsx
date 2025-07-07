@@ -43,7 +43,7 @@ const PerformanceDemoPage: FC = () => {
                 videoSources={{
                   high: '/videos/ambient-water-high.mp4',
                   medium: '/videos/ambient-water-medium.mp4',
-                  low: '/videos/ambient-water-low.mp4'
+                  low: '/videos/ambient-water-low.mp4',
                 }}
                 imageSource="/images/hero-ambient-water.jpg"
                 alt="Ambient water background"
@@ -57,7 +57,7 @@ const PerformanceDemoPage: FC = () => {
                 videoSources={{
                   high: '/videos/indus-valley-ambient.mp4',
                   medium: '/videos/indus-valley-ambient-720p.mp4',
-                  low: '/videos/indus-valley-ambient-480p.mp4'
+                  low: '/videos/indus-valley-ambient-480p.mp4',
                 }}
                 imageSource="/images/indusValley.png"
                 alt="Indus Valley background"
@@ -74,32 +74,32 @@ const PerformanceDemoPage: FC = () => {
             <div className={styles.infoCard}>
               <h3>🔍 Detection</h3>
               <p>
-                The system analyzes your device's capabilities including memory, CPU cores, 
+                The system analyzes your device's capabilities including memory, CPU cores,
                 connection quality, and video support to determine the optimal media strategy.
               </p>
             </div>
-            
+
             <div className={styles.infoCard}>
               <h3>🎯 Strategy</h3>
               <p>
-                Based on the analysis, it chooses between video (high/medium/low quality) 
-                or static images, and adjusts animation complexity accordingly.
+                Based on the analysis, it chooses between video (high/medium/low quality) or static
+                images, and adjusts animation complexity accordingly.
               </p>
             </div>
-            
+
             <div className={styles.infoCard}>
               <h3>⚡ Performance</h3>
               <p>
-                The system continuously monitors performance and can downgrade media 
-                if it detects issues like slow loading or poor frame rates.
+                The system continuously monitors performance and can downgrade media if it detects
+                issues like slow loading or poor frame rates.
               </p>
             </div>
-            
+
             <div className={styles.infoCard}>
               <h3>♿ Accessibility</h3>
               <p>
-                Respects user preferences like reduced motion and provides fallbacks 
-                for devices that don't support certain features.
+                Respects user preferences like reduced motion and provides fallbacks for devices
+                that don't support certain features.
               </p>
             </div>
           </div>
@@ -109,4 +109,4 @@ const PerformanceDemoPage: FC = () => {
   );
 };
 
-export default PerformanceDemoPage; 
+export default PerformanceDemoPage;

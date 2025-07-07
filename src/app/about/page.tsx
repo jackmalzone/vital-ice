@@ -9,39 +9,43 @@ const AboutPage: FC = () => {
   const values = [
     {
       title: 'Community First',
-      description: 'We believe wellness is a shared journey. Our space fosters connection, support, and collective growth.',
-      icon: '🤝'
+      description:
+        'We believe wellness is a shared journey. Our space fosters connection, support, and collective growth.',
+      color: '#00b7b5',
     },
     {
       title: 'Ancient Wisdom',
-      description: 'We honor time-tested practices while embracing modern science and technology for optimal results.',
-      icon: '🧘'
+      description:
+        'We honor time-tested practices while embracing modern science and technology for optimal results.',
+      color: '#9ec7c5',
     },
     {
       title: 'Inclusive Wellness',
-      description: 'Wellness should be accessible to everyone. We create a welcoming, judgment-free environment.',
-      icon: '❤️'
+      description:
+        'Wellness should be accessible to everyone. We create a welcoming, judgment-free environment.',
+      color: '#ebede5',
     },
     {
       title: 'Evidence-Based',
-      description: 'Our approach combines traditional practices with cutting-edge research and proven methodologies.',
-      icon: '🔬'
-    }
+      description:
+        'Our approach combines traditional practices with cutting-edge research and proven methodologies.',
+      color: '#7a9e9d',
+    },
   ];
 
   const team = [
     {
-      name: 'Sean O\'Connor',
+      name: "Sean O'Connor",
       role: 'Co-Founder & CEO',
       bio: 'Former professional athlete turned wellness advocate, Sean brings his passion for peak performance and recovery to Vital Ice.',
-      image: '/images/founder-sean.png'
+      image: '/images/founder-sean.png',
     },
     {
-      name: 'Stephen Chen',
+      name: 'Stephen Mullin',
       role: 'Co-Founder & CTO',
       bio: 'Technology entrepreneur with a deep interest in biohacking and human optimization. Stephen oversees our innovative wellness technology.',
-      image: '/images/founder-stephen.png'
-    }
+      image: '/images/founder-stephen.png',
+    },
   ];
 
   return (
@@ -52,6 +56,17 @@ const AboutPage: FC = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        {/* Video Background */}
+        <div className={styles.hero__videoContainer}>
+          <video autoPlay muted loop playsInline className={styles.hero__video}>
+            <source
+              src="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/sf_marina.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div className={styles.hero__videoOverlay} />
+        </div>
+
         <div className={styles.hero__content}>
           <motion.h1
             className={styles.hero__title}
@@ -89,17 +104,17 @@ const AboutPage: FC = () => {
           >
             <h2 className={styles.story__title}>Our Story</h2>
             <p className={styles.story__text}>
-              Vital Ice was born from a simple yet profound realization: modern life has disconnected 
-              us from the natural rhythms that our bodies evolved with. In a world of constant 
-              stimulation and stress, we've lost touch with the restorative power of intentional 
-              cold exposure and mindful heat therapy.
+              Vital Ice was born from a simple yet profound realization: modern life has
+              disconnected us from the natural rhythms that our bodies evolved with. In a world of
+              constant stimulation and stress, we've lost touch with the restorative power of
+              intentional cold exposure and mindful heat therapy.
             </p>
             <p className={styles.story__text}>
-              Our founders, having experienced the transformative effects of cold plunge and infrared 
-              sauna therapy firsthand, envisioned a space where people could reconnect with these 
-              ancient wellness practices in a modern, accessible way. We believe that true recovery 
-              isn't just about physical healing—it's about creating moments of presence, clarity, 
-              and connection.
+              Our founders, having experienced the transformative effects of cold plunge and
+              infrared sauna therapy firsthand, envisioned a space where people could reconnect with
+              these ancient wellness practices in a modern, accessible way. We believe that true
+              recovery isn't just about physical healing—it's about creating moments of presence,
+              clarity, and connection.
             </p>
           </motion.div>
           <motion.div
@@ -148,7 +163,7 @@ const AboutPage: FC = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
               >
-                <div className={styles.value__icon}>{value.icon}</div>
+                <div className={styles.value__accent} style={{ backgroundColor: value.color }} />
                 <h3 className={styles.value__title}>{value.title}</h3>
                 <p className={styles.value__description}>{value.description}</p>
               </motion.div>
@@ -229,9 +244,9 @@ const AboutPage: FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            To create spaces where people can reconnect with their innate capacity for healing and 
-            renewal through the power of contrast therapy. We believe that by honoring ancient 
-            wisdom while embracing modern technology, we can help individuals achieve optimal 
+            To create spaces where people can reconnect with their innate capacity for healing and
+            renewal through the power of contrast therapy. We believe that by honoring ancient
+            wisdom while embracing modern technology, we can help individuals achieve optimal
             wellness and build resilient, thriving communities.
           </motion.p>
           <motion.button
@@ -248,4 +263,4 @@ const AboutPage: FC = () => {
   );
 };
 
-export default AboutPage; 
+export default AboutPage;

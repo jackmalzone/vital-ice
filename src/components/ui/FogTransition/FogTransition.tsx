@@ -7,7 +7,7 @@ import styles from './FogTransition.module.css';
 
 function FogPlane({ position = [0, 0, 0], scale = [1, 1, 1], speed = 1 }) {
   const mesh = useRef<THREE.Mesh>(null!);
-  const viewport = useThree((state) => state.viewport);
+  const viewport = useThree(state => state.viewport);
 
   useFrame(({ clock }) => {
     if (mesh.current) {
@@ -17,15 +17,20 @@ function FogPlane({ position = [0, 0, 0], scale = [1, 1, 1], speed = 1 }) {
   });
 
   return (
-    <mesh ref={mesh} position={position as [number, number, number]} scale={scale as [number, number, number]}>
+    <mesh
+      ref={mesh}
+      position={position as [number, number, number]}
+      scale={scale as [number, number, number]}
+    >
       <planeGeometry args={[viewport.width * 3, 10, 128, 32]} />
       <shaderMaterial
-        args={[{
-          uniforms: {
-            uTime: { value: 0 },
-            uColor: { value: new THREE.Color(0xe8e6e0) }
-          },
-          vertexShader: `
+        args={[
+          {
+            uniforms: {
+              uTime: { value: 0 },
+              uColor: { value: new THREE.Color(0xe8e6e0) },
+            },
+            vertexShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             
@@ -35,7 +40,7 @@ function FogPlane({ position = [0, 0, 0], scale = [1, 1, 1], speed = 1 }) {
               gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
             }
           `,
-          fragmentShader: `
+            fragmentShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             uniform float uTime;
@@ -98,10 +103,11 @@ function FogPlane({ position = [0, 0, 0], scale = [1, 1, 1], speed = 1 }) {
               gl_FragColor = vec4(uColor, density);
             }
           `,
-          transparent: true,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false,
-        }]}
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+          },
+        ]}
       />
     </mesh>
   );
@@ -114,7 +120,7 @@ export default function FogTransition() {
     const handleMouse = (e: MouseEvent) => {
       mouse.current = {
         x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
       };
     };
     window.addEventListener('mousemove', handleMouse);
@@ -123,20 +129,20 @@ export default function FogTransition() {
 
   return (
     <div className={styles.fogTransition}>
-      <Canvas 
+      <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         gl={{ alpha: true, antialias: true }}
         style={{ width: '100vw', height: '100%' }}
       >
         {/* Primary fog layer */}
         <FogPlane position={[0, 0, 0]} scale={[1, 1, 1]} speed={1} />
-        
+
         {/* Secondary fog layer for depth */}
         <FogPlane position={[0, 0.2, -0.5]} scale={[1.2, 1.2, 1]} speed={0.7} />
-        
+
         {/* Tertiary fog layer for atmosphere */}
         <FogPlane position={[0, -0.1, 0.3]} scale={[0.8, 0.8, 1]} speed={1.3} />
       </Canvas>
     </div>
   );
-} 
+}
