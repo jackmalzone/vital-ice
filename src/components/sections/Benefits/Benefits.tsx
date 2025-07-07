@@ -5,14 +5,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Benefits.module.css';
 
-const Services: FC = () => {
+const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start']
   });
 
-  const services = [
+  const benefits = [
     {
       title: 'Cold Plunge',
       tagline: 'Stillness that sharpens.',
@@ -43,58 +43,86 @@ const Services: FC = () => {
     }
   ];
 
+  // Parallax effect for unified background
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
   return (
-    <section ref={sectionRef} id="services" className={styles.services}>
-      {services.map((service, index) => {
-        const serviceRef = useRef<HTMLDivElement>(null);
-        const { scrollYProgress: serviceScrollYProgress } = useScroll({
-          target: serviceRef,
-          offset: ['start end', 'end start']
-        });
+    <section ref={sectionRef} id="benefits" className={styles.benefits}>
+      {/* Unified Background */}
+      <motion.div 
+        className={styles.benefits__background}
+        style={{ y: backgroundY }}
+      >
+        <div className={styles.benefits__backgroundGradient} />
+      </motion.div>
 
-        // Parallax effect for background
-        const backgroundY = useTransform(serviceScrollYProgress, [0, 1], [0, -50]);
-        
-        // Text animations
-        const textOpacity = useTransform(serviceScrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-        const textX = useTransform(serviceScrollYProgress, [0, 0.3, 0.7, 1], [50, 0, 0, -50]);
+      {/* Benefits Content */}
+      <div className={styles.benefits__container}>
+        {benefits.map((benefit, index) => {
+          const benefitRef = useRef<HTMLDivElement>(null);
+          const { scrollYProgress: benefitScrollYProgress } = useScroll({
+            target: benefitRef,
+            offset: ['start end', 'end start']
+          });
 
-        return (
-          <div key={service.title} ref={serviceRef} className={styles.service__section}>
-            {/* Background Image with Parallax */}
+          // Animation values
+          const imageOpacity = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0.3, 1, 1, 0.3]);
+          const imageScale = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
+          const textOpacity = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+          const textX = useTransform(benefitScrollYProgress, [0, 0.3, 0.7, 1], [index % 2 === 0 ? 50 : -50, 0, 0, index % 2 === 0 ? -50 : 50]);
+
+          const isImageLeft = index % 2 === 0;
+
+          return (
             <motion.div 
-              className={styles.service__background}
-              style={{ y: backgroundY }}
+              key={benefit.title} 
+              ref={benefitRef} 
+              className={styles.benefit}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
             >
-              <Image
-                src={service.image}
-                alt={service.alt}
-                fill
-                className={styles.service__backgroundImage}
-                priority={index === 0}
-              />
-              <div className={styles.service__overlay} />
-            </motion.div>
+              {/* Image Side */}
+              <motion.div 
+                className={`${styles.benefit__image} ${isImageLeft ? styles.left : styles.right}`}
+                style={{
+                  opacity: imageOpacity,
+                  scale: imageScale,
+                }}
+              >
+                <div className={styles.benefit__imageContainer}>
+                  <Image
+                    src={benefit.image}
+                    alt={benefit.alt}
+                    fill
+                    className={styles.benefit__imageElement}
+                    priority={index < 2}
+                  />
+                  <div className={styles.benefit__imageOverlay} />
+                </div>
+              </motion.div>
 
-            {/* Content */}
-            <div className={styles.service__content}>
-              <motion.div
-                className={styles.service__text}
+              {/* Text Side */}
+              <motion.div 
+                className={`${styles.benefit__text} ${isImageLeft ? styles.right : styles.left}`}
                 style={{
                   opacity: textOpacity,
                   x: textX,
                 }}
               >
-                <h2 className={styles.service__title}>{service.title}</h2>
-                <p className={styles.service__tagline}>{service.tagline}</p>
-                <p className={styles.service__description}>{service.description}</p>
+                <div className={styles.benefit__textContent}>
+                  <h2 className={styles.benefit__title}>{benefit.title}</h2>
+                  <p className={styles.benefit__tagline}>{benefit.tagline}</p>
+                  <p className={styles.benefit__description}>{benefit.description}</p>
+                </div>
               </motion.div>
-            </div>
-          </div>
-        );
-      })}
+            </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 };
 
-export default Services;
+export default Benefits;

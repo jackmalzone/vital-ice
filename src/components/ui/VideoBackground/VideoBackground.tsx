@@ -27,13 +27,21 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     }
   }, [isLoaded, onLoad]);
 
-  // Reset video to beginning when it becomes active
+  // Handle video activation and playback
   useEffect(() => {
-    if (isActive && videoRef.current && isLoaded) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {
-        // Handle autoplay restrictions silently
-      });
+    if (videoRef.current && isLoaded) {
+      if (isActive) {
+        // Only reset if video is paused or at the end
+        if (videoRef.current.paused || videoRef.current.currentTime >= videoRef.current.duration - 0.1) {
+          videoRef.current.currentTime = 0;
+        }
+        videoRef.current.play().catch(() => {
+          // Handle autoplay restrictions silently
+        });
+      } else {
+        // Pause inactive videos to save resources
+        videoRef.current.pause();
+      }
     }
   }, [isActive, isLoaded]);
 
@@ -41,13 +49,21 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     <div className={styles.videoContainer}>
       <video 
         ref={videoRef}
-        autoPlay 
+        autoPlay={isActive}
         muted 
         loop 
         playsInline 
+        preload="auto"
         className={`${styles.video} ${isActive ? styles.active : styles.inactive}`}
         poster={posterSrc}
         onLoadedData={() => setIsLoaded(true)}
+        onCanPlay={() => {
+          if (isActive && videoRef.current) {
+            videoRef.current.play().catch(() => {
+              // Handle autoplay restrictions silently
+            });
+          }
+        }}
       >
         <source src={videoSrc} type="video/mp4" />
       </video>

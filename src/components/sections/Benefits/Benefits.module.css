@@ -1,17 +1,11 @@
-.services {
-  position: relative;
-  overflow: hidden;
-}
-
-.service__section {
+.benefits {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
   overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
 }
 
-.service__background {
+.benefits__background {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,87 +14,184 @@
   z-index: 1;
 }
 
-.service__backgroundImage {
-  object-fit: cover;
-  object-position: center;
+.benefits__backgroundGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    transparent 100%
+  );
+}
+
+.benefits__container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+  margin: 4rem 0;
+  gap: 4rem;
+}
+
+.benefit__image {
+  flex: 1;
+  position: relative;
+  height: 60vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.benefit__imageContainer {
+  position: relative;
   width: 100%;
   height: 100%;
 }
 
-.service__overlay {
+.benefit__imageElement {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.benefit__image:hover .benefit__imageElement {
+  transform: scale(1.05);
+}
+
+.benefit__imageOverlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.1) 100%
+    45deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.3) 100%
   );
-  z-index: 2;
+  z-index: 1;
 }
 
-.service__content {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  min-height: 100vh;
+.benefit__text {
+  flex: 1;
   display: flex;
   align-items: center;
+  padding: 2rem;
 }
 
-.service__text {
-  max-width: 600px;
-  color: #ffffff;
+.benefit__textContent {
+  max-width: 500px;
 }
 
-.service__title {
+.benefit__title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 10vw, 5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 400;
   color: #ffffff;
   line-height: 1;
   letter-spacing: 0.02em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   margin: 0 0 1rem 0;
   text-transform: uppercase;
 }
 
-.service__tagline {
+.benefit__tagline {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
   font-weight: 300;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.2;
   letter-spacing: 0.05em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   margin: 0 0 1.5rem 0;
   font-style: italic;
 }
 
-.service__description {
+.benefit__description {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(0.875rem, 2vw, 1rem);
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
   letter-spacing: 0.02em;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   margin: 0;
   text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
-  .service__content {
-    padding: 0 1rem;
+/* Alternating layout */
+.benefit:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .benefit {
+    flex-direction: column !important;
+    gap: 2rem;
+    min-height: auto;
+    margin: 3rem 0;
   }
 
-  .service__text {
+  .benefit__image {
+    height: 40vh;
+    width: 100%;
+  }
+
+  .benefit__text {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .benefit__textContent {
     max-width: none;
   }
+}
+
+@media (max-width: 768px) {
+  .benefits__container {
+    padding: 2rem 1rem;
+  }
+
+  .benefit {
+    margin: 2rem 0;
+  }
+
+  .benefit__image {
+    height: 30vh;
+  }
+
+  .benefit__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .benefit__tagline {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .benefit__description {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+}
+
+/* Glassmorphic effect for text on hover */
+.benefit__text:hover .benefit__textContent {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: -1.5rem;
+  transition: all 0.3s ease;
 }

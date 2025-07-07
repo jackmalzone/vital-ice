@@ -184,6 +184,9 @@ const Vision: FC = () => {
         <div className={styles.vision__overlay} />
       </motion.div>
 
+      {/* Top Gradient Transition */}
+      <div className={styles.vision__topGradient} aria-hidden="true" />
+
       {/* Content Container */}
       <div ref={containerRef} className={styles.vision__container}>
         {/* Vision Sentences */}

@@ -4,21 +4,21 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.92);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
-  height: 56px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
+  padding: 0 2rem;
+  height: 64px;
+  backdrop-filter: blur(6px);
   transition: all 0.3s ease;
+  border-bottom: none;
 }
 
 .header.transparent {
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.05) 100%);
+  backdrop-filter: blur(6px);
+  border-bottom: none;
 }
 
 .logoLink {
@@ -53,7 +53,7 @@
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .desktopNavItem {
@@ -61,17 +61,25 @@
 }
 
 .desktopNavLink {
-  color: #ebede5;
+  color: #ffffff;
   text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
   padding: 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  mix-blend-mode: difference;
 }
 
 .desktopNavLink:hover,
 .desktopNavLink.active {
   color: #00b7b5;
+  mix-blend-mode: normal;
+}
+
+.desktopNavLink:focus {
+  outline: none;
 }
 
 /* Dropdown Styles */
@@ -82,20 +90,28 @@
 .dropdownTrigger {
   background: none;
   border: none;
-  color: #ebede5;
-  font-size: 1rem;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 400;
   cursor: pointer;
   padding: 0.5rem 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  mix-blend-mode: difference;
 }
 
 .dropdownTrigger:hover,
 .dropdownTrigger.active {
   color: #00b7b5;
+  mix-blend-mode: normal;
+}
+
+.dropdownTrigger:focus {
+  outline: none;
 }
 
 .dropdownIcon {
@@ -142,28 +158,6 @@
 .dropdownLink:hover {
   background: rgba(0, 183, 181, 0.1);
   color: #00b7b5;
-}
-
-/* Book Now Button */
-.bookButton {
-  display: none;
-  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
-  color: #000000;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.bookButton:hover {
-  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 183, 181, 0.3);
 }
 
 /* Mobile Menu Button */
@@ -352,20 +346,11 @@
     padding: 0 3rem;
   }
 
-  .logo {
-    width: 160px;
-    height: 40px;
-  }
-
   .hamburger {
     display: none;
   }
 
   .desktopNav {
-    display: block;
-  }
-
-  .bookButton {
     display: block;
   }
 }
