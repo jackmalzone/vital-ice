@@ -63,7 +63,7 @@ export const detectDeviceCapabilities = (): PerformanceProfile => {
 const detectLowEndDevice = (): boolean => {
   // Check for low memory
   if ('deviceMemory' in navigator) {
-    const memory = (navigator as any).deviceMemory;
+    const memory = (navigator as { deviceMemory?: number }).deviceMemory;
     if (memory && memory < 4) return true;
   }
 
@@ -75,7 +75,7 @@ const detectLowEndDevice = (): boolean => {
 
   // Check for slow connection
   if ('connection' in navigator) {
-    const connection = (navigator as any).connection;
+    const connection = (navigator as { connection?: { effectiveType?: string } }).connection;
     if (connection && connection.effectiveType === 'slow-2g') return true;
   }
 
@@ -90,10 +90,13 @@ const detectLowEndDevice = (): boolean => {
 // Detect connection quality
 const detectConnectionQuality = (): boolean => {
   if ('connection' in navigator) {
-    const connection = (navigator as any).connection;
+    const connection = (navigator as { connection?: { effectiveType?: string; downlink?: number } })
+      .connection;
     if (connection) {
       // Good connection: 4g, 3g, or fast wifi
-      return ['4g', '3g'].includes(connection.effectiveType) || connection.downlink > 1.5; // > 1.5 Mbps
+      return (
+        ['4g', '3g'].includes(connection.effectiveType || '') || (connection.downlink || 0) > 1.5
+      ); // > 1.5 Mbps
     }
   }
 

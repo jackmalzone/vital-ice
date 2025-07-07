@@ -143,7 +143,9 @@ const PerformanceDemo: FC = () => {
               <div className={styles.metric}>
                 <span className={styles.label}>Memory:</span>
                 <span className={styles.value}>
-                  {'deviceMemory' in navigator ? `${(navigator as any).deviceMemory}GB` : 'Unknown'}
+                  {'deviceMemory' in navigator
+                    ? `${(navigator as { deviceMemory?: number }).deviceMemory}GB`
+                    : 'Unknown'}
                 </span>
               </div>
               <div className={styles.metric}>
@@ -154,7 +156,8 @@ const PerformanceDemo: FC = () => {
                 <span className={styles.label}>Connection:</span>
                 <span className={styles.value}>
                   {'connection' in navigator
-                    ? (navigator as any).connection.effectiveType || 'Unknown'
+                    ? (navigator as { connection?: { effectiveType?: string } }).connection
+                        ?.effectiveType || 'Unknown'
                     : 'Unknown'}
                 </span>
               </div>
@@ -174,7 +177,8 @@ const PerformanceDemo: FC = () => {
           <div className={styles.recommendationList}>
             {strategy.useVideo && (
               <div className={styles.recommendation}>
-                ✅ Your device can handle video backgrounds. You'll see immersive video content.
+                ✅ Your device can handle video backgrounds. You&apos;ll see immersive video
+                content.
               </div>
             )}
             {!strategy.useVideo && profile.canHandleVideo && (
@@ -184,7 +188,7 @@ const PerformanceDemo: FC = () => {
             )}
             {!profile.canHandleVideo && (
               <div className={styles.recommendation}>
-                📱 Your device doesn't support video playback. Images will be used instead.
+                📱 Your device doesn&apos;t support video playback. Images will be used instead.
               </div>
             )}
             {strategy.reducedMotion && (

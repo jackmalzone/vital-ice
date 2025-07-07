@@ -85,7 +85,7 @@ const NewsletterWrapper: FC = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Let's Connect
+            Let&apos;s Connect
           </motion.h2>
 
           <motion.p

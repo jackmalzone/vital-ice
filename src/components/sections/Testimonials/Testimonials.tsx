@@ -152,7 +152,7 @@ const Testimonials: FC = () => {
                   transition={{ delay: 0.3, duration: 0.6, ease: 'backOut' }}
                   style={{ color: testimonials[currentIndex].accent }}
                 >
-                  "
+                  &quot;
                 </motion.div>
 
                 <motion.blockquote

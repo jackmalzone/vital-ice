@@ -80,7 +80,7 @@ const About: FC = () => {
               viewport={{ once: true }}
               transition={{ delay: 1.0, duration: 0.6 }}
             >
-              In a world that moves fast, we return to what's slow, intentional, and effective.
+              In a world that moves fast, we return to what&apos;s slow, intentional, and effective.
               Through contrast therapy, we help people reset their systems and reawaken resilience.
             </motion.p>
             <motion.p

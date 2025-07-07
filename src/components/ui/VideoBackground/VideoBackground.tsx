@@ -50,7 +50,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           video.pause();
           setIsPlaying(false);
         }
-      } catch (error) {
+      } catch {
         setHasError(true);
         setIsPlaying(false);
       }
@@ -68,7 +68,8 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           await video.play();
           setIsPlaying(true);
           setHasError(false);
-        } catch (error) {
+        } catch {
+          // Silently handle autoplay errors
         }
       }
     };
