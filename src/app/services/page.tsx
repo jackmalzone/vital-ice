@@ -11,7 +11,7 @@ const services = [
     title: 'Infrared Sauna',
     description: 'Deep tissue warming with infrared technology for detoxification and relaxation',
     benefits: ['Detoxification', 'Pain Relief', 'Stress Reduction', 'Improved Circulation'],
-    image: '/images/sauna-ambient.jpg',
+    image: '/images/sauna-infraredwide.jpg',
     link: '/services/infrared-sauna'
   },
   {
@@ -19,7 +19,7 @@ const services = [
     title: 'Traditional Sauna',
     description: 'Classic Finnish-style sauna experience with dry heat therapy',
     benefits: ['Cardiovascular Health', 'Muscle Recovery', 'Immune Support', 'Mental Clarity'],
-    image: '/images/traditional-sauna.jpg',
+    image: '/images/sauna-traditional.jpg',
     link: '/services/traditional-sauna'
   },
   {
@@ -27,7 +27,7 @@ const services = [
     title: 'Cold Plunge',
     description: 'Ice-cold water therapy for enhanced recovery and mental resilience',
     benefits: ['Faster Recovery', 'Reduced Inflammation', 'Mental Toughness', 'Improved Sleep'],
-    image: '/images/cold-plunge.jpg',
+    image: '/images/coldplunge_woman.jpg',
     link: '/services/cold-plunge'
   },
   {
@@ -35,7 +35,7 @@ const services = [
     title: 'Compression Boots',
     description: 'Advanced compression therapy for enhanced circulation and recovery',
     benefits: ['Improved Circulation', 'Faster Recovery', 'Reduced Swelling', 'Enhanced Performance'],
-    image: '/images/compression-boots.jpg',
+    image: '/images/cells-bloodcells.jpg',
     link: '/services/compression-boots'
   },
   {
@@ -43,7 +43,7 @@ const services = [
     title: 'Percussion Massage',
     description: 'Deep tissue percussion therapy for muscle recovery and tension relief',
     benefits: ['Muscle Recovery', 'Tension Relief', 'Improved Range of Motion', 'Enhanced Performance'],
-    image: '/images/percussion-massage.jpg',
+    image: '/images/texture_blackmarble-cracks.jpg',
     link: '/services/percussion-massage'
   },
   {
@@ -51,7 +51,7 @@ const services = [
     title: 'Red Light Therapy',
     description: 'Therapeutic light treatment for cellular regeneration and skin health',
     benefits: ['Cellular Regeneration', 'Skin Health', 'Pain Relief', 'Anti-Aging'],
-    image: '/images/red-light-therapy.jpg',
+    image: '/images/redlight_jellyfish.jpg',
     link: '/services/red-light-therapy'
   }
 ];
