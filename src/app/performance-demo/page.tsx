@@ -99,7 +99,7 @@ const PerformanceDemoPage: FC = () => {
               <h3>♿ Accessibility</h3>
               <p>
                 Respects user preferences like reduced motion and provides fallbacks for devices
-                that don't support certain features.
+                that don&apos;t support certain features.
               </p>
             </div>
           </div>

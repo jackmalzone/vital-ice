@@ -106,14 +106,14 @@ const AboutPage: FC = () => {
             <p className={styles.story__text}>
               Vital Ice was born from a simple yet profound realization: modern life has
               disconnected us from the natural rhythms that our bodies evolved with. In a world of
-              constant stimulation and stress, we've lost touch with the restorative power of
+              constant stimulation and stress, we&apos;ve lost touch with the restorative power of
               intentional cold exposure and mindful heat therapy.
             </p>
             <p className={styles.story__text}>
               Our founders, having experienced the transformative effects of cold plunge and
               infrared sauna therapy firsthand, envisioned a space where people could reconnect with
               these ancient wellness practices in a modern, accessible way. We believe that true
-              recovery isn't just about physical healing—it's about creating moments of presence,
+              recovery isn&apos;t just about physical healing—it&apos;s about creating moments of presence,
               clarity, and connection.
             </p>
           </motion.div>

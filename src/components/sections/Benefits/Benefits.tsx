@@ -1,16 +1,12 @@
 'use client';
 
-import { FC, useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { FC, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Benefits.module.css';
 
 const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
 
   const benefits = [
     {
@@ -179,22 +175,15 @@ const Benefits: FC = () => {
       {/* Benefits Content */}
       <div className={styles.benefits__container}>
         {benefits.map((benefit, index) => {
-          const benefitRef = useRef<HTMLDivElement>(null);
-          const isInView = useInView(benefitRef, {
-            once: true,
-            margin: '-50px',
-            amount: 0.05,
-          });
-
           const isImageLeft = index % 2 === 0;
 
           return (
             <motion.div
               key={benefit.title}
-              ref={benefitRef}
               className={styles.benefit}
               initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
               transition={{
                 duration: 0.8,
                 delay: index * 0.2,
@@ -205,7 +194,8 @@ const Benefits: FC = () => {
               <motion.div
                 className={`${styles.benefit__image} ${isImageLeft ? styles.left : styles.right}`}
                 initial={{ opacity: 0, scale: 0.95 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{
                   duration: 1,
                   delay: index * 0.2 + 0.3,
@@ -231,9 +221,8 @@ const Benefits: FC = () => {
               <motion.div
                 className={`${styles.benefit__text} ${isImageLeft ? styles.right : styles.left}`}
                 initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
-                animate={
-                  isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isImageLeft ? 30 : -30 }
-                }
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{
                   duration: 0.8,
                   delay: index * 0.2 + 0.5,
@@ -244,7 +233,8 @@ const Benefits: FC = () => {
                   <motion.div
                     className={styles.benefit__titleContainer}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{
                       duration: 0.6,
                       delay: index * 0.2 + 0.7,
@@ -257,11 +247,8 @@ const Benefits: FC = () => {
                       className={styles.benefit__icon}
                       style={{ color: benefit.color }}
                       initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                      animate={
-                        isInView
-                          ? { opacity: 1, scale: 1, rotate: 0 }
-                          : { opacity: 0, scale: 0.8, rotate: -10 }
-                      }
+                      whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                      viewport={{ once: true }}
                       transition={{
                         duration: 0.6,
                         delay: index * 0.2 + 0.8,
@@ -275,7 +262,8 @@ const Benefits: FC = () => {
                   <motion.p
                     className={styles.benefit__tagline}
                     initial={{ opacity: 0, y: 15 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{
                       duration: 0.6,
                       delay: index * 0.2 + 0.9,
@@ -287,7 +275,8 @@ const Benefits: FC = () => {
                   <motion.p
                     className={styles.benefit__description}
                     initial={{ opacity: 0, y: 10 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{
                       duration: 0.6,
                       delay: index * 0.2 + 1.1,

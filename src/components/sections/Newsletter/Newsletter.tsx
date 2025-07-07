@@ -111,7 +111,7 @@ export default function Newsletter() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
             >
-              Welcome. We'll stay in touch — lightly.
+              Welcome. We&apos;ll stay in touch — lightly.
             </motion.div>
           )}
         </AnimatePresence>

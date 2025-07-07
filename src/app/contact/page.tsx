@@ -23,7 +23,7 @@ const ContactPage: FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission - integrate with email service
-    console.log('Form submitted:', formData);
+            // Form submitted successfully
   };
 
   const contactInfo = [
@@ -99,7 +99,7 @@ const ContactPage: FC = () => {
             >
               <h2 className={styles.contact__infoTitle}>Get in Touch</h2>
               <p className={styles.contact__infoText}>
-                Have questions about our services or want to learn more? We'd love to hear from you.
+                Have questions about our services or want to learn more? We&apos;d love to hear from you.
               </p>
 
               <div className={styles.contact__details}>

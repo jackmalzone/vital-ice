@@ -1,15 +1,28 @@
 'use client';
 
-import { FC, useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { FC, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Vision.module.css';
 
-const VisionPage: FC = () => {
+interface VisionSectionProps {
+  section: {
+    id: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    alt: string;
+    content: string | null;
+  };
+  index: number;
+}
+
+const VisionSection: FC<VisionSectionProps> = ({ section, index }) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
+  const isInView = useInView(sectionRef, {
+    once: true,
+    margin: '-100px',
+    amount: 0.3,
   });
 
   // Function to determine text color based on section
@@ -43,6 +56,104 @@ const VisionPage: FC = () => {
         return '0 2px 8px rgba(0, 0, 0, 0.5)'; // Default shadow
     }
   };
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      className={styles.section}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 1, delay: index * 0.2 }}
+    >
+      {/* Background Image */}
+      <motion.div
+        className={styles.section__background}
+        initial={{ scale: 1.1, opacity: 0 }}
+        animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
+        transition={{ duration: 1.5, delay: index * 0.2 + 0.3 }}
+      >
+        <Image
+          src={section.image}
+          alt={section.alt}
+          fill
+          className={styles.section__backgroundImage}
+          priority={index < 2}
+        />
+        <div className={styles.section__overlay} />
+      </motion.div>
+
+      {/* Content */}
+      <div className={styles.section__content}>
+        <motion.div
+          className={styles.section__textContainer}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{
+            duration: 0.8,
+            delay: index * 0.2 + 0.5,
+            ease: [0.4, 0, 0.2, 1],
+          }}
+        >
+          <motion.h1
+            className={styles.section__title}
+            style={{
+              color: getTextColor(section.id),
+              textShadow: getTextShadow(section.id),
+            }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.2 + 0.7,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            {section.title}
+          </motion.h1>
+
+          <motion.p
+            className={styles.section__subtitle}
+            style={{
+              color: getTextColor(section.id),
+              textShadow: getTextShadow(section.id),
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.2 + 0.9,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            {section.subtitle}
+          </motion.p>
+
+          {section.content && (
+            <motion.p
+              className={styles.section__content}
+              style={{
+                color: getTextColor(section.id),
+                textShadow: getTextShadow(section.id),
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.2 + 1.1,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+            >
+              {section.content}
+            </motion.p>
+          )}
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
+
+const VisionPage: FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
 
   const visionSections = [
     {
@@ -116,109 +227,9 @@ const VisionPage: FC = () => {
         ))}
       </div>
 
-      {visionSections.map((section, index) => {
-        const sectionRef = useRef<HTMLElement>(null);
-        const isInView = useInView(sectionRef, {
-          once: true,
-          margin: '-100px',
-          amount: 0.3,
-        });
-
-        return (
-          <motion.section
-            key={section.id}
-            ref={sectionRef}
-            className={styles.section}
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1, delay: index * 0.2 }}
-          >
-            {/* Background Image */}
-            <motion.div
-              className={styles.section__background}
-              initial={{ scale: 1.1, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
-              transition={{ duration: 1.5, delay: index * 0.2 + 0.3 }}
-            >
-              <Image
-                src={section.image}
-                alt={section.alt}
-                fill
-                className={styles.section__backgroundImage}
-                priority={index < 2}
-              />
-              <div className={styles.section__overlay} />
-            </motion.div>
-
-            {/* Content */}
-            <div className={styles.section__content}>
-              <motion.div
-                className={styles.section__textContainer}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.2 + 0.5,
-                  ease: [0.4, 0, 0.2, 1],
-                }}
-              >
-                <motion.h1
-                  className={styles.section__title}
-                  style={{
-                    color: getTextColor(section.id),
-                    textShadow: getTextShadow(section.id),
-                  }}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.2 + 0.7,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                >
-                  {section.title}
-                </motion.h1>
-
-                <motion.p
-                  className={styles.section__subtitle}
-                  style={{
-                    color: getTextColor(section.id),
-                    textShadow: getTextShadow(section.id),
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.2 + 0.9,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                >
-                  {section.subtitle}
-                </motion.p>
-
-                {section.content && (
-                  <motion.p
-                    className={styles.section__content}
-                    style={{
-                      color: getTextColor(section.id),
-                      textShadow: getTextShadow(section.id),
-                    }}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 1.1,
-                      ease: [0.4, 0, 0.2, 1],
-                    }}
-                  >
-                    {section.content}
-                  </motion.p>
-                )}
-              </motion.div>
-            </div>
-          </motion.section>
-        );
-      })}
+      {visionSections.map((section, index) => (
+        <VisionSection key={section.id} section={section} index={index} />
+      ))}
 
       {/* Call to Action Section */}
       <motion.section

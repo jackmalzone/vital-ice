@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import AdaptiveMedia from '@/components/ui/AdaptiveMedia/AdaptiveMedia';
 import styles from './page.module.css';
 
@@ -376,7 +376,7 @@ const HistoricalTimeline: FC = () => {
             The timeline of communal bathing and wellness has truly come full circle – reminding us
             that sometimes the path to innovation leads right back to the wisdom of the ancients.
             Whether in a rustic sweat lodge or a state-of-the-art city spa, the elemental ritual of
-            "heat, sweat, cold, rest" continues to heal, connect, and inspire people as it has for
+            &quot;heat, sweat, cold, rest&quot; continues to heal, connect, and inspire people as it has for
             thousands of years.
           </p>
         </div>
