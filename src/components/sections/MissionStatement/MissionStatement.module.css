@@ -1,0 +1,293 @@
+.mission {
+  position: relative;
+  padding: 120px 0;
+  background: #000000;
+  overflow: hidden;
+}
+
+.mission::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('/images/texture_blackmarble-cracks.jpg') center/cover no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mission__bottomTransition {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8vh;
+  background: linear-gradient(to bottom, transparent, #000000);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mission::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5vh;
+  background: #000000;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mission::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8vh;
+  background: linear-gradient(to bottom, transparent, #000000);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mission__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.mission__content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mission__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 60px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(0, 183, 181, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0.5px 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  filter: contrast(1.1);
+}
+
+.mission__title::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00b7b5, transparent);
+}
+
+.mission__statement {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #e0e0e0;
+  margin: 0 0 60px 0;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  position: relative;
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(0, 183, 181, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0.5px 1px rgba(255, 255, 255, 0.1);
+  filter: contrast(1.05);
+  letter-spacing: 0.04em;
+}
+
+.mission__statement:hover {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.mission__highlight {
+  font-style: italic;
+  font-weight: 700;
+  color: #00b7b5;
+  text-shadow: 0 0 20px rgba(0, 183, 181, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.mission__highlight::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -4px;
+  right: -4px;
+  bottom: -2px;
+  background: linear-gradient(45deg, rgba(0, 183, 181, 0.1), transparent);
+  border-radius: 4px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mission__statement:hover .mission__highlight {
+  color: #00d4d2;
+  text-shadow: 0 0 30px rgba(0, 183, 181, 0.5);
+}
+
+.mission__cta {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mission__ctaText {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  color: #00b7b5;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.mission__divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 183, 181, 0.6), transparent);
+  margin: 40px auto;
+  position: relative;
+}
+
+.mission__divider::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 183, 181, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 183, 181, 0.6);
+}
+
+.mission__quote {
+  margin: 40px 0;
+}
+
+.mission__quoteText {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mission__ctaText em {
+  font-style: italic;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mission {
+    padding: 80px 0;
+  }
+
+  .mission__container {
+    padding: 0 16px;
+  }
+
+  .mission__statements {
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .mission__cta {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+}
+
+/* Ambient Background */
+.mission__ambient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 70%, rgba(0, 183, 181, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Etched Stone Symbols */
+.mission__symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mission__symbol {
+  position: absolute;
+  font-size: 2rem;
+  color: rgba(0, 183, 181, 0.4);
+  text-shadow: 0 0 15px rgba(0, 183, 181, 0.6);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  z-index: 2;
+}
+
+/* Animation Enhancements */
+.mission__statement {
+  position: relative;
+}
+
+.mission__statement::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, #00b7b5 0%, transparent 100%);
+  transform: translateY(-50%);
+  transition: height 0.3s ease;
+}
+
+.mission__statement:hover::before {
+  height: 20px;
+}
+
+.mission__statement:hover .mission__highlight::before {
+  opacity: 1;
+}

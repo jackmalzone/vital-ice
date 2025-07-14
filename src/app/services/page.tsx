@@ -7,9 +7,21 @@ import styles from './page.module.css';
 
 const services = [
   {
+    id: 'cold-plunge',
+    title: 'Cold Plunge',
+    tagline: 'Let the chill change you.',
+    specs: '40–50 degrees. 2–5 minutes. A science backed remedy',
+    description: 'Step in cold. Step out clear.',
+    benefits: ['Faster Recovery', 'Reduced Inflammation', 'Mental Toughness', 'Improved Sleep'],
+    image: '/images/coldplunge_woman.jpg',
+    link: '/services/cold-plunge',
+  },
+  {
     id: 'infrared-sauna',
     title: 'Infrared Sauna',
-    description: 'Deep tissue warming with infrared technology for detoxification and relaxation',
+    tagline: 'Let the light heat the body from within.',
+    specs: '120-150 degrees. 30-40 minutes. A modern method of recovery',
+    description: 'Release the strain. Welcome the repair',
     benefits: ['Detoxification', 'Pain Relief', 'Stress Reduction', 'Improved Circulation'],
     image: '/images/sauna-infraredwide.jpg',
     link: '/services/infrared-sauna',
@@ -17,23 +29,29 @@ const services = [
   {
     id: 'traditional-sauna',
     title: 'Traditional Sauna',
-    description: 'Classic Finnish-style sauna experience with dry heat therapy',
+    tagline: 'Let the heat hold you.',
+    specs: '160–200 degrees. 10–20 minutes. A time tested tradition',
+    description: 'Exhale the noise. Inhale the calm.',
     benefits: ['Cardiovascular Health', 'Muscle Recovery', 'Immune Support', 'Mental Clarity'],
     image: '/images/sauna-traditional.jpg',
     link: '/services/traditional-sauna',
   },
   {
-    id: 'cold-plunge',
-    title: 'Cold Plunge',
-    description: 'Ice-cold water therapy for enhanced recovery and mental resilience',
-    benefits: ['Faster Recovery', 'Reduced Inflammation', 'Mental Toughness', 'Improved Sleep'],
-    image: '/images/coldplunge_woman.jpg',
-    link: '/services/cold-plunge',
+    id: 'red-light-therapy',
+    title: 'Red Light Therapy',
+    tagline: 'Rejuvenation by the power of light',
+    specs: 'Ambient temp. 10-20 minutes. Mask your face in Low-level red and near-infrared light',
+    description: 'Red light. Radiant skin.',
+    benefits: ['Cellular Regeneration', 'Skin Health', 'Pain Relief', 'Anti-Aging'],
+    image: '/images/redlight_jellyfish.jpg',
+    link: '/services/red-light-therapy',
   },
   {
     id: 'compression-boots',
     title: 'Compression Boots',
-    description: 'Advanced compression therapy for enhanced circulation and recovery',
+    tagline: 'Legs up. Pressure\'s on',
+    specs: '15-20 minutes. Sequential compression improves circulation and brings relief.',
+    description: 'Flush out the fatigue.',
     benefits: [
       'Improved Circulation',
       'Faster Recovery',
@@ -45,8 +63,10 @@ const services = [
   },
   {
     id: 'percussion-massage',
-    title: 'Percussion Massage',
-    description: 'Deep tissue percussion therapy for muscle recovery and tension relief',
+    title: 'Percussion Massagers',
+    tagline: 'Powerful pulses. Faster recovery',
+    specs: '10-20 minutes. Rapid, targeted pulses penetrate deep into muscle tissue.',
+    description: 'Break the tension, with precision.',
     benefits: [
       'Muscle Recovery',
       'Tension Relief',
@@ -55,14 +75,6 @@ const services = [
     ],
     image: '/images/texture_blackmarble-cracks.jpg',
     link: '/services/percussion-massage',
-  },
-  {
-    id: 'red-light-therapy',
-    title: 'Red Light Therapy',
-    description: 'Therapeutic light treatment for cellular regeneration and skin health',
-    benefits: ['Cellular Regeneration', 'Skin Health', 'Pain Relief', 'Anti-Aging'],
-    image: '/images/redlight_jellyfish.jpg',
-    link: '/services/red-light-therapy',
   },
 ];
 
@@ -132,6 +144,8 @@ const ServicesPage: FC = () => {
                 </div>
                 <div className={styles.service__content}>
                   <h3 className={styles.service__title}>{service.title}</h3>
+                  <p className={styles.service__tagline}>{service.tagline}</p>
+                  <p className={styles.service__specs}>{service.specs}</p>
                   <p className={styles.service__description}>{service.description}</p>
 
                   <div className={styles.service__benefits}>

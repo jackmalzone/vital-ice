@@ -28,7 +28,7 @@ function FogPlane({ position = [0, 0, 0], scale = [1, 1, 1], speed = 1 }) {
           {
             uniforms: {
               uTime: { value: 0 },
-              uColor: { value: new THREE.Color(0xe8e6e0) },
+              uColor: { value: new THREE.Color(0xffffff) },
             },
             vertexShader: `
             varying vec2 vUv;

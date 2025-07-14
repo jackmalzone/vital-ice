@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from './page.module.css';
@@ -8,43 +8,45 @@ import styles from './page.module.css';
 const AboutPage: FC = () => {
   const values = [
     {
-      title: 'Community First',
-      description:
-        'We believe wellness is a shared journey. Our space fosters connection, support, and collective growth.',
+      title: 'Contrast Therapy',
+      description: 'Every session leaves you feeling restored and focused',
       color: '#00b7b5',
     },
     {
-      title: 'Ancient Wisdom',
-      description:
-        'We honor time-tested practices while embracing modern science and technology for optimal results.',
+      title: 'Community',
+      description: 'We believe we live better, together. Our space is built for connection and shared goals. Whether you\'re seeking personal rejuvenation or shared experiences, our members find belonging here.',
       color: '#9ec7c5',
     },
     {
-      title: 'Inclusive Wellness',
-      description:
-        'Wellness should be accessible to everyone. We create a welcoming, judgment-free environment.',
+      title: 'Wellness',
+      description: 'It\'s more than recovery. It\'s a core ritual for balance, longevity and wellbeing',
       color: '#ebede5',
     },
     {
-      title: 'Evidence-Based',
-      description:
-        'Our approach combines traditional practices with cutting-edge research and proven methodologies.',
+      title: 'Integrity & Simplicity',
+      description: 'With thoughtfully chosen materials, sustainable operations, flexible and transparent service, we strive for integrity in every detail.',
       color: '#7a9e9d',
     },
   ];
 
   const team = [
     {
-      name: "Sean O'Connor",
-      role: 'Co-Founder & CEO',
-      bio: 'Former professional athlete turned wellness advocate, Sean brings his passion for peak performance and recovery to Vital Ice.',
+      name: 'Stephen',
+      role: 'Co-Founder',
+      bio: 'I am an Irish immigrant and a hairstylist by trade, and I\'ve always loved helping people feel better — whether that\'s through a great haircut or simply offering small moments of calm in the midst of busy lives. Fitness has been part of my life from a young age, but as I got older I realized that recovery matters just as much.\n\nVital Ice started because I needed it myself. Life gets a little chaotic sometimes, and contrast therapy became my way to slow things down, clear my head, and hit the reset button. I never imagined it would grow into this — a space where people come together to feel better.\n\nMy personal goal is to create a space where recovery feels accessible, ritual— and shared by the community',
       image: '/images/founder-sean.png',
     },
     {
-      name: 'Stephen Mullin',
-      role: 'Co-Founder & CTO',
-      bio: 'Technology entrepreneur with a deep interest in biohacking and human optimization. Stephen oversees our innovative wellness technology.',
+      name: 'Sean',
+      role: 'Co-Founder',
+      bio: 'I\'m a Chicago native, born and raised. At 16, my family relocated to Ireland, where I completed my degree in Electrical Engineering. My journey ultimately brought me to San Francisco, where I now work in business development within the physical security industry.\n\nMy passion for health and wellness is deeply tied to how I spend my free time. In Ireland, I discovered Gaelic Football and went on to compete at the highest level before returning to the States. Today, I still play in the local league here in SF. Sport inspired me to relentlessly pursue the optimization of my health. Contrast therapy—especially cold exposure—has long been a cornerstone of recovery for elite athletes around the world. I have consistently relied on it to stay strong and healthy.\n\nIn a world full of toxins and distractions, I believe more than ever in the importance of accessible recovery—and meaningful connection. We thrive when we feel good, and even more so when we do it together. I hope Vital Ice creates that space and makes a lasting, positive impact on everyone who walks through our doors.',
       image: '/images/founder-stephen.png',
+    },
+    {
+      name: 'Barry',
+      role: 'Co-Founder',
+      bio: 'Barry is a proud Irish immigrant, lifelong athlete, secretary of a local Gaelic football team and the founder & operator of a successful general contracting business here in the Bay Area. A husband, a father, and a tireless worker, Barry brings a rare mix of grit, heart, and craftsmanship to everything he does.\n\nHis passion for sports and physical performance has shaped much of his life, and that same drive shows up in his work ethic today. As someone who understands the demands of building—both physically and professionally—he\'s a firm believer in the power of recovery and routine.\n\nBarry is the force behind the construction of the Vital Ice studio. His hands-on involvement ensures every inch of the space reflects intention, durability, and care. He\'s building more than walls—he\'s helping shape a space that gives back to the body, the mind, and the community.',
+      image: '/images/founders-seanstephen.png',
     },
   ];
 
@@ -104,17 +106,19 @@ const AboutPage: FC = () => {
           >
             <h2 className={styles.story__title}>Our Story</h2>
             <p className={styles.story__text}>
-              Vital Ice was born from a simple yet profound realization: modern life has
-              disconnected us from the natural rhythms that our bodies evolved with. In a world of
-              constant stimulation and stress, we&apos;ve lost touch with the restorative power of
-              intentional cold exposure and mindful heat therapy.
+              Behind the name, we&apos;re just three local enthusiasts who wanted something simple: a place to cold plunge with our friends, close to home. When we couldn&apos;t find anything that felt right—affordable, high-quality, and built around community—we decided to create it ourselves. Vital Ice was built to bridge the gap between high-performance recovery and everyday accessibility.
             </p>
             <p className={styles.story__text}>
-              Our founders, having experienced the transformative effects of cold plunge and
-              infrared sauna therapy firsthand, envisioned a space where people could reconnect with
-              these ancient wellness practices in a modern, accessible way. We believe that true
-              recovery isn&apos;t just about physical healing—it&apos;s about creating moments of
-              presence, clarity, and connection.
+              This started as a personal need and turned into something bigger: a space where people can reset, recover, and connect. No pressure. No BS. Just cold water, hot air, and the pride that comes with prioritizing your health and wellness.
+            </p>
+            <p className={styles.story__text}>
+              We built this for the early risers, the post-work plungers, the weekend warriors, and anyone trying to take care of their body and mind in a way that feels real. Whether you&apos;re here to get centered, recover from a hard workout, or just share a moment of peace—we&apos;re glad you&apos;re here.
+            </p>
+            <p className={styles.story__text}>
+              Recovery isn&apos;t a luxury — it&apos;s a ritual.
+            </p>
+            <p className={styles.story__text}>
+              — The Vital Ice Team
             </p>
           </motion.div>
           <motion.div
@@ -212,7 +216,11 @@ const AboutPage: FC = () => {
                 <div className={styles.team__info}>
                   <h3 className={styles.team__name}>{member.name}</h3>
                   <p className={styles.team__role}>{member.role}</p>
-                  <p className={styles.team__bio}>{member.bio}</p>
+                  <div className={styles.team__bio}>
+                    {member.bio.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -244,10 +252,7 @@ const AboutPage: FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            To create spaces where people can reconnect with their innate capacity for healing and
-            renewal through the power of contrast therapy. We believe that by honoring ancient
-            wisdom while embracing modern technology, we can help individuals achieve optimal
-            wellness and build resilient, thriving communities.
+            Challenge your limits. <em>Join The Ritual</em>
           </motion.p>
           <motion.button
             className={styles.mission__button}
