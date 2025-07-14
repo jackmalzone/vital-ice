@@ -29,7 +29,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     }
   }, [isLoaded, onLoad]);
 
-  // Handle video activation and playback with better error handling
+  // Optimized video activation and playback for mobile
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !isLoaded) return;
@@ -37,8 +37,10 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     const playVideo = async () => {
       try {
         if (isActive) {
-          // Always reset video to beginning when becoming active
-          video.currentTime = 0;
+          // Mobile optimization: don't reset video time on every activation
+          if (!isPlaying) {
+            video.currentTime = 0;
+          }
 
           // Try to play with user interaction fallback
           const playPromise = video.play();
@@ -57,9 +59,9 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     };
 
     playVideo();
-  }, [isActive, isLoaded]);
+  }, [isActive, isLoaded, isPlaying]);
 
-  // Handle user interaction to enable autoplay
+  // Optimized user interaction handling for mobile
   useEffect(() => {
     const handleUserInteraction = async () => {
       const video = videoRef.current;
@@ -74,8 +76,8 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
       }
     };
 
-    // Listen for user interactions
-    const events = ['click', 'touchstart', 'keydown', 'scroll'];
+    // Mobile-optimized event listeners
+    const events = ['touchstart', 'click']; // Reduced event list for mobile
     events.forEach(event => {
       document.addEventListener(event, handleUserInteraction, { once: true, passive: true });
     });
@@ -115,7 +117,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata" // Changed from "auto" to "metadata" for better mobile performance
         className={`${styles.video} ${isActive ? styles.active : styles.inactive}`}
         poster={posterSrc}
         onLoadedData={handleVideoLoad}

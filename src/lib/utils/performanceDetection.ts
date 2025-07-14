@@ -32,20 +32,35 @@ export const detectDeviceCapabilities = (): PerformanceProfile => {
   const canHandleVideo = detectVideoCapability();
   const canHandleComplexAnimations = detectAnimationCapability();
 
-  // Determine recommended media type
+  // More aggressive mobile video optimization
   let recommendedMediaType: 'video' | 'image' | 'static' = 'image';
   let maxVideoQuality: 'high' | 'medium' | 'low' | 'none' = 'none';
 
-  if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
-    recommendedMediaType = 'video';
-    maxVideoQuality = isMobile ? 'medium' : 'high';
-  } else if (canHandleVideo && hasGoodConnection) {
-    recommendedMediaType = 'video';
-    maxVideoQuality = 'low';
-  } else if (hasGoodConnection) {
-    recommendedMediaType = 'image';
+  // Mobile-specific logic - be more conservative
+  if (isMobile) {
+    if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
+      recommendedMediaType = 'video';
+      maxVideoQuality = 'low'; // Force low quality on mobile for better performance
+    } else if (canHandleVideo && hasGoodConnection) {
+      recommendedMediaType = 'video';
+      maxVideoQuality = 'low';
+    } else {
+      recommendedMediaType = 'image';
+      maxVideoQuality = 'none';
+    }
   } else {
-    recommendedMediaType = 'static';
+    // Desktop logic - more permissive
+    if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
+      recommendedMediaType = 'video';
+      maxVideoQuality = 'high';
+    } else if (canHandleVideo && hasGoodConnection) {
+      recommendedMediaType = 'video';
+      maxVideoQuality = 'medium';
+    } else if (hasGoodConnection) {
+      recommendedMediaType = 'image';
+    } else {
+      recommendedMediaType = 'static';
+    }
   }
 
   return {
@@ -104,17 +119,72 @@ const detectConnectionQuality = (): boolean => {
   return true;
 };
 
-// Detect video playback capability
+// Detect video playback capability with mobile-specific optimizations
 const detectVideoCapability = (): boolean => {
   // Test if video element is supported
   const video = document.createElement('video');
   if (!video.canPlayType) return false;
 
-  // Test for common video formats
+  // Test for common video formats with mobile preference
   const canPlayMP4 = video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
   const canPlayWebM = video.canPlayType('video/webm; codecs="vp8, vorbis"');
+  const canPlayH264 = video.canPlayType('video/mp4; codecs="avc1.42E01E"');
 
-  return canPlayMP4 !== '' || canPlayWebM !== '';
+  // Mobile devices often have better WebM support
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
+  if (isMobile) {
+    // Mobile: prefer WebM, fallback to H.264
+    return canPlayWebM !== '' || canPlayH264 !== '';
+  } else {
+    // Desktop: prefer MP4, fallback to WebM
+    return canPlayMP4 !== '' || canPlayWebM !== '';
+  }
+};
+
+// Mobile-specific video optimization
+export const getMobileVideoStrategy = (): {
+  useVideo: boolean;
+  quality: 'low' | 'none';
+  format: 'webm' | 'mp4';
+  preload: 'metadata' | 'none';
+} => {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
+  if (!isMobile) {
+    return {
+      useVideo: true,
+      quality: 'low',
+      format: 'mp4',
+      preload: 'metadata',
+    };
+  }
+
+  // Mobile-specific checks
+  const hasGoodConnection = detectConnectionQuality();
+  const isLowEndDevice = detectLowEndDevice();
+  const canHandleVideo = detectVideoCapability();
+
+  // Mobile strategy: be very conservative
+  if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
+    return {
+      useVideo: true,
+      quality: 'low',
+      format: 'webm', // Prefer WebM on mobile for better compression
+      preload: 'none', // Don't preload on mobile to save bandwidth
+    };
+  }
+
+  return {
+    useVideo: false,
+    quality: 'none',
+    format: 'mp4',
+    preload: 'none',
+  };
 };
 
 // Detect animation capability

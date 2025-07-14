@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
+import { usePerformanceDetection } from '@/lib/utils/performanceDetection';
 import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos
@@ -24,15 +25,24 @@ const VIDEOS = [
 const Hero: FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const { scrollYProgress } = useScroll();
+  const { strategy, profile } = usePerformanceDetection();
 
   // Scroll-based transforms for glassmorphic effects
   const blurAmount = useTransform(scrollYProgress, [0, 0.1], [8, 0]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
   const textY = useTransform(scrollYProgress, [0, 0.1], [0, -20]);
 
-  // Video rotation with sequential switching and preloading
+  // Mobile-optimized video strategy
+  const shouldUseVideos = useMemo(() => {
+    if (!strategy) return false;
+    return strategy.useVideo && !profile?.isMobile; // Disable videos on mobile for better performance
+  }, [strategy, profile]);
+
+  // Optimized video rotation with mobile considerations
   useEffect(() => {
-    // Preload next video
+    if (!shouldUseVideos) return;
+
+    // Preload next video only if not on mobile
     const preloadNextVideo = () => {
       const nextIndex = (currentVideoIndex + 1) % VIDEOS.length;
       const link = document.createElement('link');
@@ -50,19 +60,24 @@ const Hero: FC = () => {
     }, 8000);
 
     return () => clearInterval(interval);
-  }, [currentVideoIndex]);
+  }, [currentVideoIndex, shouldUseVideos]);
 
   return (
     <section id="home" className={styles.hero}>
-      {/* Multiple Video Backgrounds with opacity transitions */}
-      {VIDEOS.map((video, index) => (
-        <VideoBackground
-          key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
-          videoSrc={video.src}
-          overlayOpacity={0}
-          isActive={index === currentVideoIndex}
-        />
-      ))}
+      {/* Conditional Video Backgrounds - only render if videos should be used */}
+      {shouldUseVideos ? (
+        VIDEOS.map((video, index) => (
+          <VideoBackground
+            key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
+            videoSrc={video.src}
+            overlayOpacity={0}
+            isActive={index === currentVideoIndex}
+          />
+        ))
+      ) : (
+        // Static background for mobile/performance-constrained devices
+        <div className={styles.hero__staticBackground} />
+      )}
 
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
 
@@ -190,21 +205,17 @@ const Hero: FC = () => {
         </motion.div>
       </div>
 
-      {/* Video transition indicator */}
-      <motion.div
-        className={styles.hero__videoIndicator}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
-        <div className={styles.hero__videoType}>
-          {useMemo(() => {
-            const videoType = VIDEOS[currentVideoIndex].type;
-            return videoType === 'cold' ? '❄️ Cold' : videoType === 'hot' ? '🔥 Hot' : '💧 Ripples';
-          }, [currentVideoIndex])}{' '}
-          Ambience
-        </div>
-      </motion.div>
+      {/* Video transition indicator - only show if videos are enabled */}
+      {shouldUseVideos && (
+        <motion.div
+          className={styles.hero__videoIndicator}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+        >
+          <div className={styles.hero__videoType}>{VIDEOS[currentVideoIndex]?.type}</div>
+        </motion.div>
+      )}
 
       <motion.div
         className={styles.hero__scrollIndicator}

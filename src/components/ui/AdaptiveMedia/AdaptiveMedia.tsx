@@ -2,6 +2,7 @@
 
 import { FC, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useAdaptiveMedia } from '@/lib/utils/performanceDetection';
 import styles from './AdaptiveMedia.module.css';
 
@@ -10,6 +11,7 @@ interface AdaptiveMediaProps {
     high?: string;
     medium?: string;
     low?: string;
+    webm?: string; // WebM format for better mobile performance
   };
   imageSource: string;
   alt: string;
@@ -83,13 +85,15 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <img
+        <Image
           src={imageSource}
           alt={alt}
+          fill
           className={styles.image}
           onLoad={handleImageLoad}
           onError={handleImageError}
-          loading="lazy"
+          priority={false}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </motion.div>
     );
@@ -108,31 +112,54 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
           <motion.video
             key="video"
             className={styles.video}
-            src={mediaSource}
             poster={poster || imageSource}
             autoPlay={autoPlay}
             muted={muted}
             loop={loop}
             playsInline={playsInline}
+            preload="metadata"
             onLoadedData={handleVideoLoad}
             onError={handleVideoError}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-          />
+          >
+            {/* WebM format for better mobile performance */}
+            {videoSources.webm && <source src={videoSources.webm} type="video/webm" />}
+            {/* MP4 fallback */}
+            <source src={mediaSource} type="video/mp4" />
+            {/* Image fallback */}
+            <Image
+              src={imageSource}
+              alt={alt}
+              fill
+              className={styles.fallbackImage}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              priority={false}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.video>
         ) : (
-          <motion.img
+          <motion.div
             key="fallback-image"
-            src={imageSource}
-            alt={alt}
-            className={styles.fallbackImage}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
+            className={styles.fallbackImageContainer}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-          />
+          >
+            <Image
+              src={imageSource}
+              alt={alt}
+              fill
+              className={styles.fallbackImage}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              priority={false}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </motion.div>
         )}
       </AnimatePresence>
 
