@@ -17,9 +17,18 @@ const Benefits: FC = () => {
 
   const benefits = [
     {
-      title: 'Cold Plunge',
-      tagline: 'Stillness that sharpens.',
-      description: 'Nervous system reset through vagus nerve activation',
+      title: 'COLD PLUNGE',
+      tagline: 'Let the chill change you.',
+      protocol: {
+        temp: '40–50°F',
+        time: '2–5 minutes',
+        type: 'Immersion Therapy'
+      },
+      effect: {
+        summary: 'Vagus nerve activation, reduced inflammation, mental acuity.',
+        description: 'Step in cold. Step out clear.',
+        clinical: 'Clinically studied to enhance resilience and stress regulation.'
+      },
       image: '/images/coldplunge_woman.jpg',
       alt: 'Frozen lake scene with surface breaking',
       icon: (
@@ -44,9 +53,18 @@ const Benefits: FC = () => {
       color: 'rgba(0, 183, 181, 0.8)',
     },
     {
-      title: 'Infrared Sauna',
+      title: 'INFRARED SAUNA',
       tagline: 'Light that heals.',
-      description: 'Circulatory restoration and cellular detoxification',
+      protocol: {
+        temp: '120–150°F',
+        time: '30–40 minutes',
+        type: 'Full-spectrum Light Therapy'
+      },
+      effect: {
+        summary: 'Cellular detox, reduced pain, cardiovascular support.',
+        description: 'Release the strain. Welcome the repair.',
+        clinical: 'Evidence-based approach to cellular regeneration and detoxification.'
+      },
       image: '/images/sauna-infraredwide.jpg',
       alt: 'Warm interior glow with cedar panels',
       icon: (
@@ -70,9 +88,18 @@ const Benefits: FC = () => {
       color: 'rgba(255, 0, 0, 0.8)',
     },
     {
-      title: 'Traditional Sauna',
-      tagline: 'Fire that remembers.',
-      description: 'Mental clarity and emotional regulation',
+      title: 'TRADITIONAL SAUNA',
+      tagline: 'Let the heat hold you.',
+      protocol: {
+        temp: '160–200°F',
+        time: '10–20 minutes',
+        type: 'Finnish Dry Heat Therapy'
+      },
+      effect: {
+        summary: 'Sweat-induced detoxification and mood regulation.',
+        description: 'Exhale the noise. Inhale the calm.',
+        clinical: 'Centuries-old practice for cardiovascular health and stress relief.'
+      },
       image: '/images/sauna-traditional.jpg',
       alt: 'Steam-filled dark wood with water hissing on rock',
       icon: (
@@ -115,9 +142,18 @@ const Benefits: FC = () => {
       color: 'rgba(255, 165, 0, 0.8)',
     },
     {
-      title: 'Red Light Therapy',
-      tagline: 'Deeper than the skin.',
-      description: 'Cellular repair and nervous system restoration',
+      title: 'RED LIGHT THERAPY',
+      tagline: 'Rejuvenation by the power of light',
+      protocol: {
+        temp: 'Ambient',
+        time: '10–20 minutes',
+        type: 'Low-level red & near-infrared light'
+      },
+      effect: {
+        summary: 'Collagen stimulation and cellular energy restoration.',
+        description: 'Red light. Radiant skin.',
+        clinical: 'Photobiomodulation for tissue repair and cellular regeneration.'
+      },
       image: '/images/sunset-redhorizon.jpg',
       alt: 'Abstract light pulses or cellular microshot',
       icon: (
@@ -282,8 +318,10 @@ const Benefits: FC = () => {
                   >
                     {benefit.tagline}
                   </motion.p>
-                  <motion.p
-                    className={styles.benefit__description}
+
+                  {/* Protocol Section */}
+                  <motion.div
+                    className={styles.benefit__protocol}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -293,8 +331,40 @@ const Benefits: FC = () => {
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
-                    {benefit.description}
-                  </motion.p>
+                    <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
+                    <div className={styles.benefit__protocolSpecs}>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Temp:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.temp}</span>
+                      </div>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Time:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.time}</span>
+                      </div>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Type:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.type}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Effect Section */}
+                  <motion.div
+                    className={styles.benefit__effect}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.2 + 1.3,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                  >
+                    <h4 className={styles.benefit__effectTitle}>EFFECT</h4>
+                    <p className={styles.benefit__effectSummary}>{benefit.effect.summary}</p>
+                    <p className={styles.benefit__effectDescription}>"{benefit.effect.description}"</p>
+                    <p className={styles.benefit__effectClinical}>{benefit.effect.clinical}</p>
+                  </motion.div>
                 </div>
               </motion.div>
             </motion.div>

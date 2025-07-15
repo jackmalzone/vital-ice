@@ -1,7 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './ServiceTemplate.module.css';
 
 interface ServiceData {
@@ -10,9 +10,13 @@ interface ServiceData {
   subtitle: string;
   description: string;
   backgroundImage: string;
+  heroImage: string;
+  textureImage?: string;
+  accentColor: string;
   benefits: Array<{
     title: string;
     description: string;
+    icon?: string;
   }>;
   process: Array<{
     step: string;
@@ -28,21 +32,34 @@ interface ServiceTemplateProps {
 }
 
 const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
+  const { scrollYProgress } = useScroll();
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   return (
     <main className={styles.main}>
+      {/* Hero Section with Enhanced Visuals */}
       <motion.section
         className={styles.hero}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className={styles.hero__background}>
+        <motion.div 
+          className={styles.hero__background}
+          style={{ y: backgroundY }}
+        >
           <div
             className={styles.hero__image}
-            style={{ backgroundImage: `url(${data.backgroundImage})` }}
+            style={{ backgroundImage: `url(${data.heroImage})` }}
           />
           <div className={styles.hero__overlay} />
-        </div>
+          {data.textureImage && (
+            <div
+              className={styles.hero__texture}
+              style={{ backgroundImage: `url(${data.textureImage})` }}
+            />
+          )}
+        </motion.div>
         <div className={styles.hero__content}>
           <motion.h1
             className={styles.hero__title}
@@ -60,77 +77,121 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
           >
             {data.subtitle}
           </motion.p>
-          <motion.button
-            className={styles.hero__cta}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open('https://mindbody.com', '_blank')}
-          >
-            Book {data.title} Session
-          </motion.button>
         </div>
       </motion.section>
 
+      {/* Introduction Section with Visual Elements */}
       <motion.section
-        className={styles.overview}
+        className={styles.intro}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className={styles.overview__container}>
+        <div className={styles.intro__container}>
           <motion.div
-            className={styles.overview__content}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className={styles.intro__content}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h2 className={styles.overview__title}>What is {data.title}?</h2>
-            <p className={styles.overview__text}>{data.description}</p>
+            <div className={styles.intro__visual}>
+              <div
+                className={styles.intro__image}
+                style={{ backgroundImage: `url(${data.backgroundImage})` }}
+              />
+              <div 
+                className={styles.intro__accent}
+                style={{ backgroundColor: data.accentColor }}
+              />
+            </div>
+            <p className={styles.intro__text}>{data.description}</p>
           </motion.div>
         </div>
       </motion.section>
 
+      {/* Scientific Breakdown Section with Enhanced Visuals */}
       <motion.section
-        className={styles.benefits}
+        className={styles.science}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
-        <div className={styles.benefits__container}>
+        <div className={styles.science__container}>
           <motion.h2
-            className={styles.benefits__title}
+            className={styles.science__title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            Key Benefits
+            Scientifically Supported Benefits
           </motion.h2>
-          <div className={styles.benefits__grid}>
+          <div className={styles.science__grid}>
             {data.benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
-                className={styles.benefit}
+                className={styles.science__item}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -5, scale: 1.02 }}
               >
-                <h3 className={styles.benefit__title}>{benefit.title}</h3>
-                <p className={styles.benefit__description}>{benefit.description}</p>
+                {benefit.icon && (
+                  <div className={styles.science__icon}>
+                    <span className={styles.science__iconText}>{benefit.icon}</span>
+                  </div>
+                )}
+                <h3 className={styles.science__itemTitle}>{benefit.title}</h3>
+                <p className={styles.science__itemDescription}>{benefit.description}</p>
+                <div 
+                  className={styles.science__accent}
+                  style={{ backgroundColor: data.accentColor }}
+                />
               </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
 
+      {/* Callout Quote Section with Visual Enhancement */}
+      <motion.section
+        className={styles.callout}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.callout__container}>
+          <div className={styles.callout__background}>
+            <div
+              className={styles.callout__image}
+              style={{ backgroundImage: `url(${data.textureImage || data.backgroundImage})` }}
+            />
+            <div className={styles.callout__overlay} />
+          </div>
+          <motion.div
+            className={styles.callout__content}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <blockquote className={styles.callout__quote}>
+              "Step in cold. Step out clear."
+            </blockquote>
+            <div 
+              className={styles.callout__accent}
+              style={{ backgroundColor: data.accentColor }}
+            />
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Process Section with Visual Timeline */}
       <motion.section
         className={styles.process}
         initial={{ opacity: 0 }}
@@ -146,7 +207,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            Your {data.title} Experience
+            Your Experience
           </motion.h2>
           <div className={styles.process__steps}>
             {data.process.map((step, index) => (
@@ -158,7 +219,13 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
-                <div className={styles.process__stepNumber}>{step.step}</div>
+                <div className={styles.process__stepNumber}>
+                  {step.step}
+                  <div 
+                    className={styles.process__stepAccent}
+                    style={{ backgroundColor: data.accentColor }}
+                  />
+                </div>
                 <div className={styles.process__stepContent}>
                   <h3 className={styles.process__stepTitle}>{step.title}</h3>
                   <p className={styles.process__stepDescription}>{step.description}</p>
@@ -169,6 +236,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         </div>
       </motion.section>
 
+      {/* CTA Section with Enhanced Visuals */}
       <motion.section
         className={styles.cta}
         initial={{ opacity: 0 }}
@@ -177,16 +245,26 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         viewport={{ once: true }}
       >
         <div className={styles.cta__container}>
-          <h2 className={styles.cta__title}>{data.ctaTitle}</h2>
-          <p className={styles.cta__text}>{data.ctaText}</p>
-          <motion.button
-            className={styles.cta__button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open('https://mindbody.com', '_blank')}
-          >
-            Book Now
-          </motion.button>
+          <div className={styles.cta__background}>
+            <div
+              className={styles.cta__image}
+              style={{ backgroundImage: `url(${data.heroImage})` }}
+            />
+            <div className={styles.cta__overlay} />
+          </div>
+          <div className={styles.cta__content}>
+            <h2 className={styles.cta__title}>{data.ctaTitle}</h2>
+            <p className={styles.cta__text}>{data.ctaText}</p>
+            <motion.button
+              className={styles.cta__button}
+              style={{ backgroundColor: data.accentColor }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.open('https://mindbody.com', '_blank')}
+            >
+              Book Now
+            </motion.button>
+          </div>
         </div>
       </motion.section>
     </main>
