@@ -6,7 +6,7 @@ This document contains all client instructions for updating the Vital Ice websit
 
 ## Website Direction (IN PROGRESS)
 
-### Pages Structure
+### Main Page Structure
 
 #### Vision → Mission Statement
 

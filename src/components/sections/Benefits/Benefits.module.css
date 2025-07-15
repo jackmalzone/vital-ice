@@ -53,11 +53,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 20vh;
+  height: 40vh;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 15%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0.4) 85%,
     transparent 100%
   );
   z-index: 4;
@@ -137,7 +139,7 @@
 
 .benefits__container {
   position: relative;
-  z-index: 3;
+  z-index: 6;
   max-width: 1400px;
   margin: 0 auto;
   padding: 4rem 2rem;
@@ -160,6 +162,7 @@
     0 20px 40px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 6;
 }
 
 .benefit__imageContainer {

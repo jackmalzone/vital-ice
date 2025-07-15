@@ -1,12 +1,19 @@
 'use client';
 
 import { FC, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import styles from './Benefits.module.css';
 
 const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Subtle parallax effect for background
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const benefits = [
     {
@@ -138,7 +145,10 @@ const Benefits: FC = () => {
   return (
     <section ref={sectionRef} id="benefits" className={styles.benefits}>
       {/* Background Image */}
-      <div className={styles.benefits__background}>
+      <motion.div 
+        className={styles.benefits__background}
+        style={{ y: backgroundY }}
+      >
         <Image
           src="/images/texture_blacksand.jpg"
           alt="Black sand texture background"
@@ -147,7 +157,7 @@ const Benefits: FC = () => {
           priority
         />
         <div className={styles.benefits__backgroundOverlay} />
-      </div>
+      </motion.div>
 
       {/* Ambient Background */}
       <div className={styles.benefits__ambient} />
