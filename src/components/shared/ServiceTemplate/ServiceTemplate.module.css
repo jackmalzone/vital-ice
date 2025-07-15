@@ -1,7 +1,7 @@
 /* Service Template Styles */
 .main {
   min-height: 100vh;
-  background: #0b1f28;
+  background: #000000;
   color: #d3f3ff;
 }
 
@@ -53,9 +53,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(11, 31, 40, 0.8) 0%,
-    rgba(11, 31, 40, 0.6) 50%,
-    rgba(11, 31, 40, 0.9) 100%
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.9) 100%
   );
 }
 
@@ -92,13 +92,28 @@
 /* Introduction Section */
 .intro {
   padding: 8rem 0;
-  background: linear-gradient(180deg, #0b1f28 0%, #0b1f28 100%);
+  background: #000000;
+  position: relative;
+}
+
+.intro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100" height="100" filter="url(%23noise)" opacity="0.02"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .intro__container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .intro__content {
@@ -140,16 +155,31 @@
   font-weight: 300;
 }
 
-/* Science Section */
+/* Science Section - Diagnostic Console Style */
 .science {
   padding: 8rem 0;
-  background: linear-gradient(180deg, #0b1f28 0%, #0b1f28 100%);
+  background: #000000;
+  position: relative;
+}
+
+.science::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100" height="100" filter="url(%23noise)" opacity="0.02"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .science__container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .science__title {
@@ -165,67 +195,82 @@
 
 .science__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
 }
 
 .science__item {
   position: relative;
-  background: rgba(148, 169, 184, 0.05);
-  border: 1px solid rgba(148, 169, 184, 0.1);
-  border-radius: 12px;
-  padding: 2rem;
+  background: rgba(211, 243, 255, 0.02);
+  border: 1px solid rgba(211, 243, 255, 0.1);
+  border-radius: 8px;
+  padding: 2.5rem;
   transition: all 0.3s ease;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .science__item:hover {
-  background: rgba(148, 169, 184, 0.08);
-  border-color: rgba(148, 169, 184, 0.2);
-  transform: translateY(-5px);
-}
-
-.science__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(211, 243, 255, 0.1);
-  margin-bottom: 1.5rem;
-}
-
-.science__iconText {
-  font-size: 1.5rem;
-  color: #d3f3ff;
+  background: rgba(211, 243, 255, 0.04);
+  border-color: rgba(211, 243, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .science__itemTitle {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
   margin-bottom: 1rem;
   color: #d3f3ff;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+.science__itemTitle::before {
+  content: '>';
+  color: rgba(211, 243, 255, 0.5);
+  margin-right: 0.5rem;
+  animation: blink 2s infinite;
 }
 
 .science__itemDescription {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
   line-height: 1.6;
   color: #94a9b8;
   font-weight: 300;
+  letter-spacing: 0.02em;
 }
 
 .science__accent {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 3px;
   height: 100%;
   opacity: 0.8;
+}
+
+/* Typing Animation */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* Callout Section */
@@ -233,6 +278,19 @@
   padding: 8rem 0;
   position: relative;
   overflow: hidden;
+  background: #000000;
+}
+
+.callout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100" height="100" filter="url(%23noise)" opacity="0.02"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .callout__container {
@@ -268,9 +326,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(11, 31, 40, 0.9) 0%,
-    rgba(11, 31, 40, 0.7) 50%,
-    rgba(11, 31, 40, 0.9) 100%
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    rgba(0, 0, 0, 0.9) 100%
   );
 }
 
@@ -306,13 +364,28 @@
 /* Process Section */
 .process {
   padding: 8rem 0;
-  background: linear-gradient(180deg, #0b1f28 0%, #0b1f28 100%);
+  background: #000000;
+  position: relative;
+}
+
+.process::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100" height="100" filter="url(%23noise)" opacity="0.02"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .process__container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .process__title {
@@ -347,14 +420,14 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(148, 169, 184, 0.1);
-  border: 2px solid rgba(148, 169, 184, 0.2);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  font-weight: 400;
+  background: rgba(211, 243, 255, 0.05);
+  border: 2px solid rgba(211, 243, 255, 0.2);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.2rem;
+  font-weight: 500;
   color: #d3f3ff;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
 }
 
 .process__stepAccent {
@@ -374,13 +447,13 @@
 }
 
 .process__stepTitle {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
   margin-bottom: 0.5rem;
   color: #d3f3ff;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.1em;
 }
 
 .process__stepDescription {
@@ -396,6 +469,19 @@
   padding: 8rem 0;
   position: relative;
   overflow: hidden;
+  background: #000000;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100" height="100" filter="url(%23noise)" opacity="0.02"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .cta__container {
@@ -431,9 +517,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(11, 31, 40, 0.8) 0%,
-    rgba(11, 31, 40, 0.6) 50%,
-    rgba(11, 31, 40, 0.9) 100%
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.9) 100%
   );
 }
 
@@ -471,7 +557,7 @@
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: #0b1f28;
+  color: #000000;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -507,7 +593,7 @@
   .process__stepNumber {
     width: 60px;
     height: 60px;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .process__stepAccent {

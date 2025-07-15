@@ -16,7 +16,6 @@ interface ServiceData {
   benefits: Array<{
     title: string;
     description: string;
-    icon?: string;
   }>;
   process: Array<{
     step: string;
@@ -111,7 +110,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         </div>
       </motion.section>
 
-      {/* Scientific Breakdown Section with Enhanced Visuals */}
+      {/* Scientific Breakdown Section - Diagnostic Console Style */}
       <motion.section
         className={styles.science}
         initial={{ opacity: 0 }}
@@ -138,13 +137,8 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={{ y: -2, scale: 1.01 }}
               >
-                {benefit.icon && (
-                  <div className={styles.science__icon}>
-                    <span className={styles.science__iconText}>{benefit.icon}</span>
-                  </div>
-                )}
                 <h3 className={styles.science__itemTitle}>{benefit.title}</h3>
                 <p className={styles.science__itemDescription}>{benefit.description}</p>
                 <div 

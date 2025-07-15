@@ -10,7 +10,6 @@ export interface ServiceData {
   benefits: Array<{
     title: string;
     description: string;
-    icon?: string;
   }>;
   process: Array<{
     step: string;
@@ -38,22 +37,18 @@ export const servicesData: Record<string, ServiceData> = {
         title: 'Enhanced Recovery',
         description:
           'Accelerate muscle recovery and reduce inflammation through controlled cold exposure',
-        icon: '❄️',
       },
       {
         title: 'Mental Resilience',
         description: 'Build mental toughness and improve stress response through cold adaptation',
-        icon: '🧠',
       },
       {
         title: 'Improved Sleep',
         description: 'Regulate circadian rhythms and enhance sleep quality through cold therapy',
-        icon: '🌙',
       },
       {
         title: 'Immune Support',
         description: 'Strengthen immune function and increase white blood cell production',
-        icon: '🛡️',
       },
     ],
     process: [
@@ -99,22 +94,18 @@ export const servicesData: Record<string, ServiceData> = {
       {
         title: 'Deep Detoxification',
         description: 'Penetrate deep into tissues to release toxins and promote cellular cleansing',
-        icon: '🔥',
       },
       {
         title: 'Pain Relief',
         description: 'Reduce muscle tension and alleviate chronic pain through deep tissue warming',
-        icon: '💆',
       },
       {
         title: 'Stress Reduction',
         description: 'Promote relaxation and reduce cortisol levels for improved mental wellbeing',
-        icon: '🧘',
       },
       {
         title: 'Improved Circulation',
         description: 'Enhance blood flow and oxygen delivery throughout the body',
-        icon: '❤️',
       },
     ],
     process: [
@@ -161,22 +152,18 @@ export const servicesData: Record<string, ServiceData> = {
       {
         title: 'Cardiovascular Health',
         description: 'Improve heart health and circulation through intense heat exposure',
-        icon: '💪',
       },
       {
         title: 'Muscle Recovery',
         description: 'Relax muscles and accelerate recovery through deep heat penetration',
-        icon: '🏃',
       },
       {
         title: 'Immune Support',
         description: 'Strengthen immune system response through heat stress adaptation',
-        icon: '🛡️',
       },
       {
         title: 'Mental Clarity',
         description: 'Clear the mind and reduce stress through traditional heat therapy',
-        icon: '🧠',
       },
     ],
     process: [
@@ -221,22 +208,18 @@ export const servicesData: Record<string, ServiceData> = {
       {
         title: 'Improved Circulation',
         description: 'Enhance blood flow and oxygen delivery to muscles and tissues',
-        icon: '🔄',
       },
       {
         title: 'Faster Recovery',
         description: 'Accelerate muscle recovery and reduce soreness after intense activity',
-        icon: '⚡',
       },
       {
         title: 'Reduced Swelling',
         description: 'Promote lymphatic drainage and reduce fluid retention',
-        icon: '💧',
       },
       {
         title: 'Enhanced Performance',
         description: 'Improve athletic performance through better circulation and recovery',
-        icon: '🏆',
       },
     ],
     process: [
@@ -281,22 +264,18 @@ export const servicesData: Record<string, ServiceData> = {
       {
         title: 'Muscle Recovery',
         description: 'Accelerate muscle recovery and reduce post-workout soreness',
-        icon: '💪',
       },
       {
         title: 'Tension Relief',
         description: 'Break up muscle knots and release chronic tension patterns',
-        icon: '🎯',
       },
       {
         title: 'Improved Range of Motion',
         description: 'Enhance flexibility and joint mobility through deep tissue work',
-        icon: '🔄',
       },
       {
         title: 'Enhanced Performance',
         description: 'Improve athletic performance through better muscle function',
-        icon: '🏃',
       },
     ],
     process: [
@@ -339,22 +318,18 @@ export const servicesData: Record<string, ServiceData> = {
       {
         title: 'Cellular Regeneration',
         description: 'Stimulate cellular repair and regeneration for improved tissue health',
-        icon: '✨',
       },
       {
         title: 'Skin Health',
         description: 'Improve skin texture, tone, and reduce signs of aging',
-        icon: '🌟',
       },
       {
         title: 'Pain Relief',
         description: 'Reduce inflammation and alleviate chronic pain conditions',
-        icon: '💆',
       },
       {
         title: 'Anti-Aging',
         description: 'Promote collagen production and improve skin elasticity',
-        icon: '🌺',
       },
     ],
     process: [
