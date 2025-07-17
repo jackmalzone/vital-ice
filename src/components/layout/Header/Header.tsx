@@ -19,7 +19,6 @@ const NAV_LINKS = [
     ],
   },
   { label: 'Vision', href: '/vision' },
-  { label: 'Origins', href: '/historical-timeline' },
   { label: 'Our Story', href: '/about' },
 ];
 
@@ -56,10 +55,8 @@ export default function Header() {
     };
   }, []);
 
-  const isTimelinePage = pathname === '/historical-timeline';
-
   return (
-    <header className={`${styles.header} ${isTimelinePage ? styles.transparent : ''}`}>
+    <header className={styles.header}>
       <Link href="/" className={styles.logoLink} aria-label="Home">
         <Logo className={styles.logo} />
       </Link>
