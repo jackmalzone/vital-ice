@@ -1,0 +1,25 @@
+<svg width="100" height="60" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+      .vi-text {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 48px;
+        font-weight: 400;
+        fill: #d3f3ff;
+        text-anchor: middle;
+      }
+      .line {
+        stroke: #d3f3ff;
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  
+  <!-- Horizontal line over the text -->
+  <line x1="10" y1="15" x2="90" y2="15" class="line"/>
+  
+  <!-- VI text -->
+  <text x="50" y="45" class="vi-text">VI</text>
+</svg> 

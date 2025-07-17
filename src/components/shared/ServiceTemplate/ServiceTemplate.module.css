@@ -28,7 +28,7 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: center 30%;
   background-repeat: no-repeat;
   filter: brightness(0.3) contrast(1.2);
 }
@@ -53,9 +53,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.8) 0%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.3) 100%
   );
 }
 
@@ -231,7 +231,6 @@
   content: '>';
   color: rgba(211, 243, 255, 0.5);
   margin-right: 0.5rem;
-  animation: blink 2s infinite;
 }
 
 .science__itemDescription {
@@ -428,6 +427,15 @@
   color: #d3f3ff;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.process__stepNumber:hover {
+  transform: scale(1.1);
+  background: rgba(211, 243, 255, 0.1);
+  border-color: rgba(211, 243, 255, 0.4);
+  box-shadow: 0 0 20px rgba(211, 243, 255, 0.2);
 }
 
 .process__stepAccent {
@@ -440,6 +448,12 @@
   border-radius: 50%;
   opacity: 0.3;
   z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.process__stepNumber:hover .process__stepAccent {
+  opacity: 0.6;
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 .process__stepContent {

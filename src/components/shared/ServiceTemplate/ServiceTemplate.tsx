@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ServiceNavigation from '@/components/ui/ServiceNavigation/ServiceNavigation';
 import styles from './ServiceTemplate.module.css';
 
 interface ServiceData {
@@ -36,6 +37,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
 
   return (
     <main className={styles.main}>
+      <ServiceNavigation />
       {/* Hero Section with Enhanced Visuals */}
       <motion.section
         className={styles.hero}

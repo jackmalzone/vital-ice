@@ -27,28 +27,28 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle:
       'Experience the transformative power of controlled cold exposure for enhanced recovery, mental resilience, and overall wellness',
     description:
-      'Cold plunge therapy involves immersing your body in cold water (typically 50-60°F) for short periods to trigger a range of physiological responses. This ancient practice has been used for centuries across cultures and is now backed by modern science. At Vital Ice, we provide a safe, controlled environment for cold exposure therapy, combining traditional wisdom with modern technology to deliver optimal results.',
+      'An ancient practice, reimagined for modern recovery. Historic traditions from Nordic cultures and Japanese onsen, cold water immersion has been used for centuries to promote resilience, healing, and longevity. Cold plunging involves submerging the body in water typically between 39-55°F for a short duration (1-10 minutes at a time). The cold stimulates the nervous system, constricts blood vessels, and triggers powerful physiological responses.',
     backgroundImage: '/images/coldplunge_woman.jpg',
     heroImage: '/images/ice-vitalblue.jpg',
     textureImage: '/images/ice_vertical-texture.jpg',
-    accentColor: '#4A90E2',
+    accentColor: '#0040FF',
     benefits: [
       {
-        title: 'Enhanced Recovery',
+        title: 'Nervous System Regulation',
         description:
-          'Accelerate muscle recovery and reduce inflammation through controlled cold exposure',
+          'Cold exposure activates the sympathetic nervous system, then supports a rebound into the parasympathetic (rest-and-digest) state — helping to build resilience to stress and improve emotional regulation.',
       },
       {
-        title: 'Mental Resilience',
-        description: 'Build mental toughness and improve stress response through cold adaptation',
+        title: 'Muscle Recovery',
+        description: 'Vasoconstriction reduces inflammation, muscle soreness, and swelling. When followed by re-warming, it improves circulation and speeds up recovery after intense training.',
       },
       {
-        title: 'Improved Sleep',
-        description: 'Regulate circadian rhythms and enhance sleep quality through cold therapy',
+        title: 'Improved Circulation',
+        description: 'Cold exposure stimulates blood flow by forcing the cardiovascular system to adapt — strengthening blood vessels and improving oxygen delivery throughout the body.',
       },
       {
-        title: 'Immune Support',
-        description: 'Strengthen immune function and increase white blood cell production',
+        title: 'Mental Clarity & Resilience',
+        description: 'Short-term cold stress has been shown to elevate mood and sharpen focus by increasing norepinephrine up to 5x baseline. Regular exposure builds mental toughness and stress adaptation.',
       },
     ],
     process: [
@@ -85,27 +85,27 @@ export const servicesData: Record<string, ServiceData> = {
     title: 'Infrared Sauna',
     subtitle: 'Deep tissue warming with infrared technology for detoxification and relaxation',
     description:
-      'Infrared sauna therapy uses advanced infrared technology to penetrate deep into your tissues, providing a more effective and comfortable heat therapy experience than traditional saunas. The infrared waves directly heat your body rather than the air around you, creating a more intense therapeutic effect at lower temperatures. This modern approach to heat therapy offers numerous health benefits while being gentle on your cardiovascular system.',
+      'Infrared saunas introduce a modern, evidence-based approach to the ancient heat ritual. Unlike traditional saunas, which heat the air around you, infrared saunas use specific wavelengths of light, typically in the far-infrared range to warm the body directly. This allows for a deep, penetrating heat that stimulates the body at lower ambient temperatures (typically 120-150°F), making the experience more accessible and less taxing on the cardiovascular system.',
     backgroundImage: '/images/sauna-infraredwide.jpg',
     heroImage: '/images/sauna-infraredwide.jpg',
     textureImage: '/images/embers_closeup.jpg',
     accentColor: '#E74C3C',
     benefits: [
       {
-        title: 'Deep Detoxification',
-        description: 'Penetrate deep into tissues to release toxins and promote cellular cleansing',
-      },
-      {
-        title: 'Pain Relief',
-        description: 'Reduce muscle tension and alleviate chronic pain through deep tissue warming',
-      },
-      {
-        title: 'Stress Reduction',
-        description: 'Promote relaxation and reduce cortisol levels for improved mental wellbeing',
+        title: 'Deep Tissue Penetration',
+        description: 'The infrared light penetrates up to 1.5 inches beneath the skin, triggering a thermal effect at the cellular level for enhanced therapeutic benefits.',
       },
       {
         title: 'Improved Circulation',
-        description: 'Enhance blood flow and oxygen delivery throughout the body',
+        description: 'Increased circulation and oxygen delivery to tissues, supporting faster recovery and tissue repair.',
+      },
+      {
+        title: 'Detoxification',
+        description: 'Improved detoxification by stimulating perspiration and promoting cellular cleansing.',
+      },
+      {
+        title: 'Stress Relief',
+        description: 'Stress relief via parasympathetic nervous system activation, promoting deep relaxation and mental clarity.',
       },
     ],
     process: [
@@ -143,27 +143,27 @@ export const servicesData: Record<string, ServiceData> = {
     title: 'Traditional Sauna',
     subtitle: 'Classic Finnish-style sauna experience with dry heat therapy',
     description:
-      'Experience the authentic Finnish sauna tradition with our traditional dry heat sauna. This time-honored practice uses high temperatures and low humidity to create an intense therapeutic environment. Traditional saunas operate at higher temperatures than infrared, typically 160-200°F, providing a more intense heat experience that has been used for centuries to promote health and wellness.',
+      'Rooted in centuries of Nordic tradition, the traditional sauna is a centuries old method of recovery and revitalization. Heated between 160-200°F, it uses dry air and radiant heat to create a full-body sweat experience that promotes deep relaxation and physiological reset.',
     backgroundImage: '/images/sauna-traditional.jpg',
     heroImage: '/images/sauna-traditional.jpg',
     textureImage: '/images/lavastones.jpg',
     accentColor: '#F39C12',
     benefits: [
       {
-        title: 'Cardiovascular Health',
-        description: 'Improve heart health and circulation through intense heat exposure',
-      },
-      {
         title: 'Muscle Recovery',
-        description: 'Relax muscles and accelerate recovery through deep heat penetration',
+        description: 'Muscle recovery and inflammation reduction through deep heat penetration and improved circulation.',
       },
       {
-        title: 'Immune Support',
-        description: 'Strengthen immune system response through heat stress adaptation',
+        title: 'Detoxification',
+        description: 'Detoxification through elevated perspiration, promoting natural cleansing and waste removal.',
+      },
+      {
+        title: 'Cardiovascular Stimulation',
+        description: 'Cardiovascular stimulation, mimicking the effects of light aerobic exercise for heart health.',
       },
       {
         title: 'Mental Clarity',
-        description: 'Clear the mind and reduce stress through traditional heat therapy',
+        description: 'Activation of the parasympathetic nervous system for stress relief and mental clarity.',
       },
     ],
     process: [
@@ -201,25 +201,25 @@ export const servicesData: Record<string, ServiceData> = {
     description:
       'Compression boot therapy uses advanced pneumatic compression technology to enhance circulation and accelerate recovery. This non-invasive treatment applies rhythmic pressure to your legs, mimicking the natural muscle pump action to improve blood flow and lymphatic drainage. Perfect for athletes, active individuals, or anyone seeking improved circulation and faster recovery.',
     backgroundImage: '/images/cells-bloodcells.jpg',
-    heroImage: '/images/texture_vitalice-blue.jpg',
-    textureImage: '/images/ripples-emberblue.jpg',
-    accentColor: '#9B59B6',
+    heroImage: '/images/stone_whitesky.jpg',
+    textureImage: '/images/texture_blacksand-landscape.jpg',
+    accentColor: '#E0E0E0',
     benefits: [
       {
-        title: 'Improved Circulation',
-        description: 'Enhance blood flow and oxygen delivery to muscles and tissues',
+        title: 'Circulatory Support',
+        description: 'Sequential compression enhances venous return and stimulates blood flow, helping deliver nutrients and oxygen to muscle tissue while removing waste byproducts like lactic acid.',
       },
       {
-        title: 'Faster Recovery',
-        description: 'Accelerate muscle recovery and reduce soreness after intense activity',
+        title: 'Reduced Swelling & Inflammation',
+        description: 'By promoting lymphatic drainage and reducing fluid buildup, compression therapy can ease swelling and inflammation caused by intense training, long periods of standing, or injury.',
       },
       {
-        title: 'Reduced Swelling',
-        description: 'Promote lymphatic drainage and reduce fluid retention',
+        title: 'Muscle Recovery & Soreness Relief',
+        description: 'Helps decrease delayed onset muscle soreness (DOMS) and promotes faster muscle repair by increasing circulation and reducing stagnation in fatigued limbs.',
       },
       {
-        title: 'Enhanced Performance',
-        description: 'Improve athletic performance through better circulation and recovery',
+        title: 'Enhanced Lymphatic Function',
+        description: 'Supports healthy lymphatic flow, aiding the body\'s detoxification processes and immune response — especially beneficial after travel, illness, or physical stress.',
       },
     ],
     process: [
@@ -256,26 +256,26 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Deep tissue percussion therapy for muscle recovery and tension relief',
     description:
       'Percussion massage therapy uses advanced percussive technology to deliver deep tissue massage that targets muscle tension and promotes recovery. This innovative therapy combines the benefits of traditional massage with modern technology to provide more consistent and effective treatment. The percussive action helps break up muscle knots, improve blood flow, and accelerate recovery.',
-    backgroundImage: '/images/texture_blackmarble-cracks.jpg',
+    backgroundImage: '/images/percussion_bicep.jpg',
     heroImage: '/images/texture_blackmarble-cracks.jpg',
     textureImage: '/images/texture_blackrock.jpg',
     accentColor: '#2ECC71',
     benefits: [
       {
-        title: 'Muscle Recovery',
-        description: 'Accelerate muscle recovery and reduce post-workout soreness',
+        title: 'Increased Circulation',
+        description: 'Percussive pulses stimulate blood flow and deliver oxygen-rich nutrients to muscle tissue, aiding repair and reducing recovery time.',
       },
       {
-        title: 'Tension Relief',
-        description: 'Break up muscle knots and release chronic tension patterns',
+        title: 'Soreness & Tension Relief',
+        description: 'Breaks up knots and adhesions, alleviates muscle tightness, and decreases delayed onset muscle soreness (DOMS) after physical activity.',
       },
       {
         title: 'Improved Range of Motion',
-        description: 'Enhance flexibility and joint mobility through deep tissue work',
+        description: 'Loosens stiff muscle groups and fascia, improving flexibility and mobility — especially beneficial pre-workout or after long periods of sitting.',
       },
       {
-        title: 'Enhanced Performance',
-        description: 'Improve athletic performance through better muscle function',
+        title: 'Neuromuscular Activation',
+        description: 'Helps wake up sluggish muscles and reset neuromuscular pathways, making it an effective warm-up tool for both training and daily movement.',
       },
     ],
     process: [
@@ -309,27 +309,27 @@ export const servicesData: Record<string, ServiceData> = {
     title: 'Red Light Therapy',
     subtitle: 'Therapeutic light treatment for cellular regeneration and skin health',
     description:
-      "Red light therapy uses specific wavelengths of light to penetrate deep into your skin and tissues, promoting cellular regeneration and healing. This non-invasive treatment stimulates the production of collagen and elastin, improves skin health, and accelerates the body's natural healing processes. Red light therapy is backed by extensive research and provides numerous benefits for skin health, pain relief, and overall wellness.",
-    backgroundImage: '/images/redlight_jellyfish.jpg',
+      "Red Light Therapy, scientifically known as photobiomodulation, is a non-invasive treatment that uses specific wavelengths of red and near-infrared light to stimulate cellular function and support tissue repair. Unlike ultraviolet light, which can damage the skin, red and infrared light penetrate safely beneath the surface — reaching muscles, joints, and even mitochondria (your cells' energy engine).",
+    backgroundImage: '/images/redlight_mask.jpg',
     heroImage: '/images/redlight_jellyfish.jpg',
     textureImage: '/images/light_blurryhues.jpg',
     accentColor: '#E91E63',
     benefits: [
       {
-        title: 'Cellular Regeneration',
-        description: 'Stimulate cellular repair and regeneration for improved tissue health',
+        title: 'Cellular Energy Production',
+        description: 'Stimulates cytochrome c oxidase in mitochondria, enhancing ATP (energy) production and boosting cellular performance.',
       },
       {
-        title: 'Skin Health',
-        description: 'Improve skin texture, tone, and reduce signs of aging',
+        title: 'Skin Health & Anti-Aging',
+        description: 'Improved skin tone, collagen production, and wound healing with regular use.',
       },
       {
         title: 'Pain Relief',
-        description: 'Reduce inflammation and alleviate chronic pain conditions',
+        description: 'Reduced inflammation and pain relief, especially for joint, tendon, and back pain.',
       },
       {
-        title: 'Anti-Aging',
-        description: 'Promote collagen production and improve skin elasticity',
+        title: 'Neurological Benefits',
+        description: 'Supports cognitive function and brain health, reducing symptoms of anxiety and seasonal depression.',
       },
     ],
     process: [

@@ -1,8 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/ui/Logo/Logo';
+import VILogo from '@/components/ui/Logo/VILogo';
+import { servicesData } from '@/lib/data/services';
+import { useServiceColor } from '@/lib/hooks/useServiceColor';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
@@ -10,9 +14,9 @@ const NAV_LINKS = [
     label: 'Experience',
     href: '/services',
     dropdown: [
+      { label: 'Cold Plunge', href: '/services/cold-plunge' },
       { label: 'Infrared Sauna', href: '/services/infrared-sauna' },
       { label: 'Traditional Sauna', href: '/services/traditional-sauna' },
-      { label: 'Cold Plunge', href: '/services/cold-plunge' },
       { label: 'Compression Boots', href: '/services/compression-boots' },
       { label: 'Percussion Massage', href: '/services/percussion-massage' },
       { label: 'Red Light Therapy', href: '/services/red-light-therapy' },
@@ -26,6 +30,20 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const serviceColor = useServiceColor();
+
+  // Determine logo color based on current service page
+  const getLogoColor = () => {
+    // Check if we're on a service page
+    if (pathname.startsWith('/services/')) {
+      const serviceId = pathname.split('/').pop();
+      if (serviceId && servicesData[serviceId]) {
+        return servicesData[serviceId].accentColor;
+      }
+    }
+    // Default to white for other pages
+    return '#ffffff';
+  };
 
   const handleDropdownToggle = (label: string) => {
     setActiveDropdown(activeDropdown === label ? null : label);
@@ -60,6 +78,11 @@ export default function Header() {
       <Link href="/" className={styles.logoLink} aria-label="Home">
         <Logo className={styles.logo} />
       </Link>
+
+      {/* Center VI Logo */}
+      <div className={styles.centerLogo}>
+        <VILogo className={styles.viLogo} color={getLogoColor()} />
+      </div>
 
       {/* Desktop Navigation */}
       <nav className={styles.desktopNav}>
