@@ -24,4 +24,4 @@ export default function LoadingProvider({ children }: LoadingProviderProps) {
   }
 
   return <>{children}</>;
-} 
+}

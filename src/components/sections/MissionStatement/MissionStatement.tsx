@@ -2,12 +2,7 @@
 
 import { FC, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
-  GiFire, 
-  GiCaduceus, 
-  GiDiamonds, 
-  GiSun 
-} from 'react-icons/gi';
+import { GiFire, GiCaduceus, GiDiamonds, GiSun } from 'react-icons/gi';
 import { TbPlant2, TbSnowflake } from 'react-icons/tb';
 import { RxLightningBolt } from 'react-icons/rx';
 import { FaWater } from 'react-icons/fa';
@@ -17,7 +12,7 @@ const MissionStatement: FC = () => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
   // Subtle parallax effects (only on initial load)
@@ -25,7 +20,8 @@ const MissionStatement: FC = () => {
   const statementY = useTransform(scrollYProgress, [0, 1], [0, -15]);
   const ctaY = useTransform(scrollYProgress, [0, 1], [0, -10]);
 
-  const missionStatement = "We're making elite recovery simple, social, and within reach. Fusing proven methods with a space designed to connect and evolve. Let's turn recovery into the new happy hour.";
+  const missionStatement =
+    "We're making elite recovery simple, social, and within reach. Fusing proven methods with a space designed to connect and evolve. Let's turn recovery into the new happy hour.";
 
   const symbols = [
     { icon: GiFire, label: 'Fire' },
@@ -35,14 +31,14 @@ const MissionStatement: FC = () => {
     { icon: GiCaduceus, label: 'Healing' },
     { icon: TbSnowflake, label: 'Ice' },
     { icon: RxLightningBolt, label: 'Energy' },
-    { icon: GiDiamonds, label: 'Strength' }
+    { icon: GiDiamonds, label: 'Strength' },
   ];
 
   return (
     <section ref={containerRef} className={styles.mission}>
       {/* Ambient background elements */}
       <div className={styles.mission__ambient} />
-      
+
       {/* Etched stone symbols */}
       <div className={styles.mission__symbols}>
         {symbols.map((symbol, i) => {
@@ -58,7 +54,7 @@ const MissionStatement: FC = () => {
               transition={{
                 duration: 4 + i * 0.5,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
                 delay: i * 0.8,
               }}
               style={{
@@ -93,17 +89,17 @@ const MissionStatement: FC = () => {
           >
             Our Mission
           </motion.h2>
-          
+
           <motion.p
             className={styles.mission__statement}
             style={{ y: statementY }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ 
-              duration: 1, 
+            transition={{
+              duration: 1,
               delay: 0.4,
-              ease: [0.4, 0, 0.2, 1]
+              ease: [0.4, 0, 0.2, 1],
             }}
           >
             {missionStatement}
@@ -126,12 +122,12 @@ const MissionStatement: FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
-            <motion.p 
+            <motion.p
               className={styles.mission__ctaText}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-               <em>reset like it matters.</em>
+              <em>reset like it matters.</em>
             </motion.p>
           </motion.div>
         </motion.div>
@@ -140,4 +136,4 @@ const MissionStatement: FC = () => {
   );
 };
 
-export default MissionStatement; 
+export default MissionStatement;

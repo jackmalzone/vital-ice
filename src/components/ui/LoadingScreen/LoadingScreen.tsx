@@ -16,7 +16,7 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
   const [showLogo, setShowLogo] = useState(false);
   const [logoColor, setLogoColor] = useState('#00b7b5');
 
-  const loadingText = "Loading...";
+  const loadingText = 'Loading...';
   const breathDuration = 2000; // 2 seconds per breath cycle
 
   // Smooth color transition through subtle blue shades
@@ -26,13 +26,13 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
     '#00c4c2', // Slightly lighter
     '#009a98', // Darker
     '#00d0ce', // Lighter
-    '#00b7b5'  // Back to original
+    '#00b7b5', // Back to original
   ];
 
   useEffect(() => {
     // Start the breathing animation
     const breathInterval = setInterval(() => {
-      setBreathPhase(prev => prev === 'inhale' ? 'exhale' : 'inhale');
+      setBreathPhase(prev => (prev === 'inhale' ? 'exhale' : 'inhale'));
     }, breathDuration);
 
     // Start the loading progress
@@ -95,23 +95,25 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
 
       {/* Breathing Orb */}
       <div className={styles.breathingContainer}>
-        <div 
+        <div
           className={`${styles.breathingOrb} ${styles[breathPhase]}`}
-          style={{
-            '--breath-scale': breathPhase === 'inhale' ? 1.2 : 0.8,
-            '--breath-opacity': breathPhase === 'inhale' ? 0.9 : 0.6,
-          } as React.CSSProperties}
+          style={
+            {
+              '--breath-scale': breathPhase === 'inhale' ? 1.2 : 0.8,
+              '--breath-opacity': breathPhase === 'inhale' ? 0.9 : 0.6,
+            } as React.CSSProperties
+          }
         >
           {/* Inner glow */}
           <div className={styles.orbGlow} />
-          
+
           {/* VI Logo in the center */}
           {showLogo && (
             <div className={styles.logoContainer}>
-              <VILogo 
-                width={100} 
-                height={60} 
-                color={logoColor} 
+              <VILogo
+                width={100}
+                height={60}
+                color={logoColor}
                 strokeWidth={2}
                 className={styles.loadingLogo}
               />
@@ -140,10 +142,7 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
       {/* Progress Bar */}
       <div className={styles.progressContainer}>
         <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill}
-            style={{ width: `${progress}%` }}
-          />
+          <div className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
         <div className={styles.progressText}>{progress}%</div>
       </div>
@@ -154,13 +153,15 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
           <div
             key={i}
             className={styles.particle}
-            style={{
-              '--delay': `${i * 0.5}s`,
-              '--duration': `${3 + i * 0.5}s`,
-            } as React.CSSProperties}
+            style={
+              {
+                '--delay': `${i * 0.5}s`,
+                '--duration': `${3 + i * 0.5}s`,
+              } as React.CSSProperties
+            }
           />
         ))}
       </div>
     </div>
   );
-} 
+}

@@ -19,7 +19,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #0a3a3a 100%)',
     },
     {
-      quote: 'Sauna bathing is almost like walking on a treadmill… but all you\'re doing is sitting in the heat.',
+      quote:
+        "Sauna bathing is almost like walking on a treadmill… but all you're doing is sitting in the heat.",
       author: 'Dr. Purvi Parikh',
       role: 'MD, Allergist & Immunologist',
       image: '/images/sauna-infraredwide.jpg',
@@ -35,7 +36,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #3a1a0a 100%)',
     },
     {
-      quote: 'It\'s absolute agony, and I dread it, but it allows my body to recover so much more quickly.',
+      quote:
+        "It's absolute agony, and I dread it, but it allows my body to recover so much more quickly.",
       author: 'Paula Radcliffe',
       role: 'Triathlete & Long-Distance Runner',
       image: '/images/coldplunge_woman.jpg',
@@ -52,7 +54,7 @@ const Testimonials: FC = () => {
     },
 
     {
-      quote: 'True strength is in the recovery. That\'s where the body and mind rebuild.',
+      quote: "True strength is in the recovery. That's where the body and mind rebuild.",
       author: 'Tom Brady',
       role: 'NFL Quarterback',
       image: '/images/embers_vertical.jpg',
@@ -60,7 +62,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #1a0a0a 100%)',
     },
     {
-      quote: 'Building your tolerance to cold water should be slow and gradual. Start with a few minutes and increase steadily.',
+      quote:
+        'Building your tolerance to cold water should be slow and gradual. Start with a few minutes and increase steadily.',
       author: 'Dr. Tracy Zaslow',
       role: 'Sports Physician',
       image: '/images/coldplunge_woman.jpg',
@@ -68,7 +71,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #0a3a3a 100%)',
     },
     {
-      quote: 'Using the sauna regularly changed the way I recover. It\'s not just heat — it\'s therapy.',
+      quote:
+        "Using the sauna regularly changed the way I recover. It's not just heat — it's therapy.",
       author: 'Lebron James',
       role: 'NBA Player',
       image: '/images/sauna-traditional.jpg',
@@ -76,7 +80,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #2a1a0a 100%)',
     },
     {
-      quote: 'With women\'s bodies, we need to support homeostasis, not fight it… Hormetic stressors help homeostasis.',
+      quote:
+        "With women's bodies, we need to support homeostasis, not fight it… Hormetic stressors help homeostasis.",
       author: 'Dr. Jaime Seeman',
       role: 'OB-GYN',
       image: '/images/coldplunge_woman.jpg',
@@ -108,7 +113,8 @@ const Testimonials: FC = () => {
       background: 'linear-gradient(135deg, #1a1a1a 0%, #2a1a0a 100%)',
     },
     {
-      quote: 'Sauna sessions provide cardiovascular benefits, neuroprotection, and stress reduction.',
+      quote:
+        'Sauna sessions provide cardiovascular benefits, neuroprotection, and stress reduction.',
       author: 'Dr. Rhonda Patrick',
       role: 'Biomedical Scientist',
       image: '/images/sauna-infraredwide.jpg',

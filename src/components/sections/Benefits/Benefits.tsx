@@ -10,7 +10,7 @@ const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
   // Subtle parallax effect for background
@@ -23,13 +23,13 @@ const Benefits: FC = () => {
       protocol: {
         temp: '40–50°F',
         time: '2–5 minutes',
-        type: 'Immersion Therapy'
+        type: 'Immersion Therapy',
       },
       effect: {
         summary: '*Vagus nerve activation*, reduced *inflammation*, *mental acuity*.',
         description: 'Step in cold. Step out clear.',
         clinical: 'Clinically studied to enhance resilience and stress regulation.',
-        protocolId: 'COLD-01'
+        protocolId: 'COLD-01',
       },
       image: '/images/coldplunge_woman.jpg',
       alt: 'Frozen lake scene with surface breaking',
@@ -60,13 +60,13 @@ const Benefits: FC = () => {
       protocol: {
         temp: '120–150°F',
         time: '30–40 minutes',
-        type: 'Full-spectrum Light Therapy'
+        type: 'Full-spectrum Light Therapy',
       },
       effect: {
         summary: 'Cellular *detox*, reduced *pain*, *cardiovascular support*.',
         description: 'Release the strain. Welcome the repair.',
         clinical: 'Evidence-based approach to cellular regeneration and detoxification.',
-        protocolId: 'INFR-02'
+        protocolId: 'INFR-02',
       },
       image: '/images/sauna-infraredwide.jpg',
       alt: 'Warm interior glow with cedar panels',
@@ -96,13 +96,13 @@ const Benefits: FC = () => {
       protocol: {
         temp: '160–200°F',
         time: '10–20 minutes',
-        type: 'Finnish Dry Heat Therapy'
+        type: 'Finnish Dry Heat Therapy',
       },
       effect: {
         summary: 'Sweat-induced *detoxification* and *mood regulation*.',
         description: 'Exhale the noise. Inhale the calm.',
         clinical: 'Centuries-old practice for cardiovascular health and stress relief.',
-        protocolId: 'TRAD-03'
+        protocolId: 'TRAD-03',
       },
       image: '/images/sauna-traditional.jpg',
       alt: 'Steam-filled dark wood with water hissing on rock',
@@ -151,13 +151,13 @@ const Benefits: FC = () => {
       protocol: {
         temp: 'Ambient',
         time: '10–20 minutes',
-        type: 'Low-level red & near-infrared light'
+        type: 'Low-level red & near-infrared light',
       },
       effect: {
         summary: '*Collagen stimulation* and *cellular energy restoration*.',
         description: 'Red light. Radiant skin.',
         clinical: 'Photobiomodulation for tissue repair and cellular regeneration.',
-        protocolId: 'RLT-04'
+        protocolId: 'RLT-04',
       },
       image: '/images/sunset-redhorizon.jpg',
       alt: 'Abstract light pulses or cellular microshot',
@@ -197,10 +197,7 @@ const Benefits: FC = () => {
   return (
     <section ref={sectionRef} id="benefits" className={styles.benefits}>
       {/* Background Image */}
-      <motion.div 
-        className={styles.benefits__background}
-        style={{ y: backgroundY }}
-      >
+      <motion.div className={styles.benefits__background} style={{ y: backgroundY }}>
         <Image
           src="/images/texture_blacksand.jpg"
           alt="Black sand texture background"
@@ -352,19 +349,25 @@ const Benefits: FC = () => {
                       <ShaderPanel />
                     </div>
                     <div className={styles.benefit__protocolContent}>
-                    <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
-                    <div className={styles.benefit__protocolSpecs}>
-                      <div className={styles.benefit__protocolItem}>
-                        <span className={styles.benefit__protocolLabel}>Temp:</span>
-                        <span className={styles.benefit__protocolValue}>{benefit.protocol.temp}</span>
-                      </div>
-                      <div className={styles.benefit__protocolItem}>
-                        <span className={styles.benefit__protocolLabel}>Time:</span>
-                        <span className={styles.benefit__protocolValue}>{benefit.protocol.time}</span>
-                      </div>
-                      <div className={styles.benefit__protocolItem}>
-                        <span className={styles.benefit__protocolLabel}>Type:</span>
-                        <span className={styles.benefit__protocolValue}>{benefit.protocol.type}</span>
+                      <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
+                      <div className={styles.benefit__protocolSpecs}>
+                        <div className={styles.benefit__protocolItem}>
+                          <span className={styles.benefit__protocolLabel}>Temp:</span>
+                          <span className={styles.benefit__protocolValue}>
+                            {benefit.protocol.temp}
+                          </span>
+                        </div>
+                        <div className={styles.benefit__protocolItem}>
+                          <span className={styles.benefit__protocolLabel}>Time:</span>
+                          <span className={styles.benefit__protocolValue}>
+                            {benefit.protocol.time}
+                          </span>
+                        </div>
+                        <div className={styles.benefit__protocolItem}>
+                          <span className={styles.benefit__protocolLabel}>Type:</span>
+                          <span className={styles.benefit__protocolValue}>
+                            {benefit.protocol.type}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -386,12 +389,14 @@ const Benefits: FC = () => {
                       <ShaderPanel />
                     </div>
                     <div className={styles.benefit__effectContent}>
-                    <h4 className={styles.benefit__effectTitle}>EFFECT</h4>
+                      <h4 className={styles.benefit__effectTitle}>EFFECT</h4>
                       <p className={styles.benefit__effectSummary}>
                         {renderHighlightedText(benefit.effect.summary)}
                       </p>
-                    <p className={styles.benefit__effectDescription}>"{benefit.effect.description}"</p>
-                      <p 
+                      <p className={styles.benefit__effectDescription}>
+                        "{benefit.effect.description}"
+                      </p>
+                      <p
                         className={styles.benefit__effectClinical}
                         data-protocol={benefit.effect.protocolId}
                       >

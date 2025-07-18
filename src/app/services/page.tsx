@@ -49,7 +49,7 @@ const services = [
   {
     id: 'compression-boots',
     title: 'Compression Boots',
-    tagline: 'Legs up. Pressure\'s on',
+    tagline: "Legs up. Pressure's on",
     specs: '15-20 minutes. Sequential compression improves circulation and brings relief.',
     description: 'Flush out the fatigue.',
     benefits: [

@@ -20,4 +20,4 @@ export const useServiceColor = () => {
   }, [pathname]);
 
   return currentColor;
-}; 
+};

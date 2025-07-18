@@ -45,10 +45,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <motion.div 
-          className={styles.hero__background}
-          style={{ y: backgroundY }}
-        >
+        <motion.div className={styles.hero__background} style={{ y: backgroundY }}>
           <div
             className={styles.hero__image}
             style={{ backgroundImage: `url(${data.heroImage})` }}
@@ -102,10 +99,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
                 className={styles.intro__image}
                 style={{ backgroundImage: `url(${data.backgroundImage})` }}
               />
-              <div 
-                className={styles.intro__accent}
-                style={{ backgroundColor: data.accentColor }}
-              />
+              <div className={styles.intro__accent} style={{ backgroundColor: data.accentColor }} />
             </div>
             <p className={styles.intro__text}>{data.description}</p>
           </motion.div>
@@ -143,7 +137,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
               >
                 <h3 className={styles.science__itemTitle}>{benefit.title}</h3>
                 <p className={styles.science__itemDescription}>{benefit.description}</p>
-                <div 
+                <div
                   className={styles.science__accent}
                   style={{ backgroundColor: data.accentColor }}
                 />
@@ -179,10 +173,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
             <blockquote className={styles.callout__quote}>
               "Step in cold. Step out clear."
             </blockquote>
-            <div 
-              className={styles.callout__accent}
-              style={{ backgroundColor: data.accentColor }}
-            />
+            <div className={styles.callout__accent} style={{ backgroundColor: data.accentColor }} />
           </motion.div>
         </div>
       </motion.section>
@@ -217,7 +208,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
               >
                 <div className={styles.process__stepNumber}>
                   {step.step}
-                  <div 
+                  <div
                     className={styles.process__stepAccent}
                     style={{ backgroundColor: data.accentColor }}
                   />

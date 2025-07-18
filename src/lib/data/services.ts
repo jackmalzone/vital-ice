@@ -40,15 +40,18 @@ export const servicesData: Record<string, ServiceData> = {
       },
       {
         title: 'Muscle Recovery',
-        description: 'Vasoconstriction reduces inflammation, muscle soreness, and swelling. When followed by re-warming, it improves circulation and speeds up recovery after intense training.',
+        description:
+          'Vasoconstriction reduces inflammation, muscle soreness, and swelling. When followed by re-warming, it improves circulation and speeds up recovery after intense training.',
       },
       {
         title: 'Improved Circulation',
-        description: 'Cold exposure stimulates blood flow by forcing the cardiovascular system to adapt — strengthening blood vessels and improving oxygen delivery throughout the body.',
+        description:
+          'Cold exposure stimulates blood flow by forcing the cardiovascular system to adapt — strengthening blood vessels and improving oxygen delivery throughout the body.',
       },
       {
         title: 'Mental Clarity & Resilience',
-        description: 'Short-term cold stress has been shown to elevate mood and sharpen focus by increasing norepinephrine up to 5x baseline. Regular exposure builds mental toughness and stress adaptation.',
+        description:
+          'Short-term cold stress has been shown to elevate mood and sharpen focus by increasing norepinephrine up to 5x baseline. Regular exposure builds mental toughness and stress adaptation.',
       },
     ],
     process: [
@@ -93,19 +96,23 @@ export const servicesData: Record<string, ServiceData> = {
     benefits: [
       {
         title: 'Deep Tissue Penetration',
-        description: 'The infrared light penetrates up to 1.5 inches beneath the skin, triggering a thermal effect at the cellular level for enhanced therapeutic benefits.',
+        description:
+          'The infrared light penetrates up to 1.5 inches beneath the skin, triggering a thermal effect at the cellular level for enhanced therapeutic benefits.',
       },
       {
         title: 'Improved Circulation',
-        description: 'Increased circulation and oxygen delivery to tissues, supporting faster recovery and tissue repair.',
+        description:
+          'Increased circulation and oxygen delivery to tissues, supporting faster recovery and tissue repair.',
       },
       {
         title: 'Detoxification',
-        description: 'Improved detoxification by stimulating perspiration and promoting cellular cleansing.',
+        description:
+          'Improved detoxification by stimulating perspiration and promoting cellular cleansing.',
       },
       {
         title: 'Stress Relief',
-        description: 'Stress relief via parasympathetic nervous system activation, promoting deep relaxation and mental clarity.',
+        description:
+          'Stress relief via parasympathetic nervous system activation, promoting deep relaxation and mental clarity.',
       },
     ],
     process: [
@@ -151,19 +158,23 @@ export const servicesData: Record<string, ServiceData> = {
     benefits: [
       {
         title: 'Muscle Recovery',
-        description: 'Muscle recovery and inflammation reduction through deep heat penetration and improved circulation.',
+        description:
+          'Muscle recovery and inflammation reduction through deep heat penetration and improved circulation.',
       },
       {
         title: 'Detoxification',
-        description: 'Detoxification through elevated perspiration, promoting natural cleansing and waste removal.',
+        description:
+          'Detoxification through elevated perspiration, promoting natural cleansing and waste removal.',
       },
       {
         title: 'Cardiovascular Stimulation',
-        description: 'Cardiovascular stimulation, mimicking the effects of light aerobic exercise for heart health.',
+        description:
+          'Cardiovascular stimulation, mimicking the effects of light aerobic exercise for heart health.',
       },
       {
         title: 'Mental Clarity',
-        description: 'Activation of the parasympathetic nervous system for stress relief and mental clarity.',
+        description:
+          'Activation of the parasympathetic nervous system for stress relief and mental clarity.',
       },
     ],
     process: [
@@ -207,19 +218,23 @@ export const servicesData: Record<string, ServiceData> = {
     benefits: [
       {
         title: 'Circulatory Support',
-        description: 'Sequential compression enhances venous return and stimulates blood flow, helping deliver nutrients and oxygen to muscle tissue while removing waste byproducts like lactic acid.',
+        description:
+          'Sequential compression enhances venous return and stimulates blood flow, helping deliver nutrients and oxygen to muscle tissue while removing waste byproducts like lactic acid.',
       },
       {
         title: 'Reduced Swelling & Inflammation',
-        description: 'By promoting lymphatic drainage and reducing fluid buildup, compression therapy can ease swelling and inflammation caused by intense training, long periods of standing, or injury.',
+        description:
+          'By promoting lymphatic drainage and reducing fluid buildup, compression therapy can ease swelling and inflammation caused by intense training, long periods of standing, or injury.',
       },
       {
         title: 'Muscle Recovery & Soreness Relief',
-        description: 'Helps decrease delayed onset muscle soreness (DOMS) and promotes faster muscle repair by increasing circulation and reducing stagnation in fatigued limbs.',
+        description:
+          'Helps decrease delayed onset muscle soreness (DOMS) and promotes faster muscle repair by increasing circulation and reducing stagnation in fatigued limbs.',
       },
       {
         title: 'Enhanced Lymphatic Function',
-        description: 'Supports healthy lymphatic flow, aiding the body\'s detoxification processes and immune response — especially beneficial after travel, illness, or physical stress.',
+        description:
+          "Supports healthy lymphatic flow, aiding the body's detoxification processes and immune response — especially beneficial after travel, illness, or physical stress.",
       },
     ],
     process: [
@@ -263,19 +278,23 @@ export const servicesData: Record<string, ServiceData> = {
     benefits: [
       {
         title: 'Increased Circulation',
-        description: 'Percussive pulses stimulate blood flow and deliver oxygen-rich nutrients to muscle tissue, aiding repair and reducing recovery time.',
+        description:
+          'Percussive pulses stimulate blood flow and deliver oxygen-rich nutrients to muscle tissue, aiding repair and reducing recovery time.',
       },
       {
         title: 'Soreness & Tension Relief',
-        description: 'Breaks up knots and adhesions, alleviates muscle tightness, and decreases delayed onset muscle soreness (DOMS) after physical activity.',
+        description:
+          'Breaks up knots and adhesions, alleviates muscle tightness, and decreases delayed onset muscle soreness (DOMS) after physical activity.',
       },
       {
         title: 'Improved Range of Motion',
-        description: 'Loosens stiff muscle groups and fascia, improving flexibility and mobility — especially beneficial pre-workout or after long periods of sitting.',
+        description:
+          'Loosens stiff muscle groups and fascia, improving flexibility and mobility — especially beneficial pre-workout or after long periods of sitting.',
       },
       {
         title: 'Neuromuscular Activation',
-        description: 'Helps wake up sluggish muscles and reset neuromuscular pathways, making it an effective warm-up tool for both training and daily movement.',
+        description:
+          'Helps wake up sluggish muscles and reset neuromuscular pathways, making it an effective warm-up tool for both training and daily movement.',
       },
     ],
     process: [
@@ -317,7 +336,8 @@ export const servicesData: Record<string, ServiceData> = {
     benefits: [
       {
         title: 'Cellular Energy Production',
-        description: 'Stimulates cytochrome c oxidase in mitochondria, enhancing ATP (energy) production and boosting cellular performance.',
+        description:
+          'Stimulates cytochrome c oxidase in mitochondria, enhancing ATP (energy) production and boosting cellular performance.',
       },
       {
         title: 'Skin Health & Anti-Aging',
@@ -325,11 +345,13 @@ export const servicesData: Record<string, ServiceData> = {
       },
       {
         title: 'Pain Relief',
-        description: 'Reduced inflammation and pain relief, especially for joint, tendon, and back pain.',
+        description:
+          'Reduced inflammation and pain relief, especially for joint, tendon, and back pain.',
       },
       {
         title: 'Neurological Benefits',
-        description: 'Supports cognitive function and brain health, reducing symptoms of anxiety and seasonal depression.',
+        description:
+          'Supports cognitive function and brain health, reducing symptoms of anxiety and seasonal depression.',
       },
     ],
     process: [

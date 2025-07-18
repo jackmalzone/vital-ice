@@ -8,11 +8,11 @@ import styles from './ServiceNavigation.module.css';
 
 const serviceOrder = [
   'cold-plunge',
-  'infrared-sauna', 
+  'infrared-sauna',
   'traditional-sauna',
   'compression-boots',
   'percussion-massage',
-  'red-light-therapy'
+  'red-light-therapy',
 ];
 
 const SERVICE_COLORS = {
@@ -31,10 +31,11 @@ export default function ServiceNavigation() {
   // Get current service index
   const currentServiceId = pathname.split('/').pop();
   const currentIndex = serviceOrder.indexOf(currentServiceId || '');
-  
+
   // Get previous and next services
   const prevService = currentIndex > 0 ? serviceOrder[currentIndex - 1] : null;
-  const nextService = currentIndex < serviceOrder.length - 1 ? serviceOrder[currentIndex + 1] : null;
+  const nextService =
+    currentIndex < serviceOrder.length - 1 ? serviceOrder[currentIndex + 1] : null;
 
   // Get service data
   const currentService = currentServiceId ? servicesData[currentServiceId] : null;
@@ -48,26 +49,38 @@ export default function ServiceNavigation() {
       {/* Side Arrows */}
       <div className={styles.sideArrows}>
         {prevService && (
-          <Link 
+          <Link
             href={`/services/${prevService}`}
             className={`${styles.sideArrow} ${styles.prevArrow}`}
             aria-label={`Previous: ${prevServiceData?.title}`}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <span className={styles.arrowLabel}>{prevServiceData?.title}</span>
           </Link>
         )}
-        
+
         {nextService && (
-          <Link 
+          <Link
             href={`/services/${nextService}`}
             className={`${styles.sideArrow} ${styles.nextArrow}`}
             aria-label={`Next: ${nextServiceData?.title}`}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <span className={styles.arrowLabel}>{nextServiceData?.title}</span>
           </Link>
@@ -75,38 +88,56 @@ export default function ServiceNavigation() {
       </div>
 
       {/* Sidebar Toggle Button */}
-      <button 
+      <button
         className={styles.sidebarToggle}
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         aria-label="Toggle service navigation"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path
+            d="M3 12H21M3 6H21M3 18H21"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
       {/* Right Arrow for Next Service */}
       {nextService && (
-        <Link 
+        <Link
           href={`/services/${nextService}`}
           className={styles.rightArrow}
           aria-label={`Next: ${nextServiceData?.title}`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M9 18L15 12L9 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </Link>
       )}
 
       {/* Left Arrow for Previous Service */}
       {prevService && (
-        <Link 
+        <Link
           href={`/services/${prevService}`}
           className={styles.leftArrow}
           aria-label={`Previous: ${prevServiceData?.title}`}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </Link>
       )}
@@ -115,25 +146,32 @@ export default function ServiceNavigation() {
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
         <div className={styles.sidebarHeader}>
           <h3>Services</h3>
-          <button 
+          <button
             className={styles.closeButton}
             onClick={() => setIsSidebarOpen(false)}
             aria-label="Close navigation"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
-        
+
         <nav className={styles.sidebarNav}>
-          {serviceOrder.map((serviceId) => {
+          {serviceOrder.map(serviceId => {
             const service = servicesData[serviceId];
             if (!service) return null;
-            
+
             const isActive = serviceId === currentServiceId;
-            const serviceColor = SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || service.accentColor;
-            
+            const serviceColor =
+              SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || service.accentColor;
+
             return (
               <Link
                 key={serviceId}
@@ -155,12 +193,7 @@ export default function ServiceNavigation() {
       </div>
 
       {/* Backdrop */}
-      {isSidebarOpen && (
-        <div 
-          className={styles.backdrop}
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
+      {isSidebarOpen && <div className={styles.backdrop} onClick={() => setIsSidebarOpen(false)} />}
     </>
   );
-} 
+}

@@ -1,23 +1,22 @@
 'use client';
 
-import { FC, useRef, useEffect, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useRouter } from 'next/navigation';
 import * as THREE from 'three';
-import VILogo from '@/components/ui/Logo/VILogo';
-import { servicesData } from '@/lib/data/services';
-import styles from './page.module.css';
-import { 
-  GiSnowflake1, 
-  GiFire, 
-  GiCampfire, 
-  GiLightningTrio, 
-  GiLeg, 
-  GiVibratingBall 
+import {
+  GiSnowflake1,
+  GiFire,
+  GiCampfire,
+  GiLightningTrio,
+  GiLeg,
+  GiVibratingBall,
 } from 'react-icons/gi';
+import { servicesData } from '@/lib/data/services';
+import VILogo from '@/components/ui/Logo/VILogo';
+import styles from './page.module.css';
 
-// Refined color palette with symbolic meanings
 const SERVICE_COLORS = {
   'cold-plunge': '#00bcd4', // Water - Vital Ice Blue
   'infrared-sauna': '#ff3e36', // Fire/Light - Blood Orange
@@ -164,7 +163,7 @@ interface ServiceNodeProps {
   isHovered: boolean;
 }
 
-const ServiceNode: FC<ServiceNodeProps> = ({
+const ServiceNode: React.FC<ServiceNodeProps> = ({
   service,
   angle,
   radius,
@@ -181,12 +180,14 @@ const ServiceNode: FC<ServiceNodeProps> = ({
   return (
     <motion.div
       className={styles.serviceNode}
-      style={{
-        '--x': `${x}px`,
-        '--y': `${y}px`,
-        '--accent-color': accentColor,
-        '--index': index,
-      } as React.CSSProperties}
+      style={
+        {
+          '--x': `${x}px`,
+          '--y': `${y}px`,
+          '--accent-color': accentColor,
+          '--index': index,
+        } as React.CSSProperties
+      }
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
@@ -194,26 +195,26 @@ const ServiceNode: FC<ServiceNodeProps> = ({
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1],
       }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.1,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
       onHoverStart={() => onHover(index)}
       onHoverEnd={onLeave}
       onClick={() => onSelect(service.id)}
     >
       <div className={styles.serviceIcon}>
-        <div 
+        <div
           className={styles.serviceIconInner}
-          style={{ 
+          style={{
             borderColor: accentColor,
-            boxShadow: isHovered ? `0 0 20px ${accentColor}40` : 'none'
+            boxShadow: isHovered ? `0 0 20px ${accentColor}40` : 'none',
           }}
         >
           {ServiceIcons[service.id as keyof typeof ServiceIcons]}
         </div>
       </div>
-      
+
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -221,7 +222,7 @@ const ServiceNode: FC<ServiceNodeProps> = ({
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <h3>{service.title}</h3>
             <p>{service.subtitle}</p>
@@ -245,7 +246,7 @@ const ServiceNode: FC<ServiceNodeProps> = ({
   );
 };
 
-const ExperiencePage: FC = () => {
+const ExperiencePage: React.FC = () => {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -262,9 +263,9 @@ const ExperiencePage: FC = () => {
 
   const handleServiceSelect = (serviceId: string) => {
     if (isTransitioning) return;
-    
+
     setIsTransitioning(true);
-    
+
     // Add a brief delay for the transition animation
     setTimeout(() => {
       router.push(`/services/${serviceId}`);
@@ -283,10 +284,7 @@ const ExperiencePage: FC = () => {
     <div className={styles.experiencePage}>
       {/* Three.js Background */}
       <div className={styles.background}>
-        <Canvas
-          camera={{ position: [0, 0, 1], fov: 75 }}
-          gl={{ alpha: true, antialias: true }}
-        >
+        <Canvas camera={{ position: [0, 0, 1], fov: 75 }} gl={{ alpha: true, antialias: true }}>
           <BackgroundShader />
         </Canvas>
       </div>
@@ -299,7 +297,9 @@ const ExperiencePage: FC = () => {
         transition={{ duration: 0.8, delay: 0.5 }}
       >
         <h1 className={styles.pageTitleHeading}>Choose Your Experience</h1>
-        <p className={styles.pageTitleSubheading}>Select a service to begin your recovery journey</p>
+        <p className={styles.pageTitleSubheading}>
+          Select a service to begin your recovery journey
+        </p>
       </motion.div>
 
       {/* Radial Service Menu */}
@@ -311,7 +311,7 @@ const ExperiencePage: FC = () => {
           transition={{
             duration: 60,
             repeat: Infinity,
-            ease: "linear",
+            ease: 'linear',
           }}
         />
 
@@ -325,21 +325,15 @@ const ExperiencePage: FC = () => {
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         >
-          <VILogo 
-            width={120} 
-            height={60} 
-            color="#ffffff" 
-            strokeWidth={2}
-            className={styles.logo}
-          />
+          <VILogo width={120} height={60} color="#ffffff" strokeWidth={2} className={styles.logo} />
         </motion.div>
 
         {/* Service Nodes */}
         {services.map((service, index) => {
-          const angle = (index * 60) * (Math.PI / 180); // 60 degrees apart
+          const angle = index * 60 * (Math.PI / 180); // 60 degrees apart
           const radius = 160; // Distance from center - adjusted to match ring size
 
           return (
@@ -371,13 +365,15 @@ const ExperiencePage: FC = () => {
             transition={{
               duration: 4 + i * 0.5,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               delay: i * 0.3,
             }}
-            style={{
-              '--delay': `${i * 0.3}s`,
-              '--duration': `${4 + i * 0.5}s`,
-            } as React.CSSProperties}
+            style={
+              {
+                '--delay': `${i * 0.3}s`,
+                '--duration': `${4 + i * 0.5}s`,
+              } as React.CSSProperties
+            }
           />
         ))}
       </div>
@@ -385,4 +381,4 @@ const ExperiencePage: FC = () => {
   );
 };
 
-export default ExperiencePage; 
+export default ExperiencePage;

@@ -1,12 +1,10 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/ui/Logo/Logo';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { servicesData } from '@/lib/data/services';
-import { useServiceColor } from '@/lib/hooks/useServiceColor';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
@@ -18,7 +16,6 @@ const NAV_LINKS = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const serviceColor = useServiceColor();
 
   // Determine logo color based on current service page
   const getLogoColor = () => {
@@ -39,7 +36,11 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`} aria-label="Home">
+      <Link
+        href="/"
+        className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`}
+        aria-label="Home"
+      >
         <Logo className={styles.logo} />
       </Link>
 
