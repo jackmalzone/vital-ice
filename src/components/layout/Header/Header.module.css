@@ -27,6 +27,11 @@
   height: 100%;
   text-decoration: none;
   transition: transform 0.2s ease;
+  z-index: 101;
+}
+
+.logoLinkOpen {
+  z-index: 1001;
 }
 
 .logoLink:focus {
@@ -59,6 +64,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.centerLogoMobile {
+  display: none;
 }
 
 .viLogo {
@@ -206,6 +215,14 @@
   align-items: center;
   z-index: 102;
   transition: all 0.3s ease;
+}
+
+.iceCube:focus {
+  outline: none;
+}
+
+.iceCubeOpen {
+  z-index: 1001;
 }
 
 .iceCubeContainer {
@@ -457,6 +474,10 @@
 
   .desktopNav {
     display: block;
+  }
+
+  .centerLogoMobile {
+    display: flex;
   }
 }
 

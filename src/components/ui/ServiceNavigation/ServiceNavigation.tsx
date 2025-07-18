@@ -15,6 +15,15 @@ const serviceOrder = [
   'red-light-therapy'
 ];
 
+const SERVICE_COLORS = {
+  'cold-plunge': '#00bcd4', // Water - Vital Ice Blue
+  'infrared-sauna': '#ff3e36', // Fire/Light - Blood Orange
+  'traditional-sauna': '#d45700', // Earth/Wood - Deep Umber
+  'red-light-therapy': '#e63e80', // Light - Rose Gold
+  'compression-boots': '#80cbc4', // Air - Pale Silver
+  'percussion-massage': '#64b5f6', // Motion - Electric Cyan
+};
+
 export default function ServiceNavigation() {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -89,6 +98,19 @@ export default function ServiceNavigation() {
         </Link>
       )}
 
+      {/* Left Arrow for Previous Service */}
+      {prevService && (
+        <Link 
+          href={`/services/${prevService}`}
+          className={styles.leftArrow}
+          aria-label={`Previous: ${prevServiceData?.title}`}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </Link>
+      )}
+
       {/* Sidebar */}
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
         <div className={styles.sidebarHeader}>
@@ -110,6 +132,7 @@ export default function ServiceNavigation() {
             if (!service) return null;
             
             const isActive = serviceId === currentServiceId;
+            const serviceColor = SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || service.accentColor;
             
             return (
               <Link
@@ -118,7 +141,7 @@ export default function ServiceNavigation() {
                 className={`${styles.sidebarLink} ${isActive ? styles.active : ''}`}
                 onClick={() => setIsSidebarOpen(false)}
               >
-                <div className={styles.serviceIcon} style={{ backgroundColor: service.accentColor }}>
+                <div className={styles.serviceIcon} style={{ backgroundColor: serviceColor }}>
                   {service.title.charAt(0)}
                 </div>
                 <div className={styles.serviceInfo}>

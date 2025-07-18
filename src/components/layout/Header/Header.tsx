@@ -39,12 +39,12 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.logoLink} aria-label="Home">
+      <Link href="/" className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`} aria-label="Home">
         <Logo className={styles.logo} />
       </Link>
 
-      {/* Center VI Logo */}
-      <div className={styles.centerLogo}>
+      {/* Center VI Logo - Hidden on Mobile */}
+      <div className={`${styles.centerLogo} ${styles.centerLogoMobile}`}>
         <VILogo className={styles.viLogo} color={getLogoColor()} />
       </div>
 
@@ -66,7 +66,7 @@ export default function Header() {
 
       {/* Mobile Menu Button - Ice Cube */}
       <button
-        className={`${styles.iceCube} ${open ? styles.active : ''}`}
+        className={`${styles.iceCube} ${open ? styles.active : ''} ${open ? styles.iceCubeOpen : ''}`}
         aria-label="Open navigation menu"
         aria-expanded={open}
         onClick={() => {

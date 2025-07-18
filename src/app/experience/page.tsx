@@ -14,7 +14,7 @@ import {
   GiCampfire, 
   GiLightningTrio, 
   GiLeg, 
-  GiTargetArrows 
+  GiVibratingBall 
 } from 'react-icons/gi';
 
 // Refined color palette with symbolic meanings
@@ -34,7 +34,7 @@ const ServiceIcons = {
   'traditional-sauna': <GiCampfire size={24} />,
   'red-light-therapy': <GiLightningTrio size={24} />,
   'compression-boots': <GiLeg size={24} />,
-  'percussion-massage': <GiTargetArrows size={24} />,
+  'percussion-massage': <GiVibratingBall size={24} />,
 };
 
 // Enhanced Three.js Background with starfield effect
