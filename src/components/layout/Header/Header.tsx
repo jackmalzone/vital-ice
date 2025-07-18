@@ -10,25 +10,13 @@ import { useServiceColor } from '@/lib/hooks/useServiceColor';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
-  {
-    label: 'Experience',
-    href: '/services',
-    dropdown: [
-      { label: 'Cold Plunge', href: '/services/cold-plunge' },
-      { label: 'Infrared Sauna', href: '/services/infrared-sauna' },
-      { label: 'Traditional Sauna', href: '/services/traditional-sauna' },
-      { label: 'Compression Boots', href: '/services/compression-boots' },
-      { label: 'Percussion Massage', href: '/services/percussion-massage' },
-      { label: 'Red Light Therapy', href: '/services/red-light-therapy' },
-    ],
-  },
+  { label: 'Experience', href: '/experience' },
   { label: 'Vision', href: '/vision' },
   { label: 'Our Story', href: '/about' },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const serviceColor = useServiceColor();
 
@@ -45,33 +33,9 @@ export default function Header() {
     return '#ffffff';
   };
 
-  const handleDropdownToggle = (label: string) => {
-    setActiveDropdown(activeDropdown === label ? null : label);
-  };
-
   const closeMenu = () => {
     setOpen(false);
-    setActiveDropdown(null);
   };
-
-  const handleLinkClick = () => {
-    setActiveDropdown(null);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (!target.closest(`.${styles.dropdownContainer}`)) {
-        setActiveDropdown(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
     <header className={styles.header}>
@@ -89,64 +53,12 @@ export default function Header() {
         <ul className={styles.desktopNavList}>
           {NAV_LINKS.map(link => (
             <li key={link.href} className={styles.desktopNavItem}>
-              {link.dropdown ? (
-                <div
-                  className={styles.dropdownContainer}
-                  onMouseEnter={() => setActiveDropdown(link.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <button
-                    className={`${styles.dropdownTrigger} ${activeDropdown === link.label ? styles.active : ''}`}
-                    onClick={() => handleDropdownToggle(link.label)}
-                  >
-                    {link.label}
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={styles.dropdownIcon}
-                    >
-                      <path
-                        d="M6 9l6 6 6-6"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  {activeDropdown === link.label && (
-                    <div className={styles.dropdown}>
-                      <ul className={styles.dropdownList}>
-                        {link.dropdown.map(dropdownItem => (
-                          <li key={dropdownItem.href} className={styles.dropdownItem}>
-                            <Link
-                              href={dropdownItem.href}
-                              className={styles.dropdownLink}
-                              onClick={() => {
-                                closeMenu();
-                                setActiveDropdown(null);
-                              }}
-                            >
-                              {dropdownItem.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href={link.href}
-                  className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
-                  onClick={handleLinkClick}
-                >
-                  {link.label}
-                </Link>
-              )}
+              <Link
+                href={link.href}
+                className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
+              >
+                {link.label}
+              </Link>
             </li>
           ))}
         </ul>
@@ -159,7 +71,6 @@ export default function Header() {
         aria-expanded={open}
         onClick={() => {
           setOpen(v => !v);
-          setActiveDropdown(null);
         }}
       >
         <div className={styles.iceCubeContainer}>
@@ -180,61 +91,13 @@ export default function Header() {
             <ul className={styles.overlayNavList}>
               {NAV_LINKS.map(link => (
                 <li key={link.href} className={styles.overlayNavItem}>
-                  {link.dropdown ? (
-                    <div className={styles.mobileDropdownContainer}>
-                      <button
-                        className={`${styles.mobileDropdownTrigger} ${activeDropdown === link.label ? styles.active : ''}`}
-                        onClick={() => handleDropdownToggle(link.label)}
-                      >
-                        {link.label}
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className={styles.mobileDropdownIcon}
-                        >
-                          <path
-                            d="M6 9l6 6 6-6"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
-                      {activeDropdown === link.label && (
-                        <ul className={styles.mobileDropdownList}>
-                          {link.dropdown.map(dropdownItem => (
-                            <li key={dropdownItem.href} className={styles.mobileDropdownItem}>
-                              <Link
-                                href={dropdownItem.href}
-                                className={styles.mobileDropdownLink}
-                                onClick={() => {
-                                  closeMenu();
-                                  setActiveDropdown(null);
-                                }}
-                              >
-                                {dropdownItem.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
-                      onClick={() => {
-                        closeMenu();
-                        setActiveDropdown(null);
-                      }}
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  <Link
+                    href={link.href}
+                    className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
+                    onClick={closeMenu}
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
               <li className={styles.overlayNavItem}>

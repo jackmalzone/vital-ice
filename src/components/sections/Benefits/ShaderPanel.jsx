@@ -42,10 +42,21 @@ function ShaderPlane() {
           
           void main() {
             vec2 st = vUv;
-            float n = sin(st.x *10 + uTime) * sin(st.y * 8.0 + uTime);
-            float intensity = n * 0.3;
-            vec3 color = vec310;
-            gl_FragColor = vec4olor, intensity);
+            
+            // Very subtle gradient shift
+            float shift = sin(uTime * 0.1) * 0.01;
+            
+            // Simple radial gradient with subtle movement
+            float dist = length(st - vec2(0.5 + shift, 0.5));
+            float gradient = 1.0 - dist * 0.5;
+            
+            // Nearly imperceptible intensity
+            float intensity = gradient * 0.003 + 0.001;
+            
+            // Very dark blue, almost black
+            vec3 color = vec3(0.01, 0.02, 0.03);
+            
+            gl_FragColor = vec4(color, intensity);
           }
         `}
       />

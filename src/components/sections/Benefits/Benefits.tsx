@@ -352,19 +352,19 @@ const Benefits: FC = () => {
                       <ShaderPanel />
                     </div>
                     <div className={styles.benefit__protocolContent}>
-                      <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
-                      <div className={styles.benefit__protocolSpecs}>
-                        <div className={styles.benefit__protocolItem}>
-                          <span className={styles.benefit__protocolLabel}>Temp:</span>
-                          <span className={styles.benefit__protocolValue}>{benefit.protocol.temp}</span>
-                        </div>
-                        <div className={styles.benefit__protocolItem}>
-                          <span className={styles.benefit__protocolLabel}>Time:</span>
-                          <span className={styles.benefit__protocolValue}>{benefit.protocol.time}</span>
-                        </div>
-                        <div className={styles.benefit__protocolItem}>
-                          <span className={styles.benefit__protocolLabel}>Type:</span>
-                          <span className={styles.benefit__protocolValue}>{benefit.protocol.type}</span>
+                    <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
+                    <div className={styles.benefit__protocolSpecs}>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Temp:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.temp}</span>
+                      </div>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Time:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.time}</span>
+                      </div>
+                      <div className={styles.benefit__protocolItem}>
+                        <span className={styles.benefit__protocolLabel}>Type:</span>
+                        <span className={styles.benefit__protocolValue}>{benefit.protocol.type}</span>
                         </div>
                       </div>
                     </div>
@@ -386,11 +386,11 @@ const Benefits: FC = () => {
                       <ShaderPanel />
                     </div>
                     <div className={styles.benefit__effectContent}>
-                      <h4 className={styles.benefit__effectTitle}>EFFECT</h4>
+                    <h4 className={styles.benefit__effectTitle}>EFFECT</h4>
                       <p className={styles.benefit__effectSummary}>
                         {renderHighlightedText(benefit.effect.summary)}
                       </p>
-                      <p className={styles.benefit__effectDescription}>"{benefit.effect.description}"</p>
+                    <p className={styles.benefit__effectDescription}>"{benefit.effect.description}"</p>
                       <p 
                         className={styles.benefit__effectClinical}
                         data-protocol={benefit.effect.protocolId}
