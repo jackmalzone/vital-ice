@@ -81,7 +81,6 @@ const MissionStatement: FC = () => {
         >
           <motion.h2
             className={styles.mission__title}
-            style={{ y: titleY }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -1,36 +1,38 @@
 /* Experience Page Styles */
 .experiencePage {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
   background: #000000;
+  overflow-x: hidden;
 }
 
 /* Three.js Background */
 .background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 1;
 }
 
 /* Radial Menu Container */
 .radialMenu {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 600px;
   height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  margin: 0 auto;
+  padding: 200px 0;
+}
+
+/* Spacing between radial menu and footer */
+.footerSpacing {
+  height: 120px;
+  width: 100%;
 }
 
 /* Central Logo */
@@ -204,16 +206,13 @@
 
 /* Page Title */
 .pageTitle {
-  position: fixed;
-  top: 120px;
-  left: 0;
-  right: 0;
+  position: relative;
   text-align: center;
   z-index: 20;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 120px 20px 60px 20px;
 }
 
 .pageTitleHeading {
@@ -244,11 +243,11 @@
 
 /* Floating Particles */
 .particles {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   pointer-events: none;
   z-index: 1;
 }
@@ -399,7 +398,7 @@
   }
 
   .pageTitle {
-    top: 100px;
+    padding: 100px 20px 40px 20px;
     max-width: 500px;
   }
 

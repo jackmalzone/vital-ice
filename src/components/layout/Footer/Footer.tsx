@@ -127,12 +127,16 @@ const Footer: FC = () => {
           <div className={styles.footer__copyright}>
             <p>&copy; {currentYear} Vital Ice. All rights reserved.</p>
             <div className={styles.footer__legal}>
-              <a href="/privacy" className={styles.footer__legalLink}>
-                Privacy Policy
+              <a href="/client-policy" className={styles.footer__legalLink}>
+                Legal & Policies
               </a>
               <span className={styles.footer__separator}>•</span>
-              <a href="/terms" className={styles.footer__legalLink}>
-                Terms of Service
+              <a href="/faq" className={styles.footer__legalLink}>
+                FAQs
+              </a>
+              <span className={styles.footer__separator}>•</span>
+              <a href="/careers" className={styles.footer__legalLink}>
+                Careers
               </a>
             </div>
           </div>

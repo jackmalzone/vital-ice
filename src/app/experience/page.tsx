@@ -15,6 +15,7 @@ import {
 } from 'react-icons/gi';
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
+import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 const SERVICE_COLORS = {
@@ -188,11 +189,21 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
           '--index': index,
         } as React.CSSProperties
       }
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ 
+        opacity: 0, 
+        scale: 0,
+        x: 0,
+        y: 0
+      }}
+      animate={{ 
+        opacity: 1, 
+        scale: 1,
+        x: x,
+        y: y
+      }}
       transition={{
-        duration: 0.8,
-        delay: index * 0.1,
+        duration: 1.2,
+        delay: index * 0.15,
         ease: [0.4, 0, 0.2, 1],
       }}
       whileHover={{
@@ -352,6 +363,9 @@ const ExperiencePage: React.FC = () => {
         })}
       </div>
 
+      {/* Spacing before footer */}
+      <div className={styles.footerSpacing} />
+
       {/* Floating Particles */}
       <div className={styles.particles}>
         {[...Array(12)].map((_, i) => (
@@ -377,6 +391,9 @@ const ExperiencePage: React.FC = () => {
           />
         ))}
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
