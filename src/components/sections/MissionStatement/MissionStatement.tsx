@@ -16,7 +16,7 @@ const MissionStatement: FC = () => {
   });
 
   // Subtle parallax effects (only on initial load)
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  // const titleY = useTransform(scrollYProgress, [0, 1], [0, -20]);
   const statementY = useTransform(scrollYProgress, [0, 1], [0, -15]);
   const ctaY = useTransform(scrollYProgress, [0, 1], [0, -10]);
 

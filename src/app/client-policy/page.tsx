@@ -11,7 +11,7 @@ const ClientPolicyPage: React.FC = () => {
       id: 'welcome',
       title: 'Welcome to Vital Ice',
       content: `We're excited to have you as part of our recovery community. At Vital Ice, we're committed to creating a safe, respectful, and results-driven space for contrast therapy and wellness. Please take a moment to review the following client policies. They're designed to protect your experience, clarify expectations, and ensure we can deliver consistent, high-quality service. If you have any questions, we're always here to help — just reach out to our team. We're glad you're here.`,
-      isWelcome: true
+      isWelcome: true,
     },
     {
       id: 'liability-waiver',
@@ -50,7 +50,7 @@ I agree to indemnify and hold harmless Vital Ice from any claims or liabilities 
 Unless I notify staff in writing, I grant permission for Vital Ice to use any photos or video taken during my participation for promotional or marketing purposes.
 
 **Acknowledgment and Consent**
-By signing electronically, I confirm that I have read this waiver in its entirety, understand its terms, and voluntarily agree to be bound by them.`
+By signing electronically, I confirm that I have read this waiver in its entirety, understand its terms, and voluntarily agree to be bound by them.`,
     },
     {
       id: 'cancellation',
@@ -78,7 +78,7 @@ By signing electronically, I confirm that I have read this waiver in its entiret
 - See Refund Policy for further detail
 
 <strong>Exceptions</strong>
-- Fee waivers may be granted in exceptional cases (e.g., medical emergencies) when communicated promptly. Vital Ice reserves the right to grant or deny such requests at its sole discretion.`
+- Fee waivers may be granted in exceptional cases (e.g., medical emergencies) when communicated promptly. Vital Ice reserves the right to grant or deny such requests at its sole discretion.`,
     },
     {
       id: 'refund',
@@ -107,7 +107,7 @@ By signing electronically, I confirm that I have read this waiver in its entiret
 - If a session is canceled by Vital Ice due to technical, staffing, or facility issues, a replacement session or account credit will be issued — no cash refunds.
 
 <strong>Chargebacks and Disputes</strong>
-- Clients are encouraged to resolve any billing concerns directly with us. Unauthorized chargebacks may result in temporary account suspension.`
+- Clients are encouraged to resolve any billing concerns directly with us. Unauthorized chargebacks may result in temporary account suspension.`,
     },
     {
       id: 'purchase-payment',
@@ -140,7 +140,7 @@ By signing electronically, I confirm that I have read this waiver in its entiret
 - Vital Ice may refuse or revoke service for anyone violating policies, demonstrating unsafe behavior, or disrupting the client experience.
 
 <strong>No Guarantee of Results</strong>
-- We make no guarantee of health, wellness, or recovery outcomes. Participation is voluntary and at your own risk. Results vary by individual.`
+- We make no guarantee of health, wellness, or recovery outcomes. Participation is voluntary and at your own risk. Results vary by individual.`,
     },
     {
       id: 'privacy',
@@ -193,7 +193,7 @@ You may receive occasional emails or texts from Vital Ice about bookings, offers
 Our website and booking system may use cookies or similar technologies to track usage, improve performance, and support user experience. You may adjust your browser settings to decline cookies if you prefer.
 
 <strong>Policy Updates</strong>
-This Privacy Policy may be updated periodically. Changes will be posted on our website and are effective immediately upon posting. Your continued use of our services signifies your acceptance of any changes.`
+This Privacy Policy may be updated periodically. Changes will be posted on our website and are effective immediately upon posting. Your continued use of our services signifies your acceptance of any changes.`,
     },
     {
       id: 'terms',
@@ -280,8 +280,8 @@ The following additional policies are incorporated by reference into these Terms
 - Privacy Policy
 - Liability Waiver & Release of Claims
 
-These are available at vitalicesf.com or by request via info@vitalicesf.com.`
-    }
+These are available at vitalicesf.com or by request via info@vitalicesf.com.`,
+    },
   ];
 
   return (
@@ -311,17 +311,16 @@ These are available at vitalicesf.com or by request via info@vitalicesf.com.`
               <div className={styles.policyHeader}>
                 <h2 className={styles.policyTitle}>{policy.title}</h2>
                 {policy.effectiveDate && (
-                  <p className={styles.effectiveDate}>
-                    Effective Date: {policy.effectiveDate}
-                  </p>
+                  <p className={styles.effectiveDate}>Effective Date: {policy.effectiveDate}</p>
                 )}
               </div>
-              <div 
+              <div
                 className={styles.policyContent}
-                dangerouslySetInnerHTML={{ 
-                  __html: policy.content.split('\n\n').map(paragraph => 
-                    `<p class="${styles.paragraph}">${paragraph}</p>`
-                  ).join('')
+                dangerouslySetInnerHTML={{
+                  __html: policy.content
+                    .split('\n\n')
+                    .map(paragraph => `<p class="${styles.paragraph}">${paragraph}</p>`)
+                    .join(''),
                 }}
               />
             </motion.div>
@@ -335,11 +334,11 @@ These are available at vitalicesf.com or by request via info@vitalicesf.com.`
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <h3>Contact Us</h3>
-          <p>
-            For questions about these policies or your personal information, contact:
-          </p>
+          <p>For questions about these policies or your personal information, contact:</p>
           <div className={styles.contactInfo}>
-            <p><strong>Vital Ice</strong></p>
+            <p>
+              <strong>Vital Ice</strong>
+            </p>
             <p>2400 Chestnut St, San Francisco, CA 94123</p>
             <p>info@vitalicesf.com</p>
           </div>
@@ -352,4 +351,4 @@ These are available at vitalicesf.com or by request via info@vitalicesf.com.`
   );
 };
 
-export default ClientPolicyPage; 
+export default ClientPolicyPage;

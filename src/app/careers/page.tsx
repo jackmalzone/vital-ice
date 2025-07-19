@@ -17,7 +17,7 @@ const CareersPage: React.FC = () => {
     phone: '',
     experience: '',
     whyJoin: '',
-    resume: null as File | null
+    resume: null as File | null,
   });
 
   const teamMembers = [
@@ -26,22 +26,22 @@ const CareersPage: React.FC = () => {
       role: 'Co-Founder & Operations',
       bio: 'Sean leads our day-to-day operations and facility management. With a background in wellness and community building, he ensures every aspect of Vital Ice runs smoothly. Sean is passionate about creating spaces where people can truly disconnect and reconnect with themselves.',
       image: '/images/founder-sean.png',
-      accent: '#00b7b5'
+      accent: '#00b7b5',
     },
     {
       name: 'Stephen',
       role: 'Co-Founder & Strategy',
       bio: 'Stephen drives our strategic vision and business development. His expertise in scaling wellness businesses and understanding of the recovery space has been instrumental in building Vital Ice from concept to reality. Stephen believes in making elite recovery accessible to everyone.',
       image: '/images/founders-seanstephen.png',
-      accent: '#f56f0d'
+      accent: '#f56f0d',
     },
     {
       name: 'Barry',
       role: 'Co-Founder & Community',
       bio: 'Barry focuses on community engagement and member experience. His background in hospitality and passion for human connection ensures that every member feels welcome and supported. Barry believes that recovery is better when shared with others.',
       image: '/images/founders-seanstephen.png',
-      accent: '#8b4513'
-    }
+      accent: '#8b4513',
+    },
   ];
 
   const handleApplyClick = (jobTitle: string) => {
@@ -51,7 +51,7 @@ const CareersPage: React.FC = () => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       // Prepare application data
       const application = {
@@ -62,12 +62,12 @@ const CareersPage: React.FC = () => {
         phone: formData.phone,
         experience: formData.experience,
         whyJoin: formData.whyJoin,
-        resume: formData.resume
+        resume: formData.resume,
       };
 
       // Try to send via API first
       const success = await sendJobApplication(application);
-      
+
       if (success) {
         // Success - reset form and close modal
         setFormData({
@@ -77,17 +77,17 @@ const CareersPage: React.FC = () => {
           phone: '',
           experience: '',
           whyJoin: '',
-          resume: null
+          resume: null,
         });
         setIsFormOpen(false);
         setSelectedJob('');
-        
-        alert('Thank you for your application! We\'ll be in touch soon.');
+
+        alert('Thank you for your application! We&apos;ll be in touch soon.');
       } else {
         // Fallback to email link
         const emailLink = createEmailLink(application);
         window.open(emailLink, '_blank');
-        
+
         // Reset form and close modal
         setFormData({
           firstName: '',
@@ -96,16 +96,20 @@ const CareersPage: React.FC = () => {
           phone: '',
           experience: '',
           whyJoin: '',
-          resume: null
+          resume: null,
         });
         setIsFormOpen(false);
         setSelectedJob('');
-        
-        alert('Your application has been prepared. Please send the email that opened in your email client.');
+
+        alert(
+          'Your application has been prepared. Please send the email that opened in your email client.'
+        );
       }
     } catch (error) {
       console.error('Error submitting application:', error);
-      alert('There was an error submitting your application. Please try again or contact us directly.');
+      alert(
+        'There was an error submitting your application. Please try again or contact us directly.'
+      );
     }
   };
 
@@ -124,56 +128,59 @@ const CareersPage: React.FC = () => {
       title: 'Front Desk Associate',
       type: 'Part-time',
       location: 'San Francisco, CA',
-      description: 'Join our team as the first point of contact for our members. You\'ll help with check-ins, answer questions, and ensure everyone has a great experience.',
+      description:
+        "Join our team as the first point of contact for our members. You'll help with check-ins, answer questions, and ensure everyone has a great experience.",
       requirements: [
         'Customer service experience',
         'Passion for wellness and recovery',
         'Flexible schedule including weekends',
-        'Strong communication skills'
+        'Strong communication skills',
       ],
       responsibilities: [
         'Greet and check in members',
         'Answer questions about services',
         'Maintain facility cleanliness',
-        'Assist with booking and payments'
-      ]
+        'Assist with booking and payments',
+      ],
     },
     {
       title: 'Recovery Specialist',
       type: 'Full-time',
       location: 'San Francisco, CA',
-      description: 'Help guide members through their recovery journey. You\'ll provide education on contrast therapy, assist with equipment, and ensure safety protocols.',
+      description:
+        "Help guide members through their recovery journey. You'll provide education on contrast therapy, assist with equipment, and ensure safety protocols.",
       requirements: [
         'Background in fitness, wellness, or healthcare',
         'Knowledge of cold therapy and sauna benefits',
         'CPR certification preferred',
-        'Strong attention to safety protocols'
+        'Strong attention to safety protocols',
       ],
       responsibilities: [
         'Guide members through recovery protocols',
         'Monitor facility safety',
         'Provide education on recovery techniques',
-        'Maintain equipment and facilities'
-      ]
+        'Maintain equipment and facilities',
+      ],
     },
     {
       title: 'Facility Maintenance',
       type: 'Part-time',
       location: 'San Francisco, CA',
-      description: 'Keep our facility running smoothly. You\'ll handle cleaning, maintenance, and ensure everything is in perfect condition for our members.',
+      description:
+        "Keep our facility running smoothly. You'll handle cleaning, maintenance, and ensure everything is in perfect condition for our members.",
       requirements: [
         'Experience with facility maintenance',
         'Attention to detail',
         'Reliable and punctual',
-        'Ability to work independently'
+        'Ability to work independently',
       ],
       responsibilities: [
         'Daily cleaning and maintenance',
         'Equipment upkeep',
         'Inventory management',
-        'Safety inspections'
-      ]
-    }
+        'Safety inspections',
+      ],
+    },
   ];
 
   return (
@@ -186,9 +193,7 @@ const CareersPage: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className={styles.title}>Join Our Team</h1>
-          <p className={styles.subtitle}>
-            Help us build the future of recovery and wellness
-          </p>
+          <p className={styles.subtitle}>Help us build the future of recovery and wellness</p>
         </motion.div>
 
         {/* Team Section */}
@@ -216,10 +221,7 @@ const CareersPage: React.FC = () => {
                     height={200}
                     className={styles.memberPhoto}
                   />
-                  <div 
-                    className={styles.memberAccent}
-                    style={{ backgroundColor: member.accent }}
-                  />
+                  <div className={styles.memberAccent} style={{ backgroundColor: member.accent }} />
                 </div>
                 <div className={styles.memberInfo}>
                   <h3 className={styles.memberName}>{member.name}</h3>
@@ -255,9 +257,9 @@ const CareersPage: React.FC = () => {
                     <span className={styles.jobLocation}>{job.location}</span>
                   </div>
                 </div>
-                
+
                 <p className={styles.jobDescription}>{job.description}</p>
-                
+
                 <div className={styles.jobDetails}>
                   <div className={styles.jobSection}>
                     <h4 className={styles.jobSectionTitle}>Requirements</h4>
@@ -267,7 +269,7 @@ const CareersPage: React.FC = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className={styles.jobSection}>
                     <h4 className={styles.jobSectionTitle}>Responsibilities</h4>
                     <ul className={styles.jobList}>
@@ -277,7 +279,7 @@ const CareersPage: React.FC = () => {
                     </ul>
                   </div>
                 </div>
-                
+
                 <motion.button
                   className={styles.applyButton}
                   whileHover={{ scale: 1.02 }}
@@ -300,7 +302,8 @@ const CareersPage: React.FC = () => {
         >
           <h3>Interested in joining our team?</h3>
           <p>
-            We're always looking for passionate individuals who share our vision for accessible, high-quality recovery experiences.
+            We&apos;re always looking for passionate individuals who share our vision for
+            accessible, high-quality recovery experiences.
           </p>
           <div className={styles.contactInfo}>
             <a href="mailto:careers@vitalicesf.com" className={styles.contactLink}>
@@ -310,7 +313,8 @@ const CareersPage: React.FC = () => {
               (415) 555-1234
             </a>
             <p className={styles.address}>
-              2400 Chestnut St<br />
+              2400 Chestnut St
+              <br />
               San Francisco, CA 94123
             </p>
           </div>
@@ -335,14 +339,11 @@ const CareersPage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.8, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 50 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
             >
               <div className={styles.modalHeader}>
                 <h2>Apply for {selectedJob}</h2>
-                <button
-                  className={styles.closeButton}
-                  onClick={() => setIsFormOpen(false)}
-                >
+                <button className={styles.closeButton} onClick={() => setIsFormOpen(false)}>
                   ×
                 </button>
               </div>
@@ -455,4 +456,4 @@ const CareersPage: React.FC = () => {
   );
 };
 
-export default CareersPage; 
+export default CareersPage;

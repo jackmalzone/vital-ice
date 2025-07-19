@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         user: process.env.EMAIL_USER, // careers@vitalicesf.com
         pass: process.env.EMAIL_PASSWORD, // App password from Gmail
       },
-      
+
       // Option 2: Custom SMTP (like SendGrid, Mailgun, etc.)
       // host: 'smtp.sendgrid.net',
       // port: 587,
@@ -58,9 +58,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error sending application:', error);
-    return NextResponse.json(
-      { error: 'Failed to send application' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to send application' }, { status: 500 });
   }
-} 
+}

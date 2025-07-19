@@ -171,7 +171,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
             viewport={{ once: true }}
           >
             <blockquote className={styles.callout__quote}>
-              "Step in cold. Step out clear."
+              &ldquo;Step in cold. Step out clear.&rdquo;
             </blockquote>
             <div className={styles.callout__accent} style={{ backgroundColor: data.accentColor }} />
           </motion.div>

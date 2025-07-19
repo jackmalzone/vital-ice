@@ -14,7 +14,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
   try {
     // Using EmailJS for client-side email sending
     const emailjs = await import('@emailjs/browser');
-    
+
     const result = await emailjs.default.send(
       'YOUR_SERVICE_ID', // Replace with your EmailJS Service ID
       'YOUR_TEMPLATE_ID', // Replace with your EmailJS Template ID
@@ -29,7 +29,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
       },
       'YOUR_PUBLIC_KEY' // Replace with your EmailJS Public Key
     );
-    
+
     return result.status === 200;
   } catch (error) {
     console.error('Error sending application:', error);

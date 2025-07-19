@@ -178,6 +178,26 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   const y = Math.sin(angle) * radius;
   const accentColor = SERVICE_COLORS[service.id as keyof typeof SERVICE_COLORS] || '#00bcd4';
 
+  // Simple approach: position labels based on service index
+  const getLabelPosition = (serviceIndex: number) => {
+    switch (serviceIndex) {
+      case 0:
+        return 'top'; // Cold Plunge
+      case 1:
+        return 'top-right'; // Infrared Sauna
+      case 2:
+        return 'bottom-right'; // Traditional Sauna
+      case 3:
+        return 'bottom'; // Red Light Therapy
+      case 4:
+        return 'bottom-left'; // Percussion Massage
+      case 5:
+        return 'top-left'; // Compression Boots
+      default:
+        return 'top';
+    }
+  };
+
   return (
     <motion.div
       className={styles.serviceNode}
@@ -189,17 +209,17 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
           '--index': index,
         } as React.CSSProperties
       }
-      initial={{ 
-        opacity: 0, 
+      initial={{
+        opacity: 0,
         scale: 0,
         x: 0,
-        y: 0
+        y: 0,
       }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         scale: 1,
         x: x,
-        y: y
+        y: y,
       }}
       transition={{
         duration: 1.2,
@@ -229,10 +249,10 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            className={styles.serviceLabel}
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className={`${styles.serviceLabel} ${styles[`serviceLabel--${getLabelPosition(index)}`]}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <h3>{service.title}</h3>
@@ -283,8 +303,8 @@ const ExperiencePage: React.FC = () => {
     }, 300);
   };
 
-  const handleHover = (index: number) => {
-    setHoveredIndex(index);
+  const handleHover = (hoverIndex: number) => {
+    setHoveredIndex(hoverIndex);
   };
 
   const handleLeave = () => {

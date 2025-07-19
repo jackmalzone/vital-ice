@@ -181,6 +181,121 @@ const Benefits: FC = () => {
       ),
       color: 'rgba(255, 20, 147, 0.8)',
     },
+    {
+      title: 'PERCUSSION MASSAGE',
+      tagline: 'Deep tissue therapy through targeted vibration.',
+      protocol: {
+        temp: 'Ambient',
+        time: '15–30 minutes',
+        type: 'High-frequency vibration therapy',
+      },
+      effect: {
+        summary: '*Muscle recovery*, *tension release*, and *circulation enhancement*.',
+        description: 'Vibrate away the stress. Feel the release.',
+        clinical: 'Evidence-based approach to muscle recovery and tension relief.',
+        protocolId: 'PERC-05',
+      },
+      image: '/images/percussion_bicep.jpg',
+      alt: 'Percussion massage device on muscle',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Vibration waves */}
+          <path
+            d="M4 12C4 12 6 10 8 12C10 10 12 12 12 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.8"
+          />
+          <path
+            d="M12 12C12 12 14 10 16 12C18 10 20 12 20 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.6"
+          />
+          <path
+            d="M4 12C4 12 6 14 8 12C10 14 12 12 12 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.4"
+          />
+          <path
+            d="M12 12C12 12 14 14 16 12C18 14 20 12 20 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.2"
+          />
+          {/* Central device */}
+          <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.8" />
+          <circle cx="12" cy="12" r="1" fill="currentColor" />
+        </svg>
+      ),
+      color: 'rgba(100, 181, 246, 0.8)',
+    },
+    {
+      title: 'COMPRESSION BOOTS',
+      tagline: 'Recovery through rhythmic compression.',
+      protocol: {
+        temp: 'Ambient',
+        time: '20–30 minutes',
+        type: 'Sequential compression therapy',
+      },
+      effect: {
+        summary: '*Lymphatic drainage*, *circulation improvement*, and *recovery acceleration*.',
+        description: 'Compress. Decompress. Recover.',
+        clinical: 'Sequential compression for enhanced recovery and circulation.',
+        protocolId: 'COMP-06',
+      },
+      image: '/images/cells-bloodcells.jpg',
+      alt: 'Compression boots on legs',
+      icon: (
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Compression waves */}
+          <path
+            d="M6 8C6 8 8 6 12 8C16 6 18 8 18 8"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.8"
+          />
+          <path
+            d="M6 12C6 12 8 10 12 12C16 10 18 12 18 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.6"
+          />
+          <path
+            d="M6 16C6 16 8 14 12 16C16 14 18 16 18 16"
+            stroke="currentColor"
+            strokeWidth="2"
+            opacity="0.4"
+          />
+          {/* Boot outline */}
+          <path
+            d="M8 6L8 18C8 18 10 20 12 20C14 20 16 18 16 18L16 6C16 6 14 4 12 4C10 4 8 6 8 6Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            fill="none"
+            opacity="0.6"
+          />
+          {/* Compression chambers */}
+          <rect x="9" y="8" width="6" height="2" fill="currentColor" opacity="0.3" />
+          <rect x="9" y="12" width="6" height="2" fill="currentColor" opacity="0.3" />
+          <rect x="9" y="16" width="6" height="2" fill="currentColor" opacity="0.3" />
+        </svg>
+      ),
+      color: 'rgba(128, 203, 196, 0.8)',
+    },
   ];
 
   // Function to render highlighted text
@@ -243,10 +358,10 @@ const Benefits: FC = () => {
               data-service={benefit.title.toLowerCase().replace(/\s+/g, '-')}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
+              viewport={{ once: true, margin: '-100px' }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.2,
+                duration: 0.5,
+                delay: index * 0.1,
                 ease: [0.4, 0, 0.2, 1],
               }}
             >
@@ -257,8 +372,8 @@ const Benefits: FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 1,
-                  delay: index * 0.2 + 0.3,
+                  duration: 0.6,
+                  delay: index * 0.1 + 0.2,
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
@@ -284,8 +399,8 @@ const Benefits: FC = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.8,
-                  delay: index * 0.2 + 0.5,
+                  duration: 0.5,
+                  delay: index * 0.1 + 0.3,
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
@@ -296,8 +411,8 @@ const Benefits: FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 0.7,
+                      duration: 0.4,
+                      delay: index * 0.1 + 0.4,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -310,8 +425,8 @@ const Benefits: FC = () => {
                       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{
-                        duration: 0.6,
-                        delay: index * 0.2 + 0.8,
+                        duration: 0.4,
+                        delay: index * 0.1 + 0.5,
                         ease: [0.4, 0, 0.2, 1],
                       }}
                     >
@@ -325,8 +440,8 @@ const Benefits: FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 0.9,
+                      duration: 0.4,
+                      delay: index * 0.1 + 0.6,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -340,8 +455,8 @@ const Benefits: FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 1.1,
+                      duration: 0.4,
+                      delay: index * 0.1 + 0.7,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -380,8 +495,8 @@ const Benefits: FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 1.3,
+                      duration: 0.4,
+                      delay: index * 0.1 + 0.8,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -394,7 +509,7 @@ const Benefits: FC = () => {
                         {renderHighlightedText(benefit.effect.summary)}
                       </p>
                       <p className={styles.benefit__effectDescription}>
-                        "{benefit.effect.description}"
+                        &ldquo;{benefit.effect.description}&rdquo;
                       </p>
                       <p
                         className={styles.benefit__effectClinical}
