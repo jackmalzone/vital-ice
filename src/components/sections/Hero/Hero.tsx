@@ -8,18 +8,48 @@ import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/a
 import { usePerformanceDetection } from '@/lib/utils/performanceDetection';
 import styles from './Hero.module.css';
 
-// Video rotation system - alternating cold and hot videos
+// Video rotation system - alternating cold and hot videos with WebM support
 const VIDEOS = [
-  {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ripples-ambient.mp4',
-    type: 'ripples',
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-1.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-1.webm',
+    type: 'cold' 
   },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient.mp4', type: 'cold' },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient.mp4', type: 'hot' },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.mp4', type: 'cold' },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.mp4', type: 'hot' },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.mp4', type: 'cold' },
-  { src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.mp4', type: 'hot' },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-1.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-1.webm',
+    type: 'hot' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.webm',
+    type: 'cold' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.webm',
+    type: 'hot' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.webm',
+    type: 'cold' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.webm',
+    type: 'hot' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-4.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-4.webm',
+    type: 'cold' 
+  },
+  { 
+    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-4.mp4', 
+    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-4.webm',
+    type: 'hot' 
+  },
 ];
 
 const Hero: FC = () => {
@@ -70,6 +100,7 @@ const Hero: FC = () => {
           <VideoBackground
             key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
             videoSrc={video.src}
+            webmSrc={video.webm}
             overlayOpacity={0}
             isActive={index === currentVideoIndex}
           />

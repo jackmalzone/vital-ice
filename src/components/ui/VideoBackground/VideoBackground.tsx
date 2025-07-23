@@ -5,6 +5,7 @@ import styles from './VideoBackground.module.css';
 
 interface VideoBackgroundProps {
   videoSrc: string;
+  webmSrc?: string; // WebM format for better mobile performance
   posterSrc?: string;
   overlayOpacity?: number;
   isActive?: boolean;
@@ -13,6 +14,7 @@ interface VideoBackgroundProps {
 
 const VideoBackground: FC<VideoBackgroundProps> = ({
   videoSrc,
+  webmSrc,
   posterSrc,
   overlayOpacity = 0.5,
   isActive = true,
@@ -126,6 +128,9 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       >
+        {/* WebM format for better mobile performance */}
+        {webmSrc && <source src={webmSrc} type="video/webm" />}
+        {/* MP4 fallback */}
         <source src={videoSrc} type="video/mp4" />
         {/* Fallback for unsupported video */}
         <div className={styles.videoFallback}>

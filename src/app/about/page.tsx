@@ -65,6 +65,10 @@ const AboutPage: React.FC = () => {
         <div className={styles.hero__videoContainer}>
           <video autoPlay muted loop playsInline className={styles.hero__video}>
             <source
+              src="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/sf_marina.webm"
+              type="video/webm"
+            />
+            <source
               src="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/sf_marina.mp4"
               type="video/mp4"
             />

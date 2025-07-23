@@ -52,6 +52,7 @@ const HistoricalTimeline: FC = () => {
       high?: string;
       medium?: string;
       low?: string;
+      webm?: string;
     };
     content: string;
   }> = [
@@ -65,6 +66,7 @@ const HistoricalTimeline: FC = () => {
         high: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ancient_hot-spring.mp4',
         medium: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ancient_hot-spring.mp4',
         low: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ancient_hot-spring.mp4',
+        webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/ancient_hot-spring.webm',
       },
       content:
         'Even the earliest civilizations recognized the healing power of water. The Great Bath of Mohenjo-daro (Indus Valley) is one of the oldest public bathing pools, suggesting ritual bathing was practiced 4,500 years ago.',

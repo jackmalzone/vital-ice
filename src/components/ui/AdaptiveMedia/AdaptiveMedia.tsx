@@ -43,6 +43,53 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
     imageSource
   );
   const [hasError, setHasError] = useState(false);
+  const [preferredFormat, setPreferredFormat] = useState<'webm' | 'mp4'>('mp4');
+
+  // Detect preferred video format based on device and performance
+  useEffect(() => {
+    const detectPreferredFormat = () => {
+      const video = document.createElement('video');
+      
+      // Test WebM support
+      const canPlayWebM = video.canPlayType('video/webm; codecs="vp8, vorbis"');
+      const canPlayWebM9 = video.canPlayType('video/webm; codecs="vp9"');
+      
+      // Mobile detection
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+      
+      // Performance detection
+      const isLowEndDevice = navigator.hardwareConcurrency <= 4;
+      const hasSlowConnection = (navigator as any).connection?.effectiveType === 'slow-2g' || 
+                               (navigator as any).connection?.effectiveType === '2g';
+      
+      // Prefer WebM for mobile, low-end devices, or slow connections
+      if ((isMobile || isLowEndDevice || hasSlowConnection) && 
+          (canPlayWebM !== '' || canPlayWebM9 !== '')) {
+        setPreferredFormat('webm');
+      } else {
+        setPreferredFormat('mp4');
+      }
+    };
+
+    detectPreferredFormat();
+  }, []);
+
+  // Get optimal video source based on strategy and format preference
+  const getOptimalVideoSource = () => {
+    if (!strategy?.useVideo) return null;
+    
+    // If WebM is preferred and available, use it
+    if (preferredFormat === 'webm' && videoSources.webm) {
+      return videoSources.webm;
+    }
+    
+    // Otherwise use the strategy-based source
+    return mediaSource;
+  };
+
+  const optimalVideoSource = getOptimalVideoSource();
 
   // Fallback to image if video fails
   const handleVideoError = () => {
@@ -125,10 +172,12 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* WebM format for better mobile performance */}
-            {videoSources.webm && <source src={videoSources.webm} type="video/webm" />}
-            {/* MP4 fallback */}
-            <source src={mediaSource} type="video/mp4" />
+            {/* WebM format for better mobile performance - prioritize if preferred */}
+            {preferredFormat === 'webm' && videoSources.webm && (
+              <source src={videoSources.webm} type="video/webm" />
+            )}
+            {/* MP4 fallback - always include for compatibility */}
+            <source src={optimalVideoSource || mediaSource} type="video/mp4" />
             {/* Image fallback */}
             <Image
               src={imageSource}
@@ -168,6 +217,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
         <div className={styles.debugInfo}>
           <span>Type: {mediaType}</span>
           <span>Quality: {strategy?.videoQuality}</span>
+          <span>Format: {preferredFormat}</span>
           <span>Mobile: {strategy?.useVideo ? 'No' : 'Yes'}</span>
         </div>
       )}
