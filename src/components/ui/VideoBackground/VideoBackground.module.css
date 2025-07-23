@@ -3,6 +3,9 @@
   inset: 0;
   overflow: hidden;
   z-index: 0;
+  /* Performance: Optimize for GPU acceleration */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .video {
@@ -11,14 +14,22 @@
   object-fit: cover;
   object-position: center;
   transition: opacity 0.3s ease-in-out;
+  /* Performance: Optimize video rendering */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .video.active {
   opacity: 1;
+  /* Performance: Enable hardware acceleration for active video */
+  will-change: auto;
 }
 
 .video.inactive {
   opacity: 0;
+  /* Performance: Disable processing for inactive videos */
+  will-change: none;
 }
 
 .overlay {

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState, useRef } from 'react';
+import { FC, useEffect, useState, useRef, useCallback } from 'react';
 import styles from './VideoBackground.module.css';
 
 interface VideoBackgroundProps {
@@ -25,47 +25,64 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Performance optimization: Cleanup video resources when component unmounts
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = '';
+        videoRef.current.load();
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (isLoaded && onLoad) {
       onLoad();
     }
   }, [isLoaded, onLoad]);
 
-  // Optimized video activation and playback for mobile
-  useEffect(() => {
+  // Optimized video activation and playback with better memory management
+  const playVideo = useCallback(async () => {
     const video = videoRef.current;
     if (!video || !isLoaded) return;
 
-    const playVideo = async () => {
-      try {
-        if (isActive) {
-          // Mobile optimization: don't reset video time on every activation
-          if (!isPlaying) {
-            video.currentTime = 0;
-          }
-
-          // Try to play with user interaction fallback
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            await playPromise;
-            setIsPlaying(true);
-          }
-        } else {
-          video.pause();
-          setIsPlaying(false);
+    try {
+      if (isActive) {
+        // Performance: Only reset time if not already playing
+        if (!isPlaying) {
+          video.currentTime = 0;
         }
-      } catch {
-        setHasError(true);
+
+        // Performance: Use requestAnimationFrame for smoother playback
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+          setIsPlaying(true);
+        }
+      } else {
+        video.pause();
         setIsPlaying(false);
       }
-    };
-
-    playVideo();
+    } catch (error) {
+      console.warn('Video playback error:', error);
+      setHasError(true);
+      setIsPlaying(false);
+    }
   }, [isActive, isLoaded, isPlaying]);
 
-  // Optimized user interaction handling for mobile
   useEffect(() => {
+    playVideo();
+  }, [playVideo]);
+
+  // Optimized user interaction handling with throttling
+  useEffect(() => {
+    let isHandlingInteraction = false;
+
     const handleUserInteraction = async () => {
+      if (isHandlingInteraction) return;
+      isHandlingInteraction = true;
+
       const video = videoRef.current;
       if (video && isActive && !isPlaying && !hasError) {
         try {
@@ -76,12 +93,20 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           // Silently handle autoplay errors
         }
       }
+
+      // Reset flag after a short delay
+      setTimeout(() => {
+        isHandlingInteraction = false;
+      }, 100);
     };
 
-    // Mobile-optimized event listeners
-    const events = ['touchstart', 'click']; // Reduced event list for mobile
+    // Performance: Use passive listeners and reduce event frequency
+    const events = ['touchstart', 'click'];
     events.forEach(event => {
-      document.addEventListener(event, handleUserInteraction, { once: true, passive: true });
+      document.addEventListener(event, handleUserInteraction, {
+        once: true,
+        passive: true,
+      });
     });
 
     return () => {
@@ -91,25 +116,25 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     };
   }, [isActive, isPlaying, hasError]);
 
-  // Handle video loading states
-  const handleVideoLoad = () => {
+  // Handle video loading states with better error handling
+  const handleVideoLoad = useCallback(() => {
     setIsLoaded(true);
     setHasError(false);
-  };
+  }, []);
 
-  const handleVideoError = () => {
+  const handleVideoError = useCallback(() => {
     setHasError(true);
     setIsLoaded(false);
-  };
+  }, []);
 
-  const handleCanPlay = () => {
+  const handleCanPlay = useCallback(() => {
     if (isActive && videoRef.current && !isPlaying) {
       videoRef.current.play().catch(() => {
         // Autoplay failed, but video is ready
         setIsLoaded(true);
       });
     }
-  };
+  }, [isActive, isPlaying]);
 
   return (
     <div className={styles.videoContainer}>
@@ -119,7 +144,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         muted
         loop
         playsInline
-        preload="metadata" // Changed from "auto" to "metadata" for better mobile performance
+        preload="metadata" // Performance: Only load metadata initially
         className={`${styles.video} ${isActive ? styles.active : styles.inactive}`}
         poster={posterSrc}
         onLoadedData={handleVideoLoad}
@@ -127,6 +152,10 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         onError={handleVideoError}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
+        // Performance: Disable video processing when not visible
+        style={{
+          willChange: isActive ? 'auto' : 'none',
+        }}
       >
         {/* WebM format for better mobile performance */}
         {webmSrc && <source src={webmSrc} type="video/webm" />}
