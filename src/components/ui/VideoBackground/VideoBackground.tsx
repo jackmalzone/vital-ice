@@ -65,6 +65,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         setIsPlaying(false);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.warn('Video playback error:', error);
       setHasError(true);
       setIsPlaying(false);

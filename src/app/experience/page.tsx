@@ -179,8 +179,8 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   const accentColor = SERVICE_COLORS[service.id as keyof typeof SERVICE_COLORS] || '#00bcd4';
 
   // Simple approach: position labels based on service index
-  const getLabelPosition = (serviceIndex: number) => {
-    switch (serviceIndex) {
+  const getLabelPosition = (_serviceIndex: number) => {
+    switch (_serviceIndex) {
       case 0:
         return 'top'; // Cold Plunge
       case 1:

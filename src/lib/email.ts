@@ -32,6 +32,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
 
     return result.status === 200;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error sending application:', error);
     return false;
   }

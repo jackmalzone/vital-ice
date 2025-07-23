@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error sending application:', error);
     return NextResponse.json({ error: 'Failed to send application' }, { status: 500 });
   }

@@ -111,7 +111,8 @@ const Hero: FC = () => {
   useEffect(() => {
     // Detect connection quality
     if ('connection' in navigator) {
-      const connection = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType?: string } })
+        .connection;
       if (connection?.effectiveType === '4g') {
         setConnectionQuality('fast');
       } else if (connection?.effectiveType === '3g') {

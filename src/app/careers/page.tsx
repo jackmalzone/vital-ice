@@ -106,6 +106,7 @@ const CareersPage: React.FC = () => {
         );
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error submitting application:', error);
       alert(
         'There was an error submitting your application. Please try again or contact us directly.'

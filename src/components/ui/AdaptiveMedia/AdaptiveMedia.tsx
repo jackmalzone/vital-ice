@@ -62,8 +62,10 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
       // Performance detection
       const isLowEndDevice = navigator.hardwareConcurrency <= 4;
       const hasSlowConnection =
-        (navigator as Navigator & { connection?: { effectiveType?: string } }).connection?.effectiveType === 'slow-2g' ||
-        (navigator as Navigator & { connection?: { effectiveType?: string } }).connection?.effectiveType === '2g';
+        (navigator as Navigator & { connection?: { effectiveType?: string } }).connection
+          ?.effectiveType === 'slow-2g' ||
+        (navigator as Navigator & { connection?: { effectiveType?: string } }).connection
+          ?.effectiveType === '2g';
 
       // Prefer WebM for mobile, low-end devices, or slow connections
       if (
