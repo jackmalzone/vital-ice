@@ -95,10 +95,16 @@ const Hero: FC = () => {
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
   const textY = useTransform(scrollYProgress, [0, 0.1], [0, -20]);
 
-  // Mobile-optimized video strategy
+  // Mobile-optimized video strategy - prioritize WebM on mobile
   const shouldUseVideos = useMemo(() => {
     if (!strategy) return false;
-    return strategy.useVideo && !profile?.isMobile; // Disable videos on mobile for better performance
+    
+    // On mobile, always try to use videos (especially WebM)
+    if (profile?.isMobile) {
+      return true; // Allow videos on mobile, WebM will be prioritized
+    }
+    
+    return strategy.useVideo;
   }, [strategy, profile]);
 
   // Performance optimization: Only load videos when in viewport

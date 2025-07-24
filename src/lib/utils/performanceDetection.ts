@@ -36,14 +36,11 @@ export const detectDeviceCapabilities = (): PerformanceProfile => {
   let recommendedMediaType: 'video' | 'image' | 'static' = 'image';
   let maxVideoQuality: 'high' | 'medium' | 'low' | 'none' = 'none';
 
-  // Mobile-specific logic - be more conservative
+  // Mobile-specific logic - more permissive for WebM
   if (isMobile) {
-    if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
+    if (canHandleVideo) {
       recommendedMediaType = 'video';
-      maxVideoQuality = 'low'; // Force low quality on mobile for better performance
-    } else if (canHandleVideo && hasGoodConnection) {
-      recommendedMediaType = 'video';
-      maxVideoQuality = 'low';
+      maxVideoQuality = 'low'; // WebM will be used for better compression
     } else {
       recommendedMediaType = 'image';
       maxVideoQuality = 'none';
@@ -169,12 +166,12 @@ export const getMobileVideoStrategy = (): {
   const isLowEndDevice = detectLowEndDevice();
   const canHandleVideo = detectVideoCapability();
 
-  // Mobile strategy: be very conservative
-  if (canHandleVideo && hasGoodConnection && !isLowEndDevice) {
+  // Mobile strategy: more aggressive for WebM
+  if (canHandleVideo) {
     return {
       useVideo: true,
       quality: 'low',
-      format: 'webm', // Prefer WebM on mobile for better compression
+      format: 'webm', // Aggressively prefer WebM on mobile for better compression
       preload: 'none', // Don't preload on mobile to save bandwidth
     };
   }

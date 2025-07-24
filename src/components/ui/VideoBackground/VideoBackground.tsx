@@ -23,7 +23,31 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [preferredFormat, setPreferredFormat] = useState<'webm' | 'mp4'>('mp4');
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Mobile-specific WebM detection and prioritization
+  useEffect(() => {
+    const detectMobileWebM = () => {
+      const video = document.createElement('video');
+      const canPlayWebM = video.canPlayType('video/webm; codecs="vp8, vorbis"');
+      const canPlayWebM9 = video.canPlayType('video/webm; codecs="vp9"');
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+      // On mobile, aggressively prefer WebM if supported
+      if (isMobile && webmSrc && (canPlayWebM !== '' || canPlayWebM9 !== '')) {
+        setPreferredFormat('webm');
+      } else if (webmSrc && (canPlayWebM !== '' || canPlayWebM9 !== '')) {
+        setPreferredFormat('webm');
+      } else {
+        setPreferredFormat('mp4');
+      }
+    };
+
+    detectMobileWebM();
+  }, [webmSrc]);
 
   // Performance optimization: Cleanup video resources when component unmounts
   useEffect(() => {
@@ -158,9 +182,11 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           willChange: isActive ? 'auto' : 'none',
         }}
       >
-        {/* WebM format for better mobile performance */}
-        {webmSrc && <source src={webmSrc} type="video/webm" />}
-        {/* MP4 fallback */}
+        {/* Prioritize WebM on mobile for better performance */}
+        {preferredFormat === 'webm' && webmSrc && (
+          <source src={webmSrc} type="video/webm" />
+        )}
+        {/* MP4 fallback - always include for compatibility */}
         <source src={videoSrc} type="video/mp4" />
         {/* Fallback for unsupported video */}
         <div className={styles.videoFallback}>
