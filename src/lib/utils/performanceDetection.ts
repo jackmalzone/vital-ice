@@ -162,8 +162,6 @@ export const getMobileVideoStrategy = (): {
   }
 
   // Mobile-specific checks
-  const hasGoodConnection = detectConnectionQuality();
-  const isLowEndDevice = detectLowEndDevice();
   const canHandleVideo = detectVideoCapability();
 
   // Mobile strategy: more aggressive for WebM

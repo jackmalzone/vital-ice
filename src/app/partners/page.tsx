@@ -3,36 +3,20 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import {
-  GiSnowflake1,
   GiFire,
-  GiCampfire,
-  GiLightningTrio,
   GiLeg,
   GiVibratingBall,
   GiMuscleUp,
   GiWaterRecycling,
   GiBrain,
-  GiMushroom,
-  GiWeightLiftingUp,
   GiCoffeeCup,
   GiHeartWings,
   GiSleepingBag,
   GiBeerStein,
-  GiMedallist,
   GiTrophy,
-  GiCrown,
-  GiDiamonds,
-  GiGems,
-  GiRing,
-  GiNecklace,
-  GiCrownCoin,
-  GiGoldBar,
-  GiSilverBullet,
-  GiRuneSword,
-  GiMedal,
-  GiTrophyCup,
-  GiDiamondRing,
-  GiGemNecklace,
+  GiWeightLiftingUp,
+  GiMushroom,
+  GiCampfire,
 } from 'react-icons/gi';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
@@ -302,7 +286,7 @@ const PartnersPage: FC = () => {
         </motion.div>
 
         <motion.div className={styles.partnersGrid} variants={containerVariants}>
-          {goldPartners.map((partner, index) => (
+          {goldPartners.map(partner => (
             <motion.div
               key={partner.id}
               className={styles.goldPartnerCard}
@@ -346,7 +330,7 @@ const PartnersPage: FC = () => {
         </motion.div>
 
         <motion.div className={styles.partnersGrid} variants={containerVariants}>
-          {silverPartners.map((partner, index) => (
+          {silverPartners.map(partner => (
             <motion.div
               key={partner.id}
               className={styles.silverPartnerCard}
@@ -388,7 +372,7 @@ const PartnersPage: FC = () => {
         </motion.div>
 
         <motion.div className={styles.bronzeGrid} variants={containerVariants}>
-          {bronzePartners.map((partner, index) => (
+          {bronzePartners.map(partner => (
             <motion.div
               key={partner.id}
               className={styles.bronzePartnerCard}
