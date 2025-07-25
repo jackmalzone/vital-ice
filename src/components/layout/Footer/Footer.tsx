@@ -32,8 +32,8 @@ const Footer: FC = () => {
           >
             <h3 className={styles.footer__sectionTitle}>Contact</h3>
             <div className={styles.footer__contactInfo}>
-              <a href="mailto:hello@vitalice.com" className={styles.footer__link}>
-                hello@vitalice.com
+              <a href="mailto:info@vitalicesf.com" className={styles.footer__link}>
+                info@vitalicesf.com
               </a>
               <a href="tel:+14155551234" className={styles.footer__link}>
                 (415) 555-1234
@@ -137,6 +137,10 @@ const Footer: FC = () => {
               <span className={styles.footer__separator}>•</span>
               <a href="/careers" className={styles.footer__legalLink}>
                 Careers
+              </a>
+              <span className={styles.footer__separator}>•</span>
+              <a href="/partners" className={styles.footer__legalLink}>
+                Partners
               </a>
             </div>
           </div>
