@@ -46,47 +46,6 @@ export default function ServiceNavigation() {
 
   return (
     <>
-      {/* Side Arrows */}
-      <div className={styles.sideArrows}>
-        {prevService && (
-          <Link
-            href={`/services/${prevService}`}
-            className={`${styles.sideArrow} ${styles.prevArrow}`}
-            aria-label={`Previous: ${prevServiceData?.title}`}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M15 18L9 12L15 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span className={styles.arrowLabel}>{prevServiceData?.title}</span>
-          </Link>
-        )}
-
-        {nextService && (
-          <Link
-            href={`/services/${nextService}`}
-            className={`${styles.sideArrow} ${styles.nextArrow}`}
-            aria-label={`Next: ${nextServiceData?.title}`}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M9 18L15 12L9 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span className={styles.arrowLabel}>{nextServiceData?.title}</span>
-          </Link>
-        )}
-      </div>
-
       {/* Sidebar Toggle Button */}
       <button
         className={styles.sidebarToggle}
