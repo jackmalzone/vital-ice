@@ -50,6 +50,115 @@
   transition: all 0.3s ease;
 }
 
+/* Console-style Info Panel */
+.infoPanel {
+  position: fixed !important;
+  top: 40% !important;
+  width: 320px !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(15px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 0 !important;
+  z-index: 9999 !important;
+  font-family: 'Courier New', monospace !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-50%) !important;
+}
+
+.infoPanel--right {
+  right: 15% !important;
+  left: auto !important;
+}
+
+.infoPanel--left {
+  left: 15% !important;
+  right: auto !important;
+}
+
+.infoPanel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px 12px 0 0;
+}
+
+.infoPanel__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.infoPanel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff00;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.infoPanel__statusText {
+  font-size: 0.75rem;
+  color: #00ff00;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.infoPanel__title {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.infoPanel__content {
+  padding: 20px;
+  min-height: 120px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.infoPanel__text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #00ff00;
+  margin: 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 4px;
+}
+
+.infoPanel__cursor {
+  animation: blink 1s ease-in-out infinite;
+  color: #00ff00;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
 /* Service Node */
 .serviceNode {
   position: absolute;
@@ -449,6 +558,35 @@
   .pageTitle p {
     font-size: clamp(0.8rem, 2.5vw, 1rem);
     max-width: 400px;
+  }
+
+  .infoPanel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    top: auto;
+    transform: none;
+    width: auto;
+    max-width: 400px;
+    margin: 0 auto;
+    z-index: 1000;
+  }
+
+  .infoPanel--right,
+  .infoPanel--left {
+    right: 20px;
+    left: 20px;
+    transform: none;
+  }
+
+  .infoPanel__content {
+    min-height: 100px;
+    padding: 12px;
+  }
+
+  .infoPanel__text {
+    font-size: 0.8rem;
   }
 }
 

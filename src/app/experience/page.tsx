@@ -246,20 +246,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
         </div>
       </div>
 
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            className={`${styles.serviceLabel} ${styles[`serviceLabel--${getLabelPosition(index)}`]}`}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-          >
-            <h3>{service.title}</h3>
-            <p>{service.subtitle}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Trailing particles effect */}
       <AnimatePresence>
@@ -281,6 +268,9 @@ const ExperiencePage: React.FC = () => {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const typewriterIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Service data for the radial menu
   const services = [
@@ -303,12 +293,78 @@ const ExperiencePage: React.FC = () => {
     }, 300);
   };
 
+  const typewriterEffect = (text: string) => {
+    console.log('Typewriter effect called with text:', text);
+    setIsTyping(true);
+    setDisplayText('');
+    let index = 0;
+    
+    // Clear any existing interval
+    if (typewriterIntervalRef.current) {
+      clearInterval(typewriterIntervalRef.current);
+    }
+    
+    typewriterIntervalRef.current = setInterval(() => {
+      if (index < text.length) {
+        const newText = text.substring(0, index + 1);
+        setDisplayText(newText);
+        index++;
+      } else {
+        setIsTyping(false);
+        if (typewriterIntervalRef.current) {
+          clearInterval(typewriterIntervalRef.current);
+        }
+      }
+    }, 40); // Slightly slower for better visibility
+  };
+
   const handleHover = (hoverIndex: number) => {
     setHoveredIndex(hoverIndex);
+    const service = services[hoverIndex];
+    
+    if (!service) {
+      console.error('Service not found for index:', hoverIndex);
+      return;
+    }
+    
+    console.log('Service object:', service);
+    console.log('Service ID:', service.id);
+    console.log('Service title:', service.title);
+    
+    // Create better console text based on service
+    let consoleText = '';
+    
+    // Use a more robust approach with explicit text
+    const serviceTexts: Record<string, string> = {
+      'cold-plunge': 'COLD PLUNGE\n\nImmerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
+      'infrared-sauna': 'INFRARED SAUNA\n\nDeep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
+      'traditional-sauna': 'TRADITIONAL SAUNA\n\nFinnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
+      'compression-boots': 'COMPRESSION BOOTS\n\nPneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
+      'percussion-massage': 'PERCUSSION MASSAGE\n\nDeep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
+      'red-light-therapy': 'RED LIGHT THERAPY\n\nTherapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief'
+    };
+    
+    consoleText = serviceTexts[service.id] || `${service.title.toUpperCase()}\n\n${service.subtitle || 'Service information'}`;
+    
+    console.log('Generated text:', consoleText);
+    typewriterEffect(consoleText);
+  };
+
+  // Determine panel position based on service location
+  const getPanelPosition = () => {
+    if (hoveredIndex === null) return 'right';
+    
+    // Left side: Compression Boots, Red Light Therapy, Traditional Sauna
+    // Right side: Percussion Massage, Cold Plunge, Infrared Sauna
+    const leftSideServices = ['compression-boots', 'red-light-therapy', 'traditional-sauna'];
+    const currentService = services[hoveredIndex];
+    return leftSideServices.includes(currentService.id) ? 'left' : 'right';
   };
 
   const handleLeave = () => {
     setHoveredIndex(null);
+    setDisplayText('');
+    setIsTyping(false);
   };
 
   return (
@@ -382,6 +438,37 @@ const ExperiencePage: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Console-style Info Panel */}
+      <motion.div
+        className={`${styles.infoPanel} ${styles[`infoPanel--${getPanelPosition()}`]}`}
+        initial={{ opacity: 0, x: getPanelPosition() === 'left' ? -50 : 50 }}
+        animate={{ 
+          opacity: hoveredIndex !== null ? 1 : 0,
+          x: hoveredIndex !== null ? 0 : (getPanelPosition() === 'left' ? -50 : 50)
+        }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <div className={styles.infoPanel__header}>
+          <div className={styles.infoPanel__status}>
+            <span className={styles.infoPanel__dot} />
+            <span className={styles.infoPanel__statusText}>
+              {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+            </span>
+          </div>
+          <div className={styles.infoPanel__title}>SERVICE INFO</div>
+        </div>
+        <div className={styles.infoPanel__content}>
+          <pre className={styles.infoPanel__text}>
+            {displayText || 'No text loaded'}
+            {isTyping && <span className={styles.infoPanel__cursor}>|</span>}
+          </pre>
+          {/* Debug info */}
+          <div style={{fontSize: '10px', color: 'red', marginTop: '10px'}}>
+            Debug: {displayText ? displayText.length : 0} chars
+          </div>
+        </div>
+      </motion.div>
 
       {/* Spacing before footer */}
       <div className={styles.footerSpacing} />
