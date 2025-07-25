@@ -143,17 +143,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem;
+  padding: 4rem 3rem;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
 }
 
 .testimonial__content {
-  text-align: left;
-  max-width: 500px;
+  text-align: center;
+  max-width: 600px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .testimonial__quoteIcon {
@@ -166,14 +168,15 @@
 
 .testimonial__quote {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 300;
-  line-height: 1.3;
+  line-height: 1.4;
   color: #ffffff;
   margin: 0;
   font-style: normal;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .testimonial__author {
@@ -256,7 +259,8 @@
   }
 
   .testimonial__quote {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    line-height: 1.5;
   }
 
   .testimonial__quoteIcon {
