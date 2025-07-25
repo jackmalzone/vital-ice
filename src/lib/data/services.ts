@@ -23,9 +23,8 @@ export interface ServiceData {
 export const servicesData: Record<string, ServiceData> = {
   'cold-plunge': {
     id: 'cold-plunge',
-    title: 'Cold Plunge Therapy',
-    subtitle:
-      'Experience the transformative power of controlled cold exposure for enhanced recovery, mental resilience, and overall wellness',
+    title: 'Cold Plunge',
+    subtitle: 'Controlled cold exposure for recovery & mental resilience',
     description:
       'An ancient practice, reimagined for modern recovery. Historic traditions from Nordic cultures and Japanese onsen, cold water immersion has been used for centuries to promote resilience, healing, and longevity. Cold plunging involves submerging the body in water typically between 39-55°F for a short duration (1-10 minutes at a time). The cold stimulates the nervous system, constricts blood vessels, and triggers powerful physiological responses.',
     backgroundImage: '/images/coldplunge_woman.jpg',
@@ -86,7 +85,7 @@ export const servicesData: Record<string, ServiceData> = {
   'infrared-sauna': {
     id: 'infrared-sauna',
     title: 'Infrared Sauna',
-    subtitle: 'Deep tissue warming with infrared technology for detoxification and relaxation',
+    subtitle: 'Deep tissue warming for detoxification & relaxation',
     description:
       'Infrared saunas introduce a modern, evidence-based approach to the ancient heat ritual. Unlike traditional saunas, which heat the air around you, infrared saunas use specific wavelengths of light, typically in the far-infrared range to warm the body directly. This allows for a deep, penetrating heat that stimulates the body at lower ambient temperatures (typically 120-150°F), making the experience more accessible and less taxing on the cardiovascular system.',
     backgroundImage: '/images/sauna-infraredwide.jpg',
@@ -148,7 +147,7 @@ export const servicesData: Record<string, ServiceData> = {
   'traditional-sauna': {
     id: 'traditional-sauna',
     title: 'Traditional Sauna',
-    subtitle: 'Classic Finnish-style sauna experience with dry heat therapy',
+    subtitle: 'Classic Finnish-style dry heat therapy',
     description:
       'Rooted in centuries of Nordic tradition, the traditional sauna is a centuries old method of recovery and revitalization. Heated between 160-200°F, it uses dry air and radiant heat to create a full-body sweat experience that promotes deep relaxation and physiological reset.',
     backgroundImage: '/images/sauna-traditional.jpg',
@@ -208,7 +207,7 @@ export const servicesData: Record<string, ServiceData> = {
   'compression-boots': {
     id: 'compression-boots',
     title: 'Compression Boots',
-    subtitle: 'Advanced compression therapy for enhanced circulation and recovery',
+    subtitle: 'Advanced compression therapy for circulation & recovery',
     description:
       'Compression boot therapy uses advanced pneumatic compression technology to enhance circulation and accelerate recovery. This non-invasive treatment applies rhythmic pressure to your legs, mimicking the natural muscle pump action to improve blood flow and lymphatic drainage. Perfect for athletes, active individuals, or anyone seeking improved circulation and faster recovery.',
     backgroundImage: '/images/cells-bloodcells.jpg',
@@ -268,7 +267,7 @@ export const servicesData: Record<string, ServiceData> = {
   'percussion-massage': {
     id: 'percussion-massage',
     title: 'Percussion Massage',
-    subtitle: 'Deep tissue percussion therapy for muscle recovery and tension relief',
+    subtitle: 'Deep tissue percussion therapy for muscle recovery',
     description:
       'Percussion massage therapy uses advanced percussive technology to deliver deep tissue massage that targets muscle tension and promotes recovery. This innovative therapy combines the benefits of traditional massage with modern technology to provide more consistent and effective treatment. The percussive action helps break up muscle knots, improve blood flow, and accelerate recovery.',
     backgroundImage: '/images/percussion_bicep.jpg',
@@ -326,7 +325,7 @@ export const servicesData: Record<string, ServiceData> = {
   'red-light-therapy': {
     id: 'red-light-therapy',
     title: 'Red Light Therapy',
-    subtitle: 'Therapeutic light treatment for cellular regeneration and skin health',
+    subtitle: 'Therapeutic light for cellular regeneration & skin health',
     description:
       "Red Light Therapy, scientifically known as photobiomodulation, is a non-invasive treatment that uses specific wavelengths of red and near-infrared light to stimulate cellular function and support tissue repair. Unlike ultraviolet light, which can damage the skin, red and infrared light penetrate safely beneath the surface — reaching muscles, joints, and even mitochondria (your cells' energy engine).",
     backgroundImage: '/images/redlight_mask.jpg',
