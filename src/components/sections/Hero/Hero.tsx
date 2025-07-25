@@ -248,6 +248,21 @@ const Hero: FC = () => {
             },
           }}
         >
+          <motion.div
+            className={styles.hero__location}
+            style={{
+              color: currentTheme.subhead,
+              textShadow: currentTheme.textShadow,
+            }}
+            variants={textRevealVariants}
+            transition={{
+              ...springConfigs.gentle,
+              duration: 0.8,
+            }}
+          >
+            SAN FRANCISCO
+          </motion.div>
+
           <motion.h1
             className={styles.hero__headline}
             style={{
@@ -260,7 +275,7 @@ const Hero: FC = () => {
               duration: 0.8,
             }}
           >
-            VITAL ICE SAN FRANCISCO
+            VITAL ICE
           </motion.h1>
 
           <motion.p
@@ -275,7 +290,7 @@ const Hero: FC = () => {
               duration: 0.8,
             }}
           >
-            Cold Plunges. Saunas. Community Recovery.
+            Live Better — Together
           </motion.p>
 
           <motion.button

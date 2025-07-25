@@ -132,7 +132,7 @@ export default function FogTransition() {
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100vw', height: '100%' }}
+        style={{ width: '100vw', height: '100%', background: 'transparent' }}
       >
         {/* Primary fog layer */}
         <FogPlane position={[0, 0, 0]} scale={[1, 1, 1]} speed={1} />

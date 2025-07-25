@@ -1,0 +1,89 @@
+.rollingBookContainer {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 99999;
+  display: block;
+}
+
+.rollingBookButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  border: none;
+  border-radius: 50px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 183, 181, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.rollingBookButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.rollingBookButton:hover::before {
+  left: 100%;
+}
+
+.rollingBookButton:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 183, 181, 0.4);
+}
+
+.buttonText {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.buttonIcon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.rollingBookButton:hover .buttonIcon {
+  transform: translateX(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rollingBookContainer {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .rollingBookButton {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rollingBookContainer {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .rollingBookButton {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+}

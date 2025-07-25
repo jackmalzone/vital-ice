@@ -39,7 +39,7 @@ export default function Newsletter() {
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          Recovery insights, community stories, and gentle reminders to breathe. No spam—ever.
+          No spam, just reminders.
         </motion.p>
 
         <motion.form

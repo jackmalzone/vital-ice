@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Logo from '@/components/ui/Logo/Logo';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { servicesData } from '@/lib/data/services';
 import styles from './Header.module.css';
@@ -31,6 +30,8 @@ export default function Header() {
     return '#ffffff';
   };
 
+
+
   const closeMenu = () => {
     setOpen(false);
   };
@@ -42,13 +43,8 @@ export default function Header() {
         className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`}
         aria-label="Home"
       >
-        <Logo className={styles.logo} />
+        <VILogo className={styles.logo} color={getLogoColor()} />
       </Link>
-
-      {/* Center VI Logo - Hidden on Mobile */}
-      <div className={`${styles.centerLogo} ${styles.centerLogoMobile}`}>
-        <VILogo className={styles.viLogo} color={getLogoColor()} />
-      </div>
 
       {/* Desktop Navigation */}
       <nav className={styles.desktopNav}>

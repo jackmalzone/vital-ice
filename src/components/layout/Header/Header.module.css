@@ -44,8 +44,8 @@
 
 .logo {
   position: relative;
-  width: 120px;
-  height: 32px;
+  width: clamp(48px, 5vw, 80px);
+  height: clamp(48px, 5vw, 80px);
   display: block;
 }
 
@@ -54,20 +54,6 @@
   width: auto;
   object-fit: contain;
   display: block;
-}
-
-.centerLogo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.centerLogoMobile {
-  display: none;
 }
 
 .viLogo {
@@ -475,10 +461,6 @@
   .desktopNav {
     display: block;
   }
-
-  .centerLogoMobile {
-    display: flex;
-  }
 }
 
 @media (max-width: 480px) {
@@ -500,11 +482,6 @@
 }
 
 @media (min-width: 1024px) {
-  .logo {
-    width: 200px;
-    height: 48px;
-  }
-
   .desktopNavList {
     gap: 3rem;
   }

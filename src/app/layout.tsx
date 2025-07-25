@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import Header from '@/components/layout/Header/Header';
+import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButton';
 import './globals.css';
 
 const geistSans = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SmoothScrollProvider>
             <Header />
             {children}
+            <RollingBookButton />
           </SmoothScrollProvider>
         </LoadingProvider>
       </body>

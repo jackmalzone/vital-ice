@@ -71,29 +71,29 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     const video = videoRef.current;
     if (!video || !isLoaded) return;
 
-    try {
-      if (isActive) {
+      try {
+        if (isActive) {
         // Performance: Only reset time if not already playing
-        if (!isPlaying) {
-          video.currentTime = 0;
-        }
+          if (!isPlaying) {
+            video.currentTime = 0;
+          }
 
         // Performance: Use requestAnimationFrame for smoother playback
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-          setIsPlaying(true);
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+            setIsPlaying(true);
+          }
+        } else {
+          video.pause();
+          setIsPlaying(false);
         }
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn('Video playback error:', error);
-      setHasError(true);
-      setIsPlaying(false);
-    }
+        setHasError(true);
+        setIsPlaying(false);
+      }
   }, [isActive, isLoaded, isPlaying]);
 
   useEffect(() => {

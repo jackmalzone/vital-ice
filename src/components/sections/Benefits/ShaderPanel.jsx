@@ -7,11 +7,6 @@ import * as THREE from 'three';
 function ShaderPlane() {
   const mesh = useRef();
 
-  useEffect(() => {
-    console.log('🔵 ShaderPlane: Component mounted');
-    console.log('🔵 ShaderPlane: mesh ref:', mesh.current);
-  }, []);
-
   useFrame(({ clock }) => {
     if (mesh.current) {
       const time = clock.getElapsedTime();
@@ -65,22 +60,17 @@ function ShaderPlane() {
 }
 
 export default function ShaderPanel() {
-  useEffect(() => {
-    console.log('🔵 ShaderPanel: Component mounted');
-  }, []);
-
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
         camera={{ position: [0, 0, 1], fov: 75 }}
         gl={{ alpha: true }}
         style={{ width: '100%', height: '100%' }}
-        onCreated={({ gl }) => {
-          console.log('🔵 ShaderPanel: Canvas created successfully');
-          console.log('🔵 ShaderPanel: Canvas size:', gl.domElement.width, gl.domElement.height);
-        }}
         onError={error => {
-          console.error('🔵 ShaderPanel: Canvas error:', error);
+          // Only log actual errors, not debug info
+          if (error && error.message) {
+            console.error('ShaderPanel error:', error.message);
+          }
         }}
       >
         <ShaderPlane />

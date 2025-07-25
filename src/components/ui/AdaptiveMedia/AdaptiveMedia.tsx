@@ -217,15 +217,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Performance indicator (debug mode) */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className={styles.debugInfo}>
-          <span>Type: {mediaType}</span>
-          <span>Quality: {strategy?.videoQuality}</span>
-          <span>Format: {preferredFormat}</span>
-          <span>Mobile: {strategy?.useVideo ? 'No' : 'Yes'}</span>
-        </div>
-      )}
+      {/* Performance indicator (debug mode) - removed to reduce console spam */}
     </motion.div>
   );
 };

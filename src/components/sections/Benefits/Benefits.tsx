@@ -183,7 +183,7 @@ const Benefits: FC = () => {
     },
     {
       title: 'PERCUSSION MASSAGE',
-      tagline: 'Deep tissue therapy through targeted vibration.',
+      tagline: 'Break the tension with precision.',
       protocol: {
         temp: 'Ambient',
         time: '15–30 minutes',

@@ -77,6 +77,16 @@
   position: relative;
 }
 
+.hero__location {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: -0.5rem;
+}
+
 /* .hero__glassmorphicBackground {
   position: absolute;
   top: 0;
