@@ -30,8 +30,6 @@ export default function Header() {
     return '#ffffff';
   };
 
-
-
   const closeMenu = () => {
     setOpen(false);
   };

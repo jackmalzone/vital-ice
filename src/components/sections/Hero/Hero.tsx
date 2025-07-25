@@ -98,12 +98,12 @@ const Hero: FC = () => {
   // Mobile-optimized video strategy - prioritize WebM on mobile
   const shouldUseVideos = useMemo(() => {
     if (!strategy) return false;
-    
+
     // On mobile, always try to use videos (especially WebM)
     if (profile?.isMobile) {
       return true; // Allow videos on mobile, WebM will be prioritized
     }
-    
+
     return strategy.useVideo;
   }, [strategy, profile]);
 

@@ -2,12 +2,12 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  GiSnowflake1, 
-  GiFire, 
-  GiCampfire, 
-  GiLightningTrio, 
-  GiLeg, 
+import {
+  GiSnowflake1,
+  GiFire,
+  GiCampfire,
+  GiLightningTrio,
+  GiLeg,
   GiVibratingBall,
   GiMuscleUp,
   GiWaterRecycling,
@@ -32,7 +32,7 @@ import {
   GiMedal,
   GiTrophyCup,
   GiDiamondRing,
-  GiGemNecklace
+  GiGemNecklace,
 } from 'react-icons/gi';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
@@ -148,21 +148,93 @@ const silverPartners: Partner[] = [
 
 // Bronze tier partners (logo grid only)
 const bronzePartners: Partner[] = [
-  { id: 'equinox', name: 'Equinox', logo: '/images/partners/equinox-logo.png', description: '', website: '', tier: 'bronze', icon: <GiTrophy size={24} /> },
-  { id: 'laird-superfood', name: 'Laird Superfood', logo: '/images/partners/laird-superfood-logo.png', description: '', website: '', tier: 'bronze', icon: <GiCoffeeCup size={24} /> },
-  { id: 'whoop', name: 'WHOOP', logo: '/images/partners/whoop-logo.png', description: '', website: '', tier: 'bronze', icon: <GiHeartWings size={24} /> },
-  { id: 'calm', name: 'Calm', logo: '/images/partners/calm-logo.png', description: '', website: '', tier: 'bronze', icon: <GiSleepingBag size={24} /> },
-  { id: 'vuori', name: 'Vuori', logo: '/images/partners/vuori-logo.png', description: '', website: '', tier: 'bronze', icon: <GiLeg size={24} /> },
-  { id: 'seed', name: 'Seed', logo: '/images/partners/seed-logo.png', description: '', website: '', tier: 'bronze', icon: <GiBrain size={24} /> },
-  { id: 'eight-sleep', name: 'Eight Sleep', logo: '/images/partners/eight-sleep-logo.png', description: '', website: '', tier: 'bronze', icon: <GiSleepingBag size={24} /> },
-  { id: 'athletic-brewing', name: 'Athletic Brewing Co.', logo: '/images/partners/athletic-brewing-logo.png', description: '', website: '', tier: 'bronze', icon: <GiBeerStein size={24} /> },
+  {
+    id: 'equinox',
+    name: 'Equinox',
+    logo: '/images/partners/equinox-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiTrophy size={24} />,
+  },
+  {
+    id: 'laird-superfood',
+    name: 'Laird Superfood',
+    logo: '/images/partners/laird-superfood-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiCoffeeCup size={24} />,
+  },
+  {
+    id: 'whoop',
+    name: 'WHOOP',
+    logo: '/images/partners/whoop-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiHeartWings size={24} />,
+  },
+  {
+    id: 'calm',
+    name: 'Calm',
+    logo: '/images/partners/calm-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiSleepingBag size={24} />,
+  },
+  {
+    id: 'vuori',
+    name: 'Vuori',
+    logo: '/images/partners/vuori-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiLeg size={24} />,
+  },
+  {
+    id: 'seed',
+    name: 'Seed',
+    logo: '/images/partners/seed-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiBrain size={24} />,
+  },
+  {
+    id: 'eight-sleep',
+    name: 'Eight Sleep',
+    logo: '/images/partners/eight-sleep-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiSleepingBag size={24} />,
+  },
+  {
+    id: 'athletic-brewing',
+    name: 'Athletic Brewing Co.',
+    logo: '/images/partners/athletic-brewing-logo.png',
+    description: '',
+    website: '',
+    tier: 'bronze',
+    icon: <GiBeerStein size={24} />,
+  },
 ];
 
 // Carousel partners for bottom marquee
 const carouselPartners = [
-  'Oura', 'Whoop', 'Hyperice', 'Onsen', 'Elemental Labs', 'Rhythmia',
-  'Aubrey Marcus Podcast', 'Melin Hats', 'Peak Design', 'Public Goods',
-  'Shakti Warrior'
+  'Oura',
+  'Whoop',
+  'Hyperice',
+  'Onsen',
+  'Elemental Labs',
+  'Rhythmia',
+  'Aubrey Marcus Podcast',
+  'Melin Hats',
+  'Peak Design',
+  'Public Goods',
+  'Shakti Warrior',
 ];
 
 const PartnersPage: FC = () => {
@@ -207,7 +279,8 @@ const PartnersPage: FC = () => {
           >
             Wellness is amplified by community.
             <br />
-            These are the brands, healers, and craftspeople we trust to support your recovery journey.
+            These are the brands, healers, and craftspeople we trust to support your recovery
+            journey.
           </motion.p>
         </div>
       </motion.section>
@@ -223,7 +296,8 @@ const PartnersPage: FC = () => {
         <motion.div className={styles.tierHeader} variants={itemVariants}>
           <h2 className={styles.tierTitle}>Gold Partners</h2>
           <p className={styles.tierDescription}>
-            Our closest collaborators, trusted for their exceptional quality and alignment with our mission.
+            Our closest collaborators, trusted for their exceptional quality and alignment with our
+            mission.
           </p>
         </motion.div>
 
@@ -237,9 +311,7 @@ const PartnersPage: FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className={styles.partnerLogo}>
-                <div className={styles.logoPlaceholder}>
-                  {partner.icon}
-                </div>
+                <div className={styles.logoPlaceholder}>{partner.icon}</div>
               </div>
               <h3 className={styles.partnerName}>{partner.name}</h3>
               <p className={styles.partnerDescription}>{partner.description}</p>
@@ -283,9 +355,7 @@ const PartnersPage: FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className={styles.partnerLogo}>
-                <div className={styles.logoPlaceholder}>
-                  {partner.icon}
-                </div>
+                <div className={styles.logoPlaceholder}>{partner.icon}</div>
               </div>
               <h3 className={styles.partnerName}>{partner.name}</h3>
               <p className={styles.partnerDescription}>{partner.description}</p>
@@ -314,9 +384,7 @@ const PartnersPage: FC = () => {
       >
         <motion.div className={styles.tierHeader} variants={itemVariants}>
           <h2 className={styles.tierTitle}>Bronze Partners</h2>
-          <p className={styles.tierDescription}>
-            Brands we appreciate and recommend.
-          </p>
+          <p className={styles.tierDescription}>Brands we appreciate and recommend.</p>
         </motion.div>
 
         <motion.div className={styles.bronzeGrid} variants={containerVariants}>
@@ -329,9 +397,7 @@ const PartnersPage: FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className={styles.bronzeLogo}>
-                <div className={styles.logoPlaceholder}>
-                  {partner.icon}
-                </div>
+                <div className={styles.logoPlaceholder}>{partner.icon}</div>
               </div>
               <h3 className={styles.bronzePartnerName}>{partner.name}</h3>
             </motion.div>
@@ -373,4 +439,4 @@ const PartnersPage: FC = () => {
   );
 };
 
-export default PartnersPage; 
+export default PartnersPage;

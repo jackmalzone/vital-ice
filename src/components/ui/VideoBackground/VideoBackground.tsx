@@ -71,29 +71,29 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     const video = videoRef.current;
     if (!video || !isLoaded) return;
 
-      try {
-        if (isActive) {
+    try {
+      if (isActive) {
         // Performance: Only reset time if not already playing
-          if (!isPlaying) {
-            video.currentTime = 0;
-          }
+        if (!isPlaying) {
+          video.currentTime = 0;
+        }
 
         // Performance: Use requestAnimationFrame for smoother playback
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            await playPromise;
-            setIsPlaying(true);
-          }
-        } else {
-          video.pause();
-          setIsPlaying(false);
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+          setIsPlaying(true);
         }
+      } else {
+        video.pause();
+        setIsPlaying(false);
+      }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn('Video playback error:', error);
-        setHasError(true);
-        setIsPlaying(false);
-      }
+      setHasError(true);
+      setIsPlaying(false);
+    }
   }, [isActive, isLoaded, isPlaying]);
 
   useEffect(() => {
@@ -183,9 +183,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         }}
       >
         {/* Prioritize WebM on mobile for better performance */}
-        {preferredFormat === 'webm' && webmSrc && (
-          <source src={webmSrc} type="video/webm" />
-        )}
+        {preferredFormat === 'webm' && webmSrc && <source src={webmSrc} type="video/webm" />}
         {/* MP4 fallback - always include for compatibility */}
         <source src={videoSrc} type="video/mp4" />
         {/* Fallback for unsupported video */}

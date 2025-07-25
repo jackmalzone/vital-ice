@@ -178,26 +178,6 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   const y = Math.sin(angle) * radius;
   const accentColor = SERVICE_COLORS[service.id as keyof typeof SERVICE_COLORS] || '#00bcd4';
 
-  // Simple approach: position labels based on service index
-  const getLabelPosition = (_serviceIndex: number) => {
-    switch (_serviceIndex) {
-      case 0:
-        return 'top'; // Cold Plunge
-      case 1:
-        return 'top-right'; // Infrared Sauna
-      case 2:
-        return 'bottom-right'; // Traditional Sauna
-      case 3:
-        return 'bottom'; // Red Light Therapy
-      case 4:
-        return 'bottom-left'; // Percussion Massage
-      case 5:
-        return 'top-left'; // Compression Boots
-      default:
-        return 'top';
-    }
-  };
-
   return (
     <motion.div
       className={styles.serviceNode}
@@ -246,8 +226,6 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
         </div>
       </div>
 
-
-
       {/* Trailing particles effect */}
       <AnimatePresence>
         {isHovered && (
@@ -294,16 +272,15 @@ const ExperiencePage: React.FC = () => {
   };
 
   const typewriterEffect = (text: string) => {
-    console.log('Typewriter effect called with text:', text);
     setIsTyping(true);
     setDisplayText('');
     let index = 0;
-    
+
     // Clear any existing interval
     if (typewriterIntervalRef.current) {
       clearInterval(typewriterIntervalRef.current);
     }
-    
+
     typewriterIntervalRef.current = setInterval(() => {
       if (index < text.length) {
         const newText = text.substring(0, index + 1);
@@ -321,39 +298,41 @@ const ExperiencePage: React.FC = () => {
   const handleHover = (hoverIndex: number) => {
     setHoveredIndex(hoverIndex);
     const service = services[hoverIndex];
-    
+
     if (!service) {
-      console.error('Service not found for index:', hoverIndex);
       return;
     }
-    
-    console.log('Service object:', service);
-    console.log('Service ID:', service.id);
-    console.log('Service title:', service.title);
-    
+
     // Create better console text based on service
     let consoleText = '';
-    
+
     // Use a more robust approach with explicit text
     const serviceTexts: Record<string, string> = {
-      'cold-plunge': 'COLD PLUNGE\n\nImmerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
-      'infrared-sauna': 'INFRARED SAUNA\n\nDeep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
-      'traditional-sauna': 'TRADITIONAL SAUNA\n\nFinnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
-      'compression-boots': 'COMPRESSION BOOTS\n\nPneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
-      'percussion-massage': 'PERCUSSION MASSAGE\n\nDeep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
-      'red-light-therapy': 'RED LIGHT THERAPY\n\nTherapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief'
+      'cold-plunge':
+        'COLD PLUNGE\n\nImmerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
+      'infrared-sauna':
+        'INFRARED SAUNA\n\nDeep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
+      'traditional-sauna':
+        'TRADITIONAL SAUNA\n\nFinnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
+      'compression-boots':
+        'COMPRESSION BOOTS\n\nPneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
+      'percussion-massage':
+        'PERCUSSION MASSAGE\n\nDeep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
+      'red-light-therapy':
+        'RED LIGHT THERAPY\n\nTherapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief',
     };
-    
-    consoleText = serviceTexts[service.id] || `${service.title.toUpperCase()}\n\n${service.subtitle || 'Service information'}`;
-    
-    console.log('Generated text:', consoleText);
+
+    consoleText =
+      serviceTexts[service.id] ||
+      `${service.title.toUpperCase()}\n\n${service.subtitle || 'Service information'}`;
+
     typewriterEffect(consoleText);
   };
 
   // Determine panel position based on service location
   const getPanelPosition = () => {
     if (hoveredIndex === null) return 'right';
-    
+
     // Left side: Compression Boots, Red Light Therapy, Traditional Sauna
     // Right side: Percussion Massage, Cold Plunge, Infrared Sauna
     const leftSideServices = ['compression-boots', 'red-light-therapy', 'traditional-sauna'];
@@ -443,9 +422,9 @@ const ExperiencePage: React.FC = () => {
       <motion.div
         className={`${styles.infoPanel} ${styles[`infoPanel--${getPanelPosition()}`]}`}
         initial={{ opacity: 0, x: getPanelPosition() === 'left' ? -50 : 50 }}
-        animate={{ 
+        animate={{
           opacity: hoveredIndex !== null ? 1 : 0,
-          x: hoveredIndex !== null ? 0 : (getPanelPosition() === 'left' ? -50 : 50)
+          x: hoveredIndex !== null ? 0 : getPanelPosition() === 'left' ? -50 : 50,
         }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
@@ -464,7 +443,13 @@ const ExperiencePage: React.FC = () => {
             {isTyping && <span className={styles.infoPanel__cursor}>|</span>}
           </pre>
           {/* Debug info */}
-          <div style={{fontSize: '10px', color: 'red', marginTop: '10px'}}>
+          <div
+            style={{
+              fontSize: '10px',
+              color: 'red',
+              marginTop: '10px',
+            }}
+          >
             Debug: {displayText ? displayText.length : 0} chars
           </div>
         </div>
