@@ -183,7 +183,7 @@ const Benefits: FC = () => {
     },
     {
       title: 'PERCUSSION MASSAGE',
-      tagline: 'Break the tension with precision.',
+      tagline: 'Powerful pulses. Faster recovery.',
       protocol: {
         temp: 'Ambient',
         time: '15–30 minutes',
@@ -191,7 +191,7 @@ const Benefits: FC = () => {
       },
       effect: {
         summary: '*Muscle recovery*, *tension release*, and *circulation enhancement*.',
-        description: 'Vibrate away the stress. Feel the release.',
+        description: 'Break the tension with precision.',
         clinical: 'Evidence-based approach to muscle recovery and tension relief.',
         protocolId: 'PERC-05',
       },

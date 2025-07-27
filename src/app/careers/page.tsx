@@ -10,6 +10,7 @@ import styles from './page.module.css';
 const CareersPage: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState('');
+  const [expandedJobs, setExpandedJobs] = useState<Set<string>>(new Set());
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,33 +21,23 @@ const CareersPage: React.FC = () => {
     resume: null as File | null,
   });
 
-  const teamMembers = [
-    {
-      name: 'Sean',
-      role: 'Co-Founder & Operations',
-      bio: 'Sean leads our day-to-day operations and facility management. With a background in wellness and community building, he ensures every aspect of Vital Ice runs smoothly. Sean is passionate about creating spaces where people can truly disconnect and reconnect with themselves.',
-      image: '/images/founder-sean.png',
-      accent: '#00b7b5',
-    },
-    {
-      name: 'Stephen',
-      role: 'Co-Founder & Strategy',
-      bio: 'Stephen drives our strategic vision and business development. His expertise in scaling wellness businesses and understanding of the recovery space has been instrumental in building Vital Ice from concept to reality. Stephen believes in making elite recovery accessible to everyone.',
-      image: '/images/founders-seanstephen.png',
-      accent: '#f56f0d',
-    },
-    {
-      name: 'Barry',
-      role: 'Co-Founder & Community',
-      bio: 'Barry focuses on community engagement and member experience. His background in hospitality and passion for human connection ensures that every member feels welcome and supported. Barry believes that recovery is better when shared with others.',
-      image: '/images/founders-seanstephen.png',
-      accent: '#8b4513',
-    },
-  ];
+
 
   const handleApplyClick = (jobTitle: string) => {
     setSelectedJob(jobTitle);
     setIsFormOpen(true);
+  };
+
+  const handleToggleJobExpansion = (jobTitle: string) => {
+    setExpandedJobs(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(jobTitle)) {
+        newSet.delete(jobTitle);
+      } else {
+        newSet.add(jobTitle);
+      }
+      return newSet;
+    });
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -197,42 +188,7 @@ const CareersPage: React.FC = () => {
           <p className={styles.subtitle}>Help us build the future of recovery and wellness</p>
         </motion.div>
 
-        {/* Team Section */}
-        <motion.section
-          className={styles.teamSection}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <h2 className={styles.sectionTitle}>Meet Our Founders</h2>
-          <div className={styles.teamGrid}>
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                className={styles.teamMember}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              >
-                <div className={styles.memberImage}>
-                  <Image
-                    src={member.image}
-                    alt={`${member.name} - ${member.role}`}
-                    width={200}
-                    height={200}
-                    className={styles.memberPhoto}
-                  />
-                  <div className={styles.memberAccent} style={{ backgroundColor: member.accent }} />
-                </div>
-                <div className={styles.memberInfo}>
-                  <h3 className={styles.memberName}>{member.name}</h3>
-                  <p className={styles.memberRole}>{member.role}</p>
-                  <p className={styles.memberBio}>{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+
 
         {/* Job Openings Section */}
         <motion.section
@@ -243,54 +199,78 @@ const CareersPage: React.FC = () => {
         >
           <h2 className={styles.sectionTitle}>Current Openings</h2>
           <div className={styles.jobsList}>
-            {jobOpenings.map((job, index) => (
-              <motion.div
-                key={job.title}
-                className={styles.jobCard}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-              >
-                <div className={styles.jobHeader}>
-                  <h3 className={styles.jobTitle}>{job.title}</h3>
-                  <div className={styles.jobMeta}>
-                    <span className={styles.jobType}>{job.type}</span>
-                    <span className={styles.jobLocation}>{job.location}</span>
-                  </div>
-                </div>
-
-                <p className={styles.jobDescription}>{job.description}</p>
-
-                <div className={styles.jobDetails}>
-                  <div className={styles.jobSection}>
-                    <h4 className={styles.jobSectionTitle}>Requirements</h4>
-                    <ul className={styles.jobList}>
-                      {job.requirements.map((req, reqIndex) => (
-                        <li key={reqIndex}>{req}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className={styles.jobSection}>
-                    <h4 className={styles.jobSectionTitle}>Responsibilities</h4>
-                    <ul className={styles.jobList}>
-                      {job.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <motion.button
-                  className={styles.applyButton}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleApplyClick(job.title)}
+            {jobOpenings.map((job, index) => {
+              const isExpanded = expandedJobs.has(job.title);
+              return (
+                <motion.div
+                  key={job.title}
+                  className={styles.jobCard}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
                 >
-                  Apply Now
-                </motion.button>
-              </motion.div>
-            ))}
+                  <div className={styles.jobHeader}>
+                    <h3 className={styles.jobTitle}>{job.title}</h3>
+                    <div className={styles.jobMeta}>
+                      <span className={styles.jobType}>{job.type}</span>
+                      <span className={styles.jobLocation}>{job.location}</span>
+                    </div>
+                  </div>
+
+                  <p className={styles.jobDescription}>
+                    {job.description}{' '}
+                    <motion.button
+                      className={styles.seeMoreButton}
+                      onClick={() => handleToggleJobExpansion(job.title)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {isExpanded ? 'See Less.' : 'See More.'}
+                    </motion.button>
+                  </p>
+
+                  {/* Expandable Details Section */}
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        className={styles.jobDetails}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      >
+                        <div className={styles.jobSection}>
+                          <h4 className={styles.jobSectionTitle}>Requirements</h4>
+                          <ul className={styles.jobList}>
+                            {job.requirements.map((req, reqIndex) => (
+                              <li key={reqIndex}>{req}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className={styles.jobSection}>
+                          <h4 className={styles.jobSectionTitle}>Responsibilities</h4>
+                          <ul className={styles.jobList}>
+                            {job.responsibilities.map((resp, respIndex) => (
+                              <li key={respIndex}>{resp}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <motion.button
+                    className={styles.applyButton}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleApplyClick(job.title)}
+                  >
+                    Apply Now
+                  </motion.button>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.section>
 
