@@ -9,7 +9,6 @@ import styles from './Header.module.css';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Experience', href: '/experience' },
-  { label: 'Vision', href: '/vision' },
   { label: 'Our Story', href: '/about' },
 ];
 
