@@ -350,17 +350,7 @@ const Hero: FC = () => {
         </motion.div>
       </div>
 
-      {/* Video transition indicator - only show if videos are enabled */}
-      {shouldUseVideos && (
-        <motion.div
-          className={styles.hero__videoIndicator}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <div className={styles.hero__videoType}>{VIDEOS[currentVideoIndex]?.type}</div>
-        </motion.div>
-      )}
+
 
       {/* Scroll indicator */}
       <motion.div
