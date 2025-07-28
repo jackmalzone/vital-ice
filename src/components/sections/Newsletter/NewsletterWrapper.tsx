@@ -3,9 +3,12 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import Newsletter from './Newsletter';
+import { useModal } from '@/components/providers/ModalProvider';
 import styles from './NewsletterWrapper.module.css';
 
 const NewsletterWrapper: FC = () => {
+  const { openModal } = useModal();
+
   return (
     <section className={styles.wrapper}>
       {/* Enhanced Underwater Ambient Background */}
@@ -106,9 +109,7 @@ const NewsletterWrapper: FC = () => {
             transition={{ delay: 0.6, duration: 0.6 }}
           >
             <motion.a
-              href="https://mindbody.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/book"
               className={styles.connectButton}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -118,8 +119,12 @@ const NewsletterWrapper: FC = () => {
               <span className={styles.connectButtonIcon}>→</span>
             </motion.a>
 
-            <motion.a
-              href="/contact"
+            <motion.button
+              onClick={() => {
+                console.log('Get in Touch button clicked, opening modal');
+                console.log('openModal function:', openModal);
+                openModal();
+              }}
               className={styles.connectButtonSecondary}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -127,7 +132,7 @@ const NewsletterWrapper: FC = () => {
             >
               <span className={styles.connectButtonText}>Get in Touch</span>
               <span className={styles.connectButtonIcon}>→</span>
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>

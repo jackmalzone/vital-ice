@@ -1,17 +1,49 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import styles from './Newsletter.module.css';
 
 export default function Newsletter() {
-  const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState('');
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitted(true);
-    // TODO: Integrate with your email service
-  }
+  useEffect(() => {
+    // Load Mindbody healcode script
+    const script = document.createElement('script');
+    script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    
+    script.onload = () => {
+      console.log('Healcode script loaded successfully');
+      
+      // Suppress Mindbody JSON parsing errors
+      const originalJSONParse = JSON.parse;
+      JSON.parse = function (text) {
+        try {
+          return originalJSONParse.call(this, text);
+        } catch (error) {
+          console.warn('Mindbody widget JSON parse error suppressed:', error);
+          return null;
+        }
+      };
+    };
+    
+    script.onerror = (error) => {
+      console.error('Failed to load Healcode script:', error);
+    };
+    
+    document.head.appendChild(script);
+    
+    return () => {
+      // Clean up script when component unmounts
+      const existingScript = document.querySelector('script[src*="healcode.js"]');
+      if (existingScript && existingScript.parentNode) {
+        try {
+          existingScript.parentNode.removeChild(existingScript);
+        } catch (error) {
+          console.warn('Error removing healcode script:', error);
+        }
+      }
+    };
+  }, []);
 
   return (
     <section id="newsletter" className={styles.newsletter}>
@@ -42,79 +74,16 @@ export default function Newsletter() {
           No spam, just reminders.
         </motion.p>
 
-        <motion.form
-          className={styles.form}
-          onSubmit={handleSubmit}
-          autoComplete="off"
+        <motion.div
+          className={styles.widgetContainer}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          <div className={styles.inputGroup}>
-            <motion.input
-              id="newsletter-email"
-              name="email"
-              type="email"
-              className={styles.input}
-              placeholder="Your email address"
-              required
-              autoComplete="email"
-              disabled={submitted}
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              whileFocus={{ scale: 1.01 }}
-              transition={{ duration: 0.2 }}
-            />
-
-            <motion.button
-              type="submit"
-              className={styles.button}
-              disabled={submitted}
-              aria-live="polite"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <AnimatePresence mode="wait">
-                {!submitted ? (
-                  <motion.span
-                    key="subscribe"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    Subscribe
-                  </motion.span>
-                ) : (
-                  <motion.span
-                    key="subscribed"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    ✓
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
-        </motion.form>
-
-        <AnimatePresence>
-          {submitted && (
-            <motion.div
-              className={styles.feedback}
-              aria-live="polite"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-            >
-              Welcome. We&apos;ll stay in touch — lightly.
-            </motion.div>
-          )}
-        </AnimatePresence>
+          dangerouslySetInnerHTML={{
+            __html: '<healcode-widget data-type="prospects" data-widget-partner="object" data-widget-id="ec59331b5f7" data-widget-version="0"></healcode-widget>'
+          }}
+        />
       </motion.div>
     </section>
   );

@@ -2,11 +2,13 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import styles from './RollingBookButton.module.css';
 
 const RollingBookButton: FC = () => {
   const handleBookClick = () => {
-    window.open('https://mindbody.com', '_blank');
+    // Navigate to booking page
+    window.location.href = '/book';
   };
 
   return (
