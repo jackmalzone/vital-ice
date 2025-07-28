@@ -1,3 +1,5 @@
+_UPDATE COMPLETED_
+
 # Client Content Updates - Vital Ice Website
 
 ## Overview
