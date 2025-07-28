@@ -1,0 +1,317 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  padding: 80px 24px 40px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 183, 181, 0.2);
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.widgetContainer {
+  flex: 1;
+  padding: 40px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Style Mindbody widget */
+.widgetContainer :global(.mindbody-widget) {
+  width: 100%;
+  max-width: 800px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(0, 183, 181, 0.3);
+  box-shadow:
+    0 0 20px rgba(0, 183, 181, 0.2),
+    0 0 40px rgba(0, 183, 181, 0.1),
+    inset 0 0 20px rgba(0, 183, 181, 0.05);
+}
+
+.widgetContainer :global(.mindbody-widget *) {
+  color: #ffffff;
+}
+
+.widgetContainer :global(.mindbody-widget input),
+.widgetContainer :global(.mindbody-widget select),
+.widgetContainer :global(.mindbody-widget textarea) {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.widgetContainer :global(.mindbody-widget button) {
+  background: #00b7b5;
+  color: #000000;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Style widget containers and sections */
+.widgetContainer :global(.mindbody-widget > div),
+.widgetContainer :global(.mindbody-widget form),
+.widgetContainer :global(.mindbody-widget section) {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Etched Stone Symbols */
+.symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.symbol {
+  position: absolute;
+  font-size: 1.8rem;
+  color: rgba(0, 183, 181, 0.3);
+  text-shadow: 0 0 15px rgba(0, 183, 181, 0.5);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  z-index: 0;
+  /* Ensure symbols stay in margins */
+  max-width: 60px;
+  max-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px 30px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .widgetContainer {
+    padding: 20px;
+    z-index: 10;
+  }
+
+  .symbol {
+    z-index: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .widgetContainer {
+    padding: 15px;
+  }
+
+  /* Hide symbols on mobile to avoid interference */
+  .symbols {
+    display: none;
+  }
+}
+
+/* Registration Section */
+.registrationSection {
+  padding: 40px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 183, 181, 0.2);
+}
+
+.registrationButton {
+  background: linear-gradient(135deg, #00b7b5 0%, #9ec7c5 100%);
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(0, 183, 181, 0.3);
+  font-family: 'Inter', sans-serif;
+}
+
+.registrationButton:hover {
+  background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 183, 181, 0.4);
+}
+
+.registrationWidget {
+  margin-top: 30px;
+  padding: 30px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.registrationHeader {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Style registration widget to match newsletter design */
+.registrationWidget :global(healcode-widget) {
+  color: #ffffff !important;
+  background: transparent !important;
+  text-align: left !important;
+}
+
+.registrationWidget :global(healcode-widget *) {
+  color: #ffffff !important;
+  text-align: left !important;
+}
+
+.registrationWidget :global(healcode-widget input),
+.registrationWidget :global(healcode-widget select),
+.registrationWidget :global(healcode-widget textarea) {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+  padding: 1rem 0 !important;
+  outline: none !important;
+  text-align: left !important;
+}
+
+.registrationWidget :global(healcode-widget input:focus),
+.registrationWidget :global(healcode-widget select:focus),
+.registrationWidget :global(healcode-widget textarea:focus) {
+  border-bottom-color: rgba(0, 183, 181, 0.8) !important;
+}
+
+.registrationWidget :global(healcode-widget input::placeholder) {
+  color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  font-weight: 300 !important;
+}
+
+.registrationWidget :global(healcode-widget button) {
+  background: transparent !important;
+  color: rgba(0, 183, 181, 0.8) !important;
+  border: none !important;
+  font-weight: 400 !important;
+  font-size: 1.1rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 1rem 2rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.registrationWidget :global(healcode-widget button:hover) {
+  color: rgba(0, 183, 181, 1) !important;
+}
+
+/* Style validation/error messages with sauna orange */
+.registrationWidget :global(healcode-widget .error),
+.registrationWidget :global(healcode-widget .validation-error),
+.registrationWidget :global(healcode-widget .error-message),
+.registrationWidget :global(healcode-widget .form-error),
+.registrationWidget :global(healcode-widget span[class*='error']),
+.registrationWidget :global(healcode-widget div[class*='error']),
+.registrationWidget :global(healcode-widget .message),
+.registrationWidget :global(healcode-widget .alert),
+.registrationWidget :global(healcode-widget .notification) {
+  color: #f56f0d !important; /* Sauna orange */
+  font-size: 0.9rem !important;
+  font-weight: 400 !important;
+  margin-top: 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+  .registrationSection {
+    padding: 20px;
+  }
+
+  .registrationButton {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+
+  .registrationWidget {
+    padding: 20px;
+  }
+}
+
+.widgetError {
+  text-align: center;
+  padding: 20px;
+  color: #ffffff;
+}
+
+.widgetError p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.retryButton {
+  background: rgba(0, 183, 181, 0.8);
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.retryButton:hover {
+  background: rgba(0, 183, 181, 1);
+  transform: translateY(-1px);
+}
