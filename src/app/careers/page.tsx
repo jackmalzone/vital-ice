@@ -18,6 +18,7 @@ const CareersPage: React.FC = () => {
     phone: '',
     experience: '',
     whyJoin: '',
+    availability: '',
     resume: null as File | null,
   });
 
@@ -53,8 +54,12 @@ const CareersPage: React.FC = () => {
         phone: formData.phone,
         experience: formData.experience,
         whyJoin: formData.whyJoin,
+        availability: formData.availability,
         resume: formData.resume,
       };
+
+      console.log('Form data:', formData);
+      console.log('Application data:', application);
 
       // Try to send via API first
       const success = await sendJobApplication(application);
@@ -68,15 +73,17 @@ const CareersPage: React.FC = () => {
           phone: '',
           experience: '',
           whyJoin: '',
+          availability: '',
           resume: null,
         });
         setIsFormOpen(false);
         setSelectedJob('');
 
-        alert('Thank you for your application! We&apos;ll be in touch soon.');
+        alert('Thank you for your application! We\'ll be in touch soon.');
       } else {
         // Fallback to email link
         const emailLink = createEmailLink(application);
+        console.log('Opening email link:', emailLink);
         window.open(emailLink, '_blank');
 
         // Reset form and close modal
@@ -87,15 +94,34 @@ const CareersPage: React.FC = () => {
           phone: '',
           experience: '',
           whyJoin: '',
+          availability: '',
           resume: null,
         });
         setIsFormOpen(false);
         setSelectedJob('');
 
         alert(
-          'Your application has been prepared. Please send the email that opened in your email client.'
+          'Your application has been prepared. Please send the email that opened in your email client to info@vitalicesf.com.'
         );
       }
+
+      // Reset form and close modal
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        experience: '',
+        whyJoin: '',
+        availability: '',
+        resume: null,
+      });
+      setIsFormOpen(false);
+      setSelectedJob('');
+
+      alert(
+        'Your application has been prepared. Please send the email that opened in your email client to info@vitalicesf.com.'
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error submitting application:', error);
@@ -117,60 +143,40 @@ const CareersPage: React.FC = () => {
 
   const jobOpenings = [
     {
-      title: 'Front Desk Associate',
-      type: 'Part-time',
+      title: 'Vital Ice Wellness & Operations Coordinator',
+      type: 'Full-time or Part-time',
       location: 'San Francisco, CA',
       description:
-        "Join our team as the first point of contact for our members. You'll help with check-ins, answer questions, and ensure everyone has a great experience.",
+        "A pivotal, hands-on role responsible for ensuring the smooth daily operation of our facility, delivering outstanding client service, driving sales, and actively contributing to our partnership growth strategy.",
       requirements: [
-        'Customer service experience',
-        'Passion for wellness and recovery',
-        'Flexible schedule including weekends',
-        'Strong communication skills',
+        'Minimum 2-3 years of experience in a customer-facing role, preferably in hospitality, retail, wellness, or a service-oriented environment',
+        'Demonstrated experience in sales or business development is highly desirable',
+        'Experience with administrative tasks and scheduling software',
+        'Exceptional interpersonal and communication skills (verbal and written)',
+        'Strong organizational abilities and attention to detail',
+        'Proficiency with Google Workspace (Docs, Sheets, Calendar) and familiarity with POS/scheduling software',
+        'Proactive problem-solver with a positive, can-do attitude',
+        'Ability to work independently and manage multiple priorities effectively',
+        'Comfortable with light cleaning duties and maintaining high hygiene standards',
+        'Genuine passion for health, wellness, and recovery',
+        'Professional demeanor and appearance',
+        'Reliable, punctual, and highly dependable',
+        'Ability to adapt quickly in a fast-paced, evolving environment',
+        'A keen eye for opportunities to improve client experience and business growth',
       ],
       responsibilities: [
-        'Greet and check in members',
-        'Answer questions about services',
-        'Maintain facility cleanliness',
-        'Assist with booking and payments',
+        'On-Site Reception & Client Experience (40%): Warmly greet and welcome all clients, partners, and visitors to the Vital Ice facility. Manage client check-ins, bookings, and inquiries (in-person, phone, email) using our scheduling system. Provide comprehensive information about Vital Ice services, pricing, benefits, and safety protocols. Assist clients with waivers, onboarding, and preparing for their cold therapy sessions. Ensure a comfortable, safe, and positive atmosphere for all individuals before, during, and after sessions. Address client feedback, concerns, and special requests promptly and professionally.',
+        'Administrative & Operational Support (25%): Maintain accurate client records, sales data, and administrative files. Process payments, manage point-of-sale (POS) transactions, and reconcile daily revenue. Assist with inventory management of retail products and operational supplies. Manage incoming and outgoing correspondence and communications. Support management with various administrative tasks as needed, including report generation and data entry. Oversee facility schedule optimization to maximize capacity and client flow.',
+        'Sales & Partnership Strategy & Execution (20%): Actively engage clients to understand their needs and recommend appropriate Vital Ice services, packages, and retail products. Identify and cultivate potential partnership opportunities with local wellness businesses (e.g., massage therapists, physical therapists, nutritionists, gyms) for reciprocal referrals, rebates, discounts, and freebies. Assist in outreach efforts, scheduling introductory meetings, and preparing presentation materials for potential partners. Track and report on sales performance and partnership pipeline development. Collaborate with management to refine sales techniques and partnership strategies.',
+        'General Light Cleaning & Facility Maintenance (15%): Ensure the facility, including reception area, changing rooms, restrooms, and common areas, is consistently clean, tidy, and well-maintained. Perform routine cleaning tasks such as wiping surfaces, vacuuming/mopping, emptying trash, and restocking supplies. Monitor cleanliness of the cold plunge areas and ensure they meet hygiene standards (specific technical cleaning of plunge units will be handled by specialized staff, but general area cleanliness is key). Report any maintenance issues or equipment malfunctions promptly to management.',
       ],
-    },
-    {
-      title: 'Recovery Specialist',
-      type: 'Full-time',
-      location: 'San Francisco, CA',
-      description:
-        "Help guide members through their recovery journey. You'll provide education on contrast therapy, assist with equipment, and ensure safety protocols.",
-      requirements: [
-        'Background in fitness, wellness, or healthcare',
-        'Knowledge of cold therapy and sauna benefits',
-        'CPR certification preferred',
-        'Strong attention to safety protocols',
-      ],
-      responsibilities: [
-        'Guide members through recovery protocols',
-        'Monitor facility safety',
-        'Provide education on recovery techniques',
-        'Maintain equipment and facilities',
-      ],
-    },
-    {
-      title: 'Facility Maintenance',
-      type: 'Part-time',
-      location: 'San Francisco, CA',
-      description:
-        "Keep our facility running smoothly. You'll handle cleaning, maintenance, and ensure everything is in perfect condition for our members.",
-      requirements: [
-        'Experience with facility maintenance',
-        'Attention to detail',
-        'Reliable and punctual',
-        'Ability to work independently',
-      ],
-      responsibilities: [
-        'Daily cleaning and maintenance',
-        'Equipment upkeep',
-        'Inventory management',
-        'Safety inspections',
+      benefits: [
+        'Competitive hourly wage or salary',
+        'Opportunities for performance-based bonuses related to sales and partnerships',
+        'Complimentary Vital Ice sessions and employee discounts on services/retail',
+        'A dynamic, supportive, and health-focused work environment',
+        'Significant opportunity for growth and professional development as Vital Ice expands',
+        'The chance to be a key player in shaping the client experience and strategic direction of a pioneering wellness business',
       ],
     },
   ];
@@ -217,7 +223,7 @@ const CareersPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className={styles.jobDescription}>
+                  <p className={styles.jobDescription} style={{ lineHeight: '1.6', fontSize: '1.1rem' }}>
                     {job.description}{' '}
                     <motion.button
                       className={styles.seeMoreButton}
@@ -252,10 +258,26 @@ const CareersPage: React.FC = () => {
                           <h4 className={styles.jobSectionTitle}>Responsibilities</h4>
                           <ul className={styles.jobList}>
                             {job.responsibilities.map((resp, respIndex) => (
-                              <li key={respIndex}>{resp}</li>
+                              <li key={respIndex}>
+                                <strong>{resp.split(':')[0]}:</strong>
+                                {resp.includes(':') ? resp.split(':').slice(1).join(':') : resp}
+                              </li>
                             ))}
                           </ul>
                         </div>
+
+                        {job.benefits && (
+                          <div className={styles.jobSection}>
+                            <h4 className={styles.jobSectionTitle}>What We Offer</h4>
+                            <ul className={`${styles.jobList} ${styles.benefitsList}`}>
+                              {job.benefits.map((benefit, benefitIndex) => (
+                                <li key={benefitIndex}>
+                                  ✓ {benefit}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -283,15 +305,11 @@ const CareersPage: React.FC = () => {
         >
           <h3>Interested in joining our team?</h3>
           <p>
-            We&apos;re always looking for passionate individuals who share our vision for
-            accessible, high-quality recovery experiences.
+            We&apos;re looking for passionate individuals who share our vision.
           </p>
           <div className={styles.contactInfo}>
-            <a href="mailto:careers@vitalicesf.com" className={styles.contactLink}>
-              careers@vitalicesf.com
-            </a>
-            <a href="tel:+14155551234" className={styles.contactLink}>
-              (415) 555-1234
+            <a href="mailto:info@vitalicesf.com" className={styles.contactLink}>
+              info@vitalicesf.com
             </a>
             <p className={styles.address}>
               2400 Chestnut St
@@ -401,6 +419,19 @@ const CareersPage: React.FC = () => {
                     onChange={handleInputChange}
                     rows={4}
                     placeholder="Share your motivation for joining our team..."
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="availability">Availability *</label>
+                  <textarea
+                    id="availability"
+                    name="availability"
+                    value={formData.availability}
+                    onChange={handleInputChange}
+                    rows={3}
+                    placeholder="Please describe your availability (e.g., full-time, part-time, specific hours, start date, etc.)..."
                     required
                   />
                 </div>

@@ -263,6 +263,14 @@
   font-weight: bold;
 }
 
+.benefitsList li::before {
+  content: none;
+}
+
+.benefitsList li {
+  padding-left: 0;
+}
+
 .applyButton {
   background: linear-gradient(135deg, #00b7b5 0%, #00d4d2 100%);
   color: #000000;
