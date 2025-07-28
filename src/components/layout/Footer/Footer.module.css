@@ -15,7 +15,7 @@
 
 .footer__content {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 3rem;
   margin-bottom: 3rem;
 }
@@ -90,6 +90,31 @@
   border-color: #00b7b5;
   color: #00b7b5;
   transform: translateY(-2px);
+}
+
+/* Operating Hours Styles */
+.footer__hoursInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer__hoursDay {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer__hoursLabel {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.footer__hoursTime {
+  color: #bbbbbb;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .footer__bottom {
@@ -170,7 +195,7 @@
 
 @media (min-width: 1024px) {
   .footer__content {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 4rem;
   }
 }

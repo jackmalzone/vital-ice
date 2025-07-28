@@ -47,6 +47,29 @@ const Footer: FC = () => {
           </motion.div>
 
           <motion.div
+            className={styles.footer__hours}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <h3 className={styles.footer__sectionTitle}>Operating Hours</h3>
+            <div className={styles.footer__hoursInfo}>
+              <div className={styles.footer__hoursDay}>
+                <span className={styles.footer__hoursLabel}>Mon-Fri:</span>
+                <span className={styles.footer__hoursTime}>6AM-10AM, 12PM-2PM, 4PM-9PM</span>
+              </div>
+              <div className={styles.footer__hoursDay}>
+                <span className={styles.footer__hoursLabel}>Saturday:</span>
+                <span className={styles.footer__hoursTime}>7AM-9PM</span>
+              </div>
+              <div className={styles.footer__hoursDay}>
+                <span className={styles.footer__hoursLabel}>Sunday:</span>
+                <span className={styles.footer__hoursTime}>8AM-7PM</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
             className={styles.footer__social}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
