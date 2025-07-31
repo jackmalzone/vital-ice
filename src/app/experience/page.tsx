@@ -46,9 +46,9 @@ interface ServiceNodeProps {
   angle: number;
   radius: number;
   index: number;
-  onHover: (_index: number) => void;
+  onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (_id: string) => void;
+  onSelect: (id: string) => void;
   isHovered: boolean;
 }
 

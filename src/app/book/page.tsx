@@ -9,6 +9,17 @@ import { FaWater } from 'react-icons/fa';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
+// Type definitions for external libraries
+interface JQuery {
+  fn: {
+    error: (this: unknown) => unknown;
+  };
+}
+
+interface WindowWithJQuery extends Window {
+  jQuery?: JQuery;
+}
+
 const BookPage: FC = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [widgetError, setWidgetError] = useState(false);
@@ -113,8 +124,8 @@ const BookPage: FC = () => {
       };
 
       // Suppress jQuery errors
-      if (typeof window !== 'undefined' && (window as any).jQuery) {
-        (window as any).jQuery.fn.error = function (this: unknown) {
+      if (typeof window !== 'undefined' && (window as WindowWithJQuery).jQuery) {
+        (window as WindowWithJQuery).jQuery!.fn.error = function () {
           console.warn('jQuery error suppressed in Mindbody widget');
           return this;
         };
@@ -188,8 +199,8 @@ const BookPage: FC = () => {
         };
 
         // Suppress jQuery errors related to null properties
-        if ((window as any).jQuery) {
-          (window as any).jQuery.fn.error = function (this: unknown) {
+        if ((window as WindowWithJQuery).jQuery) {
+          (window as WindowWithJQuery).jQuery!.fn.error = function () {
             console.warn('jQuery error suppressed in registration widget');
             return this;
           };
