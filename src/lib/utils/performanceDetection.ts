@@ -390,7 +390,9 @@ const getConnectionSpeed = (): 'slow' | 'medium' | 'fast' => {
     return 'medium'; // Default fallback
   }
 
-  const connection = (navigator as Navigator & { connection?: any }).connection;
+  const connection = (
+    navigator as Navigator & { connection?: { effectiveType?: string; downlink?: number } }
+  ).connection;
   if (!connection) {
     return 'medium'; // Default fallback
   }
@@ -522,6 +524,8 @@ export const logPerformanceMetrics = (): void => {
     userAgent: navigator.userAgent,
     deviceMemory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory,
     hardwareConcurrency: navigator.hardwareConcurrency,
-    connection: (navigator as Navigator & { connection?: any }).connection,
+    connection: (
+      navigator as Navigator & { connection?: { effectiveType?: string; downlink?: number } }
+    ).connection,
   });
 };

@@ -64,7 +64,7 @@ const BookPage: FC = () => {
   };
 
   // Error boundary for React rendering errors
-  const handleWidgetError = (error: any) => {
+  const handleWidgetError = (error: Error | unknown) => {
     console.warn('Registration widget rendering error:', error);
     setWidgetError(true);
   };
@@ -114,8 +114,7 @@ const BookPage: FC = () => {
 
       // Suppress jQuery errors
       if (typeof window !== 'undefined' && (window as any).jQuery) {
-        const originalJQueryError = (window as any).jQuery.fn.error;
-        (window as any).jQuery.fn.error = function () {
+        (window as any).jQuery.fn.error = function (this: unknown) {
           console.warn('jQuery error suppressed in Mindbody widget');
           return this;
         };
@@ -189,9 +188,8 @@ const BookPage: FC = () => {
         };
 
         // Suppress jQuery errors related to null properties
-        const originalJQueryError = (window as any).jQuery?.fn?.error || (() => {});
         if ((window as any).jQuery) {
-          (window as any).jQuery.fn.error = function () {
+          (window as any).jQuery.fn.error = function (this: unknown) {
             console.warn('jQuery error suppressed in registration widget');
             return this;
           };

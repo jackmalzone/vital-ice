@@ -46,9 +46,9 @@ interface ServiceNodeProps {
   angle: number;
   radius: number;
   index: number;
-  onHover: (index: number) => void;
+  onHover: (_index: number) => void;
   onLeave: () => void;
-  onSelect: (serviceId: string) => void;
+  onSelect: (_id: string) => void;
   isHovered: boolean;
 }
 
@@ -167,14 +167,14 @@ const ExperiencePage: React.FC = () => {
     servicesData['percussion-massage'],
   ];
 
-  const handleServiceSelect = (serviceId: string) => {
+  const handleServiceSelect = (id: string) => {
     if (isTransitioning) return;
 
     setIsTransitioning(true);
 
     // Add a brief delay for the transition animation
     setTimeout(() => {
-      router.push(`/services/${serviceId}`);
+      router.push(`/services/${id}`);
     }, 300);
   };
 
