@@ -12,6 +12,50 @@ import styles from './page.module.css';
 const BookPage: FC = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [widgetError, setWidgetError] = useState(false);
+  const [widgetKey, setWidgetKey] = useState(Date.now());
+
+  // Function to reset the registration form
+  const resetRegistrationForm = () => {
+    // Clear any stored form data from localStorage
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))) {
+        keysToRemove.push(key);
+      }
+    }
+    
+    keysToRemove.forEach(key => {
+      try {
+        localStorage.removeItem(key);
+      } catch (error) {
+        console.warn('Error removing localStorage item:', key, error);
+      }
+    });
+
+    // Clear sessionStorage as well
+    const sessionKeysToRemove = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key && (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))) {
+        sessionKeysToRemove.push(key);
+      }
+    }
+    
+    sessionKeysToRemove.forEach(key => {
+      try {
+        sessionStorage.removeItem(key);
+      } catch (error) {
+        console.warn('Error removing sessionStorage item:', key, error);
+      }
+    });
+
+    // Force widget to reload with new key
+    setWidgetKey(Date.now());
+    setWidgetError(false);
+    
+    console.log('Registration form reset - cleared stored data and reloading widget');
+  };
 
   // Error boundary for React rendering errors
   const handleWidgetError = (error: any) => {
@@ -242,7 +286,13 @@ const BookPage: FC = () => {
       >
         <motion.button
           className={styles.registrationButton}
-          onClick={() => setShowRegistration(!showRegistration)}
+          onClick={() => {
+            if (!showRegistration) {
+              // Reset form when opening registration
+              resetRegistrationForm();
+            }
+            setShowRegistration(!showRegistration);
+          }}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2 }}
@@ -263,7 +313,7 @@ const BookPage: FC = () => {
               <h3 className={styles.registrationHeader}>New To Our Studio? Register with Mindbody.</h3>
               {!widgetError ? (
                 <div 
-                  key={`registration-widget-${Date.now()}`}
+                  key={`registration-widget-${widgetKey}`}
                   dangerouslySetInnerHTML={{
                     __html: '<healcode-widget data-type="registrations" data-widget-partner="object" data-widget-id="ec161013b5f7" data-widget-version="0"></healcode-widget>'
                   }}
@@ -271,37 +321,6 @@ const BookPage: FC = () => {
                   onLoad={() => {
                     // Widget loaded successfully
                     console.log('Registration widget loaded successfully');
-                  }}
-                  ref={(el) => {
-                    if (el) {
-                      // Add error boundary to the widget container
-                      const observer = new MutationObserver((mutations) => {
-                        mutations.forEach((mutation) => {
-                          if (mutation.type === 'childList') {
-                            mutation.addedNodes.forEach((node) => {
-                              if (node.nodeType === Node.ELEMENT_NODE) {
-                                const element = node as Element;
-                                if (element.children && element.children.length > 0) {
-                                  // Check for objects with children property
-                                  Array.from(element.children).forEach((child) => {
-                                    if (child && typeof child === 'object' && 'children' in child) {
-                                      console.warn('Potential React child error detected, removing problematic element');
-                                      try {
-                                        child.remove();
-                                      } catch (e) {
-                                        console.warn('Error removing problematic element:', e);
-                                      }
-                                    }
-                                  });
-                                }
-                              }
-                            });
-                          }
-                        });
-                      });
-                      
-                      observer.observe(el, { childList: true, subtree: true });
-                    }
                   }}
                 />
               ) : (
@@ -322,6 +341,21 @@ const BookPage: FC = () => {
                   </button>
                 </div>
               )}
+              
+              {/* Reset Form Button */}
+              <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                <button 
+                  onClick={resetRegistrationForm}
+                  className={styles.retryButton}
+                  style={{ 
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    marginTop: '0.5rem'
+                  }}
+                >
+                  Reset Form
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

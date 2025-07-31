@@ -1,10 +1,8 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './MindbodyModal.module.css';
-
-
 
 interface MindbodyModalProps {
   isOpen: boolean;
@@ -12,59 +10,66 @@ interface MindbodyModalProps {
 }
 
 const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
-  console.log('MindbodyModal render - isOpen:', isOpen);
-  
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const [isWidgetReady, setIsWidgetReady] = useState(false);
+
+  // Safety check - don't render if there's an issue
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   useEffect(() => {
-    console.log('Modal useEffect - isOpen:', isOpen);
-    if (isOpen) {
-      console.log('Modal opened, starting widget initialization...');
-      
-      // Find the modal content
-      const modalContent = document.querySelector(`.${styles.widgetContainer}`);
-      if (modalContent) {
+    if (isOpen && widgetContainerRef.current) {
+      try {
         // Clear existing content
-        modalContent.innerHTML = '';
+        widgetContainerRef.current.innerHTML = '';
         
-        // Add the exact widget as provided
-        modalContent.innerHTML = `
-          <healcode-widget data-type="prospects" data-widget-partner="object" data-widget-id="ec59329b5f7" data-widget-version="0"></healcode-widget>
-        `;
+        // Create the widget element
+        const widgetElement = document.createElement('healcode-widget');
+        widgetElement.setAttribute('data-type', 'prospects');
+        widgetElement.setAttribute('data-widget-partner', 'object');
+        widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
+        widgetElement.setAttribute('data-widget-version', '0');
         
-        // Load the script exactly as provided
-        const script = document.createElement('script');
-        script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-        script.type = 'text/javascript';
-        script.async = true;
+        // Append the widget to the container
+        widgetContainerRef.current.appendChild(widgetElement);
         
-        script.onload = () => {
-          console.log('Healcode script loaded successfully');
-        };
-        
-        script.onerror = (error) => {
-          console.error('Failed to load Healcode script:', error);
-        };
-        
-        document.head.appendChild(script);
-        console.log('Script added to document head');
+        // Load the script if not already loaded
+        if (!scriptRef.current) {
+          const script = document.createElement('script');
+          script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+          script.type = 'text/javascript';
+          script.async = true;
+          
+          script.onload = () => {
+            console.log('Healcode script loaded successfully');
+            setIsWidgetReady(true);
+          };
+          
+          script.onerror = (error) => {
+            console.error('Failed to load Healcode script:', error);
+          };
+          
+          document.head.appendChild(script);
+          scriptRef.current = script;
+        }
+      } catch (error) {
+        console.error('Error setting up Mindbody widget:', error);
       }
 
       return () => {
-        console.log('Cleaning up modal...');
-        // Remove the script when modal closes
-        const existingScript = document.querySelector('script[src*="healcode.js"]');
-        if (existingScript && existingScript.parentNode) {
-          try {
-            existingScript.parentNode.removeChild(existingScript);
-            console.log('Script removed');
-          } catch (error) {
-            console.warn('Error removing script:', error);
+        // Clean up widget content when modal closes
+        try {
+          if (widgetContainerRef.current) {
+            widgetContainerRef.current.innerHTML = '';
           }
+        } catch (error) {
+          console.error('Error cleaning up Mindbody widget:', error);
         }
       };
     }
   }, [isOpen]);
-
-
 
   return (
     <AnimatePresence>
@@ -90,10 +95,16 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
             </div>
             
             <div className={styles.modalContent}>
-              <div 
-                key={`mindbody-widget-${isOpen ? Date.now() : 'closed'}`}
-                className={styles.widgetContainer}
-              />
+              {isWidgetReady ? (
+                <div 
+                  ref={widgetContainerRef}
+                  className={styles.widgetContainer}
+                />
+              ) : (
+                <div className={styles.loadingContainer}>
+                  <p>Loading booking widget...</p>
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>
