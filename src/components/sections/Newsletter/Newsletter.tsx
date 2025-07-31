@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Newsletter.module.css';
 
@@ -23,7 +23,7 @@ export default function Newsletter() {
       if (widgetContainerRef.current && !widgetCreatedRef.current) {
         // Clear any existing content
         widgetContainerRef.current.innerHTML = '';
-        
+
         const widgetElement = document.createElement('healcode-widget');
         widgetElement.setAttribute('data-type', 'prospects');
         widgetElement.setAttribute('data-widget-partner', 'object');
@@ -63,8 +63,6 @@ export default function Newsletter() {
       widgetCreatedRef.current = false;
     };
   }, []);
-
-
 
   return (
     <section id="newsletter" className={styles.newsletter}>
