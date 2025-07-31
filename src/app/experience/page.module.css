@@ -16,6 +16,19 @@
   z-index: -1;
 }
 
+/* Main Grid Layout */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  min-height: 40vh;
+}
+
 /* Radial Menu Container */
 .radialMenu {
   position: relative;
@@ -25,14 +38,14 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  margin: 0 auto;
-  padding: 200px 0;
   aspect-ratio: 1;
+  grid-column: 2;
+  margin: 1rem 0;
 }
 
 /* Spacing between radial menu and footer */
 .footerSpacing {
-  height: 120px;
+  height: 60px;
   width: 100%;
 }
 
@@ -134,7 +147,7 @@
 .infoPanel__text {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
-  color: #00ff00;
+  color: #00b7b5;
   margin: 0;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -145,7 +158,73 @@
 
 .infoPanel__cursor {
   animation: blink 1s ease-in-out infinite;
-  color: #00ff00;
+  color: #00b7b5;
+}
+
+/* Panel Content Styles */
+.panelContent {
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+}
+
+.panelStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panelDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff00;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.panelStatusText {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panelTitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.panelText {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #00b7b5;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+.panelCursor {
+  animation: blink 1s ease-in-out infinite;
+  color: #00b7b5;
 }
 
 @keyframes blink {
@@ -357,7 +436,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 120px 20px 60px 20px;
+  padding: 100px 20px 20px 20px;
 }
 
 .pageTitleHeading {
@@ -524,13 +603,54 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1400px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .radialMenu {
+    grid-column: 1;
+    grid-row: 1;
+    width: 500px;
+    height: 500px;
+    margin: 1rem 0;
+  }
+
+  .panelContent {
+    max-width: 500px;
+    padding: 1.25rem;
+  }
+
+  .panelText {
+    font-size: 0.85rem;
+  }
+
+  /* Show single panel zone */
+  .panelZone--stacked {
+    display: flex;
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: center;
+    padding: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
   .radialMenu {
     width: 400px;
     height: 400px;
-    top: 65%;
     aspect-ratio: 1;
-    padding: 120px 0;
+    grid-column: 1;
   }
 
   .serviceIconInner {
@@ -560,32 +680,12 @@
     max-width: 400px;
   }
 
-  .infoPanel {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
-    top: auto;
-    transform: none;
-    width: auto;
-    max-width: 400px;
-    margin: 0 auto;
-    z-index: 1000;
+  .panelContent {
+    max-width: 100%;
+    padding: 1rem;
   }
 
-  .infoPanel--right,
-  .infoPanel--left {
-    right: 20px;
-    left: 20px;
-    transform: none;
-  }
-
-  .infoPanel__content {
-    min-height: 100px;
-    padding: 12px;
-  }
-
-  .infoPanel__text {
+  .panelText {
     font-size: 0.8rem;
   }
 }

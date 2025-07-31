@@ -1,10 +1,8 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
 import { useRouter } from 'next/navigation';
-import * as THREE from 'three';
 import {
   GiSnowflake1,
   GiFire,
@@ -16,6 +14,7 @@ import {
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
 import Footer from '@/components/layout/Footer/Footer';
+import PanelZone from '@/components/ui/PanelZone/PanelZone';
 import styles from './page.module.css';
 
 const SERVICE_COLORS = {
@@ -35,118 +34,9 @@ const ServiceIcons = {
   'red-light-therapy': <GiLightningTrio size={24} />,
   'compression-boots': <GiLeg size={24} />,
   'percussion-massage': <GiVibratingBall size={24} />,
-};
+} as const;
 
-// Enhanced Three.js Background with starfield effect
-function BackgroundShader() {
-  const meshRef = useRef<THREE.Mesh>(null);
 
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      const material = meshRef.current.material as THREE.ShaderMaterial;
-      material.uniforms.uTime.value = clock.getElapsedTime();
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={[0, 0, -1]}>
-      <planeGeometry args={[4, 4]} />
-      <shaderMaterial
-        uniforms={{
-          uTime: { value: 0 },
-        }}
-        vertexShader={`
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            gl_Position = vec4(position, 1.0);
-          }
-        `}
-        fragmentShader={`
-          varying vec2 vUv;
-          uniform float uTime;
-          
-          // Improved noise function
-          float noise(vec2 p) {
-            return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-          }
-          
-          // Smooth noise
-          float smoothNoise(vec2 p) {
-            vec2 i = floor(p);
-            vec2 f = fract(p);
-            vec2 u = f * f * (3.0 - 2.0 * f);
-            
-            float a = noise(i);
-            float b = noise(i + vec2(1.0, 0.0));
-            float c = noise(i + vec2(0.0, 1.0));
-            float d = noise(i + vec2(1.0, 1.0));
-            
-            return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
-          }
-          
-          // Fractal noise
-          float fractalNoise(vec2 p) {
-            float value = 0.0;
-            float amplitude = 0.5;
-            float frequency = 1.0;
-            
-            for (int i = 0; i < 4; i++) {
-              value += amplitude * smoothNoise(p * frequency);
-              amplitude *= 0.5;
-              frequency *= 2.0;
-            }
-            
-            return value;
-          }
-          
-          // Starfield effect
-          float stars(vec2 uv) {
-            float star = 0.0;
-            for (int i = 0; i < 50; i++) {
-              vec2 pos = vec2(
-                fract(sin(float(i) * 123.456) * 789.012),
-                fract(sin(float(i) * 456.789) * 123.456)
-              );
-              float dist = length(uv - pos);
-              float brightness = smoothstep(0.02, 0.0, dist);
-              star += brightness * 0.5;
-            }
-            return star;
-          }
-          
-          void main() {
-            vec2 uv = vUv;
-            vec2 movement = vec2(uTime * 0.01, uTime * 0.005);
-            
-            // Multiple layers of noise for depth
-            float noise1 = fractalNoise(uv * 2.0 + movement);
-            float noise2 = fractalNoise(uv * 4.0 - movement * 0.5);
-            float noise3 = fractalNoise(uv * 8.0 + movement * 0.3);
-            
-            // Combine noise layers
-            float fog = (noise1 * 0.5 + noise2 * 0.3 + noise3 * 0.2);
-            
-            // Starfield
-            float starfield = stars(uv + movement * 0.1);
-            
-            // Radial gradient for center focus
-            float radial = 1.0 - length(uv - vec2(0.5));
-            radial = smoothstep(0.0, 0.8, radial);
-            
-            // Final color with subtle blue tint and stars
-            vec3 color = vec3(0.02, 0.05, 0.08) + fog * 0.1 * radial + starfield * 0.3;
-            
-            gl_FragColor = vec4(color, 0.4);
-          }
-        `}
-        transparent={true}
-        blending={2} // Additive blending
-        depthWrite={false}
-      />
-    </mesh>
-  );
-}
 
 // Enhanced Service Node Component
 interface ServiceNodeProps {
@@ -222,7 +112,10 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
             boxShadow: isHovered ? `0 0 20px ${accentColor}40` : 'none',
           }}
         >
-          {ServiceIcons[service.id as keyof typeof ServiceIcons]}
+          {(() => {
+            const icon = ServiceIcons[service.id as keyof typeof ServiceIcons];
+            return icon || <GiSnowflake1 size={24} />;
+          })()}
         </div>
       </div>
 
@@ -248,7 +141,23 @@ const ExperiencePage: React.FC = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isStackedLayout, setIsStackedLayout] = useState<boolean>(true); // Default to stacked layout
   const typewriterIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Detect screen size for responsive panel rendering
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const isStacked = window.innerWidth <= 1400;
+      setIsStackedLayout(isStacked);
+    };
+
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      checkScreenSize();
+      window.addEventListener('resize', checkScreenSize);
+      return () => window.removeEventListener('resize', checkScreenSize);
+    }
+  }, []);
 
   // Service data for the radial menu
   const services = [
@@ -348,13 +257,6 @@ const ExperiencePage: React.FC = () => {
 
   return (
     <div className={styles.experiencePage}>
-      {/* Three.js Background */}
-      <div className={styles.background}>
-        <Canvas camera={{ position: [0, 0, 1], fov: 75 }} gl={{ alpha: true, antialias: true }}>
-          <BackgroundShader />
-        </Canvas>
-      </div>
-
       {/* Page Title - Separate Container */}
       <motion.div
         className={styles.pageTitle}
@@ -368,92 +270,124 @@ const ExperiencePage: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Radial Service Menu */}
-      <div className={styles.radialMenu}>
-        {/* Background Ring */}
-        <motion.div
-          className={styles.backgroundRing}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 60,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
+      {/* Main Content Grid */}
+      <div className={styles.mainGrid}>
+        {/* Left Panel Zone - Only render in desktop layout */}
+        {!isStackedLayout && (
+          <PanelZone position="left" isVisible={hoveredIndex !== null && getPanelPosition() === 'left'}>
+            <div className={styles.panelContent}>
+              <div className={styles.panelHeader}>
+                <div className={styles.panelStatus}>
+                  <span className={styles.panelDot} />
+                  <span className={styles.panelStatusText}>
+                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                  </span>
+                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
+                </div>
+                <div className={styles.panelTitle}>SERVICE INFO</div>
+              </div>
+              <pre className={styles.panelText}>
+                {displayText || 'No text loaded'}
+                {isTyping && <span className={styles.panelCursor}>|</span>}
+              </pre>
+            </div>
+          </PanelZone>
+        )}
 
-        {/* Central VI Logo */}
-        <motion.div
-          className={styles.centralLogo}
-          animate={{
-            scale: [1, 1.02, 1],
-            opacity: [0.8, 1, 0.8],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        >
-          <VILogo width={120} height={60} color="#ffffff" strokeWidth={2} className={styles.logo} />
-        </motion.div>
+        {/* Radial Service Menu */}
+        <div className={styles.radialMenu}>
+          {/* Background Ring */}
+          <motion.div
+            className={styles.backgroundRing}
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 60,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+          />
 
-        {/* Service Nodes */}
-        {services.map((service, index) => {
-          const angle = index * 60 * (Math.PI / 180); // 60 degrees apart
-          const radius = 160; // Distance from center - adjusted to match ring size
-
-          return (
-            <ServiceNode
-              key={service.id}
-              service={service}
-              angle={angle}
-              radius={radius}
-              index={index}
-              onHover={handleHover}
-              onLeave={handleLeave}
-              onSelect={handleServiceSelect}
-              isHovered={hoveredIndex === index}
-            />
-          );
-        })}
-      </div>
-
-      {/* Console-style Info Panel */}
-      <motion.div
-        className={`${styles.infoPanel} ${styles[`infoPanel--${getPanelPosition()}`]}`}
-        initial={{ opacity: 0, x: getPanelPosition() === 'left' ? -50 : 50 }}
-        animate={{
-          opacity: hoveredIndex !== null ? 1 : 0,
-          x: hoveredIndex !== null ? 0 : getPanelPosition() === 'left' ? -50 : 50,
-        }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-      >
-        <div className={styles.infoPanel__header}>
-          <div className={styles.infoPanel__status}>
-            <span className={styles.infoPanel__dot} />
-            <span className={styles.infoPanel__statusText}>
-              {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
-            </span>
-          </div>
-          <div className={styles.infoPanel__title}>SERVICE INFO</div>
-        </div>
-        <div className={styles.infoPanel__content}>
-          <pre className={styles.infoPanel__text}>
-            {displayText || 'No text loaded'}
-            {isTyping && <span className={styles.infoPanel__cursor}>|</span>}
-          </pre>
-          {/* Debug info */}
-          <div
-            style={{
-              fontSize: '10px',
-              color: 'red',
-              marginTop: '10px',
+          {/* Central VI Logo */}
+          <motion.div
+            className={styles.centralLogo}
+            animate={{
+              scale: [1, 1.02, 1],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
             }}
           >
-            Debug: {displayText ? displayText.length : 0} chars
-          </div>
+            <VILogo width={140} height={80} color="#ffffff" strokeWidth={4} className={styles.logo} />
+          </motion.div>
+
+          {/* Service Nodes */}
+          {services.map((service, index) => {
+            const angle = index * 60 * (Math.PI / 180); // 60 degrees apart
+            const radius = 160; // Distance from center - adjusted to match ring size
+
+            return (
+              <ServiceNode
+                key={service.id}
+                service={service}
+                angle={angle}
+                radius={radius}
+                index={index}
+                onHover={handleHover}
+                onLeave={handleLeave}
+                onSelect={handleServiceSelect}
+                isHovered={hoveredIndex === index}
+              />
+            );
+          })}
         </div>
-      </motion.div>
+
+        {/* Right Panel Zone - Only render in desktop layout */}
+        {!isStackedLayout && (
+          <PanelZone position="right" isVisible={hoveredIndex !== null && getPanelPosition() === 'right'}>
+            <div className={styles.panelContent}>
+              <div className={styles.panelHeader}>
+                <div className={styles.panelStatus}>
+                  <span className={styles.panelDot} />
+                  <span className={styles.panelStatusText}>
+                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                  </span>
+                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
+                </div>
+                <div className={styles.panelTitle}>SERVICE INFO</div>
+              </div>
+              <pre className={styles.panelText}>
+                {displayText || 'No text loaded'}
+                {isTyping && <span className={styles.panelCursor}>|</span>}
+              </pre>
+            </div>
+          </PanelZone>
+        )}
+
+        {/* Stacked Panel Zone - Only render in stacked layout */}
+        {isStackedLayout && (
+          <PanelZone position="stacked" isVisible={hoveredIndex !== null}>
+            <div className={styles.panelContent}>
+              <div className={styles.panelHeader}>
+                <div className={styles.panelStatus}>
+                  <span className={styles.panelDot} />
+                  <span className={styles.panelStatusText}>
+                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                  </span>
+                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
+                </div>
+                <div className={styles.panelTitle}>SERVICE INFO</div>
+              </div>
+              <pre className={styles.panelText}>
+                {displayText || 'No text loaded'}
+                {isTyping && <span className={styles.panelCursor}>|</span>}
+              </pre>
+            </div>
+          </PanelZone>
+        )}
+      </div>
 
       {/* Spacing before footer */}
       <div className={styles.footerSpacing} />
