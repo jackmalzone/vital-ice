@@ -7,6 +7,8 @@ import styles from './Footer.module.css';
 
 const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
+  const address = '2400 Chestnut St, San Francisco, CA 94123';
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
   return (
     <footer className={styles.footer}>
@@ -20,7 +22,7 @@ const Footer: FC = () => {
           >
             <Logo className={styles.footer__logo} width={140} height={40} />
             <p className={styles.footer__tagline}>
-              Cold plunge and sauna experiences reimagined for modern wellness.
+              Live Better — Together.
             </p>
           </motion.div>
 
@@ -38,11 +40,21 @@ const Footer: FC = () => {
               <a href="tel:+14155551234" className={styles.footer__link}>
                 (415) 555-1234
               </a>
-              <address className={styles.footer__address}>
-                2400 Chestnut St
-                <br />
-                San Francisco, CA 94123
-              </address>
+              <div className={styles.footer__addressContainer}>
+                <a 
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.footer__address}
+                  aria-label={`Open ${address} in Google Maps`}
+                >
+                  <address>
+                    2400 Chestnut St
+                    <br />
+                    San Francisco, CA 94123
+                  </address>
+                </a>
+              </div>
             </div>
           </motion.div>
 
@@ -160,10 +172,6 @@ const Footer: FC = () => {
               <span className={styles.footer__separator}>•</span>
               <a href="/careers" className={styles.footer__legalLink}>
                 Careers
-              </a>
-              <span className={styles.footer__separator}>•</span>
-              <a href="/partners" className={styles.footer__legalLink}>
-                Partners
               </a>
             </div>
           </div>
