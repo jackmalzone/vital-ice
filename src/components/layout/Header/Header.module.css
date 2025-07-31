@@ -28,6 +28,7 @@
   text-decoration: none;
   transition: transform 0.2s ease;
   z-index: 101;
+  padding-top: 4px;
 }
 
 .logoLinkOpen {
@@ -44,8 +45,8 @@
 
 .logo {
   position: relative;
-  width: clamp(48px, 5vw, 80px);
-  height: clamp(48px, 5vw, 80px);
+  width: clamp(70px, 6vw, 85px);
+  height: clamp(70px, 6vw, 85px);
   display: block;
 }
 
@@ -454,6 +455,11 @@
     padding: 0 3rem;
   }
 
+  .logo {
+    width: clamp(75px, 7vw, 90px);
+    height: clamp(75px, 7vw, 90px);
+  }
+
   .iceCube {
     display: none;
   }
@@ -464,6 +470,11 @@
 }
 
 @media (max-width: 480px) {
+  .logo {
+    width: clamp(65px, 10vw, 80px);
+    height: clamp(65px, 10vw, 80px);
+  }
+
   .overlayNav {
     padding: 1.5rem;
   }
