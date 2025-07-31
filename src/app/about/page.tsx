@@ -1,15 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { GiFire, GiSun } from 'react-icons/gi';
+import { TbSnowflake } from 'react-icons/tb';
+import { FaWater } from 'react-icons/fa';
+import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 const AboutPage: React.FC = () => {
+  const [expandedFounders, setExpandedFounders] = useState<number[]>([]);
+
+  const symbols = [
+    { icon: GiFire, label: 'Fire' },
+    { icon: GiSun, label: 'Sun' },
+    { icon: FaWater, label: 'Water' },
+    { icon: TbSnowflake, label: 'Ice' },
+  ];
+
   const values = [
     {
       title: 'Contrast Therapy',
-      description: 'Every session leaves you feeling restored and focused',
+      description: 'Every session leaves you feeling restored and focused. The alternating cycles of hot and cold create a powerful physiological response that enhances circulation, reduces inflammation, and promotes faster recovery.',
       color: '#00b7b5',
     },
     {
@@ -21,13 +34,13 @@ const AboutPage: React.FC = () => {
     {
       title: 'Wellness',
       description:
-        "It's more than recovery. It's a core ritual for balance, longevity and wellbeing",
+        "It's more than recovery. It's a core ritual for balance, longevity and wellbeing. We focus on holistic health that encompasses physical recovery, mental clarity, and emotional resilience.",
       color: '#ebede5',
     },
     {
       title: 'Integrity & Simplicity',
       description:
-        'With thoughtfully chosen materials, sustainable operations, flexible and transparent service, we strive for integrity in every detail.',
+        'With thoughtfully chosen materials, sustainable operations, flexible and transparent service, we strive for integrity in every detail. We believe in doing things right, not just doing them.',
       color: '#7a9e9d',
     },
   ];
@@ -37,19 +50,19 @@ const AboutPage: React.FC = () => {
       name: 'Stephen',
       role: 'Co-Founder',
       bio: "I am an Irish immigrant and a hairstylist by trade, and I've always loved helping people feel better — whether that's through a great haircut or simply offering small moments of calm in the midst of busy lives. Fitness has been part of my life from a young age, but as I got older I realized that recovery matters just as much.\n\nVital Ice started because I needed it myself. Life gets a little chaotic sometimes, and contrast therapy became my way to slow things down, clear my head, and hit the reset button. I never imagined it would grow into this — a space where people come together to feel better.\n\nMy personal goal is to create a space where recovery feels accessible, ritual— and shared by the community",
-      image: '/images/founder-sean.png',
+      shortBio: "I am an Irish immigrant and a hairstylist by trade, and I've always loved helping people feel better — whether that's through a great haircut or simply offering small moments of calm in the midst of busy lives. Fitness has been part of my life from a young age, but as I got older I realized that recovery matters just as much.",
     },
     {
       name: 'Sean',
       role: 'Co-Founder',
       bio: "I'm a Chicago native, born and raised. At 16, my family relocated to Ireland, where I completed my degree in Electrical Engineering. My journey ultimately brought me to San Francisco, where I now work in business development within the physical security industry.\n\nMy passion for health and wellness is deeply tied to how I spend my free time. In Ireland, I discovered Gaelic Football and went on to compete at the highest level before returning to the States. Today, I still play in the local league here in SF. Sport inspired me to relentlessly pursue the optimization of my health. Contrast therapy—especially cold exposure—has long been a cornerstone of recovery for elite athletes around the world. I have consistently relied on it to stay strong and healthy.\n\nIn a world full of toxins and distractions, I believe more than ever in the importance of accessible recovery—and meaningful connection. We thrive when we feel good, and even more so when we do it together. I hope Vital Ice creates that space and makes a lasting, positive impact on everyone who walks through our doors.",
-      image: '/images/founder-stephen.png',
+      shortBio: "I'm a Chicago native, born and raised. At 16, my family relocated to Ireland, where I completed my degree in Electrical Engineering. My journey ultimately brought me to San Francisco, where I now work in business development within the physical security industry.",
     },
     {
       name: 'Barry',
       role: 'Co-Founder',
       bio: "Barry is a proud Irish immigrant, lifelong athlete, secretary of a local Gaelic football team and the founder & operator of a successful general contracting business here in the Bay Area. A husband, a father, and a tireless worker, Barry brings a rare mix of grit, heart, and craftsmanship to everything he does.\n\nHis passion for sports and physical performance has shaped much of his life, and that same drive shows up in his work ethic today. As someone who understands the demands of building—both physically and professionally—he's a firm believer in the power of recovery and routine.\n\nBarry is the force behind the construction of the Vital Ice studio. His hands-on involvement ensures every inch of the space reflects intention, durability, and care. He's building more than walls—he's helping shape a space that gives back to the body, the mind, and the community.",
-      image: '/images/founders-seanstephen.png',
+      shortBio: "Barry is a proud Irish immigrant, lifelong athlete, secretary of a local Gaelic football team and the founder & operator of a successful general contracting business here in the Bay Area. A husband, a father, and a tireless worker, Barry brings a rare mix of grit, heart, and craftsmanship to everything he does.",
     },
   ];
 
@@ -195,6 +208,35 @@ const AboutPage: React.FC = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
+        {/* Etched stone symbols */}
+        <div className={styles.team__symbols}>
+          {symbols.map((symbol, i) => {
+            const IconComponent = symbol.icon;
+            return (
+              <motion.div
+                key={i}
+                className={styles.team__symbol}
+                animate={{
+                  opacity: [0.3, 0.7, 0.3],
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 4 + i * 0.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: i * 0.8,
+                }}
+                style={{
+                  left: i % 2 === 0 ? '8%' : '88%',
+                  top: `${15 + Math.floor(i / 2) * 25}%`,
+                }}
+              >
+                <IconComponent />
+              </motion.div>
+            );
+          })}
+        </div>
+        
         <div className={styles.team__container}>
           <motion.h2
             className={styles.team__title}
@@ -216,22 +258,35 @@ const AboutPage: React.FC = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
               >
-                <div className={styles.team__image}>
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={300}
-                    height={300}
-                    className={styles.team__imageElement}
-                  />
-                </div>
                 <div className={styles.team__info}>
                   <h3 className={styles.team__name}>{member.name}</h3>
                   <p className={styles.team__role}>{member.role}</p>
                   <div className={styles.team__bio}>
-                    {member.bio.split('\n\n').map((paragraph, idx) => (
-                      <p key={idx}>{paragraph}</p>
-                    ))}
+                    {expandedFounders.includes(index) ? (
+                      <>
+                        {member.bio.split('\n\n').map((paragraph, idx) => (
+                          <p key={idx} className={styles.team__paragraph}>{paragraph}</p>
+                        ))}
+                        <button
+                          className={styles.team__readLess}
+                          onClick={() => setExpandedFounders(prev => prev.filter(i => i !== index))}
+                        >
+                          Read Less
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p className={styles.team__paragraph}>
+                          {member.shortBio}
+                          <button
+                            className={styles.team__readMore}
+                            onClick={() => setExpandedFounders(prev => [...prev, index])}
+                          >
+                            ... Read More
+                          </button>
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -257,25 +312,29 @@ const AboutPage: React.FC = () => {
           >
             Our Mission
           </motion.h2>
-          <motion.p
+          <motion.div
             className={styles.mission__text}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Challenge your limits. <em>Join The Ritual</em>
-          </motion.p>
-          <motion.button
-            className={styles.mission__button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open('https://mindbody.com', '_blank')}
-          >
-            Join Our Community
-          </motion.button>
+            Challenge your limits.{' '}
+            <motion.span
+              className={styles.mission__ritualLink}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.location.href = '/book'}
+              style={{ cursor: 'pointer' }}
+            >
+              Join The Ritual.
+            </motion.span>
+          </motion.div>
         </div>
       </motion.section>
+      
+      {/* Footer */}
+      <Footer />
     </main>
   );
 };

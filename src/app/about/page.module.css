@@ -207,59 +207,64 @@
 
 .values__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  justify-content: center;
 }
 
 .value {
-  text-align: left;
-  padding: 2.5rem;
-  background: rgba(0, 183, 181, 0.03);
-  border: 1px solid rgba(0, 183, 181, 0.08);
-  border-radius: 12px;
-  transition: all 0.4s ease;
   position: relative;
+  background: rgba(211, 243, 255, 0.02);
+  border: 1px solid rgba(211, 243, 255, 0.1);
+  border-radius: 8px;
+  padding: 2.5rem;
+  transition: all 0.3s ease;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 500px;
 }
 
 .value:hover {
-  background: rgba(0, 183, 181, 0.08);
-  border-color: rgba(0, 183, 181, 0.2);
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0, 183, 181, 0.15);
+  background: rgba(211, 243, 255, 0.04);
+  border-color: rgba(211, 243, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .value__accent {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 3px;
   height: 100%;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.value:hover .value__accent {
-  width: 6px;
-  box-shadow: 0 0 20px rgba(0, 183, 181, 0.3);
+  opacity: 0.8;
 }
 
 .value__title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-  color: #9ec7c5;
-  letter-spacing: 0.02em;
-  padding-left: 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #d3f3ff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+.value__title::before {
+  content: '>';
+  color: rgba(211, 243, 255, 0.5);
+  margin-right: 0.5rem;
 }
 
 .value__description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: #ebede5;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #94a9b8;
   font-weight: 300;
-  padding-left: 1rem;
+  letter-spacing: 0.02em;
 }
 
 .team {
@@ -276,6 +281,33 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent 0%, rgba(0, 183, 181, 0.3) 50%, transparent 100%);
+}
+
+.team__symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.team__symbol {
+  position: absolute;
+  font-size: 1.8rem;
+  color: rgba(0, 183, 181, 0.3);
+  text-shadow: 0 0 15px rgba(0, 183, 181, 0.5);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  z-index: 0;
+  /* Ensure symbols stay in margins */
+  max-width: 60px;
+  max-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .team__container {
@@ -310,26 +342,30 @@
 
 .team__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 5rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .team__member {
   text-align: center;
   padding: 3rem;
-  background: rgba(0, 183, 181, 0.03);
-  border: 1px solid rgba(0, 183, 181, 0.08);
-  border-radius: 16px;
+  background: rgba(0, 183, 181, 0.05);
+  border: 1px solid rgba(0, 183, 181, 0.15);
+  border-radius: 20px;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 183, 181, 0.1);
 }
 
 .team__member:hover {
   background: rgba(0, 183, 181, 0.08);
-  border-color: rgba(0, 183, 181, 0.2);
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0, 183, 181, 0.15);
+  border-color: rgba(0, 183, 181, 0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 183, 181, 0.2);
 }
 
 .team__member::before {
@@ -378,6 +414,18 @@
   margin-bottom: 0.5rem;
   color: #9ec7c5;
   letter-spacing: 0.02em;
+  position: relative;
+}
+
+.team__name::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #00b7b5 0%, transparent 100%);
+  border-radius: 1px;
 }
 
 .team__role {
@@ -395,6 +443,40 @@
   color: #ebede5;
   font-weight: 300;
   text-align: justify;
+}
+
+.team__memberCenter {
+  justify-self: center;
+  grid-column: 2;
+}
+
+.team__paragraph {
+  margin-bottom: 1.5rem;
+}
+
+.team__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.team__readMore,
+.team__readLess {
+  background: transparent;
+  border: none;
+  color: #00b7b5;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline;
+  margin-left: 0.25rem;
+}
+
+.team__readMore:hover,
+.team__readLess:hover {
+  color: #00d4d2;
+  text-decoration: underline;
 }
 
 .mission {
@@ -449,7 +531,21 @@
   margin-bottom: 3rem;
   color: #ebede5;
   font-weight: 300;
-  text-align: justify;
+  text-align: center;
+}
+
+.mission__ritualLink {
+  color: #00b7b5;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.mission__ritualLink:hover {
+  color: #00d4d2;
+  border-bottom-color: #00d4d2;
+  text-shadow: 0 0 10px rgba(0, 183, 181, 0.3);
 }
 
 .mission__button {
@@ -471,6 +567,19 @@
   background: linear-gradient(135deg, #9ec7c5 0%, #00b7b5 100%);
   transform: translateY(-2px);
   box-shadow: 0 15px 40px rgba(0, 183, 181, 0.4);
+}
+
+@media (max-width: 1024px) {
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .team__memberCenter {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 400px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -495,12 +604,29 @@
     gap: 2rem;
   }
 
+  .team__member {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .values__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .value {
+    max-width: 100%;
+    padding: 2rem;
+  }
+
   .team__grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .team__member {
-    padding: 1.5rem;
+  .team__memberCenter {
+    grid-column: 1;
+    max-width: 100%;
   }
 }
