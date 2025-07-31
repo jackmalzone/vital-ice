@@ -14,7 +14,11 @@ const PanelZone: FC<PanelZoneProps> = ({ children, isVisible, position }) => {
   return (
     <motion.div
       className={`${styles.panelZone} ${styles[`panelZone--${position}`]}`}
-      initial={{ opacity: 0, x: position === 'left' ? -50 : position === 'right' ? 50 : 0, y: position === 'stacked' ? 50 : 0 }}
+      initial={{
+        opacity: 0,
+        x: position === 'left' ? -50 : position === 'right' ? 50 : 0,
+        y: position === 'stacked' ? 50 : 0,
+      }}
       animate={{
         opacity: isVisible ? 1 : 0,
         x: isVisible ? 0 : position === 'left' ? -50 : position === 'right' ? 50 : 0,
@@ -27,4 +31,4 @@ const PanelZone: FC<PanelZoneProps> = ({ children, isVisible, position }) => {
   );
 };
 
-export default PanelZone; 
+export default PanelZone;

@@ -13,108 +13,108 @@ const galleryImages = [
   {
     src: '/images/calm_volcanic-lake-shore.jpg',
     alt: 'Volcanic lake shore',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/ice_morninglight.jpg',
     alt: 'Ice in morning light',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/water_lava-red-lighting.jpg',
     alt: 'Water with lava red lighting',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/cold_arctic-mountains.jpg',
     alt: 'Arctic mountains',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/lava_aerial-volcanic-cauldron.jpg',
     alt: 'Aerial volcanic cauldron',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/ice_stunning-glacier.jpg',
     alt: 'Stunning glacier',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/embers_vertical.jpg',
     alt: 'Vertical embers',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/moon_above-iceberg.jpg',
     alt: 'Moon above iceberg',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/lava_texture-aerial_flow.jpg',
     alt: 'Aerial lava flow texture',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/ice_texture-cracks.jpg',
     alt: 'Ice texture cracks',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/moon_majestic-mountain-sunrise.jpg',
     alt: 'Moon over majestic mountain sunrise',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/lava-closeup.jpg',
     alt: 'Lava closeup',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/ice_silver-texture.jpg',
     alt: 'Ice silver texture',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/sand_ripples.jpg',
     alt: 'Sand ripples',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/lavastones.jpg',
     alt: 'Lava stones',
-    theme: 'hot'
+    theme: 'hot',
   },
   {
     src: '/images/cold_usgs-aerial_coastline.jpg',
     alt: 'USGS aerial coastline',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/moon-snow.jpg',
     alt: 'Moon over snow',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/light_blurryhues.jpg',
     alt: 'Light blurry hues',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/ice-glaciersonblack.jpg',
     alt: 'Ice glaciers on black',
-    theme: 'cold'
+    theme: 'cold',
   },
   {
     src: '/images/moon-yosemite.jpg',
     alt: 'Moon over Yosemite',
-    theme: 'misc'
+    theme: 'misc',
   },
   {
     src: '/images/moonscape_snowdrift.jpg',
     alt: 'Moonscape snowdrift',
-    theme: 'misc'
-  }
+    theme: 'misc',
+  },
 ];
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
@@ -124,15 +124,14 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Safety check for empty gallery
-  if (galleryImages.length === 0) {
-    return <div className={`${styles.photoGallery} ${className}`} />;
-  }
-
   // Auto-advance images with zoom effect
   useEffect(() => {
+    if (galleryImages.length === 0) {
+      return;
+    }
+
     intervalRef.current = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+      setCurrentImageIndex(prev => (prev + 1) % galleryImages.length);
       // Reset zoom when changing images
       setZoomScale(1);
     }, 6000); // Change every 6 seconds
@@ -146,6 +145,10 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
 
   // Subtle zoom-in effect over time
   useEffect(() => {
+    if (galleryImages.length === 0) {
+      return;
+    }
+
     const zoomInterval = setInterval(() => {
       setZoomScale(prev => Math.min(prev + 0.001, 1.1)); // Gradual zoom to 1.1x
     }, 100); // Update every 100ms for smooth animation
@@ -167,16 +170,21 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Safety check for empty gallery
+  if (galleryImages.length === 0) {
+    return <div className={`${styles.photoGallery} ${className}`} />;
+  }
+
   const currentImage = galleryImages[currentImageIndex] || galleryImages[0];
 
   return (
     <div className={`${styles.photoGallery} ${className}`} ref={containerRef}>
       {/* Background Image with Parallax and Zoom */}
-      <div 
+      <div
         className={styles.backgroundImage}
-        style={{ 
+        style={{
           transform: `translateY(${parallaxOffset}px) scale(${zoomScale})`,
-          transformOrigin: 'center center'
+          transformOrigin: 'center center',
         }}
       >
         <Image
@@ -219,4 +227,4 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
   );
 };
 
-export default PhotoGallery; 
+export default PhotoGallery;

@@ -36,8 +36,6 @@ const ServiceIcons = {
   'percussion-massage': <GiVibratingBall size={24} />,
 } as const;
 
-
-
 // Enhanced Service Node Component
 interface ServiceNodeProps {
   service: {
@@ -274,7 +272,10 @@ const ExperiencePage: React.FC = () => {
       <div className={styles.mainGrid}>
         {/* Left Panel Zone - Only render in desktop layout */}
         {!isStackedLayout && (
-          <PanelZone position="left" isVisible={hoveredIndex !== null && getPanelPosition() === 'left'}>
+          <PanelZone
+            position="left"
+            isVisible={hoveredIndex !== null && getPanelPosition() === 'left'}
+          >
             <div className={styles.panelContent}>
               <div className={styles.panelHeader}>
                 <div className={styles.panelStatus}>
@@ -320,7 +321,13 @@ const ExperiencePage: React.FC = () => {
               ease: 'easeInOut',
             }}
           >
-            <VILogo width={140} height={80} color="#ffffff" strokeWidth={4} className={styles.logo} />
+            <VILogo
+              width={140}
+              height={80}
+              color="#ffffff"
+              strokeWidth={4}
+              className={styles.logo}
+            />
           </motion.div>
 
           {/* Service Nodes */}
@@ -346,7 +353,10 @@ const ExperiencePage: React.FC = () => {
 
         {/* Right Panel Zone - Only render in desktop layout */}
         {!isStackedLayout && (
-          <PanelZone position="right" isVisible={hoveredIndex !== null && getPanelPosition() === 'right'}>
+          <PanelZone
+            position="right"
+            isVisible={hoveredIndex !== null && getPanelPosition() === 'right'}
+          >
             <div className={styles.panelContent}>
               <div className={styles.panelHeader}>
                 <div className={styles.panelStatus}>

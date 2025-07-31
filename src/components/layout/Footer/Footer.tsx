@@ -21,9 +21,7 @@ const Footer: FC = () => {
             transition={{ duration: 0.6 }}
           >
             <Logo className={styles.footer__logo} width={140} height={40} />
-            <p className={styles.footer__tagline}>
-              Live Better — Together.
-            </p>
+            <p className={styles.footer__tagline}>Live Better — Together.</p>
           </motion.div>
 
           <motion.div
@@ -41,7 +39,7 @@ const Footer: FC = () => {
                 (415) 555-1234
               </a>
               <div className={styles.footer__addressContainer}>
-                <a 
+                <a
                   href={googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"

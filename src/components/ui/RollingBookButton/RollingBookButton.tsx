@@ -2,7 +2,6 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import styles from './RollingBookButton.module.css';
 
 const RollingBookButton: FC = () => {

@@ -355,8 +355,6 @@ const Hero: FC = () => {
         </motion.div>
       </div>
 
-
-
       {/* Scroll indicator */}
       <motion.div
         className={styles.hero__scrollIndicator}

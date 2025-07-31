@@ -14,43 +14,43 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
   const scriptRef = useRef<HTMLScriptElement | null>(null);
   const [isWidgetReady, setIsWidgetReady] = useState(false);
 
-  // Safety check - don't render if there's an issue
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
   useEffect(() => {
+    // Safety check - don't run effect if window is undefined
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     if (isOpen && widgetContainerRef.current) {
       try {
         // Clear existing content
         widgetContainerRef.current.innerHTML = '';
-        
+
         // Create the widget element
         const widgetElement = document.createElement('healcode-widget');
         widgetElement.setAttribute('data-type', 'prospects');
         widgetElement.setAttribute('data-widget-partner', 'object');
         widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
         widgetElement.setAttribute('data-widget-version', '0');
-        
+
         // Append the widget to the container
         widgetContainerRef.current.appendChild(widgetElement);
-        
+
         // Load the script if not already loaded
         if (!scriptRef.current) {
           const script = document.createElement('script');
           script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
           script.type = 'text/javascript';
           script.async = true;
-          
+
           script.onload = () => {
             console.log('Healcode script loaded successfully');
             setIsWidgetReady(true);
           };
-          
-          script.onerror = (error) => {
+
+          script.onerror = error => {
             console.error('Failed to load Healcode script:', error);
           };
-          
+
           document.head.appendChild(script);
           scriptRef.current = script;
         }
@@ -86,20 +86,17 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
               <button className={styles.closeButton} onClick={onClose}>
                 ×
               </button>
             </div>
-            
+
             <div className={styles.modalContent}>
               {isWidgetReady ? (
-                <div 
-                  ref={widgetContainerRef}
-                  className={styles.widgetContainer}
-                />
+                <div ref={widgetContainerRef} className={styles.widgetContainer} />
               ) : (
                 <div className={styles.loadingContainer}>
                   <p>Loading booking widget...</p>
@@ -113,4 +110,4 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default MindbodyModal; 
+export default MindbodyModal;

@@ -1,49 +1,88 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Newsletter.module.css';
 
 export default function Newsletter() {
+  const widgetContainerRef = useRef<HTMLDivElement>(null);
+  const scriptRef = useRef<HTMLScriptElement | null>(null);
+  const [isWidgetReady, setIsWidgetReady] = useState(false);
+  const [shouldRenderWidget, setShouldRenderWidget] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    // Load Mindbody healcode script
-    const script = document.createElement('script');
-    script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-    script.type = 'text/javascript';
-    script.async = true;
-    
-    script.onload = () => {
-      console.log('Healcode script loaded successfully');
-      
-      // Suppress Mindbody JSON parsing errors
-      const originalJSONParse = JSON.parse;
-      JSON.parse = function (text) {
-        try {
-          return originalJSONParse.call(this, text);
-        } catch (error) {
-          console.warn('Mindbody widget JSON parse error suppressed:', error);
-          return null;
-        }
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    // SSR safety check
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    // Load the script if not already loaded
+    if (!scriptRef.current) {
+      const script = document.createElement('script');
+      script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+      script.type = 'text/javascript';
+      script.async = true;
+
+      script.onload = () => {
+        console.log('Healcode script loaded successfully');
+        setIsWidgetReady(true);
+        // Wait a bit more before allowing widget render
+        setTimeout(() => {
+          setShouldRenderWidget(true);
+        }, 200);
       };
-    };
-    
-    script.onerror = (error) => {
-      console.error('Failed to load Healcode script:', error);
-    };
-    
-    document.head.appendChild(script);
-    
+
+      script.onerror = error => {
+        console.error('Failed to load Healcode script:', error);
+      };
+
+      document.head.appendChild(script);
+      scriptRef.current = script;
+    } else {
+      // If script already loaded, set ready
+      setIsWidgetReady(true);
+      setTimeout(() => {
+        setShouldRenderWidget(true);
+      }, 200);
+    }
+
     return () => {
-      // Clean up script when component unmounts
-      const existingScript = document.querySelector('script[src*="healcode.js"]');
-      if (existingScript && existingScript.parentNode) {
-        try {
-          existingScript.parentNode.removeChild(existingScript);
-        } catch (error) {
-          console.warn('Error removing healcode script:', error);
-        }
-      }
+      // Clean up
+      setIsWidgetReady(false);
+      setShouldRenderWidget(false);
     };
   }, []);
+
+  // Separate effect to create widget when ready
+  useEffect(() => {
+    // SSR safety check
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (shouldRenderWidget && widgetContainerRef.current && isWidgetReady) {
+      try {
+        // Clear existing content
+        widgetContainerRef.current.innerHTML = '';
+
+        // Create the widget element
+        const widgetElement = document.createElement('healcode-widget');
+        widgetElement.setAttribute('data-type', 'prospects');
+        widgetElement.setAttribute('data-widget-partner', 'object');
+        widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
+        widgetElement.setAttribute('data-widget-version', '0');
+
+        // Append the widget to the container
+        widgetContainerRef.current.appendChild(widgetElement);
+      } catch (error) {
+        console.error('Error creating Mindbody widget:', error);
+      }
+    }
+  }, [shouldRenderWidget, isWidgetReady]);
 
   return (
     <section id="newsletter" className={styles.newsletter}>
@@ -80,10 +119,15 @@ export default function Newsletter() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          dangerouslySetInnerHTML={{
-            __html: '<healcode-widget data-type="prospects" data-widget-partner="object" data-widget-id="ec59331b5f7" data-widget-version="0"></healcode-widget>'
-          }}
-        />
+        >
+          {isClient && shouldRenderWidget ? (
+            <div ref={widgetContainerRef} className={styles.widgetContent} />
+          ) : (
+            <div className={styles.loadingContainer}>
+              <p>Loading newsletter signup...</p>
+            </div>
+          )}
+        </motion.div>
       </motion.div>
     </section>
   );

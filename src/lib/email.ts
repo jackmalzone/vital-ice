@@ -23,7 +23,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
     formData.append('experience', application.experience);
     formData.append('whyJoin', application.whyJoin);
     formData.append('availability', application.availability);
-    
+
     if (application.resume) {
       formData.append('resume', application.resume);
     }
@@ -50,7 +50,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
 // Alternative: Direct email using mailto (fallback)
 export const createEmailLink = (application: JobApplication): string => {
   console.log('Creating email link with application data:', application);
-  
+
   const subject = encodeURIComponent(`Job Application: ${application.jobTitle}`);
   const body = encodeURIComponent(`
 Job Application Details:
@@ -76,6 +76,6 @@ The resume file should be named: ${application.resume ? application.resume.name 
 
   const emailLink = `mailto:info@vitalicesf.com?subject=${subject}&body=${body}`;
   console.log('Generated email link:', emailLink);
-  
+
   return emailLink;
 };

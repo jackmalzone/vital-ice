@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Footer from '@/components/layout/Footer/Footer';
 import { sendJobApplication, createEmailLink } from '@/lib/email';
 import styles from './page.module.css';
@@ -21,8 +20,6 @@ const CareersPage: React.FC = () => {
     availability: '',
     resume: null as File | null,
   });
-
-
 
   const handleApplyClick = (jobTitle: string) => {
     setSelectedJob(jobTitle);
@@ -79,7 +76,7 @@ const CareersPage: React.FC = () => {
         setIsFormOpen(false);
         setSelectedJob('');
 
-        alert('Thank you for your application! We\'ll be in touch soon.');
+        alert("Thank you for your application! We'll be in touch soon.");
       } else {
         // Fallback to email link
         const emailLink = createEmailLink(application);
@@ -147,7 +144,7 @@ const CareersPage: React.FC = () => {
       type: 'Full-time or Part-time',
       location: 'San Francisco, CA',
       description:
-        "A pivotal, hands-on role responsible for ensuring the smooth daily operation of our facility, delivering outstanding client service, driving sales, and actively contributing to our partnership growth strategy.",
+        'A pivotal, hands-on role responsible for ensuring the smooth daily operation of our facility, delivering outstanding client service, driving sales, and actively contributing to our partnership growth strategy.',
       requirements: [
         'Minimum 2-3 years of experience in a customer-facing role, preferably in hospitality, retail, wellness, or a service-oriented environment',
         'Demonstrated experience in sales or business development is highly desirable',
@@ -194,8 +191,6 @@ const CareersPage: React.FC = () => {
           <p className={styles.subtitle}>Help us build the future of recovery and wellness</p>
         </motion.div>
 
-
-
         {/* Job Openings Section */}
         <motion.section
           className={styles.jobsSection}
@@ -223,7 +218,10 @@ const CareersPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <p className={styles.jobDescription} style={{ lineHeight: '1.6', fontSize: '1.1rem' }}>
+                  <p
+                    className={styles.jobDescription}
+                    style={{ lineHeight: '1.6', fontSize: '1.1rem' }}
+                  >
                     {job.description}{' '}
                     <motion.button
                       className={styles.seeMoreButton}
@@ -271,9 +269,7 @@ const CareersPage: React.FC = () => {
                             <h4 className={styles.jobSectionTitle}>What We Offer</h4>
                             <ul className={`${styles.jobList} ${styles.benefitsList}`}>
                               {job.benefits.map((benefit, benefitIndex) => (
-                                <li key={benefitIndex}>
-                                  ✓ {benefit}
-                                </li>
+                                <li key={benefitIndex}>✓ {benefit}</li>
                               ))}
                             </ul>
                           </div>
@@ -304,9 +300,7 @@ const CareersPage: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h3>Interested in joining our team?</h3>
-          <p>
-            We&apos;re looking for passionate individuals who share our vision.
-          </p>
+          <p>We&apos;re looking for passionate individuals who share our vision.</p>
           <div className={styles.contactInfo}>
             <a href="mailto:info@vitalicesf.com" className={styles.contactLink}>
               info@vitalicesf.com

@@ -41,4 +41,4 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
       <MindbodyModal isOpen={isModalOpen} onClose={closeModal} />
     </ModalContext.Provider>
   );
-}; 
+};

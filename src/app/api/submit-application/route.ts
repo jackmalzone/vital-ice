@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    
+
     // Extract application data from form data
     const application = {
       jobTitle: formData.get('jobTitle') as string,
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       whyJoin: formData.get('whyJoin') as string,
       availability: formData.get('availability') as string,
     };
-    
+
     const resumeFile = formData.get('resume') as File | null;
 
     // Create transporter (you'll need to configure this with your email service)
@@ -64,12 +64,14 @@ export async function POST(request: NextRequest) {
         <hr>
         <p><em>This application was submitted through the Vital Ice careers page.</em></p>
       `,
-      attachments: resumeFile ? [
-        {
-          filename: resumeFile.name,
-          content: Buffer.from(await resumeFile.arrayBuffer()),
-        }
-      ] : [],
+      attachments: resumeFile
+        ? [
+            {
+              filename: resumeFile.name,
+              content: Buffer.from(await resumeFile.arrayBuffer()),
+            },
+          ]
+        : [],
     };
 
     // Send email

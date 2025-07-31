@@ -373,13 +373,13 @@ export interface PerformanceMetrics {
 // Detect device type
 const getDeviceType = (): 'mobile' | 'tablet' | 'desktop' => {
   if (typeof window === 'undefined') return 'desktop';
-  
+
   try {
     const width = window.innerWidth;
     if (width < 768) return 'mobile';
     if (width < 1024) return 'tablet';
     return 'desktop';
-  } catch (error) {
+  } catch {
     return 'desktop';
   }
 };
@@ -390,11 +390,11 @@ const getConnectionSpeed = (): 'slow' | 'medium' | 'fast' => {
     return 'medium'; // Default fallback
   }
 
-  const connection = (navigator as any).connection;
+  const connection = (navigator as Navigator & { connection?: any }).connection;
   if (!connection) {
     return 'medium'; // Default fallback
   }
-  
+
   if (connection.effectiveType) {
     switch (connection.effectiveType) {
       case 'slow-2g':
@@ -425,7 +425,7 @@ const isLowPerformanceDevice = (): boolean => {
   try {
     // Check for low memory
     if ('deviceMemory' in navigator) {
-      const memory = (navigator as any).deviceMemory;
+      const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
       if (memory && memory < 4) return true;
     }
 
@@ -449,7 +449,7 @@ const isLowPerformanceDevice = (): boolean => {
     }
 
     return false;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
@@ -513,15 +513,15 @@ export const logPerformanceMetrics = (): void => {
   if (typeof window === 'undefined') return;
 
   const metrics = getPerformanceMetrics();
-  
+
   console.log('Performance Metrics:', {
     isLowPerformance: metrics.isLowPerformance,
     shouldUsePhotoGallery: metrics.shouldUsePhotoGallery,
     deviceType: metrics.deviceType,
     connectionSpeed: metrics.connectionSpeed,
     userAgent: navigator.userAgent,
-    deviceMemory: (navigator as any).deviceMemory,
+    deviceMemory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory,
     hardwareConcurrency: navigator.hardwareConcurrency,
-    connection: (navigator as any).connection,
+    connection: (navigator as Navigator & { connection?: any }).connection,
   });
 };

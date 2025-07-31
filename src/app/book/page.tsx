@@ -20,11 +20,14 @@ const BookPage: FC = () => {
     const keysToRemove = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))) {
+      if (
+        key &&
+        (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))
+      ) {
         keysToRemove.push(key);
       }
     }
-    
+
     keysToRemove.forEach(key => {
       try {
         localStorage.removeItem(key);
@@ -37,11 +40,14 @@ const BookPage: FC = () => {
     const sessionKeysToRemove = [];
     for (let i = 0; i < sessionStorage.length; i++) {
       const key = sessionStorage.key(i);
-      if (key && (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))) {
+      if (
+        key &&
+        (key.includes('mindbody') || key.includes('healcode') || key.includes('registration'))
+      ) {
         sessionKeysToRemove.push(key);
       }
     }
-    
+
     sessionKeysToRemove.forEach(key => {
       try {
         sessionStorage.removeItem(key);
@@ -53,7 +59,7 @@ const BookPage: FC = () => {
     // Force widget to reload with new key
     setWidgetKey(Date.now());
     setWidgetError(false);
-    
+
     console.log('Registration form reset - cleared stored data and reloading widget');
   };
 
@@ -86,51 +92,53 @@ const BookPage: FC = () => {
     const script = document.createElement('script');
     script.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js';
     script.async = true;
-    
+
     script.onload = () => {
       console.log('Mindbody script loaded successfully');
-      
-              // Suppress Mindbody errors
-        const originalConsoleError = console.error;
-        console.error = function (...args) {
-          const errorMessage = args[0]?.toString() || '';
-          if (errorMessage.includes('Mixpanel error') || 
-              errorMessage.includes('registrationSuccess') ||
-              errorMessage.includes('Cannot read properties of null') ||
-              errorMessage.includes('Objects are not valid as a React child')) {
-            console.warn('Mindbody widget error suppressed:', errorMessage);
-            return;
-          }
-          originalConsoleError.apply(console, args);
-        };
 
-        // Suppress jQuery errors
-        if (typeof window !== 'undefined' && (window as any).jQuery) {
-          const originalJQueryError = (window as any).jQuery.fn.error;
-          (window as any).jQuery.fn.error = function() {
-            console.warn('jQuery error suppressed in Mindbody widget');
-            return this;
-          };
+      // Suppress Mindbody errors
+      const originalConsoleError = console.error;
+      console.error = function (...args) {
+        const errorMessage = args[0]?.toString() || '';
+        if (
+          errorMessage.includes('Mixpanel error') ||
+          errorMessage.includes('registrationSuccess') ||
+          errorMessage.includes('Cannot read properties of null') ||
+          errorMessage.includes('Objects are not valid as a React child')
+        ) {
+          console.warn('Mindbody widget error suppressed:', errorMessage);
+          return;
         }
+        originalConsoleError.apply(console, args);
+      };
 
-        // Suppress React rendering errors
-        const originalConsoleWarn = console.warn;
-        console.warn = function (...args) {
-          const warningMessage = args[0]?.toString() || '';
-          if (warningMessage.includes('Objects are not valid as a React child')) {
-            console.log('React child error suppressed:', warningMessage);
-            return;
-          }
-          originalConsoleWarn.apply(console, args);
+      // Suppress jQuery errors
+      if (typeof window !== 'undefined' && (window as any).jQuery) {
+        const originalJQueryError = (window as any).jQuery.fn.error;
+        (window as any).jQuery.fn.error = function () {
+          console.warn('jQuery error suppressed in Mindbody widget');
+          return this;
         };
+      }
+
+      // Suppress React rendering errors
+      const originalConsoleWarn = console.warn;
+      console.warn = function (...args) {
+        const warningMessage = args[0]?.toString() || '';
+        if (warningMessage.includes('Objects are not valid as a React child')) {
+          console.log('React child error suppressed:', warningMessage);
+          return;
+        }
+        originalConsoleWarn.apply(console, args);
+      };
     };
-    
-    script.onerror = (error) => {
+
+    script.onerror = error => {
       console.error('Failed to load Mindbody script:', error);
     };
-    
+
     document.head.appendChild(script);
-    
+
     return () => {
       // Clean up script when component unmounts
       const existingScript = document.querySelector('script[src*="mindbodyonline.com"]');
@@ -151,10 +159,10 @@ const BookPage: FC = () => {
       script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
       script.type = 'text/javascript';
       script.async = true;
-      
+
       script.onload = () => {
         console.log('Healcode registration script loaded successfully');
-        
+
         // Suppress Mindbody JSON parsing errors
         const originalJSONParse = JSON.parse;
         JSON.parse = function (text) {
@@ -183,19 +191,19 @@ const BookPage: FC = () => {
         // Suppress jQuery errors related to null properties
         const originalJQueryError = (window as any).jQuery?.fn?.error || (() => {});
         if ((window as any).jQuery) {
-          (window as any).jQuery.fn.error = function() {
+          (window as any).jQuery.fn.error = function () {
             console.warn('jQuery error suppressed in registration widget');
             return this;
           };
         }
       };
-      
-      script.onerror = (error) => {
+
+      script.onerror = error => {
         console.error('Failed to load Healcode registration script:', error);
       };
-      
+
       document.head.appendChild(script);
-      
+
       return () => {
         // Clean up script when component unmounts
         const existingScript = document.querySelector('script[src*="healcode.js"]');
@@ -259,20 +267,18 @@ const BookPage: FC = () => {
         transition={{ duration: 0.8 }}
       >
         <h1 className={styles.title}>Book Your Session</h1>
-        <p className={styles.subtitle}>
-          Schedule your cold plunge, sauna, or recovery session
-        </p>
+        <p className={styles.subtitle}>Schedule your cold plunge, sauna, or recovery session</p>
       </motion.div>
-      
+
       <motion.div
         className={styles.widgetContainer}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        <div 
-          className="mindbody-widget" 
-          data-widget-type="Appointments" 
+        <div
+          className="mindbody-widget"
+          data-widget-type="Appointments"
           data-widget-id="ec34949b5f7"
         />
       </motion.div>
@@ -310,12 +316,15 @@ const BookPage: FC = () => {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               onError={handleWidgetError}
             >
-              <h3 className={styles.registrationHeader}>New To Our Studio? Register with Mindbody.</h3>
+              <h3 className={styles.registrationHeader}>
+                New To Our Studio? Register with Mindbody.
+              </h3>
               {!widgetError ? (
-                <div 
+                <div
                   key={`registration-widget-${widgetKey}`}
                   dangerouslySetInnerHTML={{
-                    __html: '<healcode-widget data-type="registrations" data-widget-partner="object" data-widget-id="ec161013b5f7" data-widget-version="0"></healcode-widget>'
+                    __html:
+                      '<healcode-widget data-type="registrations" data-widget-partner="object" data-widget-id="ec161013b5f7" data-widget-version="0"></healcode-widget>',
                   }}
                   onError={handleWidgetError}
                   onLoad={() => {
@@ -326,7 +335,7 @@ const BookPage: FC = () => {
               ) : (
                 <div className={styles.widgetError}>
                   <p>Registration widget temporarily unavailable. Please try again later.</p>
-                  <button 
+                  <button
                     onClick={() => {
                       setWidgetError(false);
                       // Force re-render with new key
@@ -341,16 +350,16 @@ const BookPage: FC = () => {
                   </button>
                 </div>
               )}
-              
+
               {/* Reset Form Button */}
               <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                <button 
+                <button
                   onClick={resetRegistrationForm}
                   className={styles.retryButton}
-                  style={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
-                    marginTop: '0.5rem'
+                    marginTop: '0.5rem',
                   }}
                 >
                   Reset Form
@@ -360,10 +369,10 @@ const BookPage: FC = () => {
           )}
         </AnimatePresence>
       </motion.div>
-      
+
       <Footer />
     </div>
   );
 };
 
-export default BookPage; 
+export default BookPage;

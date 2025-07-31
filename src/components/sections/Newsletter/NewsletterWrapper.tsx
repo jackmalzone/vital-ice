@@ -3,12 +3,9 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import Newsletter from './Newsletter';
-import { useModal } from '@/components/providers/ModalProvider';
 import styles from './NewsletterWrapper.module.css';
 
 const NewsletterWrapper: FC = () => {
-  const { openModal } = useModal();
-
   return (
     <section className={styles.wrapper}>
       {/* Enhanced Underwater Ambient Background */}
@@ -118,21 +115,6 @@ const NewsletterWrapper: FC = () => {
               <span className={styles.connectButtonText}>Book Your Session</span>
               <span className={styles.connectButtonIcon}>→</span>
             </motion.a>
-
-            <motion.button
-              onClick={() => {
-                console.log('Get in Touch button clicked, opening modal');
-                console.log('openModal function:', openModal);
-                openModal();
-              }}
-              className={styles.connectButtonSecondary}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <span className={styles.connectButtonText}>Get in Touch</span>
-              <span className={styles.connectButtonIcon}>→</span>
-            </motion.button>
           </motion.div>
         </motion.div>
       </div>

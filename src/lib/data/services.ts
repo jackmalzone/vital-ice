@@ -64,7 +64,7 @@ export const servicesData: Record<string, ServiceData> = {
         step: '02',
         title: 'Gradual Exposure',
         description:
-          'Start with a 30-second to 1-minute immersion, gradually building tolerance. If you can stay in for 3–5 minutes at 40°F or 10 minutes at 50°F, you\'re hitting what we consider superior tolerance.',
+          "Start with a 30-second to 1-minute immersion, gradually building tolerance. If you can stay in for 3–5 minutes at 40°F or 10 minutes at 50°F, you're hitting what we consider superior tolerance.",
       },
       {
         step: '03',
@@ -242,7 +242,7 @@ export const servicesData: Record<string, ServiceData> = {
         step: '01',
         title: 'Assessment & Prep',
         description:
-          'We\'ll explain the compression therapy process, help you get set up in the boots and sitting back in one of our zero gravity chairs with your legs elevated.',
+          "We'll explain the compression therapy process, help you get set up in the boots and sitting back in one of our zero gravity chairs with your legs elevated.",
       },
       {
         step: '02',
@@ -306,12 +306,14 @@ export const servicesData: Record<string, ServiceData> = {
       {
         step: '02',
         title: 'Treatment',
-        description: 'Receive targeted percussion therapy on required muscle groups. Focus directly on and around knots and adhesions.',
+        description:
+          'Receive targeted percussion therapy on required muscle groups. Focus directly on and around knots and adhesions.',
       },
       {
         step: '03',
         title: 'Technique',
-        description: 'Focusing directly on and around knots and adhesions, move the massager slowly and in control allowing the device to do the work itself. Adjust pressure and speed based on your comfort and needs.',
+        description:
+          'Focusing directly on and around knots and adhesions, move the massager slowly and in control allowing the device to do the work itself. Adjust pressure and speed based on your comfort and needs.',
       },
       {
         step: '04',
@@ -379,7 +381,8 @@ export const servicesData: Record<string, ServiceData> = {
       {
         step: '05',
         title: 'Combine',
-        description: 'Enhance your recovery by pairing compression therapy with one of our rejuvenating red light masks.',
+        description:
+          'Enhance your recovery by pairing compression therapy with one of our rejuvenating red light masks.',
       },
     ],
     ctaTitle: 'Ready to Experience Red Light Therapy?',
