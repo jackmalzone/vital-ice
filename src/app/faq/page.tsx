@@ -67,7 +67,7 @@ const FAQPage: React.FC = () => {
     {
       question: 'What are your hours of operation?',
       answer:
-        "We're open daily from 6:00 AM to 10:00 PM. Peak hours are typically 6:00-9:00 AM and 5:00-8:00 PM. Members have access to extended hours and priority booking during busy times.",
+        "Our operating hours vary by day: Monday-Friday we're open 6AM-10AM, 12PM-2PM, and 4PM-9PM. Saturdays we're open 7AM-9PM, and Sundays we're open 8AM-7PM. Members have priority booking access during all operating hours.",
     },
     {
       question: 'Do you provide towels and amenities?',
