@@ -58,13 +58,13 @@ export const servicesData: Record<string, ServiceData> = {
         step: '01',
         title: 'Preparation',
         description:
-          'Begin with a brief consultation and safety briefing. Our team will guide you through proper breathing techniques.',
+          'Begin with a rinse shower and a brief consultation. Our team will guide you through proper techniques.',
       },
       {
         step: '02',
         title: 'Gradual Exposure',
         description:
-          'Start with a 30-second to 2-minute immersion in our 50°F cold plunge, gradually building tolerance.',
+          'Start with a 30-second to 1-minute immersion, gradually building tolerance. If you can stay in for 3–5 minutes at 40°F or 10 minutes at 50°F, you\'re hitting what we consider superior tolerance.',
       },
       {
         step: '03',
@@ -76,7 +76,7 @@ export const servicesData: Record<string, ServiceData> = {
         step: '04',
         title: 'Recovery',
         description:
-          'Warm up gradually and hydrate. Many clients pair this with our infrared sauna for contrast therapy.',
+          'Warm up gradually. We recommend contrast therapy by alternating between our saunas and cold plunges.',
       },
     ],
     ctaTitle: 'Ready to Experience Cold Plunge?',
@@ -119,13 +119,13 @@ export const servicesData: Record<string, ServiceData> = {
         step: '01',
         title: 'Preparation',
         description:
-          'Arrive hydrated and remove any metal jewelry. Our staff will explain the session and safety guidelines.',
+          'Arrive clean and hydrated, remove any metal jewelry, change into swimwear. Our staff will explain the session and safety guidelines.',
       },
       {
         step: '02',
         title: 'Session',
         description:
-          'Enjoy 20-30 minutes in our infrared sauna at 120-140°F, much lower than traditional saunas.',
+          'Spend 20-30 minutes in our infrared sauna at 120-140°F, much lower than traditional saunas. Meditation, breathing exercises and stretching all compliment the sauna very well.',
       },
       {
         step: '03',
@@ -137,7 +137,7 @@ export const servicesData: Record<string, ServiceData> = {
         step: '04',
         title: 'Cool Down',
         description:
-          'Gradually cool down and consider pairing with our cold plunge for contrast therapy.',
+          'Gradually cool down. We recommend contrast therapy by alternating between our IR sauna and cold plunges.',
       },
     ],
     ctaTitle: 'Ready to Experience Infrared Sauna?',
@@ -181,24 +181,25 @@ export const servicesData: Record<string, ServiceData> = {
         step: '01',
         title: 'Preparation',
         description:
-          'Shower and arrive hydrated. Remove all jewelry and metal objects before entering.',
+          'Arrive clean and hydrated, remove any metal jewelry, change into swimwear. Our staff will explain the session and safety guidelines.',
       },
       {
         step: '02',
-        title: 'Heat Session',
+        title: 'Session',
         description:
-          "Spend 10-15 minutes in the sauna at 160-200°F, listening to your body's signals.",
+          "Spend 10-20 minutes in the sauna at 160-200°F, listening to your body's signals. Meditation, breathing exercises and stretching all compliment the sauna very well.",
       },
       {
         step: '03',
-        title: 'Cool Down',
-        description: 'Exit the sauna and cool down gradually, either with a cold shower or plunge.',
+        title: 'Hydration',
+        description:
+          "Stay well-hydrated throughout your session and listen to your body's signals.",
       },
       {
         step: '04',
-        title: 'Rest',
+        title: 'Cool Down',
         description:
-          'Rest and rehydrate between sessions, typically 2-3 rounds for optimal benefits.',
+          'Gradually cool down. We recommend contrast therapy by alternating between our sauna and cold plunges.',
       },
     ],
     ctaTitle: 'Ready to Experience Traditional Sauna?',
@@ -239,21 +240,21 @@ export const servicesData: Record<string, ServiceData> = {
     process: [
       {
         step: '01',
-        title: 'Assessment',
+        title: 'Assessment & Prep',
         description:
-          'Our staff will assess your needs and explain the compression therapy process.',
+          'We\'ll explain the compression therapy process, help you get set up in the boots and sitting back in one of our zero gravity chairs with your legs elevated.',
       },
       {
         step: '02',
         title: 'Session',
         description:
-          'Relax for 20-30 minutes while the compression boots provide rhythmic pressure therapy.',
+          'Relax for 15-20 minutes while the compression boots provide rhythmic pressure therapy.',
       },
       {
         step: '03',
         title: 'Monitoring',
         description:
-          'The system automatically adjusts pressure levels for optimal therapeutic effect.',
+          'Adjust and optimize the pressure settings with device controls to suit yourself.',
       },
       {
         step: '04',
@@ -300,17 +301,17 @@ export const servicesData: Record<string, ServiceData> = {
       {
         step: '01',
         title: 'Consultation',
-        description: 'Discuss your specific needs and areas of concern with our therapist.',
+        description: 'Allow us to show you the correct techniques for your specific needs.',
       },
       {
         step: '02',
         title: 'Treatment',
-        description: 'Receive targeted percussion therapy to your specific muscle groups.',
+        description: 'Receive targeted percussion therapy on required muscle groups. Focus directly on and around knots and adhesions.',
       },
       {
         step: '03',
-        title: 'Adjustment',
-        description: 'The therapist adjusts pressure and speed based on your comfort and needs.',
+        title: 'Technique',
+        description: 'Focusing directly on and around knots and adhesions, move the massager slowly and in control allowing the device to do the work itself. Adjust pressure and speed based on your comfort and needs.',
       },
       {
         step: '04',
@@ -374,6 +375,11 @@ export const servicesData: Record<string, ServiceData> = {
         step: '04',
         title: 'Results',
         description: 'Experience gradual improvements in skin health and pain relief over time.',
+      },
+      {
+        step: '05',
+        title: 'Combine',
+        description: 'Enhance your recovery by pairing compression therapy with one of our rejuvenating red light masks.',
       },
     ],
     ctaTitle: 'Ready to Experience Red Light Therapy?',
