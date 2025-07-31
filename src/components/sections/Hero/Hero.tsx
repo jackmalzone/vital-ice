@@ -3,9 +3,10 @@
 import { FC, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
+import PhotoGallery from '@/components/ui/PhotoGallery/PhotoGallery';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
-import { usePerformanceDetection } from '@/lib/utils/performanceDetection';
+import { usePerformanceDetection, shouldUsePhotoGallery } from '@/lib/utils/performanceDetection';
 import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos with WebM support
@@ -180,8 +181,12 @@ const Hero: FC = () => {
 
   return (
     <section id="home" className={styles.hero} ref={heroRef}>
-      {/* Conditional Video Backgrounds - only render if videos should be used and in viewport */}
-      {shouldUseVideos && isInViewport ? (
+      {/* Performance-based background selection */}
+      {shouldUsePhotoGallery() ? (
+        // Photo Gallery for low-performance devices
+        <PhotoGallery className={styles.hero__photoGallery} />
+      ) : shouldUseVideos && isInViewport ? (
+        // Video Backgrounds for high-performance devices
         VIDEOS.map((video, index) => (
           <VideoBackground
             key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
@@ -192,7 +197,7 @@ const Hero: FC = () => {
           />
         ))
       ) : (
-        // Static background for mobile/performance-constrained devices
+        // Static background fallback
         <div className={styles.hero__staticBackground} />
       )}
 

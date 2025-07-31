@@ -19,6 +19,13 @@
   z-index: 0;
 }
 
+/* Photo Gallery for low-performance devices */
+.hero__photoGallery {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .hero__staticBackground::before {
   content: '';
   position: absolute;

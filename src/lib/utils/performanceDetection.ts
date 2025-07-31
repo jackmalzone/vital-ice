@@ -360,3 +360,168 @@ export const useAdaptiveMedia = (videoSources: { [key: string]: string }, imageS
     isLoading,
   };
 };
+
+// Performance detection utilities for choosing between video and photo gallery
+
+export interface PerformanceMetrics {
+  isLowPerformance: boolean;
+  shouldUsePhotoGallery: boolean;
+  deviceType: 'mobile' | 'tablet' | 'desktop';
+  connectionSpeed: 'slow' | 'medium' | 'fast';
+}
+
+// Detect device type
+const getDeviceType = (): 'mobile' | 'tablet' | 'desktop' => {
+  if (typeof window === 'undefined') return 'desktop';
+  
+  try {
+    const width = window.innerWidth;
+    if (width < 768) return 'mobile';
+    if (width < 1024) return 'tablet';
+    return 'desktop';
+  } catch (error) {
+    return 'desktop';
+  }
+};
+
+// Detect connection speed
+const getConnectionSpeed = (): 'slow' | 'medium' | 'fast' => {
+  if (typeof navigator === 'undefined') {
+    return 'medium'; // Default fallback
+  }
+
+  const connection = (navigator as any).connection;
+  if (!connection) {
+    return 'medium'; // Default fallback
+  }
+  
+  if (connection.effectiveType) {
+    switch (connection.effectiveType) {
+      case 'slow-2g':
+      case '2g':
+        return 'slow';
+      case '3g':
+        return 'medium';
+      case '4g':
+        return 'fast';
+      default:
+        return 'medium';
+    }
+  }
+
+  if (connection.downlink) {
+    if (connection.downlink < 1) return 'slow';
+    if (connection.downlink < 5) return 'medium';
+    return 'fast';
+  }
+
+  return 'medium';
+};
+
+// Check for low performance indicators
+const isLowPerformanceDevice = (): boolean => {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+
+  try {
+    // Check for low memory
+    if ('deviceMemory' in navigator) {
+      const memory = (navigator as any).deviceMemory;
+      if (memory && memory < 4) return true;
+    }
+
+    // Check for low CPU cores
+    if ('hardwareConcurrency' in navigator) {
+      const cores = navigator.hardwareConcurrency;
+      if (cores && cores < 4) return true;
+    }
+
+    // Check for slow connection
+    const connectionSpeed = getConnectionSpeed();
+    if (connectionSpeed === 'slow') return true;
+
+    // Check for mobile device with limited capabilities
+    const deviceType = getDeviceType();
+    if (deviceType === 'mobile') {
+      // Additional mobile checks
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isOldMobile = /android [1-6]|iphone os [1-9]/.test(userAgent);
+      if (isOldMobile) return true;
+    }
+
+    return false;
+  } catch (error) {
+    return false;
+  }
+};
+
+// Main function to determine if photo gallery should be used
+export const shouldUsePhotoGallery = (): boolean => {
+  // SSR safety check
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return false;
+  }
+
+  try {
+    const isLowPerformance = isLowPerformanceDevice();
+    const deviceType = getDeviceType();
+    const connectionSpeed = getConnectionSpeed();
+
+    // Force photo gallery for low performance devices
+    if (isLowPerformance) return true;
+
+    // Use photo gallery for slow connections
+    if (connectionSpeed === 'slow') return true;
+
+    // Use photo gallery for older mobile devices
+    if (deviceType === 'mobile') {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isOldMobile = /android [1-6]|iphone os [1-9]/.test(userAgent);
+      if (isOldMobile) return true;
+    }
+
+    // Check for reduced motion preference
+    if (window.matchMedia) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (prefersReducedMotion.matches) return true;
+    }
+
+    return false;
+  } catch (error) {
+    // Fallback to false if any browser API fails
+    console.warn('Performance detection failed, defaulting to video:', error);
+    return false;
+  }
+};
+
+// Get comprehensive performance metrics
+export const getPerformanceMetrics = (): PerformanceMetrics => {
+  const isLowPerformance = isLowPerformanceDevice();
+  const deviceType = getDeviceType();
+  const connectionSpeed = getConnectionSpeed();
+  const shouldUsePhotoGallery = isLowPerformance || connectionSpeed === 'slow';
+
+  return {
+    isLowPerformance,
+    shouldUsePhotoGallery,
+    deviceType,
+    connectionSpeed,
+  };
+};
+
+// Debug function to log performance metrics
+export const logPerformanceMetrics = (): void => {
+  if (typeof window === 'undefined') return;
+
+  const metrics = getPerformanceMetrics();
+  
+  console.log('Performance Metrics:', {
+    isLowPerformance: metrics.isLowPerformance,
+    shouldUsePhotoGallery: metrics.shouldUsePhotoGallery,
+    deviceType: metrics.deviceType,
+    connectionSpeed: metrics.connectionSpeed,
+    userAgent: navigator.userAgent,
+    deviceMemory: (navigator as any).deviceMemory,
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    connection: (navigator as any).connection,
+  });
+};
