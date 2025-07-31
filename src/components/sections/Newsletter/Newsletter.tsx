@@ -29,11 +29,14 @@ export default function Newsletter() {
 
       script.onload = () => {
         console.log('Healcode script loaded successfully');
-        setIsWidgetReady(true);
-        // Wait a bit more before allowing widget render
+        // Add a delay to ensure the script is fully initialized
         setTimeout(() => {
-          setShouldRenderWidget(true);
-        }, 200);
+          setIsWidgetReady(true);
+          // Wait a bit more before allowing widget render
+          setTimeout(() => {
+            setShouldRenderWidget(true);
+          }, 500);
+        }, 500);
       };
 
       script.onerror = error => {
@@ -43,11 +46,13 @@ export default function Newsletter() {
       document.head.appendChild(script);
       scriptRef.current = script;
     } else {
-      // If script already loaded, set ready
-      setIsWidgetReady(true);
+      // If script already loaded, set ready after a delay
       setTimeout(() => {
-        setShouldRenderWidget(true);
-      }, 200);
+        setIsWidgetReady(true);
+        setTimeout(() => {
+          setShouldRenderWidget(true);
+        }, 500);
+      }, 500);
     }
 
     return () => {
@@ -69,17 +74,67 @@ export default function Newsletter() {
         // Clear existing content
         widgetContainerRef.current.innerHTML = '';
 
-        // Create the widget element
-        const widgetElement = document.createElement('healcode-widget');
-        widgetElement.setAttribute('data-type', 'prospects');
-        widgetElement.setAttribute('data-widget-partner', 'object');
-        widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
-        widgetElement.setAttribute('data-widget-version', '0');
+        // Add a delay to ensure DOM is ready
+        setTimeout(() => {
+          try {
+            // Check if the custom element is registered
+            if (typeof window !== 'undefined' && window.customElements && window.customElements.get('healcode-widget')) {
+              // Create the widget element
+              const widgetElement = document.createElement('healcode-widget');
+              widgetElement.setAttribute('data-type', 'prospects');
+              widgetElement.setAttribute('data-widget-partner', 'object');
+              widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
+              widgetElement.setAttribute('data-widget-version', '0');
 
-        // Append the widget to the container
-        widgetContainerRef.current.appendChild(widgetElement);
+              // Add additional attributes that might be expected
+              widgetElement.setAttribute('data-widget-type', 'prospects');
+              widgetElement.setAttribute('data-widget-partner-id', 'object');
+
+              // Append the widget to the container
+              if (widgetContainerRef.current) {
+                widgetContainerRef.current.appendChild(widgetElement);
+                
+                // Force the widget to initialize by dispatching a custom event
+                setTimeout(() => {
+                  if (widgetElement && typeof window !== 'undefined') {
+                    // Try to trigger widget initialization
+                    window.dispatchEvent(new Event('DOMContentLoaded'));
+                    
+                    // Check if widget has content after a delay
+                    setTimeout(() => {
+                      if (widgetElement.children.length === 0) {
+                        console.log('Widget still empty, trying alternative approach...');
+                        // Try creating the widget with innerHTML approach
+                        widgetElement.innerHTML = '';
+                        widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
+                      }
+                    }, 1000);
+                  }
+                }, 200);
+              }
+            } else {
+              console.log('Healcode widget custom element not yet registered, retrying...');
+              // Retry after a short delay
+              setTimeout(() => {
+                if (widgetContainerRef.current && shouldRenderWidget) {
+                  widgetContainerRef.current.innerHTML = '';
+                  const widgetElement = document.createElement('healcode-widget');
+                  widgetElement.setAttribute('data-type', 'prospects');
+                  widgetElement.setAttribute('data-widget-partner', 'object');
+                  widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
+                  widgetElement.setAttribute('data-widget-version', '0');
+                  widgetElement.setAttribute('data-widget-type', 'prospects');
+                  widgetElement.setAttribute('data-widget-partner-id', 'object');
+                  widgetContainerRef.current.appendChild(widgetElement);
+                }
+              }, 500);
+            }
+          } catch (error) {
+            console.error('Error creating Mindbody widget:', error);
+          }
+        }, 100); // 100ms delay to ensure DOM is ready
       } catch (error) {
-        console.error('Error creating Mindbody widget:', error);
+        console.error('Error setting up widget container:', error);
       }
     }
   }, [shouldRenderWidget, isWidgetReady]);
