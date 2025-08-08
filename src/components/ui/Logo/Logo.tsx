@@ -17,8 +17,9 @@ const Logo: FC<LogoProps> = ({ className = '', width, height, priority = false }
       <Image
         src="/images/logo-dark.png"
         alt="Vital Ice Logo"
-        {...(width && height ? { width, height } : { fill: true })}
-        style={{ objectFit: 'contain' }}
+        width={width || 300}
+        height={height || 150}
+        style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
         priority={priority}
       />
     </div>

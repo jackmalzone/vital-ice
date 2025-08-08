@@ -218,20 +218,6 @@ const Hero: FC = () => {
         aria-hidden="true"
       />
 
-      {/* Logo positioned separately */}
-      <motion.div
-        className={styles.hero__logoContainer}
-        variants={textRevealVariants}
-        initial="hidden"
-        animate="visible"
-        transition={{
-          ...springConfigs.gentle,
-          duration: 0.8,
-        }}
-      >
-        <Logo className={styles.heroLogo} />
-      </motion.div>
-
       <div className={styles.hero__content}>
         <motion.div
           className={styles.hero__textContainer}
@@ -268,20 +254,16 @@ const Hero: FC = () => {
             SAN FRANCISCO
           </motion.div>
 
-          <motion.h1
-            className={styles.hero__headline}
-            style={{
-              color: currentTheme.headline,
-              textShadow: currentTheme.textShadow,
-            }}
+          <motion.div
+            className={styles.hero__logoContainer}
             variants={textRevealVariants}
             transition={{
               ...springConfigs.responsive,
               duration: 0.8,
             }}
           >
-            VITAL ICE
-          </motion.h1>
+            <Logo className={styles.heroLogo} />
+          </motion.div>
 
           <motion.p
             className={styles.hero__subhead}
