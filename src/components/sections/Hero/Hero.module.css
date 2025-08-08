@@ -219,7 +219,7 @@
   }
 
   .heroLogo {
-    width: clamp(150px, 20vw, 200px);
+    width: clamp(180px, 25vw, 220px);
     height: auto;
   }
 
