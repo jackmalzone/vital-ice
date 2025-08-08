@@ -4,6 +4,12 @@
   right: 2rem;
   z-index: 99999;
   display: block;
+  transition: all 0.3s ease;
+}
+
+.aboveFooter {
+  position: fixed !important;
+  bottom: calc(100vh - var(--footer-top, 100vh) + 2rem) !important;
 }
 
 .rollingBookButton {
