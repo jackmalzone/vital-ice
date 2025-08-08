@@ -124,7 +124,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-advance images with zoom effect
+  // Auto-advance images with continuous zoom effect
   useEffect(() => {
     if (galleryImages.length === 0) {
       return;
@@ -132,8 +132,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
 
     intervalRef.current = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % galleryImages.length);
-      // Reset zoom when changing images
-      setZoomScale(1);
     }, 6000); // Change every 6 seconds
 
     return () => {
@@ -143,14 +141,29 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
     };
   }, []);
 
-  // Subtle zoom-in effect over time
+  // Continuous zoom-in effect that doesn't reset between images
   useEffect(() => {
     if (galleryImages.length === 0) {
       return;
     }
 
+    // Calculate zoom steps for the full 6-second duration
+    const totalSteps = 60; // 6 seconds * 10 steps per second
+    let currentStep = 0;
+
     const zoomInterval = setInterval(() => {
-      setZoomScale(prev => Math.min(prev + 0.001, 1.1)); // Gradual zoom to 1.1x
+      currentStep++;
+
+      if (currentStep <= totalSteps) {
+        // Smooth zoom from 1.0 to 1.1 over the full duration
+        const progress = currentStep / totalSteps;
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease-out curve
+        setZoomScale(1 + 0.1 * easeProgress);
+      } else {
+        // Reset for next image cycle
+        currentStep = 0;
+        setZoomScale(1);
+      }
     }, 100); // Update every 100ms for smooth animation
 
     return () => clearInterval(zoomInterval);
@@ -213,15 +226,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
             />
           ))}
         </div>
-      </div>
-
-      {/* Theme Label */}
-      <div className={styles.themeLabel}>
-        <span className={styles.themeText}>
-          {currentImage.theme === 'hot' && 'Heat'}
-          {currentImage.theme === 'cold' && 'Cold'}
-          {currentImage.theme === 'misc' && 'Nature'}
-        </span>
       </div>
     </div>
   );

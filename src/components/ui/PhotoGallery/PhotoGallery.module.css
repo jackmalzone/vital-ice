@@ -15,12 +15,12 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
 .backgroundImage img {
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 2s ease-in-out;
 }
 
 .overlay {
@@ -75,41 +75,10 @@
   box-shadow: 0 0 10px rgba(0, 183, 181, 0.5);
 }
 
-.themeLabel {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  z-index: 3;
-}
-
-.themeText {
-  background: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.themeText:hover {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .indicator {
     bottom: 1.5rem;
-  }
-
-  .themeLabel {
-    top: 1.5rem;
-    right: 1.5rem;
   }
 
   .dot {
@@ -125,16 +94,6 @@
 @media (max-width: 480px) {
   .indicator {
     bottom: 1rem;
-  }
-
-  .themeLabel {
-    top: 1rem;
-    right: 1rem;
-  }
-
-  .themeText {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
   }
 }
 
@@ -163,10 +122,6 @@
   }
 
   .dot {
-    transition: none;
-  }
-
-  .themeText {
     transition: none;
   }
 }
