@@ -217,7 +217,7 @@
 }
 
 .science__itemTitle {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -234,7 +234,7 @@
 }
 
 .science__itemDescription {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   line-height: 1.6;
   color: #94a9b8;
@@ -421,7 +421,7 @@
   border-radius: 50%;
   background: rgba(211, 243, 255, 0.05);
   border: 2px solid rgba(211, 243, 255, 0.2);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
   color: #d3f3ff;
@@ -461,7 +461,7 @@
 }
 
 .process__stepTitle {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;

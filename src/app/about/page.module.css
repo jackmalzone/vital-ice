@@ -242,7 +242,7 @@
 }
 
 .value__title {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -259,7 +259,7 @@
 }
 
 .value__description {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   line-height: 1.6;
   color: #94a9b8;
