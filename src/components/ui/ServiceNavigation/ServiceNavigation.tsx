@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { servicesData } from '@/lib/data/services';
+import { springConfigs } from '@/lib/utils/animations';
 import styles from './ServiceNavigation.module.css';
 
 const serviceOrder = [
@@ -123,7 +125,7 @@ export default function ServiceNavigation() {
         </div>
 
         <nav className={styles.sidebarNav}>
-          {serviceOrder.map(serviceId => {
+          {serviceOrder.map((serviceId, index) => {
             const service = servicesData[serviceId];
             if (!service) return null;
 
@@ -132,20 +134,31 @@ export default function ServiceNavigation() {
               SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || service.accentColor;
 
             return (
-              <Link
+              <motion.div
                 key={serviceId}
-                href={`/services/${serviceId}`}
-                className={`${styles.sidebarLink} ${isActive ? styles.active : ''}`}
-                onClick={() => setIsSidebarOpen(false)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  ...springConfigs.gentle,
+                  delay: index * 0.1,
+                }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className={styles.serviceIcon} style={{ backgroundColor: serviceColor }}>
-                  {service.title.charAt(0)}
-                </div>
-                <div className={styles.serviceInfo}>
-                  <span className={styles.serviceTitle}>{service.title}</span>
-                  <span className={styles.serviceSubtitle}>{service.subtitle}</span>
-                </div>
-              </Link>
+                <Link
+                  href={`/services/${serviceId}`}
+                  className={`${styles.sidebarLink} ${isActive ? styles.active : ''}`}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <div className={styles.serviceIcon} style={{ backgroundColor: serviceColor }}>
+                    {service.title.charAt(0)}
+                  </div>
+                  <div className={styles.serviceInfo}>
+                    <span className={styles.serviceTitle}>{service.title}</span>
+                    <span className={styles.serviceSubtitle}>{service.subtitle}</span>
+                  </div>
+                </Link>
+              </motion.div>
             );
           })}
         </nav>

@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import Logo from '@/components/ui/Logo/Logo';
+import { springConfigs } from '@/lib/utils/animations';
 import styles from './Footer.module.css';
 
 const Footer: FC = () => {
@@ -32,26 +33,44 @@ const Footer: FC = () => {
           >
             <h3 className={styles.footer__sectionTitle}>Contact</h3>
             <div className={styles.footer__contactInfo}>
-              <a href="mailto:info@vitalicesf.com" className={styles.footer__link}>
-                info@vitalicesf.com
-              </a>
-              <a href="tel:+14155551234" className={styles.footer__link}>
-                (415) 555-1234
-              </a>
-              <div className={styles.footer__addressContainer}>
-                <a
-                  href={googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.footer__address}
-                  aria-label={`Open ${address} in Google Maps`}
-                >
-                  <address>
-                    2400 Chestnut St
-                    <br />
-                    San Francisco, CA 94123
-                  </address>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={springConfigs.quick}
+              >
+                <a href="mailto:info@vitalicesf.com" className={styles.footer__link}>
+                  info@vitalicesf.com
                 </a>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={springConfigs.quick}
+              >
+                <a href="tel:+14155551234" className={styles.footer__link}>
+                  (415) 555-1234
+                </a>
+              </motion.div>
+              <div className={styles.footer__addressContainer}>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={springConfigs.quick}
+                >
+                  <a
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.footer__address}
+                    aria-label={`Open ${address} in Google Maps`}
+                  >
+                    <address>
+                      2400 Chestnut St
+                      <br />
+                      San Francisco, CA 94123
+                    </address>
+                  </a>
+                </motion.div>
               </div>
             </div>
           </motion.div>

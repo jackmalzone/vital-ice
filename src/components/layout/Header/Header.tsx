@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { servicesData } from '@/lib/data/services';
+import { springConfigs } from '@/lib/utils/animations';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
@@ -46,15 +48,30 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className={styles.desktopNav}>
         <ul className={styles.desktopNavList}>
-          {NAV_LINKS.map(link => (
-            <li key={link.href} className={styles.desktopNavItem}>
-              <Link
-                href={link.href}
-                className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
+          {NAV_LINKS.map((link, index) => (
+            <motion.li
+              key={link.href}
+              className={styles.desktopNavItem}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                ...springConfigs.gentle,
+                delay: index * 0.1,
+              }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={springConfigs.quick}
               >
-                {link.label}
-              </Link>
-            </li>
+                <Link
+                  href={link.href}
+                  className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            </motion.li>
           ))}
         </ul>
       </nav>
@@ -84,28 +101,54 @@ export default function Header() {
         <div className={styles.overlayMenu} onClick={closeMenu}>
           <nav className={styles.overlayNav} onClick={e => e.stopPropagation()}>
             <ul className={styles.overlayNavList}>
-              {NAV_LINKS.map(link => (
-                <li key={link.href} className={styles.overlayNavItem}>
-                  <Link
-                    href={link.href}
-                    className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
-                    onClick={closeMenu}
+              {NAV_LINKS.map((link, index) => (
+                <motion.li
+                  key={link.href}
+                  className={styles.overlayNavItem}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    ...springConfigs.responsive,
+                    delay: index * 0.1,
+                  }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={springConfigs.quick}
                   >
-                    {link.label}
-                  </Link>
-                </li>
+                    <Link
+                      href={link.href}
+                      className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
+                      onClick={closeMenu}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                </motion.li>
               ))}
-              <li className={styles.overlayNavItem}>
-                <button
+              <motion.li
+                className={styles.overlayNavItem}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  ...springConfigs.responsive,
+                  delay: NAV_LINKS.length * 0.1,
+                }}
+              >
+                <motion.button
                   className={styles.mobileBookButton}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={springConfigs.quick}
                   onClick={() => {
                     closeMenu();
                     window.open('https://mindbody.com', '_blank');
                   }}
                 >
                   Book Now
-                </button>
-              </li>
+                </motion.button>
+              </motion.li>
             </ul>
           </nav>
         </div>
