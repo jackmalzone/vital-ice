@@ -216,17 +216,17 @@ const ExperiencePage: React.FC = () => {
     // Use a more robust approach with explicit text
     const serviceTexts: Record<string, string> = {
       'cold-plunge':
-        'COLD PLUNGE\n\nImmerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
+        'Immerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
       'infrared-sauna':
-        'INFRARED SAUNA\n\nDeep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
+        'Deep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
       'traditional-sauna':
-        'TRADITIONAL SAUNA\n\nFinnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
+        'Finnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
       'compression-boots':
-        'COMPRESSION BOOTS\n\nPneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
+        'Pneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
       'percussion-massage':
-        'PERCUSSION MASSAGE\n\nDeep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
+        'Deep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
       'red-light-therapy':
-        'RED LIGHT THERAPY\n\nTherapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief',
+        'Therapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief',
     };
 
     consoleText =
@@ -281,11 +281,12 @@ const ExperiencePage: React.FC = () => {
                 <div className={styles.panelStatus}>
                   <span className={styles.panelDot} />
                   <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                    {hoveredIndex !== null
+                      ? services[hoveredIndex]?.title.toUpperCase()
+                      : 'STANDBY'}
                   </span>
                   <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
                 </div>
-                <div className={styles.panelTitle}>SERVICE INFO</div>
               </div>
               <pre className={styles.panelText}>
                 {displayText || 'No text loaded'}
@@ -362,11 +363,12 @@ const ExperiencePage: React.FC = () => {
                 <div className={styles.panelStatus}>
                   <span className={styles.panelDot} />
                   <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                    {hoveredIndex !== null
+                      ? services[hoveredIndex]?.title.toUpperCase()
+                      : 'STANDBY'}
                   </span>
                   <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
                 </div>
-                <div className={styles.panelTitle}>SERVICE INFO</div>
               </div>
               <pre className={styles.panelText}>
                 {displayText || 'No text loaded'}
@@ -384,11 +386,12 @@ const ExperiencePage: React.FC = () => {
                 <div className={styles.panelStatus}>
                   <span className={styles.panelDot} />
                   <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null ? 'ACTIVE' : 'STANDBY'}
+                    {hoveredIndex !== null
+                      ? services[hoveredIndex]?.title.toUpperCase()
+                      : 'STANDBY'}
                   </span>
                   <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
                 </div>
-                <div className={styles.panelTitle}>SERVICE INFO</div>
               </div>
               <pre className={styles.panelText}>
                 {displayText || 'No text loaded'}

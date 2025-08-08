@@ -198,7 +198,8 @@
 }
 
 .panelStatusText {
-  font-size: 0.75rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
   color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -212,7 +213,7 @@
 }
 
 .panelText {
-  font-family: 'Courier New', monospace;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.85rem;
   color: #00b7b5;
   line-height: 1.5;
