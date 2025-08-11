@@ -3,6 +3,7 @@
 import { FC, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Benefits.module.css';
 import ShaderPanel from './ShaderPanel';
 
@@ -298,6 +299,16 @@ const Benefits: FC = () => {
     },
   ];
 
+  // Service page mappings
+  const servicePageMap: { [key: string]: string } = {
+    'COLD PLUNGE': '/services/cold-plunge',
+    'INFRARED SAUNA': '/services/infrared-sauna',
+    'TRADITIONAL SAUNA': '/services/traditional-sauna',
+    'RED LIGHT THERAPY': '/services/red-light-therapy',
+    'PERCUSSION MASSAGE': '/services/percussion-massage',
+    'COMPRESSION BOOTS': '/services/compression-boots',
+  };
+
   // Function to render highlighted text
   const renderHighlightedText = (text: string) => {
     const parts = text.split(/(\*[^*]+\*)/);
@@ -356,24 +367,24 @@ const Benefits: FC = () => {
               key={benefit.title}
               className={styles.benefit}
               data-service={benefit.title.toLowerCase().replace(/\s+/g, '-')}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '-50px' }}
               transition={{
-                duration: 0.5,
-                delay: index * 0.1,
+                duration: 0.3,
+                delay: index * 0.05,
                 ease: [0.4, 0, 0.2, 1],
               }}
             >
               {/* Image Side */}
               <motion.div
                 className={`${styles.benefit__image} ${isImageLeft ? styles.left : styles.right}`}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.1 + 0.2,
+                  duration: 0.4,
+                  delay: index * 0.05 + 0.1,
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
@@ -395,24 +406,24 @@ const Benefits: FC = () => {
               {/* Text Side */}
               <motion.div
                 className={`${styles.benefit__text} ${isImageLeft ? styles.right : styles.left}`}
-                initial={{ opacity: 0, x: isImageLeft ? 30 : -30 }}
+                initial={{ opacity: 0, x: isImageLeft ? 20 : -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.1 + 0.3,
+                  duration: 0.3,
+                  delay: index * 0.05 + 0.15,
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
                 <div className={styles.benefit__textContent}>
                   <motion.div
                     className={styles.benefit__titleContainer}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.4,
-                      delay: index * 0.1 + 0.4,
+                      duration: 0.3,
+                      delay: index * 0.05 + 0.2,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -421,12 +432,12 @@ const Benefits: FC = () => {
                     <motion.div
                       className={styles.benefit__icon}
                       style={{ color: benefit.color }}
-                      initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                      initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
                       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                       viewport={{ once: true }}
                       transition={{
-                        duration: 0.4,
-                        delay: index * 0.1 + 0.5,
+                        duration: 0.3,
+                        delay: index * 0.05 + 0.25,
                         ease: [0.4, 0, 0.2, 1],
                       }}
                     >
@@ -436,12 +447,12 @@ const Benefits: FC = () => {
 
                   <motion.p
                     className={styles.benefit__tagline}
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.4,
-                      delay: index * 0.1 + 0.6,
+                      duration: 0.3,
+                      delay: index * 0.05 + 0.3,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -451,12 +462,12 @@ const Benefits: FC = () => {
                   {/* Protocol Section with ShaderPanel */}
                   <motion.div
                     className={styles.benefit__protocol}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.4,
-                      delay: index * 0.1 + 0.7,
+                      duration: 0.3,
+                      delay: index * 0.05 + 0.35,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -491,12 +502,12 @@ const Benefits: FC = () => {
                   {/* Effect Section with ShaderPanel */}
                   <motion.div
                     className={styles.benefit__effect}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{
-                      duration: 0.4,
-                      delay: index * 0.1 + 0.8,
+                      duration: 0.3,
+                      delay: index * 0.05 + 0.4,
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
@@ -511,12 +522,12 @@ const Benefits: FC = () => {
                       <p className={styles.benefit__effectDescription}>
                         &ldquo;{benefit.effect.description}&rdquo;
                       </p>
-                      <p
-                        className={styles.benefit__effectClinical}
-                        data-protocol={benefit.effect.protocolId}
+                      <Link
+                        href={servicePageMap[benefit.title]}
+                        className={styles.benefit__learnMore}
                       >
-                        {benefit.effect.clinical}
-                      </p>
+                        Learn More
+                      </Link>
                     </div>
                   </motion.div>
                 </div>
