@@ -2,10 +2,7 @@
 
 import { FC, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { GiFire, GiCaduceus, GiDiamonds, GiSun } from 'react-icons/gi';
-import { TbPlant2, TbSnowflake } from 'react-icons/tb';
-import { RxLightningBolt } from 'react-icons/rx';
-import { FaWater } from 'react-icons/fa';
+
 import styles from './MissionStatement.module.css';
 
 const MissionStatement: FC = () => {
@@ -23,50 +20,10 @@ const MissionStatement: FC = () => {
   const missionStatement =
     "We're making elite recovery simple, social, and within reach. Fusing proven methods with a space designed to connect and evolve. Let's turn recovery into the new happy hour.";
 
-  const symbols = [
-    { icon: GiFire, label: 'Fire' },
-    { icon: GiSun, label: 'Sun' },
-    { icon: FaWater, label: 'Water' },
-    { icon: TbPlant2, label: 'Growth' },
-    { icon: GiCaduceus, label: 'Healing' },
-    { icon: TbSnowflake, label: 'Ice' },
-    { icon: RxLightningBolt, label: 'Energy' },
-    { icon: GiDiamonds, label: 'Strength' },
-  ];
-
   return (
     <section ref={containerRef} className={styles.mission}>
       {/* Ambient background elements */}
       <div className={styles.mission__ambient} />
-
-      {/* Etched stone symbols */}
-      <div className={styles.mission__symbols}>
-        {symbols.map((symbol, i) => {
-          const IconComponent = symbol.icon;
-          return (
-            <motion.div
-              key={i}
-              className={styles.mission__symbol}
-              animate={{
-                opacity: [0.3, 0.7, 0.3],
-                y: [0, -5, 0],
-              }}
-              transition={{
-                duration: 4 + i * 0.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: i * 0.8,
-              }}
-              style={{
-                left: i % 2 === 0 ? '8%' : '88%',
-                top: `${15 + Math.floor(i / 2) * 25}%`,
-              }}
-            >
-              <IconComponent />
-            </motion.div>
-          );
-        })}
-      </div>
 
       {/* Bottom transition to black sand */}
       <div className={styles.mission__bottomTransition} />
@@ -126,7 +83,7 @@ const MissionStatement: FC = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              <em>reset like it matters.</em>
+              <em>Live Better — Together.</em>
             </motion.p>
           </motion.div>
         </motion.div>
