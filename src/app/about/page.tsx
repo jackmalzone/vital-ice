@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { GiFire, GiSun } from 'react-icons/gi';
 import { TbSnowflake } from 'react-icons/tb';
 import { FaWater } from 'react-icons/fa';
@@ -123,47 +122,36 @@ const AboutPage: React.FC = () => {
         <div className={styles.story__container}>
           <motion.div
             className={styles.story__content}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
             <h2 className={styles.story__title}>Our Story</h2>
-            <p className={styles.story__text}>
-              Behind the name, we&apos;re just three local enthusiasts who wanted something simple:
-              a place to cold plunge with our friends, close to home. When we couldn&apos;t find
-              anything that felt right—affordable, high-quality, and built around community—we
-              decided to create it ourselves. Vital Ice was built to bridge the gap between
-              high-performance recovery and everyday accessibility.
-            </p>
-            <p className={styles.story__text}>
-              This started as a personal need and turned into something bigger: a space where people
-              can reset, recover, and connect. No pressure. No BS. Just cold water, hot air, and the
-              pride that comes with prioritizing your health and wellness.
-            </p>
-            <p className={styles.story__text}>
-              We built this for the early risers, the post-work plungers, the weekend warriors, and
-              anyone trying to take care of their body and mind in a way that feels real. Whether
-              you&apos;re here to get centered, recover from a hard workout, or just share a moment
-              of peace—we&apos;re glad you&apos;re here.
-            </p>
-            <p className={styles.story__text}>Recovery isn&apos;t a luxury — it&apos;s a ritual.</p>
-            <p className={styles.story__text}>— The Vital Ice Team</p>
-          </motion.div>
-          <motion.div
-            className={styles.story__image}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <Image
-              src="/images/founders-seanstephen.png"
-              alt="Vital Ice founders"
-              width={500}
-              height={400}
-              className={styles.story__imageElement}
-            />
+            <div className={styles.story__textContainer}>
+              <p className={styles.story__text}>
+                Behind the name, we&apos;re just three local enthusiasts who wanted something
+                simple: a place to cold plunge with our friends, close to home. When we
+                couldn&apos;t find anything that felt right—affordable, high-quality, and built
+                around community—we decided to create it ourselves. Vital Ice was built to bridge
+                the gap between high-performance recovery and everyday accessibility.
+              </p>
+              <p className={styles.story__text}>
+                This started as a personal need and turned into something bigger: a space where
+                people can reset, recover, and connect. No pressure. No BS. Just cold water, hot
+                air, and the pride that comes with prioritizing your health and wellness.
+              </p>
+              <p className={styles.story__text}>
+                We built this for the early risers, the post-work plungers, the weekend warriors,
+                and anyone trying to take care of their body and mind in a way that feels real.
+                Whether you&apos;re here to get centered, recover from a hard workout, or just share
+                a moment of peace—we&apos;re glad you&apos;re here.
+              </p>
+              <p className={styles.story__quote}>
+                Recovery isn&apos;t a luxury — it&apos;s a ritual.
+              </p>
+              <p className={styles.story__signature}>— The Vital Ice Team</p>
+            </div>
           </motion.div>
         </div>
       </motion.section>
@@ -309,20 +297,11 @@ const AboutPage: React.FC = () => {
         viewport={{ once: true }}
       >
         <div className={styles.mission__container}>
-          <motion.h2
-            className={styles.mission__title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Our Mission
-          </motion.h2>
           <motion.div
             className={styles.mission__text}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             Challenge your limits.{' '}
