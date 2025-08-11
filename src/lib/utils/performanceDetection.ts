@@ -73,28 +73,28 @@ export const detectDeviceCapabilities = (): PerformanceProfile => {
 
 // Detect if device is low-end
 const detectLowEndDevice = (): boolean => {
-  // Check for low memory
+  // Check for very low memory (lowered threshold from 4GB to 2GB)
   if ('deviceMemory' in navigator) {
     const memory = (navigator as { deviceMemory?: number }).deviceMemory;
-    if (memory && memory < 4) return true;
+    if (memory && memory < 2) return true; // More permissive: only consider very low memory
   }
 
-  // Check for low CPU cores
+  // Check for very low CPU cores (lowered threshold from 4 to 2 cores)
   if ('hardwareConcurrency' in navigator) {
     const cores = navigator.hardwareConcurrency;
-    if (cores && cores < 4) return true;
+    if (cores && cores < 2) return true; // More permissive: only consider very low core count
   }
 
-  // Check for slow connection
+  // Check for very slow connection (more permissive)
   if ('connection' in navigator) {
     const connection = (navigator as { connection?: { effectiveType?: string } }).connection;
-    if (connection && connection.effectiveType === 'slow-2g') return true;
+    if (connection && connection.effectiveType === 'slow-2g') return true; // Only very slow connections
   }
 
-  // Check for older devices by user agent
+  // Check for very old devices by user agent (more permissive)
   const userAgent = navigator.userAgent;
-  if (userAgent.includes('Android 4') || userAgent.includes('Android 5')) return true;
-  if (userAgent.includes('iPhone OS 9') || userAgent.includes('iPhone OS 10')) return true;
+  if (userAgent.includes('Android 4') || userAgent.includes('Android 5')) return true; // Only very old Android
+  if (userAgent.includes('iPhone OS 9') || userAgent.includes('iPhone OS 10')) return true; // Only very old iOS
 
   return false;
 };
@@ -105,10 +105,11 @@ const detectConnectionQuality = (): boolean => {
     const connection = (navigator as { connection?: { effectiveType?: string; downlink?: number } })
       .connection;
     if (connection) {
-      // Good connection: 4g, 3g, or fast wifi
+      // Good connection: 4g, 3g, 2g, or decent wifi (lowered threshold)
       return (
-        ['4g', '3g'].includes(connection.effectiveType || '') || (connection.downlink || 0) > 1.5
-      ); // > 1.5 Mbps
+        ['4g', '3g', '2g'].includes(connection.effectiveType || '') ||
+        (connection.downlink || 0) > 0.5
+      ); // Lowered threshold from 1.5 Mbps to 0.5 Mbps
     }
   }
 
@@ -403,7 +404,7 @@ const getConnectionSpeed = (): 'slow' | 'medium' | 'fast' => {
       case '2g':
         return 'slow';
       case '3g':
-        return 'medium';
+        return 'medium'; // 3g is now considered medium, not slow
       case '4g':
         return 'fast';
       default:
@@ -412,8 +413,8 @@ const getConnectionSpeed = (): 'slow' | 'medium' | 'fast' => {
   }
 
   if (connection.downlink) {
-    if (connection.downlink < 1) return 'slow';
-    if (connection.downlink < 5) return 'medium';
+    if (connection.downlink < 0.5) return 'slow'; // Lowered threshold for slow
+    if (connection.downlink < 2) return 'medium'; // Lowered threshold for medium
     return 'fast';
   }
 
@@ -425,29 +426,29 @@ const isLowPerformanceDevice = (): boolean => {
   if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
 
   try {
-    // Check for low memory
+    // Check for very low memory (lowered threshold from 4GB to 2GB)
     if ('deviceMemory' in navigator) {
       const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-      if (memory && memory < 4) return true;
+      if (memory && memory < 2) return true; // More permissive: only consider very low memory devices
     }
 
-    // Check for low CPU cores
+    // Check for very low CPU cores (lowered threshold from 4 to 2 cores)
     if ('hardwareConcurrency' in navigator) {
       const cores = navigator.hardwareConcurrency;
-      if (cores && cores < 4) return true;
+      if (cores && cores < 2) return true; // More permissive: only consider very low core count
     }
 
-    // Check for slow connection
+    // Check for very slow connection (more permissive)
     const connectionSpeed = getConnectionSpeed();
-    if (connectionSpeed === 'slow') return true;
+    if (connectionSpeed === 'slow') return true; // Only force photo gallery for very slow connections
 
-    // Check for mobile device with limited capabilities
+    // Check for very old mobile devices (more permissive)
     const deviceType = getDeviceType();
     if (deviceType === 'mobile') {
-      // Additional mobile checks
+      // Only consider very old mobile devices
       const userAgent = navigator.userAgent.toLowerCase();
-      const isOldMobile = /android [1-6]|iphone os [1-9]/.test(userAgent);
-      if (isOldMobile) return true;
+      const isVeryOldMobile = /android [1-4]|iphone os [1-7]/.test(userAgent); // More permissive: only very old versions
+      if (isVeryOldMobile) return true;
     }
 
     return false;
@@ -468,17 +469,17 @@ export const shouldUsePhotoGallery = (): boolean => {
     const deviceType = getDeviceType();
     const connectionSpeed = getConnectionSpeed();
 
-    // Force photo gallery for low performance devices
+    // Force photo gallery for very low performance devices only
     if (isLowPerformance) return true;
 
-    // Use photo gallery for slow connections
+    // Use photo gallery for very slow connections only
     if (connectionSpeed === 'slow') return true;
 
-    // Use photo gallery for older mobile devices
+    // Use photo gallery for very old mobile devices only
     if (deviceType === 'mobile') {
       const userAgent = navigator.userAgent.toLowerCase();
-      const isOldMobile = /android [1-6]|iphone os [1-9]/.test(userAgent);
-      if (isOldMobile) return true;
+      const isVeryOldMobile = /android [1-4]|iphone os [1-7]/.test(userAgent); // More permissive: only very old versions
+      if (isVeryOldMobile) return true;
     }
 
     // Check for reduced motion preference
