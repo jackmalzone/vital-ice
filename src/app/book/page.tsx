@@ -2,10 +2,6 @@
 
 import { FC, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GiFire, GiCaduceus, GiDiamonds, GiSun } from 'react-icons/gi';
-import { TbPlant2, TbSnowflake } from 'react-icons/tb';
-import { RxLightningBolt } from 'react-icons/rx';
-import { FaWater } from 'react-icons/fa';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
@@ -227,48 +223,8 @@ const BookPage: FC = () => {
     }
   }, [showRegistration]);
 
-  const symbols = [
-    { icon: GiFire, label: 'Fire' },
-    { icon: GiSun, label: 'Sun' },
-    { icon: FaWater, label: 'Water' },
-    { icon: TbPlant2, label: 'Growth' },
-    { icon: GiCaduceus, label: 'Healing' },
-    { icon: TbSnowflake, label: 'Ice' },
-    { icon: RxLightningBolt, label: 'Energy' },
-    { icon: GiDiamonds, label: 'Strength' },
-  ];
-
   return (
     <div className={styles.container}>
-      {/* Etched stone symbols */}
-      <div className={styles.symbols}>
-        {symbols.map((symbol, i) => {
-          const IconComponent = symbol.icon;
-          return (
-            <motion.div
-              key={i}
-              className={styles.symbol}
-              animate={{
-                opacity: [0.3, 0.7, 0.3],
-                y: [0, -5, 0],
-              }}
-              transition={{
-                duration: 4 + i * 0.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: i * 0.8,
-              }}
-              style={{
-                left: i % 2 === 0 ? '5%' : '92%',
-                top: `${20 + Math.floor(i / 2) * 20}%`,
-              }}
-            >
-              <IconComponent />
-            </motion.div>
-          );
-        })}
-      </div>
-
       <motion.div
         className={styles.hero}
         initial={{ opacity: 0, y: 20 }}
@@ -280,16 +236,15 @@ const BookPage: FC = () => {
       </motion.div>
 
       <motion.div
-        className={styles.widgetContainer}
+        className={styles.comingSoonContainer}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        <div
-          className="mindbody-widget"
-          data-widget-type="Appointments"
-          data-widget-id="ec34949b5f7"
-        />
+        <div className={styles.comingSoonContent}>
+          <img src="/images/logo-dark.png" alt="Vital Ice Logo" className={styles.logo} />
+          <h2 className={styles.comingSoonTitle}>Coming Soon</h2>
+        </div>
       </motion.div>
 
       {/* Registration Section */}
