@@ -265,21 +265,6 @@ const Hero: FC = () => {
             <Logo className={styles.heroLogo} />
           </motion.div>
 
-          <motion.p
-            className={styles.hero__subhead}
-            style={{
-              color: currentTheme.subhead,
-              textShadow: currentTheme.textShadow,
-            }}
-            variants={textRevealVariants}
-            transition={{
-              ...springConfigs.gentle,
-              duration: 0.8,
-            }}
-          >
-            Live Better — Together
-          </motion.p>
-
           <motion.button
             className={styles.hero__button}
             style={{
