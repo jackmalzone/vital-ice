@@ -4,7 +4,6 @@ export interface JobApplication {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
   experience: string;
   whyJoin: string;
   availability: string;
@@ -19,7 +18,7 @@ export const sendJobApplication = async (application: JobApplication): Promise<b
     formData.append('firstName', application.firstName);
     formData.append('lastName', application.lastName);
     formData.append('email', application.email);
-    formData.append('phone', application.phone || '');
+
     formData.append('experience', application.experience);
     formData.append('whyJoin', application.whyJoin);
     formData.append('availability', application.availability);
@@ -58,7 +57,6 @@ Job Application Details:
 Position: ${application.jobTitle}
 Name: ${application.firstName} ${application.lastName}
 Email: ${application.email}
-Phone: ${application.phone || 'Not provided'}
 Availability: ${application.availability}
 
 Relevant Experience:

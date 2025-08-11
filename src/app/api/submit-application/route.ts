@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       firstName: formData.get('firstName') as string,
       lastName: formData.get('lastName') as string,
       email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
+
       experience: formData.get('experience') as string,
       whyJoin: formData.get('whyJoin') as string,
       availability: formData.get('availability') as string,
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
         <h4>Applicant Information:</h4>
         <p><strong>Name:</strong> ${application.firstName} ${application.lastName}</p>
         <p><strong>Email:</strong> ${application.email}</p>
-        <p><strong>Phone:</strong> ${application.phone || 'Not provided'}</p>
+        
         <p><strong>Availability:</strong> ${application.availability || 'Not provided'}</p>
         
         <h4>Relevant Experience:</h4>

@@ -8,7 +8,6 @@ const ContactPage: FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     message: '',
   });
 
@@ -22,23 +21,32 @@ const ContactPage: FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission - integrate with email service
-    // Form submitted successfully
+
+    // Create mailto link with form data
+    const subject = encodeURIComponent('Contact Form Submission - Vital Ice');
+    const body = encodeURIComponent(`
+Name: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}
+
+---
+This message was sent from the Vital Ice contact form.
+    `);
+
+    const mailtoLink = `mailto:info@vitalicesf.com?subject=${subject}&body=${body}`;
+    window.open(mailtoLink, '_blank');
   };
 
   const contactInfo = [
     {
       title: 'Email',
-      value: 'hello@vitalice.com',
-      link: 'mailto:hello@vitalice.com',
+      value: 'info@vitalicesf.com',
+      link: 'mailto:info@vitalicesf.com',
       icon: '✉️',
     },
-    {
-      title: 'Phone',
-      value: '(415) 555-1234',
-      link: 'tel:+14155551234',
-      icon: '📞',
-    },
+
     {
       title: 'Address',
       value: '2400 Chestnut St\nSan Francisco, CA 94123',
@@ -185,20 +193,6 @@ const ContactPage: FC = () => {
                     onChange={handleInputChange}
                     className={styles.form__input}
                     required
-                  />
-                </div>
-
-                <div className={styles.form__group}>
-                  <label htmlFor="phone" className={styles.form__label}>
-                    Phone (Optional)
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className={styles.form__input}
                   />
                 </div>
 
