@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
@@ -137,10 +137,7 @@ const ExperiencePage: React.FC = () => {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const [isStackedLayout, setIsStackedLayout] = useState<boolean>(true); // Default to stacked layout
-  const typewriterIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Detect screen size for responsive panel rendering
   useEffect(() => {
@@ -178,79 +175,12 @@ const ExperiencePage: React.FC = () => {
     }, 300);
   };
 
-  const typewriterEffect = (text: string) => {
-    setIsTyping(true);
-    setDisplayText('');
-    let index = 0;
-
-    // Clear any existing interval
-    if (typewriterIntervalRef.current) {
-      clearInterval(typewriterIntervalRef.current);
-    }
-
-    typewriterIntervalRef.current = setInterval(() => {
-      if (index < text.length) {
-        const newText = text.substring(0, index + 1);
-        setDisplayText(newText);
-        index++;
-      } else {
-        setIsTyping(false);
-        if (typewriterIntervalRef.current) {
-          clearInterval(typewriterIntervalRef.current);
-        }
-      }
-    }, 40); // Slightly slower for better visibility
-  };
-
   const handleHover = (hoverIndex: number) => {
     setHoveredIndex(hoverIndex);
-    const service = services[hoverIndex];
-
-    if (!service) {
-      return;
-    }
-
-    // Create better console text based on service
-    let consoleText = '';
-
-    // Use a more robust approach with explicit text
-    const serviceTexts: Record<string, string> = {
-      'cold-plunge':
-        'Immerse in 40-50°F water\nfor 2-5 minutes\n\nBenefits: Recovery, mental clarity,\nstress resilience',
-      'infrared-sauna':
-        'Deep tissue warming at\n120-150°F for 20-30 min\n\nBenefits: Detoxification, relaxation,\ncirculation boost',
-      'traditional-sauna':
-        'Finnish-style dry heat\n160-200°F for 10-20 min\n\nBenefits: Cardiovascular health,\nmuscle recovery, mental clarity',
-      'compression-boots':
-        'Pneumatic compression therapy\nfor 20-30 minutes\n\nBenefits: Circulation, recovery,\nlymphatic drainage',
-      'percussion-massage':
-        'Deep tissue percussion therapy\nfor targeted muscle relief\n\nBenefits: Muscle recovery, tension relief,\nimproved mobility',
-      'red-light-therapy':
-        'Therapeutic light treatment\nfor 10-20 minutes\n\nBenefits: Cellular regeneration,\nskin health, pain relief',
-    };
-
-    consoleText =
-      serviceTexts[service.id] ||
-      `${service.title.toUpperCase()}\n\n${service.subtitle || 'Service information'}`;
-
-    typewriterEffect(consoleText);
-  };
-
-  // Determine panel position based on service location
-  const getPanelPosition = () => {
-    if (hoveredIndex === null) return 'right';
-
-    // Left side: Compression Boots, Red Light Therapy, Traditional Sauna
-    // Right side: Percussion Massage, Cold Plunge, Infrared Sauna
-    const leftSideServices = ['compression-boots', 'red-light-therapy', 'traditional-sauna'];
-    const currentService = services[hoveredIndex];
-    return leftSideServices.includes(currentService.id) ? 'left' : 'right';
   };
 
   const handleLeave = () => {
     setHoveredIndex(null);
-    setDisplayText('');
-    setIsTyping(false);
   };
 
   return (
@@ -270,30 +200,27 @@ const ExperiencePage: React.FC = () => {
 
       {/* Main Content Grid */}
       <div className={styles.mainGrid}>
-        {/* Left Panel Zone - Only render in desktop layout */}
+        {/* Left Service Panels - Only render in desktop layout */}
         {!isStackedLayout && (
-          <PanelZone
-            position="left"
-            isVisible={hoveredIndex !== null && getPanelPosition() === 'left'}
-          >
-            <div className={styles.panelContent}>
-              <div className={styles.panelHeader}>
-                <div className={styles.panelStatus}>
-                  <span className={styles.panelDot} />
-                  <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null
-                      ? services[hoveredIndex]?.title.toUpperCase()
-                      : 'STANDBY'}
-                  </span>
-                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
-                </div>
-              </div>
-              <pre className={styles.panelText}>
-                {displayText || 'No text loaded'}
-                {isTyping && <span className={styles.panelCursor}>|</span>}
-              </pre>
+          <div className={styles.leftPanels}>
+            {/* Compression Boots */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 4 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>COMPRESSION BOOTS</span>
             </div>
-          </PanelZone>
+
+            {/* Red Light Therapy */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 3 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>RED LIGHT THERAPY</span>
+            </div>
+
+            {/* Traditional Sauna */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 2 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>TRADITIONAL SAUNA</span>
+            </div>
+          </div>
         )}
 
         {/* Radial Service Menu */}
@@ -352,51 +279,37 @@ const ExperiencePage: React.FC = () => {
           })}
         </div>
 
-        {/* Right Panel Zone - Only render in desktop layout */}
+        {/* Right Service Panels - Only render in desktop layout */}
         {!isStackedLayout && (
-          <PanelZone
-            position="right"
-            isVisible={hoveredIndex !== null && getPanelPosition() === 'right'}
-          >
-            <div className={styles.panelContent}>
-              <div className={styles.panelHeader}>
-                <div className={styles.panelStatus}>
-                  <span className={styles.panelDot} />
-                  <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null
-                      ? services[hoveredIndex]?.title.toUpperCase()
-                      : 'STANDBY'}
-                  </span>
-                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
-                </div>
-              </div>
-              <pre className={styles.panelText}>
-                {displayText || 'No text loaded'}
-                {isTyping && <span className={styles.panelCursor}>|</span>}
-              </pre>
+          <div className={styles.rightPanels}>
+            {/* Percussion Massage */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 5 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>PERCUSSION MASSAGE</span>
             </div>
-          </PanelZone>
+
+            {/* Cold Plunge */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 0 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>COLD PLUNGE</span>
+            </div>
+
+            {/* Infrared Sauna */}
+            <div className={`${styles.servicePanel} ${hoveredIndex === 1 ? styles.active : ''}`}>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>INFRARED SAUNA</span>
+            </div>
+          </div>
         )}
 
         {/* Stacked Panel Zone - Only render in stacked layout */}
         {isStackedLayout && (
           <PanelZone position="stacked" isVisible={hoveredIndex !== null}>
             <div className={styles.panelContent}>
-              <div className={styles.panelHeader}>
-                <div className={styles.panelStatus}>
-                  <span className={styles.panelDot} />
-                  <span className={styles.panelStatusText}>
-                    {hoveredIndex !== null
-                      ? services[hoveredIndex]?.title.toUpperCase()
-                      : 'STANDBY'}
-                  </span>
-                  <span style={{ marginLeft: '1rem' }}>&nbsp;</span>
-                </div>
-              </div>
-              <pre className={styles.panelText}>
-                {displayText || 'No text loaded'}
-                {isTyping && <span className={styles.panelCursor}>|</span>}
-              </pre>
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>
+                {hoveredIndex !== null ? services[hoveredIndex]?.title.toUpperCase() : 'STANDBY'}
+              </span>
             </div>
           </PanelZone>
         )}
