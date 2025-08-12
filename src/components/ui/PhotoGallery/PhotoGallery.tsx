@@ -119,12 +119,9 @@ const galleryImages = [
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [parallaxOffset, setParallaxOffset] = useState(0);
-  const [zoomScale, setZoomScale] = useState(1);
-  const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-advance images with continuous zoom effect
+  // Auto-advance images - simplified for mobile performance
   useEffect(() => {
     if (galleryImages.length === 0) {
       return;
@@ -141,48 +138,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
     };
   }, []);
 
-  // Continuous zoom-in effect that doesn't reset between images
-  useEffect(() => {
-    if (galleryImages.length === 0) {
-      return;
-    }
-
-    // Calculate zoom steps for the full 6-second duration
-    const totalSteps = 60; // 6 seconds * 10 steps per second
-    let currentStep = 0;
-
-    const zoomInterval = setInterval(() => {
-      currentStep++;
-
-      if (currentStep <= totalSteps) {
-        // Smooth zoom from 1.0 to 1.1 over the full duration
-        const progress = currentStep / totalSteps;
-        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease-out curve
-        setZoomScale(1 + 0.1 * easeProgress);
-      } else {
-        // Reset for next image cycle
-        currentStep = 0;
-        setZoomScale(1);
-      }
-    }, 100); // Update every 100ms for smooth animation
-
-    return () => clearInterval(zoomInterval);
-  }, [currentImageIndex]);
-
-  // Parallax effect on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.3; // Subtle parallax
-        setParallaxOffset(rate);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Safety check for empty gallery
   if (galleryImages.length === 0) {
     return <div className={`${styles.photoGallery} ${className}`} />;
@@ -191,15 +146,9 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
   const currentImage = galleryImages[currentImageIndex] || galleryImages[0];
 
   return (
-    <div className={`${styles.photoGallery} ${className}`} ref={containerRef}>
-      {/* Background Image with Parallax and Zoom */}
-      <div
-        className={styles.backgroundImage}
-        style={{
-          transform: `translateY(${parallaxOffset}px) scale(${zoomScale})`,
-          transformOrigin: 'center center',
-        }}
-      >
+    <div className={`${styles.photoGallery} ${className}`}>
+      {/* Background Image - simplified for mobile performance */}
+      <div className={styles.backgroundImage}>
         <Image
           src={currentImage.src}
           alt={currentImage.alt}

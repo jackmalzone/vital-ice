@@ -91,10 +91,12 @@ const Hero: FC = () => {
   const currentTheme =
     TEXT_THEMES[(currentVideo?.textTheme as keyof typeof TEXT_THEMES) || 'standard'];
 
-  // Scroll-based transforms for glassmorphic effects
-  const blurAmount = useTransform(scrollYProgress, [0, 0.1], [8, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
-  const textY = useTransform(scrollYProgress, [0, 0.1], [0, -20]);
+  // Mobile-optimized: Remove scroll effects on mobile for better performance
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+  const blurAmount = useTransform(scrollYProgress, [0, 0.1], [isMobile ? 0 : 8, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, isMobile ? 1 : 0.8]);
+  const textY = useTransform(scrollYProgress, [0, 0.1], [0, isMobile ? 0 : -20]);
 
   // Mobile-optimized video strategy - prioritize WebM on mobile
   const shouldUseVideos = useMemo(() => {

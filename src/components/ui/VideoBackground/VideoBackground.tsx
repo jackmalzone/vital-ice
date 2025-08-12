@@ -36,8 +36,8 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         navigator.userAgent
       );
 
-      // On mobile, aggressively prefer WebM if supported
-      if (isMobile && webmSrc && (canPlayWebM !== '' || canPlayWebM9 !== '')) {
+      // Always prefer WebM on mobile if available and supported
+      if (isMobile && webmSrc) {
         setPreferredFormat('webm');
       } else if (webmSrc && (canPlayWebM !== '' || canPlayWebM9 !== '')) {
         setPreferredFormat('webm');
