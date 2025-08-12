@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 import LoadingProvider from '@/components/providers/LoadingProvider';
 import { ModalProvider } from '@/components/providers/ModalProvider';
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ModalProvider>
           </SmoothScrollProvider>
         </LoadingProvider>
+        <Analytics />
       </body>
     </html>
   );
