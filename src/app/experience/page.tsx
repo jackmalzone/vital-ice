@@ -164,6 +164,14 @@ const ExperiencePage: React.FC = () => {
     servicesData['percussion-massage'],
   ];
 
+  // Get the current logo color based on hovered service
+  const getLogoColor = () => {
+    if (hoveredIndex === null) return '#ffffff'; // Default white
+
+    const serviceId = services[hoveredIndex]?.id;
+    return SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || '#ffffff';
+  };
+
   const handleServiceSelect = (id: string) => {
     if (isTransitioning) return;
 
@@ -204,19 +212,43 @@ const ExperiencePage: React.FC = () => {
         {!isStackedLayout && (
           <div className={styles.leftPanels}>
             {/* Compression Boots */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 4 ? styles.active : ''}`}>
-                  <span className={styles.panelDot} />
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 4 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color':
+                    hoveredIndex === 4 ? SERVICE_COLORS['compression-boots'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
+              <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>COMPRESSION BOOTS</span>
-                </div>
+            </div>
 
             {/* Red Light Therapy */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 3 ? styles.active : ''}`}>
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 3 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color':
+                    hoveredIndex === 3 ? SERVICE_COLORS['red-light-therapy'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>RED LIGHT THERAPY</span>
-              </div>
+            </div>
 
             {/* Traditional Sauna */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 2 ? styles.active : ''}`}>
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 2 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color':
+                    hoveredIndex === 2 ? SERVICE_COLORS['traditional-sauna'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>TRADITIONAL SAUNA</span>
             </div>
@@ -252,7 +284,7 @@ const ExperiencePage: React.FC = () => {
             <VILogo
               width={140}
               height={80}
-              color="#ffffff"
+              color={getLogoColor()}
               strokeWidth={4}
               className={styles.logo}
             />
@@ -283,19 +315,42 @@ const ExperiencePage: React.FC = () => {
         {!isStackedLayout && (
           <div className={styles.rightPanels}>
             {/* Percussion Massage */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 5 ? styles.active : ''}`}>
-                  <span className={styles.panelDot} />
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 5 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color':
+                    hoveredIndex === 5 ? SERVICE_COLORS['percussion-massage'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
+              <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>PERCUSSION MASSAGE</span>
-                </div>
+            </div>
 
             {/* Cold Plunge */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 0 ? styles.active : ''}`}>
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 0 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color': hoveredIndex === 0 ? SERVICE_COLORS['cold-plunge'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>COLD PLUNGE</span>
-              </div>
+            </div>
 
             {/* Infrared Sauna */}
-            <div className={`${styles.servicePanel} ${hoveredIndex === 1 ? styles.active : ''}`}>
+            <div
+              className={`${styles.servicePanel} ${hoveredIndex === 1 ? styles.active : ''}`}
+              style={
+                {
+                  '--accent-color':
+                    hoveredIndex === 1 ? SERVICE_COLORS['infrared-sauna'] : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>INFRARED SAUNA</span>
             </div>
@@ -305,11 +360,18 @@ const ExperiencePage: React.FC = () => {
         {/* Stacked Panel Zone - Only render in stacked layout */}
         {isStackedLayout && (
           <PanelZone position="stacked" isVisible={hoveredIndex !== null}>
-            <div className={styles.panelContent}>
-                  <span className={styles.panelDot} />
-                  <span className={styles.panelStatusText}>
+            <div
+              className={styles.panelContent}
+              style={
+                {
+                  '--accent-color': hoveredIndex !== null ? getLogoColor() : '#00bcd4',
+                } as React.CSSProperties
+              }
+            >
+              <span className={styles.panelDot} />
+              <span className={styles.panelStatusText}>
                 {hoveredIndex !== null ? services[hoveredIndex]?.title.toUpperCase() : 'STANDBY'}
-                  </span>
+              </span>
             </div>
           </PanelZone>
         )}
