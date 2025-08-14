@@ -155,12 +155,55 @@
   width: 100%;
   min-height: 200px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.1rem;
   font-weight: 300;
   font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}
+
+.errorContainer {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  font-weight: 300;
+  text-align: center;
+  padding: 2rem;
+}
+
+.retryButton {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0, 183, 181, 0.1);
+  border: 2px solid rgba(0, 183, 181, 0.3);
+  border-radius: 6px;
+  color: rgba(0, 183, 181, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.retryButton:hover:not(:disabled) {
+  background: rgba(0, 183, 181, 0.2);
+  border-color: rgba(0, 183, 181, 0.5);
+  color: rgba(0, 183, 181, 1);
+}
+
+.retryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Style healcode widget to match newsletter design */

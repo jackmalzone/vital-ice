@@ -1,12 +1,20 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Newsletter.module.css';
 
+// Note: Mindbody widget may show Mixpanel errors in console:
+// "You must name your new library: init(token, config, name)"
+// This is a known issue with Mindbody's internal analytics and doesn't affect functionality.
+
+// Global flag to prevent multiple script loads
+let scriptLoaded = false;
+let widgetCreated = false;
+
 export default function Newsletter() {
   const widgetContainerRef = useRef<HTMLDivElement>(null);
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
-  const widgetCreatedRef = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     // SSR safety check
@@ -15,54 +23,148 @@ export default function Newsletter() {
     }
 
     // Prevent duplicate widget creation
-    if (widgetCreatedRef.current) {
+    if (widgetCreated) {
+      setIsLoading(false);
       return;
     }
 
-    const createWidget = () => {
-      if (widgetContainerRef.current && !widgetCreatedRef.current) {
-        // Clear any existing content
-        widgetContainerRef.current.innerHTML = '';
+    const loadWidget = () => {
+      if (widgetContainerRef.current && !widgetCreated) {
+        try {
+          console.log('Loading newsletter widget...');
 
-        const widgetElement = document.createElement('healcode-widget');
-        widgetElement.setAttribute('data-type', 'prospects');
-        widgetElement.setAttribute('data-widget-partner', 'object');
-        widgetElement.setAttribute('data-widget-id', 'ec59331b5f7');
-        widgetElement.setAttribute('data-widget-version', '0');
-        widgetContainerRef.current.appendChild(widgetElement);
-        widgetCreatedRef.current = true;
+          // Clear container
+          widgetContainerRef.current.innerHTML = '';
+
+          // Check if script is already loaded
+          if (!scriptLoaded) {
+            // Load the script first
+            const script = document.createElement('script');
+            script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+            script.type = 'text/javascript';
+
+            script.onload = () => {
+              console.log('Script loaded, creating widget...');
+              scriptLoaded = true;
+              createWidget();
+            };
+
+            script.onerror = () => {
+              console.error('Failed to load script');
+              setHasError(true);
+              setIsLoading(false);
+            };
+
+            document.head.appendChild(script);
+          } else {
+            // Script already loaded, create widget directly
+            console.log('Script already loaded, creating widget...');
+            createWidget();
+          }
+        } catch (error) {
+          console.error('Error loading widget:', error);
+          setHasError(true);
+          setIsLoading(false);
+        }
       }
     };
 
-    // Load the script if not already loaded
-    if (!scriptRef.current) {
-      const script = document.createElement('script');
-      script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-      script.type = 'text/javascript';
-      script.async = true;
+    const createWidget = () => {
+      if (widgetContainerRef.current && !widgetCreated) {
+        // Create the widget element exactly as in the HTML
+        const widgetElement = document.createElement('healcode-widget');
+        widgetElement.setAttribute('data-type', 'prospects');
+        widgetElement.setAttribute('data-widget-partner', 'object');
+        widgetElement.setAttribute('data-widget-id', 'ec59331b5f7'); // Use original ID
+        widgetElement.setAttribute('data-widget-version', '0');
 
-      script.onload = () => {
-        console.log('Healcode script loaded successfully');
-        // Small delay to ensure script is fully initialized
-        setTimeout(createWidget, 100);
-      };
+        widgetContainerRef.current.appendChild(widgetElement);
+        widgetCreated = true;
 
-      script.onerror = error => {
-        console.error('Failed to load Healcode script:', error);
-      };
+        // Check if widget loaded
+        setTimeout(() => {
+          const widget = widgetContainerRef.current?.querySelector('healcode-widget');
+          if (widget && widget.children.length > 0) {
+            console.log('Widget loaded successfully');
+            setIsLoading(false);
+          } else {
+            console.log('Widget created, waiting for content...');
+            // Wait a bit more
+            setTimeout(() => {
+              const widgetCheck = widgetContainerRef.current?.querySelector('healcode-widget');
+              if (widgetCheck && widgetCheck.children.length > 0) {
+                console.log('Widget content now detected');
+                setIsLoading(false);
+              } else {
+                console.warn('Widget not loading properly');
+                setHasError(true);
+                setIsLoading(false);
+              }
+            }, 3000);
+          }
+        }, 2000);
+      }
+    };
 
-      document.head.appendChild(script);
-      scriptRef.current = script;
-    } else {
-      // If script already loaded, create widget immediately
-      setTimeout(createWidget, 100);
-    }
+    // Load widget when component mounts
+    loadWidget();
 
     // Cleanup function
     return () => {
-      widgetCreatedRef.current = false;
+      // Don't reset the global flags on cleanup to prevent re-creation
     };
   }, []);
+
+  const handleRetry = () => {
+    console.log('Retrying widget load...');
+    setIsLoading(true);
+    setHasError(false);
+
+    // Reset global flags for retry
+    scriptLoaded = false;
+    widgetCreated = false;
+
+    // Remove existing script and reload
+    const existingScript = document.querySelector('script[src*="healcode.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Clear widget container
+    if (widgetContainerRef.current) {
+      widgetContainerRef.current.innerHTML = '';
+    }
+
+    // Reload after a short delay
+    setTimeout(() => {
+      const loadWidget = () => {
+        if (widgetContainerRef.current) {
+          const script = document.createElement('script');
+          script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+          script.type = 'text/javascript';
+
+          script.onload = () => {
+            const widgetElement = document.createElement('healcode-widget');
+            widgetElement.setAttribute('data-type', 'prospects');
+            widgetElement.setAttribute('data-widget-partner', 'object');
+            widgetElement.setAttribute('data-widget-id', 'ec59331b5f7');
+            widgetElement.setAttribute('data-widget-version', '0');
+
+            widgetContainerRef.current!.appendChild(widgetElement);
+            widgetCreated = true;
+
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 2000);
+          };
+
+          document.head.appendChild(script);
+        }
+      };
+
+      loadWidget();
+    }, 500);
+  };
 
   return (
     <section id="newsletter" className={styles.newsletter}>
@@ -100,7 +202,26 @@ export default function Newsletter() {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.6 }}
         >
-          <div ref={widgetContainerRef} className={styles.widgetContent} />
+          {isLoading && (
+            <div className={styles.loadingContainer}>
+              <p>Loading newsletter signup...</p>
+            </div>
+          )}
+
+          {hasError && (
+            <div className={styles.errorContainer}>
+              <p>Unable to load newsletter signup at this time.</p>
+              <button onClick={handleRetry} className={styles.retryButton}>
+                Try Again
+              </button>
+            </div>
+          )}
+
+          <div
+            ref={widgetContainerRef}
+            className={styles.widgetContent}
+            style={{ display: isLoading || hasError ? 'none' : 'block' }}
+          />
         </motion.div>
       </motion.div>
     </section>

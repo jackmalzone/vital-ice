@@ -205,15 +205,15 @@ const ExperiencePage: React.FC = () => {
           <div className={styles.leftPanels}>
             {/* Compression Boots */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 4 ? styles.active : ''}`}>
-              <span className={styles.panelDot} />
+                  <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>COMPRESSION BOOTS</span>
-            </div>
+                </div>
 
             {/* Red Light Therapy */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 3 ? styles.active : ''}`}>
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>RED LIGHT THERAPY</span>
-            </div>
+              </div>
 
             {/* Traditional Sauna */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 2 ? styles.active : ''}`}>
@@ -284,15 +284,15 @@ const ExperiencePage: React.FC = () => {
           <div className={styles.rightPanels}>
             {/* Percussion Massage */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 5 ? styles.active : ''}`}>
-              <span className={styles.panelDot} />
+                  <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>PERCUSSION MASSAGE</span>
-            </div>
+                </div>
 
             {/* Cold Plunge */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 0 ? styles.active : ''}`}>
               <span className={styles.panelDot} />
               <span className={styles.panelStatusText}>COLD PLUNGE</span>
-            </div>
+              </div>
 
             {/* Infrared Sauna */}
             <div className={`${styles.servicePanel} ${hoveredIndex === 1 ? styles.active : ''}`}>
@@ -306,10 +306,10 @@ const ExperiencePage: React.FC = () => {
         {isStackedLayout && (
           <PanelZone position="stacked" isVisible={hoveredIndex !== null}>
             <div className={styles.panelContent}>
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>
+                  <span className={styles.panelDot} />
+                  <span className={styles.panelStatusText}>
                 {hoveredIndex !== null ? services[hoveredIndex]?.title.toUpperCase() : 'STANDBY'}
-              </span>
+                  </span>
             </div>
           </PanelZone>
         )}
