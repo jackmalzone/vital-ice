@@ -1,12 +1,10 @@
 'use client';
 
-import { FC, useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
-import PhotoGallery from '@/components/ui/PhotoGallery/PhotoGallery';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
-import { usePerformanceDetection, shouldUsePhotoGallery } from '@/lib/utils/performanceDetection';
 import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos with WebM support
@@ -84,7 +82,6 @@ const TEXT_THEMES = {
 const Hero: FC = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const { scrollYProgress } = useScroll();
-  const { strategy, profile } = usePerformanceDetection();
 
   // Get current video theme
   const currentVideo = VIDEOS[currentVideoIndex];
@@ -98,110 +95,27 @@ const Hero: FC = () => {
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, isMobile ? 1 : 0.8]);
   const textY = useTransform(scrollYProgress, [0, 0.1], [0, isMobile ? 0 : -20]);
 
-  // Mobile-optimized video strategy - prioritize WebM on mobile
-  const shouldUseVideos = useMemo(() => {
-    if (!strategy) return false;
-
-    // On mobile, always try to use videos (especially WebM)
-    if (profile?.isMobile) {
-      return true; // Allow videos on mobile, WebM will be prioritized
-    }
-
-    return strategy.useVideo;
-  }, [strategy, profile]);
-
-  // Performance optimization: Only load videos when in viewport
-  const [isInViewport, setIsInViewport] = useState(false);
-  const heroRef = useRef<HTMLElement>(null);
-
-  // Performance: Detect connection quality for adaptive loading
-  const [connectionQuality, setConnectionQuality] = useState<'fast' | 'medium' | 'slow'>('medium');
-
+  // Simple video rotation - no complex performance detection
   useEffect(() => {
-    // Detect connection quality
-    if ('connection' in navigator) {
-      const connection = (navigator as Navigator & { connection?: { effectiveType?: string } })
-        .connection;
-      if (connection?.effectiveType === '4g') {
-        setConnectionQuality('fast');
-      } else if (connection?.effectiveType === '3g') {
-        setConnectionQuality('medium');
-      } else {
-        setConnectionQuality('slow');
-      }
-    }
-  }, []);
-
-  // Performance: Adaptive video loading based on connection
-  const shouldPreloadVideos = useMemo(() => {
-    return connectionQuality === 'fast' && shouldUseVideos && isInViewport;
-  }, [connectionQuality, shouldUseVideos, isInViewport]);
-
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (!shouldUseVideos) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInViewport(entry.isIntersecting);
-      },
-      { threshold: 0.1 } // Trigger when 10% visible
-    );
-
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [shouldUseVideos]);
-
-  // Optimized video rotation with mobile considerations
-  useEffect(() => {
-    if (!shouldUseVideos || !isInViewport) return;
-
-    // Preload next video only if connection is fast and in viewport
-    const preloadNextVideo = () => {
-      if (!shouldPreloadVideos) return;
-
-      const nextIndex = (currentVideoIndex + 1) % VIDEOS.length;
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'video';
-      link.href = VIDEOS[nextIndex].src;
-      document.head.appendChild(link);
-    };
-
-    // Preload on mount and video change
-    preloadNextVideo();
-
     const interval = setInterval(() => {
       setCurrentVideoIndex(prev => (prev + 1) % VIDEOS.length);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, [currentVideoIndex, shouldUseVideos, isInViewport, shouldPreloadVideos]);
+  }, []);
 
   return (
-    <section id="home" className={styles.hero} ref={heroRef}>
-      {/* Performance-based background selection */}
-      {shouldUsePhotoGallery() ? (
-        // Photo Gallery for low-performance devices
-        <PhotoGallery className={styles.hero__photoGallery} />
-      ) : shouldUseVideos && isInViewport ? (
-        // Video Backgrounds for high-performance devices
-        VIDEOS.map((video, index) => (
-          <VideoBackground
-            key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
-            videoSrc={video.src}
-            webmSrc={video.webm}
-            overlayOpacity={0}
-            isActive={index === currentVideoIndex}
-          />
-        ))
-      ) : (
-        // Static background fallback
-        <div className={styles.hero__staticBackground} />
-      )}
+    <section id="home" className={styles.hero}>
+      {/* Always show videos - WebM will be prioritized on mobile */}
+      {VIDEOS.map((video, index) => (
+        <VideoBackground
+          key={`${video.src}-${currentVideoIndex === index ? 'active' : 'inactive'}`}
+          videoSrc={video.src}
+          webmSrc={video.webm}
+          overlayOpacity={0}
+          isActive={index === currentVideoIndex}
+        />
+      ))}
 
       <div className={styles.hero__gradientOverlay} aria-hidden="true" />
 
