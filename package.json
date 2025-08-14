@@ -16,7 +16,8 @@
     "export": "next export",
     "deploy": "gh-pages -d out",
     "sentry:release": "node scripts/sentry-release.js",
-    "sentry:sourcemaps": "npx @sentry/cli releases files $npm_package_version upload-sourcemaps .next --url-prefix '~/_next'"
+    "sentry:sourcemaps": "npx @sentry/cli releases files $npm_package_version upload-sourcemaps .next --url-prefix '~/_next'",
+    "r2:cors": "node scripts/setup-r2-cors.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.4.4",
