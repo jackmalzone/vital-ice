@@ -224,18 +224,19 @@ export default function ProfilingTestPage() {
         <h4>🔍 What to Check:</h4>
         <ul>
           <li>
-            <strong>Browser Console:</strong> Look for Sentry logs and profiling messages
+            <strong>Browser Console:</strong> Look for Sentry logs and
+            profiling messages
           </li>
           <li>
             <strong>Network Tab:</strong> Check for requests to Sentry
           </li>
           <li>
-            <strong>Sentry Dashboard:</strong> Performance tab → Look for "Manual Profiling Test"
-            transaction
+            <strong>Sentry Dashboard:</strong> Performance tab → Look for
+            &quot;Manual Profiling Test&quot; transaction
           </li>
           <li>
-            <strong>Profiling Data:</strong> Click on the transaction to see flame graphs and
-            profiling data
+            <strong>Profiling Data:</strong> Click on the transaction to
+            see flame graphs and profiling data
           </li>
         </ul>
       </div>

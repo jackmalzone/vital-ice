@@ -23,7 +23,7 @@ class SentryErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error to Sentry
     Sentry.captureException(error, {
       tags: {
@@ -59,7 +59,7 @@ class SentryErrorBoundary extends Component<Props, State> {
             }}
           >
             <h2>Something went wrong</h2>
-            <p>We've been notified and are working to fix this issue.</p>
+            <p>We&apos;ve been notified and are working to fix this issue.</p>
             <button
               onClick={() => {
                 this.setState({ hasError: false, error: undefined });
