@@ -31,9 +31,14 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     const video = videoRef.current;
     return () => {
       if (video) {
+        // Cancel any pending play promises
         video.pause();
+        // Clear the source to stop any pending operations
         video.src = '';
         video.load();
+        // Reset state
+        setIsPlaying(false);
+        setIsLoaded(false);
       }
     };
   }, []);
@@ -71,14 +76,26 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
             const playPromise = video.play();
             if (playPromise !== undefined) {
               await playPromise;
-              setIsPlaying(true);
+              // Check if video is still mounted before updating state
+              if (videoRef.current === video) {
+                setIsPlaying(true);
+              }
             }
           } else {
             video.pause();
-            setIsPlaying(false);
+            if (videoRef.current === video) {
+              setIsPlaying(false);
+            }
           }
         } catch (error) {
-          // Log error to Sentry
+          // Check if this is an AbortError (video removed from DOM)
+          if (error instanceof Error && error.name === 'AbortError') {
+            // This is expected when video is removed during play request
+            // Don't log to Sentry for this specific case
+            return;
+          }
+
+          // Log other errors to Sentry
           Sentry.captureException(error, {
             tags: {
               component: 'VideoBackground',
@@ -94,8 +111,10 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
           // eslint-disable-next-line no-console
           console.warn('Video playback error:', error);
-          setHasError(true);
-          setIsPlaying(false);
+          if (videoRef.current === video) {
+            setHasError(true);
+            setIsPlaying(false);
+          }
         }
       }
     );
@@ -117,10 +136,17 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
       if (video && isActive && !isPlaying && !hasError) {
         try {
           await video.play();
-          setIsPlaying(true);
-          setHasError(false);
-        } catch {
-          // Silently handle autoplay errors
+          if (videoRef.current === video) {
+            setIsPlaying(true);
+            setHasError(false);
+          }
+        } catch (error) {
+          // Check if this is an AbortError (video removed from DOM)
+          if (error instanceof Error && error.name === 'AbortError') {
+            // This is expected when video is removed during play request
+            return;
+          }
+          // Silently handle other autoplay errors
         }
       }
 
@@ -169,9 +195,16 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
   const handleCanPlay = useCallback(() => {
     if (isActive && videoRef.current && !isPlaying) {
-      videoRef.current.play().catch(() => {
+      videoRef.current.play().catch((error) => {
+        // Check if this is an AbortError (video removed from DOM)
+        if (error instanceof Error && error.name === 'AbortError') {
+          // This is expected when video is removed during play request
+          return;
+        }
         // Autoplay failed, but video is ready
-        setIsLoaded(true);
+        if (videoRef.current) {
+          setIsLoaded(true);
+        }
       });
     }
   }, [isActive, isPlaying]);
@@ -190,8 +223,16 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         onLoadedData={handleVideoLoad}
         onCanPlay={handleCanPlay}
         onError={handleVideoError}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        onPlay={() => {
+          if (videoRef.current) {
+            setIsPlaying(true);
+          }
+        }}
+        onPause={() => {
+          if (videoRef.current) {
+            setIsPlaying(false);
+          }
+        }}
         // Performance: Disable video processing when not visible
         style={{
           willChange: isActive ? 'auto' : 'none',
