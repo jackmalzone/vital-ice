@@ -82,7 +82,11 @@ export const trackMindbodyWidgetIssue = (widgetType: string, error: Error) => {
 };
 
 // Track browser-specific issues
-export const trackBrowserIssue = (browser: string, issue: string, details?: Record<string, unknown>) => {
+export const trackBrowserIssue = (
+  browser: string,
+  issue: string,
+  details?: Record<string, unknown>
+) => {
   Sentry.captureMessage(`Browser-specific issue: ${issue}`, {
     level: 'warning',
     tags: {
@@ -101,9 +105,29 @@ export const trackBrowserIssue = (browser: string, issue: string, details?: Reco
 
 // Track memory usage issues
 export const trackMemoryUsage = () => {
-  if (typeof window === 'undefined' || !(performance as Performance & { memory?: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory) return;
+  if (
+    typeof window === 'undefined' ||
+    !(
+      performance as Performance & {
+        memory?: {
+          usedJSHeapSize: number;
+          totalJSHeapSize: number;
+          jsHeapSizeLimit: number;
+        };
+      }
+    ).memory
+  )
+    return;
 
-  const memory = (performance as Performance & { memory: { usedJSHeapSize: number; totalJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+  const memory = (
+    performance as Performance & {
+      memory: {
+        usedJSHeapSize: number;
+        totalJSHeapSize: number;
+        jsHeapSizeLimit: number;
+      };
+    }
+  ).memory;
   const usedMB = memory.usedJSHeapSize / 1024 / 1024;
   const totalMB = memory.totalJSHeapSize / 1024 / 1024;
   const limitMB = memory.jsHeapSizeLimit / 1024 / 1024;

@@ -171,7 +171,7 @@ export default function ProfilingTestPage() {
           <li>This page automatically runs a manual transaction test</li>
           <li>Check the console for detailed logs</li>
           <li>Wait 2-5 minutes for data to appear in Sentry</li>
-          <li>Go to Sentry → Performance → Look for "Manual Profiling Test"</li>
+          <li>Go to Sentry → Performance → Look for &quot;Manual Profiling Test&quot;</li>
         </ol>
       </div>
 
@@ -224,19 +224,18 @@ export default function ProfilingTestPage() {
         <h4>🔍 What to Check:</h4>
         <ul>
           <li>
-            <strong>Browser Console:</strong> Look for Sentry logs and
-            profiling messages
+            <strong>Browser Console:</strong> Look for Sentry logs and profiling messages
           </li>
           <li>
             <strong>Network Tab:</strong> Check for requests to Sentry
           </li>
           <li>
-            <strong>Sentry Dashboard:</strong> Performance tab → Look for
-            &quot;Manual Profiling Test&quot; transaction
+            <strong>Sentry Dashboard:</strong> Performance tab → Look for &quot;Manual Profiling
+            Test&quot; transaction
           </li>
           <li>
-            <strong>Profiling Data:</strong> Click on the transaction to
-            see flame graphs and profiling data
+            <strong>Profiling Data:</strong> Click on the transaction to see flame graphs and
+            profiling data
           </li>
         </ul>
       </div>

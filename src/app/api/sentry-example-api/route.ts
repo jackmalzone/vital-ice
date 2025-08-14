@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import * as Sentry from '@sentry/nextjs';
 
 export async function GET() {
@@ -7,7 +7,7 @@ export async function GET() {
       op: 'http.server',
       name: 'GET /api/sentry-example-api',
     },
-    async (span) => {
+    async span => {
       try {
         // Simulate some work that will be profiled
         span.setAttribute('test_type', 'api_profiling');
@@ -18,13 +18,13 @@ export async function GET() {
             op: 'db.query',
             name: 'Simulated Database Query',
           },
-          async (dbSpan) => {
+          async dbSpan => {
             dbSpan.setAttribute('db.operation', 'SELECT');
             dbSpan.setAttribute('db.table', 'users');
 
             // Simulate database delay
             await new Promise(resolve => setTimeout(resolve, 100));
-          },
+          }
         );
 
         // Simulate external API call
@@ -33,13 +33,13 @@ export async function GET() {
             op: 'http.client',
             name: 'Simulated External API Call',
           },
-          async (apiSpan) => {
+          async apiSpan => {
             apiSpan.setAttribute('http.url', 'https://api.example.com/data');
             apiSpan.setAttribute('http.method', 'GET');
 
             // Simulate API delay
             await new Promise(resolve => setTimeout(resolve, 150));
-          },
+          }
         );
 
         return NextResponse.json({
@@ -55,11 +55,8 @@ export async function GET() {
           },
         });
 
-        return NextResponse.json(
-          { error: 'Internal server error' },
-          { status: 500 },
-        );
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
       }
-    },
+    }
   );
 }
