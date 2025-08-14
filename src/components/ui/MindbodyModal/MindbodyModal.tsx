@@ -20,10 +20,11 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
       return;
     }
 
-    if (isOpen && widgetContainerRef.current) {
+    const container = widgetContainerRef.current;
+    if (isOpen && container) {
       try {
         // Clear existing content
-        widgetContainerRef.current.innerHTML = '';
+        container.innerHTML = '';
 
         // Create the widget element
         const widgetElement = document.createElement('healcode-widget');
@@ -33,7 +34,7 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
         widgetElement.setAttribute('data-widget-version', '0');
 
         // Append the widget to the container
-        widgetContainerRef.current.appendChild(widgetElement);
+        container.appendChild(widgetElement);
 
         // Load the script if not already loaded
         if (!scriptRef.current) {
@@ -61,8 +62,8 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
       return () => {
         // Clean up widget content when modal closes
         try {
-          if (widgetContainerRef.current) {
-            widgetContainerRef.current.innerHTML = '';
+          if (container) {
+            container.innerHTML = '';
           }
         } catch (error) {
           console.error('Error cleaning up Mindbody widget:', error);

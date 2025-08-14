@@ -8,7 +8,7 @@ import styles from './page.module.css';
 // Type definitions for external libraries
 interface JQuery {
   fn: {
-    error: (this: unknown) => unknown;
+    error: () => unknown;
   };
 }
 

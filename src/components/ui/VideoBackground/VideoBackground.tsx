@@ -28,11 +28,12 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
   // Performance optimization: Cleanup video resources when component unmounts
   useEffect(() => {
+    const video = videoRef.current;
     return () => {
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.src = '';
-        videoRef.current.load();
+      if (video) {
+        video.pause();
+        video.src = '';
+        video.load();
       }
     };
   }, []);

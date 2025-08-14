@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import * as Sentry from '@sentry/nextjs';
 
 export default function ProfilingTestPage() {
   const [results, setResults] = useState<string[]>([]);
 
-  const addResult = (message: string) => {
+  const addResult = useCallback((message: string) => {
     setResults(prev => [...prev, `${new Date().toLocaleTimeString()}: ${message}`]);
-  };
+  }, []);
 
-  const runManualTransaction = async () => {
+  const runManualTransaction = useCallback(async () => {
     addResult('Starting manual transaction test...');
 
     // Debug: Check if Sentry is available
@@ -130,7 +130,7 @@ export default function ProfilingTestPage() {
     );
 
     addResult('Transaction finished and sent to Sentry');
-  };
+  }, [addResult]);
 
   useEffect(() => {
     // Wait for Sentry to be fully initialized before running tests
@@ -145,7 +145,7 @@ export default function ProfilingTestPage() {
     };
 
     waitForSentry();
-  }, []);
+  }, [runManualTransaction]);
 
   return (
     <div
