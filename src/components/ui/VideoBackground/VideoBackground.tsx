@@ -26,6 +26,15 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Set video source when component mounts or source changes
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && videoSrc) {
+      video.src = videoSrc;
+      video.load();
+    }
+  }, [videoSrc]);
+
   // Performance optimization: Cleanup video resources when component unmounts
   useEffect(() => {
     const video = videoRef.current;
@@ -58,7 +67,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
       },
       async span => {
         const video = videoRef.current;
-        if (!video || !isLoaded) return;
+        if (!video) return;
 
         span.setAttribute('video_src', videoSrc);
         span.setAttribute('is_active', isActive);
@@ -67,6 +76,14 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
         try {
           if (isActive) {
+            // If video is not loaded yet, wait for it to load
+            if (!isLoaded) {
+              // Wait for the video to be ready
+              if (video.readyState < 2) { // HAVE_CURRENT_DATA
+                return;
+              }
+            }
+
             // Performance: Only reset time if not already playing
             if (!isPlaying) {
               video.currentTime = 0;
@@ -188,12 +205,31 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     );
   }, [videoSrc, isActive]);
 
-  const handleVideoError = useCallback(() => {
+  const handleVideoError = useCallback((event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     setHasError(true);
     setIsLoaded(false);
-  }, []);
+    
+    // Log detailed error information
+    const video = event.currentTarget;
+    const error = video.error;
+    
+    // eslint-disable-next-line no-console
+    console.error('Video error:', {
+      src: videoSrc,
+      errorCode: error?.code,
+      errorMessage: error?.message,
+      networkState: video.networkState,
+      readyState: video.readyState,
+      currentSrc: video.currentSrc
+    });
+  }, [videoSrc]);
 
   const handleCanPlay = useCallback(() => {
+    // Set loaded state when video can play
+    if (videoRef.current) {
+      setIsLoaded(true);
+    }
+    
     if (isActive && videoRef.current && !isPlaying) {
       videoRef.current.play().catch((error) => {
         // Check if this is an AbortError (video removed from DOM)
@@ -201,18 +237,16 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           // This is expected when video is removed during play request
           return;
         }
-        // Autoplay failed, but video is ready
-        if (videoRef.current) {
-          setIsLoaded(true);
-        }
+        // Autoplay failed, but video is ready - no need to set isLoaded again
       });
     }
-  }, [isActive, isPlaying]);
+  }, [isActive, isPlaying, videoSrc]);
 
   return (
     <div className={styles.videoContainer}>
       <video
         ref={videoRef}
+        src={videoSrc} // Set the primary source directly on the video element
         autoPlay={isActive}
         muted
         loop
@@ -238,10 +272,8 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           willChange: isActive ? 'auto' : 'none',
         }}
       >
-        {/* Always include WebM first if available for better mobile performance */}
+        {/* WebM source for better mobile performance (if available) */}
         {webmSrc && <source src={webmSrc} type="video/webm" />}
-        {/* MP4 fallback - always include for compatibility */}
-        <source src={videoSrc} type="video/mp4" />
         {/* Fallback for unsupported video */}
         <div className={styles.videoFallback}>
           <p>Video not supported</p>

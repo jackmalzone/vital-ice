@@ -9,6 +9,7 @@ import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/a
 import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos with WebM support
+// NOTE: These videos require CORS configuration on the server to work in browsers
 const VIDEOS = [
   {
     src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-1.mp4',
