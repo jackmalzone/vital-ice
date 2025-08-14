@@ -40,8 +40,8 @@ export const trackVideoPerformance = (videoSrc: string, error?: Error) => {
       extra: {
         video_src: videoSrc,
         user_agent: navigator.userAgent,
-        connection: (navigator as any).connection,
-        device_memory: (navigator as any).deviceMemory,
+        connection: (navigator as Navigator & { connection?: unknown }).connection,
+        device_memory: (navigator as Navigator & { deviceMemory?: number }).deviceMemory,
         hardware_concurrency: navigator.hardwareConcurrency,
       },
     });
