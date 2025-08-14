@@ -52,7 +52,7 @@ export default function ProfilingTestPage() {
 
     // Test Document-Policy header
     try {
-      const policy = document.policy;
+      const policy = (document as any).policy;
       if (policy && policy.allowsFeature('js-profiling')) {
         addResult('✅ Document-Policy: js-profiling is set correctly');
       } else {
@@ -145,7 +145,7 @@ export default function ProfilingTestPage() {
     };
 
     waitForSentry();
-  }, [runManualTransaction]);
+  }, [runManualTransaction, addResult]);
 
   return (
     <div
