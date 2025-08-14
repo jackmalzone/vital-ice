@@ -2,6 +2,7 @@
 
 import { FC, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import * as Sentry from '@sentry/nextjs';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
@@ -97,12 +98,35 @@ const Hero: FC = () => {
 
   // Simple video rotation - no complex performance detection
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex(prev => (prev + 1) % VIDEOS.length);
-    }, 8000);
+    return Sentry.startSpan(
+      {
+        op: 'ui.video_rotation',
+        name: 'Hero Video Rotation Setup',
+      },
+      span => {
+        span.setAttribute('video_count', VIDEOS.length);
+        span.setAttribute('rotation_interval', '8000ms');
 
-    return () => clearInterval(interval);
-  }, []);
+        const interval = setInterval(() => {
+          Sentry.startSpan(
+            {
+              op: 'ui.video_switch',
+              name: 'Video Switch',
+            },
+            switchSpan => {
+              switchSpan.setAttribute('from_index', currentVideoIndex);
+              switchSpan.setAttribute('to_index', (currentVideoIndex + 1) % VIDEOS.length);
+              setCurrentVideoIndex(prev => (prev + 1) % VIDEOS.length);
+            }
+          );
+        }, 8000);
+
+        return () => {
+          clearInterval(interval);
+        };
+      }
+    );
+  }, [currentVideoIndex]);
 
   return (
     <section id="home" className={styles.hero}>

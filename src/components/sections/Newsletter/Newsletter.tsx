@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import * as Sentry from '@sentry/nextjs';
 import styles from './Newsletter.module.css';
 
 // Note: Mindbody widget may show Mixpanel errors in console:
@@ -29,85 +30,123 @@ export default function Newsletter() {
     }
 
     const loadWidget = () => {
-      if (widgetContainerRef.current && !widgetCreated) {
-        try {
-          console.log('Loading newsletter widget...');
+      return Sentry.startSpan(
+        {
+          op: 'widget.load',
+          name: 'Mindbody Newsletter Widget Load',
+        },
+        span => {
+          if (widgetContainerRef.current && !widgetCreated) {
+            try {
+              span.setAttribute('widget_type', 'newsletter');
+              span.setAttribute('script_loaded', scriptLoaded);
 
-          // Clear container
-          widgetContainerRef.current.innerHTML = '';
+              console.log('Loading newsletter widget...');
 
-          // Check if script is already loaded
-          if (!scriptLoaded) {
-            // Load the script first
-            const script = document.createElement('script');
-            script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-            script.type = 'text/javascript';
+              // Clear container
+              widgetContainerRef.current.innerHTML = '';
 
-            script.onload = () => {
-              console.log('Script loaded, creating widget...');
-              scriptLoaded = true;
-              createWidget();
-            };
+              // Check if script is already loaded
+              if (!scriptLoaded && typeof document !== 'undefined') {
+                // Load the script first
+                const script = document.createElement('script');
+                script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+                script.type = 'text/javascript';
 
-            script.onerror = () => {
-              console.error('Failed to load script');
+                script.onload = () => {
+                  console.log('Script loaded, creating widget...');
+                  scriptLoaded = true;
+                  createWidget();
+                };
+
+                script.onerror = error => {
+                  Sentry.captureException(error, {
+                    tags: {
+                      component: 'Newsletter',
+                      widget_type: 'newsletter',
+                      error_type: 'script_load_failed',
+                    },
+                  });
+                  console.error('Failed to load script');
+                  setHasError(true);
+                  setIsLoading(false);
+                };
+
+                document.head.appendChild(script);
+              } else {
+                // Script already loaded, create widget directly
+                console.log('Script already loaded, creating widget...');
+                createWidget();
+              }
+            } catch (error) {
+              Sentry.captureException(error, {
+                tags: {
+                  component: 'Newsletter',
+                  widget_type: 'newsletter',
+                  error_type: 'widget_load_failed',
+                },
+              });
+              console.error('Error loading widget:', error);
               setHasError(true);
               setIsLoading(false);
-            };
-
-            document.head.appendChild(script);
-          } else {
-            // Script already loaded, create widget directly
-            console.log('Script already loaded, creating widget...');
-            createWidget();
+            }
           }
-        } catch (error) {
-          console.error('Error loading widget:', error);
-          setHasError(true);
-          setIsLoading(false);
         }
-      }
+      );
     };
 
     const createWidget = () => {
-      if (widgetContainerRef.current && !widgetCreated) {
-        // Create the widget element exactly as in the HTML
-        const widgetElement = document.createElement('healcode-widget');
-        widgetElement.setAttribute('data-type', 'prospects');
-        widgetElement.setAttribute('data-widget-partner', 'object');
-        widgetElement.setAttribute('data-widget-id', 'ec59331b5f7'); // Use original ID
-        widgetElement.setAttribute('data-widget-version', '0');
+      try {
+        if (
+          widgetContainerRef.current &&
+          !widgetCreated &&
+          typeof document !== 'undefined' &&
+          document
+        ) {
+          // Create the widget element exactly as in the HTML
+          const widgetElement = document.createElement('healcode-widget');
+          widgetElement.setAttribute('data-type', 'prospects');
+          widgetElement.setAttribute('data-widget-partner', 'object');
+          widgetElement.setAttribute('data-widget-id', 'ec59331b5f7'); // Use original ID
+          widgetElement.setAttribute('data-widget-version', '0');
 
-        widgetContainerRef.current.appendChild(widgetElement);
-        widgetCreated = true;
+          widgetContainerRef.current.appendChild(widgetElement);
+          widgetCreated = true;
 
-        // Check if widget loaded
-        setTimeout(() => {
-          const widget = widgetContainerRef.current?.querySelector('healcode-widget');
-          if (widget && widget.children.length > 0) {
-            console.log('Widget loaded successfully');
-            setIsLoading(false);
-          } else {
-            console.log('Widget created, waiting for content...');
-            // Wait a bit more
-            setTimeout(() => {
-              const widgetCheck = widgetContainerRef.current?.querySelector('healcode-widget');
-              if (widgetCheck && widgetCheck.children.length > 0) {
-                console.log('Widget content now detected');
-                setIsLoading(false);
-              } else {
-                console.warn('Widget not loading properly');
-                setHasError(true);
-                setIsLoading(false);
-              }
-            }, 3000);
-          }
-        }, 2000);
+          // Check if widget loaded
+          setTimeout(() => {
+            const widget = widgetContainerRef.current?.querySelector('healcode-widget');
+            if (widget && widget.children.length > 0) {
+              console.log('Widget loaded successfully');
+              setIsLoading(false);
+            } else {
+              console.log('Widget created, waiting for content...');
+              // Wait a bit more
+              setTimeout(() => {
+                const widgetCheck = widgetContainerRef.current?.querySelector('healcode-widget');
+                if (widgetCheck && widgetCheck.children.length > 0) {
+                  console.log('Widget content now detected');
+                  setIsLoading(false);
+                } else {
+                  console.warn('Widget not loading properly');
+                  setHasError(true);
+                  setIsLoading(false);
+                }
+              }, 3000);
+            }
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error creating widget:', error);
+        setHasError(true);
+        setIsLoading(false);
       }
     };
 
-    // Load widget when component mounts
-    loadWidget();
+    // Load widget when component mounts with a small delay to ensure DOM is ready
+    setTimeout(() => {
+      loadWidget();
+    }, 100);
 
     // Cleanup function
     return () => {
@@ -125,9 +164,11 @@ export default function Newsletter() {
     widgetCreated = false;
 
     // Remove existing script and reload
-    const existingScript = document.querySelector('script[src*="healcode.js"]');
-    if (existingScript) {
-      existingScript.remove();
+    if (typeof document !== 'undefined') {
+      const existingScript = document.querySelector('script[src*="healcode.js"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
     }
 
     // Clear widget container
@@ -138,7 +179,7 @@ export default function Newsletter() {
     // Reload after a short delay
     setTimeout(() => {
       const loadWidget = () => {
-        if (widgetContainerRef.current) {
+        if (widgetContainerRef.current && typeof document !== 'undefined') {
           const script = document.createElement('script');
           script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
           script.type = 'text/javascript';

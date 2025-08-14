@@ -2,6 +2,8 @@
 
 import { FC, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import * as Sentry from '@sentry/nextjs';
+import { FaBug } from 'react-icons/fa';
 import styles from './RollingBookButton.module.css';
 
 const RollingBookButton: FC = () => {
@@ -52,6 +54,15 @@ const RollingBookButton: FC = () => {
     window.location.href = '/book';
   };
 
+  const handleFeedbackClick = () => {
+    // Get the feedback instance and open the form
+    const feedback = Sentry.getFeedback();
+    feedback?.createForm().then(form => {
+      form.appendToDom();
+      form.open();
+    });
+  };
+
   return (
     <motion.div
       className={`${styles.rollingBookContainer} ${isNearFooter ? styles.aboveFooter : ''}`}
@@ -59,6 +70,19 @@ const RollingBookButton: FC = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
+      {/* Feedback Button */}
+      <motion.button
+        className={`${styles.rollingBookButton} ${styles.feedbackButton}`}
+        onClick={handleFeedbackClick}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        aria-label="Report an issue"
+      >
+        <FaBug className={styles.buttonIcon} />
+      </motion.button>
+
+      {/* Book Button */}
       <motion.button
         className={styles.rollingBookButton}
         onClick={handleBookClick}

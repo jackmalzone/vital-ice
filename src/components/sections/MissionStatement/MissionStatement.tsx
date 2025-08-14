@@ -1,27 +1,16 @@
 'use client';
 
-import { FC, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { FC } from 'react';
+import { motion } from 'framer-motion';
 
 import styles from './MissionStatement.module.css';
 
 const MissionStatement: FC = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Subtle parallax effects (only on initial load)
-  // const titleY = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const statementY = useTransform(scrollYProgress, [0, 1], [0, -15]);
-  const ctaY = useTransform(scrollYProgress, [0, 1], [0, -10]);
-
   const missionStatement =
     "We're making elite recovery simple, social, and within reach. Fusing proven methods with a space designed to connect and evolve. Let's turn recovery into the new happy hour.";
 
   return (
-    <section ref={containerRef} className={styles.mission}>
+    <section className={styles.mission}>
       {/* Ambient background elements */}
       <div className={styles.mission__ambient} />
 
@@ -48,7 +37,6 @@ const MissionStatement: FC = () => {
 
           <motion.p
             className={styles.mission__statement}
-            style={{ y: statementY }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -63,7 +51,6 @@ const MissionStatement: FC = () => {
 
           <motion.div
             className={styles.mission__divider}
-            style={{ y: ctaY }}
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true }}
@@ -72,7 +59,6 @@ const MissionStatement: FC = () => {
 
           <motion.div
             className={styles.mission__cta}
-            style={{ y: ctaY }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

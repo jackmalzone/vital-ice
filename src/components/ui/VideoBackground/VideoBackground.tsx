@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState, useRef, useCallback } from 'react';
+import * as Sentry from '@sentry/nextjs';
 import styles from './VideoBackground.module.css';
 
 interface VideoBackgroundProps {
@@ -44,33 +45,60 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
   // Optimized video activation and playback with better memory management
   const playVideo = useCallback(async () => {
-    const video = videoRef.current;
-    if (!video || !isLoaded) return;
+    return Sentry.startSpan(
+      {
+        op: 'video.playback',
+        name: `Video Playback: ${videoSrc}`,
+      },
+      async span => {
+        const video = videoRef.current;
+        if (!video || !isLoaded) return;
 
-    try {
-      if (isActive) {
-        // Performance: Only reset time if not already playing
-        if (!isPlaying) {
-          video.currentTime = 0;
-        }
+        span.setAttribute('video_src', videoSrc);
+        span.setAttribute('is_active', isActive);
+        span.setAttribute('is_loaded', isLoaded);
+        span.setAttribute('is_playing', isPlaying);
 
-        // Performance: Use requestAnimationFrame for smoother playback
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-          setIsPlaying(true);
+        try {
+          if (isActive) {
+            // Performance: Only reset time if not already playing
+            if (!isPlaying) {
+              video.currentTime = 0;
+            }
+
+            // Performance: Use requestAnimationFrame for smoother playback
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              await playPromise;
+              setIsPlaying(true);
+            }
+          } else {
+            video.pause();
+            setIsPlaying(false);
+          }
+        } catch (error) {
+          // Log error to Sentry
+          Sentry.captureException(error, {
+            tags: {
+              component: 'VideoBackground',
+              video_src: videoSrc,
+              is_active: isActive,
+            },
+            extra: {
+              isLoaded,
+              isPlaying,
+              error: error instanceof Error ? error.message : String(error),
+            },
+          });
+
+          // eslint-disable-next-line no-console
+          console.warn('Video playback error:', error);
+          setHasError(true);
+          setIsPlaying(false);
         }
-      } else {
-        video.pause();
-        setIsPlaying(false);
       }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn('Video playback error:', error);
-      setHasError(true);
-      setIsPlaying(false);
-    }
-  }, [isActive, isLoaded, isPlaying]);
+    );
+  }, [isActive, isLoaded, isPlaying, videoSrc]);
 
   useEffect(() => {
     playVideo();
@@ -119,9 +147,19 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
 
   // Handle video loading states with better error handling
   const handleVideoLoad = useCallback(() => {
-    setIsLoaded(true);
-    setHasError(false);
-  }, []);
+    Sentry.startSpan(
+      {
+        op: 'video.load',
+        name: `Video Load: ${videoSrc}`,
+      },
+      span => {
+        span.setAttribute('video_src', videoSrc);
+        span.setAttribute('is_active', isActive);
+        setIsLoaded(true);
+        setHasError(false);
+      }
+    );
+  }, [videoSrc, isActive]);
 
   const handleVideoError = useCallback(() => {
     setHasError(true);

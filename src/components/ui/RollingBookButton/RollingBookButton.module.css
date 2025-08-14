@@ -3,7 +3,10 @@
   bottom: 2rem;
   right: 2rem;
   z-index: 99999;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-end;
   transition: all 0.3s ease;
 }
 
@@ -67,6 +70,36 @@
 
 .rollingBookButton:hover .buttonIcon {
   transform: translateX(4px);
+}
+
+/* Feedback button specific styles */
+.feedbackButton {
+  background: transparent !important;
+  border: 2px solid #ff6b6b !important;
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.2) !important;
+}
+
+.feedbackButton:hover {
+  background: rgba(255, 107, 107, 0.1) !important;
+  border-color: #ff8e8e !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3) !important;
+}
+
+.feedbackButton .buttonIcon {
+  font-size: 1.2rem !important;
+  color: #ff6b6b !important;
+}
+
+.feedbackButton:hover .buttonIcon {
+  color: #ff8e8e !important;
+  transform: scale(1.1) !important;
 }
 
 /* Responsive adjustments */

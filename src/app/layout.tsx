@@ -1,10 +1,12 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
-import LoadingProvider from '@/components/providers/LoadingProvider';
+import NavigationLoadingProvider from '@/components/providers/NavigationLoadingProvider';
 import { ModalProvider } from '@/components/providers/ModalProvider';
+import SentryErrorBoundary from '@/components/providers/SentryErrorBoundary';
 import Header from '@/components/layout/Header/Header';
 import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButton';
+import { initializeSentryTracking } from '@/lib/utils/sentryTracking';
 import './globals.css';
 
 const geistSans = Geist({
@@ -45,6 +47,11 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Initialize Sentry tracking on client side
+  if (typeof window !== 'undefined') {
+    initializeSentryTracking();
+  }
+
   return (
     <html lang="en">
       <head>
@@ -55,15 +62,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <LoadingProvider>
-          <SmoothScrollProvider>
-            <ModalProvider>
-              <Header />
-              {children}
-              <RollingBookButton />
-            </ModalProvider>
-          </SmoothScrollProvider>
-        </LoadingProvider>
+        <SentryErrorBoundary>
+          <NavigationLoadingProvider>
+            <SmoothScrollProvider>
+              <ModalProvider>
+                <Header />
+                {children}
+                <RollingBookButton />
+              </ModalProvider>
+            </SmoothScrollProvider>
+          </NavigationLoadingProvider>
+        </SentryErrorBoundary>
         <Analytics />
       </body>
     </html>

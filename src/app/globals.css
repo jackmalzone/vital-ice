@@ -177,3 +177,9 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 183, 181, 0.7);
 }
+
+/* Sentry Feedback Button Positioning */
+[data-sentry-feedback] {
+  left: 20px !important;
+  right: auto !important;
+}

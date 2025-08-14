@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000/vital-ice --hostname 0.0.0.0",
+    "dev": "next dev --port 3000 --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -14,11 +14,15 @@
     "clean": "rm -rf .next out",
     "analyze": "ANALYZE=true next build",
     "export": "next export",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out",
+    "sentry:release": "node scripts/sentry-release.js",
+    "sentry:sourcemaps": "npx @sentry/cli releases files $npm_package_version upload-sourcemaps .next --url-prefix '~/_next'"
   },
   "dependencies": {
     "@react-three/drei": "^10.4.4",
     "@react-three/fiber": "^9.2.0",
+    "@sentry/nextjs": "^10.5.0",
+    "@sentry/profiling-node": "^10.5.0",
     "@types/nodemailer": "^6.4.17",
     "@types/three": "^0.178.0",
     "@vercel/analytics": "^1.5.0",
