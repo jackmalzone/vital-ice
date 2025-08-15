@@ -79,7 +79,8 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
             // If video is not loaded yet, wait for it to load
             if (!isLoaded) {
               // Wait for the video to be ready
-              if (video.readyState < 2) { // HAVE_CURRENT_DATA
+              if (video.readyState < 2) {
+                // HAVE_CURRENT_DATA
                 return;
               }
             }
@@ -105,29 +106,40 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
             }
           }
         } catch (error) {
-          // Check if this is an AbortError (video removed from DOM)
-          if (error instanceof Error && error.name === 'AbortError') {
-            // This is expected when video is removed during play request
-            // Don't log to Sentry for this specific case
-            return;
+          // Filter out expected errors that don't need Sentry reporting
+          if (error instanceof Error) {
+            const errorMessage = error.message.toLowerCase();
+            const isAbortError = error.name === 'AbortError';
+            const isRemovedFromDocument = errorMessage.includes('removed from the document');
+            const isPausedToSavePower = errorMessage.includes('paused to save power');
+            const isNotAllowedError = error.name === 'NotAllowedError';
+
+            // These are expected errors that occur during normal video operations
+            if (isAbortError || isRemovedFromDocument || isPausedToSavePower || isNotAllowedError) {
+              // Don't log expected errors to Sentry
+              return;
+            }
           }
 
-          // Log other errors to Sentry
+          // Only log unexpected errors to Sentry
           Sentry.captureException(error, {
             tags: {
               component: 'VideoBackground',
               video_src: videoSrc,
               is_active: isActive,
+              error_type: error instanceof Error ? error.name : 'Unknown',
             },
             extra: {
               isLoaded,
               isPlaying,
-              error: error instanceof Error ? error.message : String(error),
+              error_message: error instanceof Error ? error.message : String(error),
+              video_ready_state: video.readyState,
+              video_network_state: video.networkState,
             },
           });
 
           // eslint-disable-next-line no-console
-          console.warn('Video playback error:', error);
+          console.warn('Unexpected video playback error:', error);
           if (videoRef.current === video) {
             setHasError(true);
             setIsPlaying(false);
@@ -158,10 +170,18 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
             setHasError(false);
           }
         } catch (error) {
-          // Check if this is an AbortError (video removed from DOM)
-          if (error instanceof Error && error.name === 'AbortError') {
-            // This is expected when video is removed during play request
-            return;
+          // Filter out expected autoplay errors
+          if (error instanceof Error) {
+            const errorMessage = error.message.toLowerCase();
+            const isAbortError = error.name === 'AbortError';
+            const isRemovedFromDocument = errorMessage.includes('removed from the document');
+            const isPausedToSavePower = errorMessage.includes('paused to save power');
+            const isNotAllowedError = error.name === 'NotAllowedError';
+
+            // These are expected errors during autoplay attempts
+            if (isAbortError || isRemovedFromDocument || isPausedToSavePower || isNotAllowedError) {
+              return;
+            }
           }
           // Silently handle other autoplay errors
         }
@@ -205,37 +225,68 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     );
   }, [videoSrc, isActive]);
 
-  const handleVideoError = useCallback((event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
-    setHasError(true);
-    setIsLoaded(false);
-    
-    // Log detailed error information
-    const video = event.currentTarget;
-    const error = video.error;
-    
-    // eslint-disable-next-line no-console
-    console.error('Video error:', {
-      src: videoSrc,
-      errorCode: error?.code,
-      errorMessage: error?.message,
-      networkState: video.networkState,
-      readyState: video.readyState,
-      currentSrc: video.currentSrc
-    });
-  }, [videoSrc]);
+  const handleVideoError = useCallback(
+    (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+      setHasError(true);
+      setIsLoaded(false);
+
+      // Log detailed error information
+      const video = event.currentTarget;
+      const error = video.error;
+
+      // Only log serious video errors to Sentry (not network timeouts or aborts)
+      if (error && error.code !== 2 && error.code !== 3) {
+        // MEDIA_ERR_NETWORK = 2, MEDIA_ERR_DECODE = 3
+        Sentry.captureException(new Error(`Video error: ${error.message || 'Unknown error'}`), {
+          tags: {
+            component: 'VideoBackground',
+            video_src: videoSrc,
+            error_type: 'video_error_event',
+            error_code: error.code?.toString() || 'unknown',
+          },
+          extra: {
+            errorCode: error.code,
+            errorMessage: error.message,
+            networkState: video.networkState,
+            readyState: video.readyState,
+            currentSrc: video.currentSrc,
+          },
+        });
+      }
+
+      // eslint-disable-next-line no-console
+      console.warn('Video error:', {
+        src: videoSrc,
+        errorCode: error?.code,
+        errorMessage: error?.message,
+        networkState: video.networkState,
+        readyState: video.readyState,
+        currentSrc: video.currentSrc,
+      });
+    },
+    [videoSrc]
+  );
 
   const handleCanPlay = useCallback(() => {
     // Set loaded state when video can play
     if (videoRef.current) {
       setIsLoaded(true);
     }
-    
+
     if (isActive && videoRef.current && !isPlaying) {
-      videoRef.current.play().catch((error) => {
-        // Check if this is an AbortError (video removed from DOM)
-        if (error instanceof Error && error.name === 'AbortError') {
-          // This is expected when video is removed during play request
-          return;
+      videoRef.current.play().catch(error => {
+        // Filter out expected autoplay errors
+        if (error instanceof Error) {
+          const errorMessage = error.message.toLowerCase();
+          const isAbortError = error.name === 'AbortError';
+          const isRemovedFromDocument = errorMessage.includes('removed from the document');
+          const isPausedToSavePower = errorMessage.includes('paused to save power');
+          const isNotAllowedError = error.name === 'NotAllowedError';
+
+          // These are expected errors during autoplay attempts
+          if (isAbortError || isRemovedFromDocument || isPausedToSavePower || isNotAllowedError) {
+            return;
+          }
         }
         // Autoplay failed, but video is ready - no need to set isLoaded again
       });
