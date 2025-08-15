@@ -27,11 +27,9 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    console.log('ModalProvider: openModal called');
     setIsModalOpen(true);
   };
   const closeModal = () => {
-    console.log('ModalProvider: closeModal called');
     setIsModalOpen(false);
   };
 

@@ -39,8 +39,6 @@ Used in: `src/app/about/page.tsx`
 
 ### Ancient Hot Spring
 
-Used in: `src/app/historical-timeline/page.tsx`
-
 | Video              | MP4 URL                  | WebM URL                  | Purpose                          |
 | ------------------ | ------------------------ | ------------------------- | -------------------------------- |
 | ancient_hot-spring | `ancient_hot-spring.mp4` | `ancient_hot-spring.webm` | Indus Valley timeline background |

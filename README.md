@@ -93,7 +93,7 @@ src/
 │   ├── about/             # About page with video background
 │   ├── contact/           # Contact form page
 │   ├── vision/            # Cinematic vision page
-│   ├── historical-timeline/ # Interactive timeline
+
 │   └── performance-demo/  # Performance showcase
 ├── components/            # React components
 │   ├── shared/           # Reusable components
@@ -114,7 +114,7 @@ src/
 │   │   ├── Footer/       # Site footer
 │   │   └── Navigation/   # Navigation menu
 │   ├── providers/        # Context providers
-│   │   ├── LoadingProvider/ # Loading screen provider
+│   │   ├── NavigationLoadingProvider/ # Navigation loading screen provider
 │   │   └── SmoothScrollProvider/ # Smooth scroll provider
 │   └── ui/               # UI primitives
 │       ├── AdaptiveMedia/ # Video/image components
@@ -318,7 +318,6 @@ src/
 - **About** (`/about`) - Company story with video background
 - **Vision** (`/vision`) - Cinematic vision presentation
 - **Contact** (`/contact`) - Contact form with EmailJS
-- **Historical Timeline** (`/historical-timeline`) - Interactive timeline
 
 ### **Service Pages**
 

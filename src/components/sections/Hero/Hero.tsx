@@ -12,50 +12,50 @@ import styles from './Hero.module.css';
 // NOTE: These videos require CORS configuration on the server to work in browsers
 const VIDEOS = [
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-1.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-1.webm',
+    src: 'https://media.vitalicesf.com/cold-ambient-1.mp4',
+    webm: 'https://media.vitalicesf.com/cold-ambient-1.webm',
     type: 'cold',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-1.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-1.webm',
+    src: 'https://media.vitalicesf.com/hot-ambient-1.mp4',
+    webm: 'https://media.vitalicesf.com/hot-ambient-1.webm',
     type: 'hot',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-2.webm',
+    src: 'https://media.vitalicesf.com/cold-ambient-2.mp4',
+    webm: 'https://media.vitalicesf.com/cold-ambient-2.webm',
     type: 'cold',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-2.webm',
+    src: 'https://media.vitalicesf.com/hot-ambient-2.mp4',
+    webm: 'https://media.vitalicesf.com/hot-ambient-2.webm',
     type: 'hot',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-3.webm',
+    src: 'https://media.vitalicesf.com/cold-ambient-3.mp4',
+    webm: 'https://media.vitalicesf.com/cold-ambient-3.webm',
     type: 'cold',
     textTheme: 'enhanced', // Stronger shadow for light background
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-3.webm',
+    src: 'https://media.vitalicesf.com/hot-ambient-3.mp4',
+    webm: 'https://media.vitalicesf.com/hot-ambient-3.webm',
     type: 'hot',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-4.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/cold-ambient-4.webm',
+    src: 'https://media.vitalicesf.com/cold-ambient-4.mp4',
+    webm: 'https://media.vitalicesf.com/cold-ambient-4.webm',
     type: 'cold',
     textTheme: 'standard',
   },
   {
-    src: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-4.mp4',
-    webm: 'https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/hot-ambient-4.webm',
+    src: 'https://media.vitalicesf.com/hot-ambient-4.mp4',
+    webm: 'https://media.vitalicesf.com/hot-ambient-4.webm',
     type: 'hot',
     textTheme: 'standard',
   },
@@ -203,7 +203,7 @@ const Hero: FC = () => {
               duration: 0.8,
             }}
           >
-            <Logo className={styles.heroLogo} />
+            <Logo className={styles.heroLogo} priority={true} />
           </motion.div>
 
           <motion.button

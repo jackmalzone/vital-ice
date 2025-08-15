@@ -11,7 +11,7 @@ This document outlines the expanded site architecture for Vital Ice, implementin
 - **Homepage** (`/`) - Scroll-based hero entry with parallax effects
 - **Vision** (`/vision`) - Brand philosophy and elemental wisdom
 - **Services** (`/services`) - Overview of all wellness offerings
-- **Historical Timeline** (`/historical-timeline`) - Global recovery rituals history
+
 - **About** (`/about`) - Founders' story and team information
 - **Contact** (`/contact`) - Contact form and location details
 
@@ -131,7 +131,7 @@ src/
 │   ├── services/
 │   │   ├── page.tsx (Services overview)
 │   │   └── cold-plunge/page.tsx
-│   ├── historical-timeline/page.tsx
+
 │   ├── about/page.tsx
 │   └── contact/page.tsx
 ├── components/

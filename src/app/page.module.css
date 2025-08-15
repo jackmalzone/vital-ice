@@ -181,6 +181,8 @@ a.secondary {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  /* Ensure proper scroll offset calculation for third-party libraries */
+  transform: translateZ(0);
 }
 
 .mainContainer::before {

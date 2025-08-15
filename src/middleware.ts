@@ -5,24 +5,58 @@ import * as Sentry from '@sentry/nextjs';
 export function middleware(request: NextRequest) {
   // Check for potential reload indicators
   const referer = request.headers.get('referer');
+  const userAgent = request.headers.get('user-agent') || '';
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isLocalhost =
+    request.nextUrl.hostname === 'localhost' || request.nextUrl.hostname === '127.0.0.1';
+
   if (referer) {
     // Detect if this might be a reload (same page)
     if (referer.includes(request.nextUrl.pathname)) {
-      Sentry.captureMessage('Potential page reload detected', {
-        level: 'warning',
-        tags: {
-          pathname: request.nextUrl.pathname,
-          referer: referer,
-          component: 'middleware',
-        },
-      });
+      // Filter out development/localhost reloads unless they show suspicious patterns
+      const shouldReport =
+        !isDevelopment ||
+        (isDevelopment &&
+          (userAgent.includes('Mobile') ||
+            userAgent.includes('Android') ||
+            userAgent.includes('iPhone') ||
+            request.headers.get('cache-control') === 'no-cache'));
+
+      if (shouldReport) {
+        Sentry.captureMessage('Potential page reload detected', {
+          level: 'warning',
+          tags: {
+            pathname: request.nextUrl.pathname,
+            referer: referer,
+            component: 'middleware',
+            reload_type: 'same_page',
+            environment: isDevelopment ? 'development' : 'production',
+            is_localhost: isLocalhost,
+            is_mobile:
+              userAgent.includes('Mobile') ||
+              userAgent.includes('Android') ||
+              userAgent.includes('iPhone'),
+          },
+          extra: {
+            userAgent,
+            accept: request.headers.get('accept'),
+            cacheControl: request.headers.get('cache-control'),
+            pragma: request.headers.get('pragma'),
+            timestamp: new Date().toISOString(),
+            hostname: request.nextUrl.hostname,
+          },
+        });
+      }
     }
   }
 
-  // Check for browser-specific headers
-  const userAgent = request.headers.get('user-agent') || '';
+  // Check for browser-specific headers and potential reload triggers
+  // Check for potential memory pressure or performance issues
+  const acceptEncoding = request.headers.get('accept-encoding');
+  const connection = request.headers.get('connection');
+
+  // Safari-specific tracking (more common for reloads)
   if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
-    // Safari-specific tracking
     Sentry.addBreadcrumb({
       category: 'navigation',
       message: 'Safari browser detected',
@@ -30,6 +64,8 @@ export function middleware(request: NextRequest) {
       data: {
         userAgent,
         pathname: request.nextUrl.pathname,
+        acceptEncoding,
+        connection,
       },
     });
   } else if (userAgent.includes('Chrome')) {
@@ -41,6 +77,43 @@ export function middleware(request: NextRequest) {
       data: {
         userAgent,
         pathname: request.nextUrl.pathname,
+        acceptEncoding,
+        connection,
+      },
+    });
+  }
+
+  // Check for potential memory-related reloads
+  if (
+    request.headers.get('cache-control') === 'no-cache' ||
+    request.headers.get('pragma') === 'no-cache'
+  ) {
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: 'No-cache request detected',
+      level: 'info',
+      data: {
+        pathname: request.nextUrl.pathname,
+        cacheControl: request.headers.get('cache-control'),
+        pragma: request.headers.get('pragma'),
+      },
+    });
+  }
+
+  // Monitor for potential memory pressure indicators
+  const contentLength = request.headers.get('content-length');
+
+  // Check for potential memory-related reloads
+  if (contentLength && parseInt(contentLength) > 1000000) {
+    // > 1MB
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: 'Large request detected',
+      level: 'info',
+      data: {
+        pathname: request.nextUrl.pathname,
+        contentLength,
+        userAgent,
       },
     });
   }

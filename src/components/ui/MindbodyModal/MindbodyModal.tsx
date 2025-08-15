@@ -20,6 +20,22 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
       return;
     }
 
+    // Add error boundary for Mindbody widget JSON parsing errors
+    const handleWidgetError = (event: ErrorEvent) => {
+      if (event.error && event.error.message && event.error.message.includes('not valid JSON')) {
+        event.preventDefault();
+        console.warn('Mindbody widget JSON error prevented:', event.error.message);
+        return false;
+      }
+    };
+
+    // Suppress jQuery Migrate warnings from third-party widgets
+    if (typeof window !== 'undefined' && (window as any).jQuery) {
+      (window as any).jQuery.migrateMute = true;
+    }
+
+    window.addEventListener('error', handleWidgetError);
+
     const container = widgetContainerRef.current;
     if (isOpen && container) {
       try {
@@ -32,6 +48,10 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
         widgetElement.setAttribute('data-widget-partner', 'object');
         widgetElement.setAttribute('data-widget-id', 'ec59329b5f7');
         widgetElement.setAttribute('data-widget-version', '0');
+
+        // Add defensive data attributes to prevent JSON parsing errors
+        widgetElement.setAttribute('data-widget-config', '{}');
+        widgetElement.setAttribute('data-widget-options', '{}');
 
         // Append the widget to the container
         container.appendChild(widgetElement);
@@ -60,6 +80,9 @@ const MindbodyModal: FC<MindbodyModalProps> = ({ isOpen, onClose }) => {
       }
 
       return () => {
+        // Remove error handler
+        window.removeEventListener('error', handleWidgetError);
+
         // Clean up widget content when modal closes
         try {
           if (container) {

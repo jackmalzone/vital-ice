@@ -2,21 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { GiFire, GiSun } from 'react-icons/gi';
-import { TbSnowflake } from 'react-icons/tb';
-import { FaWater } from 'react-icons/fa';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 const AboutPage: React.FC = () => {
   const [expandedFounders, setExpandedFounders] = useState<number[]>([]);
-
-  const symbols = [
-    { icon: GiFire, label: 'Fire' },
-    { icon: GiSun, label: 'Sun' },
-    { icon: FaWater, label: 'Water' },
-    { icon: TbSnowflake, label: 'Ice' },
-  ];
 
   const values = [
     {
@@ -71,6 +61,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <main className={styles.main}>
+      {/* Hero Section */}
       <motion.section
         className={styles.hero}
         initial={{ opacity: 0 }}
@@ -80,14 +71,8 @@ const AboutPage: React.FC = () => {
         {/* Video Background */}
         <div className={styles.hero__videoContainer}>
           <video autoPlay muted loop playsInline className={styles.hero__video}>
-            <source
-              src="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/sf_marina.webm"
-              type="video/webm"
-            />
-            <source
-              src="https://pub-3fd38cef83ec4139b038b229662d7717.r2.dev/sf_marina.mp4"
-              type="video/mp4"
-            />
+            <source src="https://media.vitalicesf.com/sf_marina.mp4" type="video/mp4" />
+            <source src="https://media.vitalicesf.com/sf_marina.webm" type="video/webm" />
           </video>
           <div className={styles.hero__videoOverlay} />
         </div>
@@ -112,211 +97,191 @@ const AboutPage: React.FC = () => {
         </div>
       </motion.section>
 
-      <motion.section
-        className={styles.story}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className={styles.story__container}>
-          <motion.div
-            className={styles.story__content}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h2 className={styles.story__title}>Our Story</h2>
-            <div className={styles.story__textContainer}>
-              <p className={styles.story__text}>
-                Behind the name, we&apos;re just three local enthusiasts who wanted something
-                simple: a place to cold plunge with our friends, close to home. When we
-                couldn&apos;t find anything that felt right—affordable, high-quality, and built
-                around community—we decided to create it ourselves. Vital Ice was built to bridge
-                the gap between high-performance recovery and everyday accessibility.
-              </p>
-              <p className={styles.story__text}>
-                This started as a personal need and turned into something bigger: a space where
-                people can reset, recover, and connect. No pressure. No BS. Just cold water, hot
-                air, and the pride that comes with prioritizing your health and wellness.
-              </p>
-              <p className={styles.story__text}>
-                We built this for the early risers, the post-work plungers, the weekend warriors,
-                and anyone trying to take care of their body and mind in a way that feels real.
-                Whether you&apos;re here to get centered, recover from a hard workout, or just share
-                a moment of peace—we&apos;re glad you&apos;re here.
-              </p>
-              <p className={styles.story__quote}>
-                Recovery isn&apos;t a luxury — it&apos;s a ritual.
-              </p>
-              <p className={styles.story__signature}>— The Vital Ice Team</p>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className={styles.values}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className={styles.values__container}>
-          <motion.h2
-            className={styles.values__title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Our Values
-          </motion.h2>
-          <div className={styles.values__grid}>
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                className={styles.value}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className={styles.value__accent} style={{ backgroundColor: value.color }} />
-                <h3 className={styles.value__title}>{value.title}</h3>
-                <p className={styles.value__description}>{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className={styles.team}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        {/* Etched stone symbols */}
-        <div className={styles.team__symbols}>
-          {symbols.map((symbol, i) => {
-            const IconComponent = symbol.icon;
-            return (
-              <motion.div
-                key={i}
-                className={styles.team__symbol}
-                animate={{
-                  opacity: [0.3, 0.7, 0.3],
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 4 + i * 0.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: i * 0.8,
-                }}
-                style={{
-                  left: i % 2 === 0 ? '8%' : '88%',
-                  top: `${15 + Math.floor(i / 2) * 25}%`,
-                }}
-              >
-                <IconComponent />
-              </motion.div>
-            );
-          })}
-        </div>
-
-        <div className={styles.team__container}>
-          <motion.h2
-            className={styles.team__title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Meet Our Founders
-          </motion.h2>
-          <div className={styles.team__grid}>
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                className={styles.team__member}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className={styles.team__info}>
-                  <h3 className={styles.team__name}>{member.name}</h3>
-                  <p className={styles.team__role}>{member.role}</p>
-                  <div className={styles.team__bio}>
-                    {expandedFounders.includes(index) ? (
-                      <>
-                        {member.bio.split('\n\n').map((paragraph, idx) => (
-                          <p key={idx} className={styles.team__paragraph}>
-                            {paragraph}
-                          </p>
-                        ))}
-                        <button
-                          className={styles.team__readLess}
-                          onClick={() => setExpandedFounders(prev => prev.filter(i => i !== index))}
-                        >
-                          Read Less
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className={styles.team__paragraph}>
-                          {member.shortBio}
-                          <button
-                            className={styles.team__readMore}
-                            onClick={() => setExpandedFounders(prev => [...prev, index])}
-                          >
-                            ... Read More
-                          </button>
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className={styles.mission}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <div className={styles.mission__container}>
-          <motion.div
-            className={styles.mission__text}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Challenge your limits.{' '}
-            <motion.span
-              className={styles.mission__ritualLink}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => (window.location.href = '/book')}
-              style={{ cursor: 'pointer' }}
+      {/* Unified Content Container */}
+      <div className={styles.contentContainer}>
+        {/* Story Section */}
+        <motion.div
+          className={styles.story}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.story__container}>
+            <motion.div
+              className={styles.story__content}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
             >
-              Join The Ritual.
-            </motion.span>
-          </motion.div>
-        </div>
-      </motion.section>
+              <h2 className={styles.story__title}>Our Story</h2>
+              <div className={styles.story__textContainer}>
+                <p className={styles.story__text}>
+                  Behind the name, we&apos;re just three local enthusiasts who wanted something
+                  simple: a place to cold plunge with our friends, close to home. When we
+                  couldn&apos;t find anything that felt right—affordable, high-quality, and built
+                  around community—we decided to create it ourselves. Vital Ice was built to bridge
+                  the gap between high-performance recovery and everyday accessibility.
+                </p>
+                <p className={styles.story__text}>
+                  This started as a personal need and turned into something bigger: a space where
+                  people can reset, recover, and connect. No pressure. No BS. Just cold water, hot
+                  air, and the pride that comes with prioritizing your health and wellness.
+                </p>
+                <p className={styles.story__text}>
+                  We built this for the early risers, the post-work plungers, the weekend warriors,
+                  and anyone trying to take care of their body and mind in a way that feels real.
+                  Whether you&apos;re here to get centered, recover from a hard workout, or just
+                  share a moment of peace—we&apos;re glad you&apos;re here.
+                </p>
+                <p className={styles.story__quote}>
+                  Recovery isn&apos;t a luxury — it&apos;s a ritual.
+                </p>
+                <p className={styles.story__signature}>— The Vital Ice Team</p>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Values Section */}
+        <motion.div
+          className={styles.values}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.values__container}>
+            <motion.h2
+              className={styles.values__title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Our Values
+            </motion.h2>
+            <div className={styles.values__grid}>
+              {values.map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  className={styles.value}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className={styles.value__accent} style={{ backgroundColor: value.color }} />
+                  <h3 className={styles.value__title}>{value.title}</h3>
+                  <p className={styles.value__description}>{value.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Team Section */}
+        <motion.div
+          className={styles.team}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.team__container}>
+            <motion.h2
+              className={styles.team__title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Meet Our Founders
+            </motion.h2>
+            <div className={styles.team__grid}>
+              {team.map((member, index) => (
+                <motion.div
+                  key={member.name}
+                  className={styles.team__member}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className={styles.team__info}>
+                    <h3 className={styles.team__name}>{member.name}</h3>
+                    <p className={styles.team__role}>{member.role}</p>
+                    <div className={styles.team__bio}>
+                      {expandedFounders.includes(index) ? (
+                        <>
+                          {member.bio.split('\n\n').map((paragraph, idx) => (
+                            <p key={idx} className={styles.team__paragraph}>
+                              {paragraph}
+                            </p>
+                          ))}
+                          <button
+                            className={styles.team__readLess}
+                            onClick={() =>
+                              setExpandedFounders(prev => prev.filter(i => i !== index))
+                            }
+                          >
+                            Read Less
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <p className={styles.team__paragraph}>
+                            {member.shortBio}
+                            <button
+                              className={styles.team__readMore}
+                              onClick={() => setExpandedFounders(prev => [...prev, index])}
+                            >
+                              ... Read More
+                            </button>
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Mission Section */}
+        <motion.div
+          className={styles.mission}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.mission__container}>
+            <motion.div
+              className={styles.mission__text}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              Challenge your limits.{' '}
+              <motion.span
+                className={styles.mission__ritualLink}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => (window.location.href = '/book')}
+                style={{ cursor: 'pointer' }}
+              >
+                Join The Ritual.
+              </motion.span>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Footer */}
       <Footer />

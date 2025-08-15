@@ -1,7 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import LoadingScreen from '@/components/ui/LoadingScreen/LoadingScreen';
 
 interface NavigationLoadingContextType {
@@ -26,38 +25,44 @@ interface NavigationLoadingProviderProps {
 export default function NavigationLoadingProvider({ children }: NavigationLoadingProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const pathname = usePathname();
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   // Handle initial page load
   useEffect(() => {
     if (isInitialLoad) {
       const timer = setTimeout(() => {
         setIsInitialLoad(false);
+        setHasInitialized(true);
       }, 2000); // Shorter initial load time
 
       return () => clearTimeout(timer);
     }
   }, [isInitialLoad]);
 
-  // Handle navigation loading
-  useEffect(() => {
-    if (!isInitialLoad) {
+  // Remove automatic navigation loading - only use manual startNavigation
+
+  const startNavigation = useCallback(() => {
+    // Only start navigation loading if we're past the initial load
+    if (hasInitialized && !isInitialLoad && !isLoading) {
       setIsLoading(true);
 
-      // Simulate navigation loading time (adjust as needed)
-      const timer = setTimeout(() => {
+      // Auto-stop loading after 800ms
+      setTimeout(() => {
         setIsLoading(false);
-      }, 800); // 800ms for navigation
-
-      return () => clearTimeout(timer);
+      }, 800);
     }
-  }, [pathname, isInitialLoad]);
+  }, [hasInitialized, isInitialLoad, isLoading]);
 
-  const startNavigation = () => {
-    if (!isInitialLoad) {
-      setIsLoading(true);
-    }
-  };
+  const handleInitialComplete = useCallback(() => {
+    // This will be called by LoadingScreen when initial load completes
+    setIsInitialLoad(false);
+    setHasInitialized(true);
+  }, []);
+
+  const handleNavigationComplete = useCallback(() => {
+    // This will be called by LoadingScreen when navigation load completes
+    setIsLoading(false);
+  }, []);
 
   const value = {
     startNavigation,
@@ -65,11 +70,11 @@ export default function NavigationLoadingProvider({ children }: NavigationLoadin
   };
 
   if (isInitialLoad) {
-    return <LoadingScreen onComplete={() => setIsInitialLoad(false)} duration={2000} />;
+    return <LoadingScreen onComplete={handleInitialComplete} duration={2000} />;
   }
 
   if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} duration={800} />;
+    return <LoadingScreen onComplete={handleNavigationComplete} duration={800} />;
   }
 
   return (

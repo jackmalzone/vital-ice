@@ -23,6 +23,68 @@ export default function Page() {
     checkConnectivity();
   }, []);
 
+  const handleTestError = () => {
+    throw new Error(
+      'SentryExampleFrontendError: This error is raised on the frontend of the example page.'
+    );
+  };
+
+  const handleTestMessage = () => {
+    Sentry.captureMessage('Test message from Sentry example page', 'info');
+  };
+
+  const handleTestException = () => {
+    try {
+      throw new Error('Test exception from Sentry example page');
+    } catch (error) {
+      Sentry.captureException(error);
+    }
+  };
+
+  const handleProfilingTest = () => {
+    Sentry.startSpan(
+      {
+        op: 'test.profiling',
+        name: 'Manual Profiling Test',
+      },
+      span => {
+        // Simulate some CPU-intensive work
+        let result = 0;
+        for (let i = 0; i < 1000000; i++) {
+          result += Math.sqrt(i);
+        }
+        span.setAttribute('result', result);
+        span.setAttribute('iterations', 1000000);
+      }
+    );
+  };
+
+  const handleBrowserProfilingTest = () => {
+    // Test browser profiling
+    const startTime = performance.now();
+
+    // Simulate CPU-intensive work
+    let result = 0;
+    for (let i = 0; i < 500000; i++) {
+      result += Math.sqrt(i);
+    }
+
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+
+    // Send performance data to Sentry
+    Sentry.addBreadcrumb({
+      category: 'performance',
+      message: 'Browser profiling test completed',
+      data: {
+        duration,
+        result,
+        iterations: 500000,
+      },
+      level: 'info',
+    });
+  };
+
   return (
     <div>
       <Head>
@@ -93,7 +155,7 @@ export default function Page() {
 
                 // Simulate some work that will be profiled
                 setTimeout(() => {
-                  console.log('✅ Profiling span created and sent to Sentry');
+                  // Profiling span created and sent to Sentry
                 }, 100);
               }
             );
@@ -130,10 +192,7 @@ export default function Page() {
                 span.setAttribute('computation_time', (end - start).toString());
                 span.setAttribute('result', result.toString());
 
-                console.log('✅ Browser profiling test completed:', {
-                  computationTime: end - start,
-                  result: result,
-                });
+                // Browser profiling test completed
               }
             );
           }}

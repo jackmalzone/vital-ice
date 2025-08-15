@@ -28,6 +28,10 @@ export const SmoothScrollProvider: FC<ISmoothScrollProviderProps> = ({ children 
 
           return () => {
             try {
+              // Cancel RAF before destroying
+              if ((lenis as { rafId?: number }).rafId) {
+                cancelAnimationFrame((lenis as { rafId?: number }).rafId!);
+              }
               lenis.destroy();
             } catch (error) {
               Sentry.captureException(error, {

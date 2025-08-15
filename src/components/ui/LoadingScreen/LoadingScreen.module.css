@@ -64,14 +64,44 @@
   border-radius: 2px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 183, 181, 0.2);
+  position: relative;
 }
 
 .progressFill {
   height: 100%;
   background: linear-gradient(90deg, #00b7b5 0%, #9ec7c5 100%);
   border-radius: 2px;
-  transition: width 0.1s ease;
+  transition:
+    width 0.1s ease,
+    opacity 0.2s ease;
   box-shadow: 0 0 10px rgba(0, 183, 181, 0.4);
+  min-width: 1px; /* Ensure it's always visible when progress > 0 */
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .progressText {
@@ -81,6 +111,8 @@
   font-weight: 400;
   opacity: 0.8;
   letter-spacing: 1px;
+  min-width: 40px; /* Ensure consistent width */
+  text-align: center;
 }
 
 /* Responsive */

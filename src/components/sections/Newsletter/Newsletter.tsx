@@ -29,6 +29,22 @@ export default function Newsletter() {
       return;
     }
 
+    // Add error boundary for Mindbody widget JSON parsing errors
+    const handleWidgetError = (event: ErrorEvent) => {
+      if (event.error && event.error.message && event.error.message.includes('not valid JSON')) {
+        event.preventDefault();
+        console.warn('Mindbody widget JSON error prevented:', event.error.message);
+        return false;
+      }
+    };
+
+    // Suppress jQuery Migrate warnings from third-party widgets
+    if (typeof window !== 'undefined' && (window as any).jQuery) {
+      (window as any).jQuery.migrateMute = true;
+    }
+
+    window.addEventListener('error', handleWidgetError);
+
     const loadWidget = () => {
       return Sentry.startSpan(
         {
@@ -110,6 +126,10 @@ export default function Newsletter() {
           widgetElement.setAttribute('data-widget-id', 'ec59331b5f7'); // Use original ID
           widgetElement.setAttribute('data-widget-version', '0');
 
+          // Add defensive data attributes to prevent JSON parsing errors
+          widgetElement.setAttribute('data-widget-config', '{}');
+          widgetElement.setAttribute('data-widget-options', '{}');
+
           widgetContainerRef.current.appendChild(widgetElement);
           widgetCreated = true;
 
@@ -150,6 +170,8 @@ export default function Newsletter() {
 
     // Cleanup function
     return () => {
+      // Remove error handler
+      window.removeEventListener('error', handleWidgetError);
       // Don't reset the global flags on cleanup to prevent re-creation
     };
   }, []);

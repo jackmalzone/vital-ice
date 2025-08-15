@@ -159,14 +159,79 @@ export const trackPageVisibility = () => {
         category: 'navigation',
         message: 'Page hidden',
         level: 'info',
+        data: {
+          timestamp: new Date().toISOString(),
+          memory: (performance as any).memory
+            ? {
+                used: (performance as any).memory.usedJSHeapSize,
+                total: (performance as any).memory.totalJSHeapSize,
+                limit: (performance as any).memory.jsHeapSizeLimit,
+              }
+            : null,
+        },
       });
     } else if (document.visibilityState === 'visible') {
       Sentry.addBreadcrumb({
         category: 'navigation',
         message: 'Page visible',
         level: 'info',
+        data: {
+          timestamp: new Date().toISOString(),
+          memory: (performance as any).memory
+            ? {
+                used: (performance as any).memory.usedJSHeapSize,
+                total: (performance as any).memory.totalJSHeapSize,
+                limit: (performance as any).memory.jsHeapSizeLimit,
+              }
+            : null,
+        },
       });
     }
+  });
+};
+
+// Track potential reload triggers
+export const trackReloadTriggers = () => {
+  if (typeof window === 'undefined') return;
+
+  // Track beforeunload events (user-initiated reloads)
+  window.addEventListener('beforeunload', () => {
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: 'Before unload event',
+      level: 'info',
+      data: {
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        referrer: document.referrer,
+      },
+    });
+  });
+
+  // Track unload events
+  window.addEventListener('unload', () => {
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: 'Unload event',
+      level: 'info',
+      data: {
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+      },
+    });
+  });
+
+  // Track pagehide events
+  window.addEventListener('pagehide', () => {
+    Sentry.addBreadcrumb({
+      category: 'navigation',
+      message: 'Page hide event',
+      level: 'info',
+      data: {
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+      },
+    });
   });
 };
 
@@ -179,6 +244,9 @@ export const initializeSentryTracking = () => {
 
   // Track page visibility
   trackPageVisibility();
+
+  // Track reload triggers
+  trackReloadTriggers();
 
   // Monitor memory usage
   setInterval(trackMemoryUsage, 30000); // Check every 30 seconds

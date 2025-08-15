@@ -478,24 +478,43 @@ export const parallaxEffect = (element: string, speed = 0.5) => {
   });
 };
 
-// Smooth scroll setup
+// Smooth scroll setup with better error handling
 export function setupSmoothScroll() {
   if (typeof window === 'undefined') return null;
 
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    infinite: false,
-  });
+  try {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      infinite: false,
+      // Add options to prevent conflicts
+      syncTouch: false,
+      syncTouchLerp: 0.1,
+    });
 
-  function raf(time: number) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
+    let rafId: number;
+
+    function raf(time: number) {
+      try {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      } catch (error) {
+        console.warn('Lenis RAF error:', error);
+        // Fallback to normal scrolling if Lenis fails
+        return null;
+      }
+    }
+
+    rafId = requestAnimationFrame(raf);
+
+    // Store the RAF ID for cleanup
+    (lenis as any).rafId = rafId;
+
+    return lenis;
+  } catch (error) {
+    console.warn('Failed to initialize Lenis smooth scroll:', error);
+    return null;
   }
-
-  requestAnimationFrame(raf);
-
-  return lenis;
 }

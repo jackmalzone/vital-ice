@@ -11,8 +11,13 @@ interface LoadingScreenProps {
 
 export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    // Reset state when component mounts
+    setProgress(0);
+    setIsVisible(true);
+
     // Start the loading progress
     const progressInterval = setInterval(() => {
       setProgress(prev => {
@@ -26,6 +31,7 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
 
     // Complete loading after duration
     const completeTimer = setTimeout(() => {
+      setIsVisible(false);
       onComplete();
     }, duration);
 
@@ -34,6 +40,11 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
       clearTimeout(completeTimer);
     };
   }, [duration, onComplete]);
+
+  // Don't render if not visible
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div className={styles.loadingScreen}>
@@ -54,9 +65,15 @@ export default function LoadingScreen({ onComplete, duration = 4000 }: LoadingSc
       {/* Progress Bar */}
       <div className={styles.progressContainer}>
         <div className={styles.progressBar}>
-          <div className={styles.progressFill} style={{ width: `${progress}%` }} />
+          <div
+            className={styles.progressFill}
+            style={{
+              width: `${Math.max(0, Math.min(100, progress))}%`,
+              opacity: progress > 0 ? 1 : 0,
+            }}
+          />
         </div>
-        <div className={styles.progressText}>{progress}%</div>
+        <div className={styles.progressText}>{Math.round(progress)}%</div>
       </div>
     </div>
   );

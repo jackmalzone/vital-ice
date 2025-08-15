@@ -24,20 +24,14 @@ class SentryErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error to Sentry
+    // Log the error to Sentry
     Sentry.captureException(error, {
-      tags: {
-        component: 'ErrorBoundary',
-        error_type: 'unhandled_error',
-      },
-      extra: {
-        errorInfo,
-        error: error.message,
-        stack: error.stack,
+      contexts: {
+        react: {
+          componentStack: errorInfo.componentStack,
+        },
       },
     });
-
-    console.error('Error caught by boundary:', error, errorInfo);
   }
 
   render() {

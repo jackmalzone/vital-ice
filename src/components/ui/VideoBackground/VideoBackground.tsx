@@ -297,7 +297,6 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
     <div className={styles.videoContainer}>
       <video
         ref={videoRef}
-        src={videoSrc} // Set the primary source directly on the video element
         autoPlay={isActive}
         muted
         loop
@@ -323,7 +322,9 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
           willChange: isActive ? 'auto' : 'none',
         }}
       >
-        {/* WebM source for better mobile performance (if available) */}
+        {/* MP4 source first for Safari compatibility */}
+        <source src={videoSrc} type="video/mp4" />
+        {/* WebM source as fallback for better mobile performance */}
         {webmSrc && <source src={webmSrc} type="video/webm" />}
         {/* Fallback for unsupported video */}
         <div className={styles.videoFallback}>

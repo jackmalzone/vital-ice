@@ -10,7 +10,15 @@ const { execSync } = require('child_process');
 const CORS_CONFIG = {
   rules: [
     {
-      AllowedOrigins: ['*'],
+      AllowedOrigins: [
+        'http://localhost:3000',
+        'http://localhost:3001',
+        'https://vital-ice.vercel.app',
+        'https://vital-ice.com',
+        'https://www.vital-ice.com',
+        'https://vitalicesf.com',
+        'https://www.vitalicesf.com',
+      ],
       AllowedMethods: ['GET', 'HEAD'],
       AllowedHeaders: ['*'],
       MaxAgeSeconds: 3600,

@@ -60,5 +60,3 @@ body {
 ### Files Modified
 
 - `src/app/globals.css` - Commented out global background
-- `src/app/historical-timeline/page.module.css` - Adjusted z-index values
-- `src/app/historical-timeline/page.tsx` - Added debugging elements (removed after resolution)
