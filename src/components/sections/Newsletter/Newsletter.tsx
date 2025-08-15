@@ -8,10 +8,6 @@ import styles from './Newsletter.module.css';
 // "You must name your new library: init(token, config, name)"
 // This is a known issue with Mindbody's internal analytics and doesn't affect functionality.
 
-// Global flag to prevent multiple script loads
-let scriptLoaded = false;
-let widgetCreated = false;
-
 export default function Newsletter() {
   const widgetContainerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,25 +19,62 @@ export default function Newsletter() {
       return;
     }
 
-    // Prevent duplicate widget creation
-    if (widgetCreated) {
-      setIsLoading(false);
-      return;
-    }
-
     // Add error boundary for Mindbody widget JSON parsing errors
     const handleWidgetError = (event: ErrorEvent) => {
+      // Prevent JSON parsing errors from Mindbody widgets
       if (event.error && event.error.message && event.error.message.includes('not valid JSON')) {
         event.preventDefault();
-        console.warn('Mindbody widget JSON error prevented:', event.error.message);
+        return false;
+      }
+
+      // Also catch SyntaxError for JSON parsing
+      if (
+        event.error &&
+        event.error.name === 'SyntaxError' &&
+        event.error.message.includes('not valid JSON')
+      ) {
+        event.preventDefault();
+        return false;
+      }
+
+      // Catch any JSON.parse errors
+      if (event.error && event.error.message && event.error.message.includes('JSON.parse')) {
+        event.preventDefault();
+        return false;
+      }
+
+      // Suppress Mixpanel errors from Mindbody's internal analytics
+      if (
+        event.error &&
+        event.error.message &&
+        event.error.message.includes('You must name your new library')
+      ) {
+        event.preventDefault();
         return false;
       }
     };
 
     // Suppress jQuery Migrate warnings from third-party widgets
-    if (typeof window !== 'undefined' && (window as any).jQuery) {
-      (window as any).jQuery.migrateMute = true;
+    if (
+      typeof window !== 'undefined' &&
+      (window as { jQuery?: { migrateMute?: boolean } }).jQuery
+    ) {
+      (window as { jQuery?: { migrateMute?: boolean } }).jQuery!.migrateMute = true;
     }
+
+    // Override JSON.parse to prevent errors from Mindbody widgets
+    const originalJSONParse = JSON.parse;
+    JSON.parse = function (text, reviver) {
+      try {
+        return originalJSONParse.call(this, text, reviver);
+      } catch (error) {
+        // If it's a Mindbody-related error, suppress it
+        if (error instanceof Error && error.message && error.message.includes('not valid JSON')) {
+          return {}; // Return empty object as fallback
+        }
+        throw error; // Re-throw other errors
+      }
+    };
 
     window.addEventListener('error', handleWidgetError);
 
@@ -52,60 +85,54 @@ export default function Newsletter() {
           name: 'Mindbody Newsletter Widget Load',
         },
         span => {
-          if (widgetContainerRef.current && !widgetCreated) {
-            try {
-              span.setAttribute('widget_type', 'newsletter');
-              span.setAttribute('script_loaded', scriptLoaded);
+          try {
+            span.setAttribute('widget_type', 'newsletter');
 
-              console.log('Loading newsletter widget...');
-
-              // Clear container
+            // Clear container
+            if (widgetContainerRef.current) {
               widgetContainerRef.current.innerHTML = '';
-
-              // Check if script is already loaded
-              if (!scriptLoaded && typeof document !== 'undefined') {
-                // Load the script first
-                const script = document.createElement('script');
-                script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-                script.type = 'text/javascript';
-
-                script.onload = () => {
-                  console.log('Script loaded, creating widget...');
-                  scriptLoaded = true;
-                  createWidget();
-                };
-
-                script.onerror = error => {
-                  Sentry.captureException(error, {
-                    tags: {
-                      component: 'Newsletter',
-                      widget_type: 'newsletter',
-                      error_type: 'script_load_failed',
-                    },
-                  });
-                  console.error('Failed to load script');
-                  setHasError(true);
-                  setIsLoading(false);
-                };
-
-                document.head.appendChild(script);
-              } else {
-                // Script already loaded, create widget directly
-                console.log('Script already loaded, creating widget...');
-                createWidget();
-              }
-            } catch (error) {
-              Sentry.captureException(error, {
-                tags: {
-                  component: 'Newsletter',
-                  widget_type: 'newsletter',
-                  error_type: 'widget_load_failed',
-                },
-              });
-              console.error('Error loading widget:', error);
-              setHasError(true);
-              setIsLoading(false);
             }
+
+            // Check if script is already loaded
+            const existingScript = document.querySelector('script[src*="healcode.js"]');
+
+            if (!existingScript) {
+              // Load the script
+              const script = document.createElement('script');
+              script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
+              script.type = 'text/javascript';
+
+              script.onload = () => {
+                createWidget();
+              };
+
+              script.onerror = error => {
+                Sentry.captureException(error, {
+                  tags: {
+                    component: 'Newsletter',
+                    widget_type: 'newsletter',
+                    error_type: 'script_load_failed',
+                  },
+                });
+                setHasError(true);
+                setIsLoading(false);
+              };
+
+              document.head.appendChild(script);
+            } else {
+              // Script already loaded, create widget directly
+              createWidget();
+            }
+          } catch (error) {
+            Sentry.captureException(error, {
+              tags: {
+                component: 'Newsletter',
+                widget_type: 'newsletter',
+                error_type: 'widget_load_failed',
+              },
+            });
+            setHasError(true);
+            setIsLoading(false);
           }
         }
       );
@@ -113,42 +140,31 @@ export default function Newsletter() {
 
     const createWidget = () => {
       try {
-        if (
-          widgetContainerRef.current &&
-          !widgetCreated &&
-          typeof document !== 'undefined' &&
-          document
-        ) {
-          // Create the widget element exactly as in the HTML
-          const widgetElement = document.createElement('healcode-widget');
-          widgetElement.setAttribute('data-type', 'prospects');
-          widgetElement.setAttribute('data-widget-partner', 'object');
-          widgetElement.setAttribute('data-widget-id', 'ec59331b5f7'); // Use original ID
-          widgetElement.setAttribute('data-widget-version', '0');
-
-          // Add defensive data attributes to prevent JSON parsing errors
-          widgetElement.setAttribute('data-widget-config', '{}');
-          widgetElement.setAttribute('data-widget-options', '{}');
-
-          widgetContainerRef.current.appendChild(widgetElement);
-          widgetCreated = true;
+        if (widgetContainerRef.current) {
+          // Use the simplest approach - just set innerHTML with the exact HTML
+          widgetContainerRef.current.innerHTML = `
+            <healcode-widget 
+              data-type="prospects" 
+              data-widget-partner="object" 
+              data-widget-id="ec59331b5f7" 
+              data-widget-version="0"
+              data-widget-config="{}"
+              data-widget-options="{}">
+            </healcode-widget>
+          `;
 
           // Check if widget loaded
           setTimeout(() => {
             const widget = widgetContainerRef.current?.querySelector('healcode-widget');
             if (widget && widget.children.length > 0) {
-              console.log('Widget loaded successfully');
               setIsLoading(false);
             } else {
-              console.log('Widget created, waiting for content...');
               // Wait a bit more
               setTimeout(() => {
                 const widgetCheck = widgetContainerRef.current?.querySelector('healcode-widget');
                 if (widgetCheck && widgetCheck.children.length > 0) {
-                  console.log('Widget content now detected');
                   setIsLoading(false);
                 } else {
-                  console.warn('Widget not loading properly');
                   setHasError(true);
                   setIsLoading(false);
                 }
@@ -156,77 +172,54 @@ export default function Newsletter() {
             }
           }, 2000);
         }
-      } catch (error) {
-        console.error('Error creating widget:', error);
+      } catch {
         setHasError(true);
         setIsLoading(false);
       }
     };
 
-    // Load widget when component mounts with a small delay to ensure DOM is ready
-    setTimeout(() => {
-      loadWidget();
-    }, 100);
+    // Load widget when component mounts
+    loadWidget();
 
     // Cleanup function
     return () => {
-      // Remove error handler
       window.removeEventListener('error', handleWidgetError);
-      // Don't reset the global flags on cleanup to prevent re-creation
+
+      // Restore original JSON.parse
+      JSON.parse = originalJSONParse;
     };
   }, []);
 
   const handleRetry = () => {
-    console.log('Retrying widget load...');
     setIsLoading(true);
     setHasError(false);
-
-    // Reset global flags for retry
-    scriptLoaded = false;
-    widgetCreated = false;
-
-    // Remove existing script and reload
-    if (typeof document !== 'undefined') {
-      const existingScript = document.querySelector('script[src*="healcode.js"]');
-      if (existingScript) {
-        existingScript.remove();
-      }
-    }
 
     // Clear widget container
     if (widgetContainerRef.current) {
       widgetContainerRef.current.innerHTML = '';
     }
 
-    // Reload after a short delay
-    setTimeout(() => {
-      const loadWidget = () => {
-        if (widgetContainerRef.current && typeof document !== 'undefined') {
-          const script = document.createElement('script');
-          script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-          script.type = 'text/javascript';
+    // Reload
+    const loadWidget = () => {
+      if (widgetContainerRef.current) {
+        widgetContainerRef.current.innerHTML = `
+          <healcode-widget 
+            data-type="prospects" 
+            data-widget-partner="object" 
+            data-widget-id="ec59331b5f7" 
+            data-widget-version="0"
+            data-widget-config="{}"
+            data-widget-options="{}">
+          </healcode-widget>
+        `;
 
-          script.onload = () => {
-            const widgetElement = document.createElement('healcode-widget');
-            widgetElement.setAttribute('data-type', 'prospects');
-            widgetElement.setAttribute('data-widget-partner', 'object');
-            widgetElement.setAttribute('data-widget-id', 'ec59331b5f7');
-            widgetElement.setAttribute('data-widget-version', '0');
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+      }
+    };
 
-            widgetContainerRef.current!.appendChild(widgetElement);
-            widgetCreated = true;
-
-            setTimeout(() => {
-              setIsLoading(false);
-            }, 2000);
-          };
-
-          document.head.appendChild(script);
-        }
-      };
-
-      loadWidget();
-    }, 500);
+    loadWidget();
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Logo from '@/components/ui/Logo/Logo';
 import { springConfigs } from '@/lib/utils/animations';
 import styles from './Footer.module.css';
@@ -188,6 +189,48 @@ const Footer: FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <div className={styles.footer__divider} />
+
+          {/* Credits Section */}
+          <motion.div
+            className={styles.footer__credits}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <p className={styles.footer__creditsText}>
+              Designed & Developed by{' '}
+              <span className={styles.footer__developerName}>Jack Malzone</span>
+            </p>
+            <div className={styles.footer__developerLinks}>
+              <motion.a
+                href="https://github.com/jackmalzone"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.footer__developerLink}
+                aria-label="Visit Jack Malzone's GitHub"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                transition={springConfigs.quick}
+              >
+                <FaGithub size={20} />
+              </motion.a>
+              <motion.a
+                href="https://linkedin.com/in/jackmalzone"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.footer__developerLink}
+                aria-label="Visit Jack Malzone's LinkedIn"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                transition={springConfigs.quick}
+              >
+                <FaLinkedin size={20} />
+              </motion.a>
+            </div>
+          </motion.div>
+
+          <div className={styles.footer__divider} />
+
           <div className={styles.footer__copyright}>
             <p>&copy; {currentYear} Vital Ice. All rights reserved.</p>
             <div className={styles.footer__legal}>
