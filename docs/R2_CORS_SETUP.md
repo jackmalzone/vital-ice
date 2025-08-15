@@ -5,6 +5,7 @@ This guide explains how to configure CORS (Cross-Origin Resource Sharing) for yo
 ## Problem
 
 Without CORS configuration, browsers block requests to your R2 bucket from your website, causing video loading errors like:
+
 - `MEDIA_ELEMENT_ERROR: Empty src attribute`
 - CORS policy violations
 - Video elements failing to load
@@ -18,6 +19,7 @@ Configure CORS headers on your R2 bucket to allow requests from your domains.
 ### Prerequisites
 
 1. **Install Wrangler CLI**:
+
    ```bash
    npm install -g wrangler
    ```
@@ -35,6 +37,7 @@ Configure CORS headers on your R2 bucket to allow requests from your domains.
    ```
 
 This script will:
+
 - Check if Wrangler is installed
 - Create a CORS configuration file
 - Apply the configuration to your R2 bucket
@@ -45,6 +48,7 @@ This script will:
 If the script doesn't work, you can set up CORS manually:
 
 1. **Create CORS configuration file** (`cors.json`):
+
    ```json
    {
      "AllowedOrigins": [
@@ -83,6 +87,7 @@ If the script doesn't work, you can set up CORS manually:
 ## CORS Configuration Explained
 
 ### AllowedOrigins
+
 - `http://localhost:3000` - Development server
 - `http://localhost:3001` - Alternative dev port
 - `https://vital-ice.vercel.app` - Vercel deployment
@@ -90,13 +95,16 @@ If the script doesn't work, you can set up CORS manually:
 - `https://www.vital-ice.com` - WWW subdomain
 
 ### AllowedMethods
+
 - `GET` - For video file downloads
 - `HEAD` - For checking file existence and metadata
 
 ### AllowedHeaders
+
 - `*` - Allow all headers (needed for video requests)
 
 ### MaxAgeSeconds
+
 - `3600` - Cache CORS preflight for 1 hour
 
 ## Testing
@@ -117,10 +125,12 @@ You should see `Access-Control-Allow-Origin: http://localhost:3000` in the respo
 ### Common Issues
 
 1. **"Wrangler not found"**
+
    - Install Wrangler: `npm install -g wrangler`
    - Login: `wrangler login`
 
 2. **"Bucket not found"**
+
    - Verify bucket name in `wrangler.toml`
    - Check Cloudflare dashboard for correct bucket name
 

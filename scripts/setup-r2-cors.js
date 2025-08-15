@@ -8,22 +8,20 @@
 const { execSync } = require('child_process');
 
 const CORS_CONFIG = {
-  "AllowedOrigins": [
-    "http://localhost:3000",
-    "http://localhost:3001", 
-    "https://vital-ice.vercel.app",
-    "https://vital-ice.com",
-    "https://www.vital-ice.com"
+  rules: [
+    {
+      AllowedOrigins: ['*'],
+      AllowedMethods: ['GET', 'HEAD'],
+      AllowedHeaders: ['*'],
+      MaxAgeSeconds: 3600,
+    },
   ],
-  "AllowedMethods": ["GET", "HEAD"],
-  "AllowedHeaders": ["*"],
-  "MaxAgeSeconds": 3600
 };
 
 async function setupCORS() {
   try {
     console.log('🚀 Setting up CORS for R2 bucket...');
-    
+
     // Check if wrangler is installed
     try {
       execSync('wrangler --version', { stdio: 'pipe' });
@@ -41,8 +39,8 @@ async function setupCORS() {
 
     // Apply CORS configuration
     console.log('📝 Applying CORS configuration...');
-    execSync(`wrangler r2 bucket cors put vital-ice-videos --file ${corsFile}`, {
-      stdio: 'inherit'
+    execSync(`wrangler r2 bucket cors set vital-ice-videos --file ${corsFile}`, {
+      stdio: 'inherit',
     });
 
     // Clean up
@@ -50,7 +48,6 @@ async function setupCORS() {
 
     console.log('✅ CORS configuration applied successfully!');
     console.log('🌐 Your videos should now work in browsers.');
-    
   } catch (error) {
     console.error('❌ Error setting up CORS:', error.message);
     process.exit(1);
