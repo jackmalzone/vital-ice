@@ -19,41 +19,6 @@ export default function Newsletter() {
       return;
     }
 
-    // Add error boundary for Mindbody widget JSON parsing errors
-    const handleWidgetError = (event: ErrorEvent) => {
-      // Prevent JSON parsing errors from Mindbody widgets
-      if (event.error && event.error.message && event.error.message.includes('not valid JSON')) {
-        event.preventDefault();
-        return false;
-      }
-
-      // Also catch SyntaxError for JSON parsing
-      if (
-        event.error &&
-        event.error.name === 'SyntaxError' &&
-        event.error.message.includes('not valid JSON')
-      ) {
-        event.preventDefault();
-        return false;
-      }
-
-      // Catch any JSON.parse errors
-      if (event.error && event.error.message && event.error.message.includes('JSON.parse')) {
-        event.preventDefault();
-        return false;
-      }
-
-      // Suppress Mixpanel errors from Mindbody's internal analytics
-      if (
-        event.error &&
-        event.error.message &&
-        event.error.message.includes('You must name your new library')
-      ) {
-        event.preventDefault();
-        return false;
-      }
-    };
-
     // Suppress jQuery Migrate warnings from third-party widgets
     if (
       typeof window !== 'undefined' &&
@@ -75,8 +40,6 @@ export default function Newsletter() {
         throw error; // Re-throw other errors
       }
     };
-
-    window.addEventListener('error', handleWidgetError);
 
     const loadWidget = () => {
       return Sentry.startSpan(
@@ -183,8 +146,6 @@ export default function Newsletter() {
 
     // Cleanup function
     return () => {
-      window.removeEventListener('error', handleWidgetError);
-
       // Restore original JSON.parse
       JSON.parse = originalJSONParse;
     };

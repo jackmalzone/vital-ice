@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 const AboutPage: React.FC = () => {
@@ -282,9 +281,6 @@ const AboutPage: React.FC = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </main>
   );
 };

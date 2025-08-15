@@ -13,7 +13,6 @@ import {
 } from 'react-icons/gi';
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
-import Footer from '@/components/layout/Footer/Footer';
 import PanelZone from '@/components/ui/PanelZone/PanelZone';
 import styles from './page.module.css';
 
@@ -56,7 +55,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   service,
   angle,
   radius,
-  index,
+  index, // Used in transition delay calculation
   onHover,
   onLeave,
   onSelect,
@@ -405,9 +404,6 @@ const ExperiencePage: React.FC = () => {
           />
         ))}
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

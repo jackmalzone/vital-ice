@@ -5,6 +5,7 @@ import NavigationLoadingProvider from '@/components/providers/NavigationLoadingP
 import { ModalProvider } from '@/components/providers/ModalProvider';
 import SentryErrorBoundary from '@/components/providers/SentryErrorBoundary';
 import Header from '@/components/layout/Header/Header';
+import Footer from '@/components/layout/Footer/Footer';
 import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButton';
 import { initializeSentryTracking } from '@/lib/utils/sentryTracking';
 import './globals.css';
@@ -67,8 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <SmoothScrollProvider>
               <ModalProvider>
                 <Header />
-                {children}
                 <RollingBookButton />
+                {children}
+                <Footer />
               </ModalProvider>
             </SmoothScrollProvider>
           </NavigationLoadingProvider>

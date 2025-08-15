@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
-import MindbodyModal from '@/components/ui/MindbodyModal/MindbodyModal';
 
 interface ModalContextType {
   isModalOpen: boolean;
@@ -36,7 +35,6 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   return (
     <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
       {children}
-      <MindbodyModal isOpen={isModalOpen} onClose={closeModal} />
     </ModalContext.Provider>
   );
 };

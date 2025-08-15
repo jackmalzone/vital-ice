@@ -1,5 +1,15 @@
 import * as Sentry from '@sentry/nextjs';
 
+interface PerformanceMemory {
+  usedJSHeapSize: number;
+  totalJSHeapSize: number;
+  jsHeapSizeLimit: number;
+}
+
+interface PerformanceWithMemory extends Performance {
+  memory?: PerformanceMemory;
+}
+
 // Track page reloads and performance issues
 export const trackPageReload = () => {
   if (typeof window === 'undefined') return;
@@ -161,11 +171,11 @@ export const trackPageVisibility = () => {
         level: 'info',
         data: {
           timestamp: new Date().toISOString(),
-          memory: (performance as any).memory
+          memory: (performance as PerformanceWithMemory).memory
             ? {
-                used: (performance as any).memory.usedJSHeapSize,
-                total: (performance as any).memory.totalJSHeapSize,
-                limit: (performance as any).memory.jsHeapSizeLimit,
+                used: (performance as PerformanceWithMemory).memory!.usedJSHeapSize,
+                total: (performance as PerformanceWithMemory).memory!.totalJSHeapSize,
+                limit: (performance as PerformanceWithMemory).memory!.jsHeapSizeLimit,
               }
             : null,
         },
@@ -177,11 +187,11 @@ export const trackPageVisibility = () => {
         level: 'info',
         data: {
           timestamp: new Date().toISOString(),
-          memory: (performance as any).memory
+          memory: (performance as PerformanceWithMemory).memory
             ? {
-                used: (performance as any).memory.usedJSHeapSize,
-                total: (performance as any).memory.totalJSHeapSize,
-                limit: (performance as any).memory.jsHeapSizeLimit,
+                used: (performance as PerformanceWithMemory).memory!.usedJSHeapSize,
+                total: (performance as PerformanceWithMemory).memory!.totalJSHeapSize,
+                limit: (performance as PerformanceWithMemory).memory!.jsHeapSizeLimit,
               }
             : null,
         },

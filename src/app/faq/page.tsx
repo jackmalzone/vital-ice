@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 const FAQPage: React.FC = () => {
@@ -181,9 +180,6 @@ const FAQPage: React.FC = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

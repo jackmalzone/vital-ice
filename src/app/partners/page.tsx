@@ -18,7 +18,6 @@ import {
   GiMushroom,
   GiCampfire,
 } from 'react-icons/gi';
-import Footer from '@/components/layout/Footer/Footer';
 import styles from './page.module.css';
 
 // Partner data structure
@@ -417,8 +416,6 @@ const PartnersPage: FC = () => {
           </motion.div>
         </div>
       </motion.section>
-
-      <Footer />
     </div>
   );
 };

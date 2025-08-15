@@ -3,7 +3,6 @@
 import { FC } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ServiceNavigation from '@/components/ui/ServiceNavigation/ServiceNavigation';
-import Footer from '@/components/layout/Footer/Footer';
 import styles from './ServiceTemplate.module.css';
 
 interface ServiceData {
@@ -255,9 +254,6 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
           </div>
         </div>
       </motion.section>
-
-      {/* Footer */}
-      <Footer />
     </main>
   );
 };

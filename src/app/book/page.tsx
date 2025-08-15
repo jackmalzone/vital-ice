@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Footer from '@/components/layout/Footer/Footer';
 import Logo from '@/components/ui/Logo/Logo';
 import styles from './page.module.css';
 
@@ -39,7 +38,7 @@ const BookPage: FC = () => {
     keysToRemove.forEach(key => {
       try {
         localStorage.removeItem(key);
-      } catch (error) {
+      } catch {
         // Silently handle localStorage errors
       }
     });
@@ -59,7 +58,7 @@ const BookPage: FC = () => {
     sessionKeysToRemove.forEach(key => {
       try {
         sessionStorage.removeItem(key);
-      } catch (error) {
+      } catch {
         // Silently handle sessionStorage errors
       }
     });
@@ -76,18 +75,17 @@ const BookPage: FC = () => {
 
   // Global error handler for React child errors
   useEffect(() => {
-    const originalError = console.error;
-    console.error = (...args) => {
-      const errorMessage = args[0]?.toString() || '';
+    const handleError = (event: ErrorEvent) => {
+      const errorMessage = event.message || '';
       if (errorMessage.includes('Objects are not valid as a React child')) {
         setWidgetError(true);
-        return;
       }
-      originalError.apply(console, args);
     };
 
+    window.addEventListener('error', handleError);
+
     return () => {
-      console.error = originalError;
+      window.removeEventListener('error', handleError);
     };
   }, []);
 
@@ -98,43 +96,12 @@ const BookPage: FC = () => {
     script.async = true;
 
     script.onload = () => {
-      // Suppress Mindbody errors
-      const originalConsoleError = console.error;
-      console.error = function (...args) {
-        const errorMessage = args[0]?.toString() || '';
-        if (
-          errorMessage.includes('Mixpanel error') ||
-          errorMessage.includes('registrationSuccess') ||
-          errorMessage.includes('Cannot read properties of null') ||
-          errorMessage.includes('Objects are not valid as a React child')
-        ) {
-          return;
-        }
-        originalConsoleError.apply(console, args);
-      };
-
       // Suppress jQuery errors
       if (typeof window !== 'undefined' && (window as WindowWithJQuery).jQuery) {
         (window as WindowWithJQuery).jQuery!.fn.error = function () {
           return this;
         };
       }
-
-      // Suppress React rendering errors
-      const originalConsoleWarn = console.warn;
-      console.warn = function (...args) {
-        const warningMessage = args[0]?.toString() || '';
-        if (warningMessage.includes('Objects are not valid as a React child')) {
-          return;
-        }
-        originalConsoleWarn.apply(console, args);
-      };
-
-      // Restore console after a delay
-      setTimeout(() => {
-        console.error = originalConsoleError;
-        console.warn = originalConsoleWarn;
-      }, 5000);
     };
 
     script.onerror = () => {
@@ -163,8 +130,6 @@ const BookPage: FC = () => {
       script.async = true;
 
       script.onload = () => {
-        console.log('Healcode registration script loaded successfully');
-
         // Add error boundary for Mindbody widget JSON parsing errors
         const handleWidgetError = (event: ErrorEvent) => {
           if (
@@ -173,43 +138,30 @@ const BookPage: FC = () => {
             event.error.message.includes('not valid JSON')
           ) {
             event.preventDefault();
-            console.warn('Mindbody registration widget JSON error prevented:', event.error.message);
             return false;
           }
         };
 
         // Suppress jQuery Migrate warnings from third-party widgets
-        if (typeof window !== 'undefined' && (window as any).jQuery) {
-          (window as any).jQuery.migrateMute = true;
+        if (
+          typeof window !== 'undefined' &&
+          (window as { jQuery?: { migrateMute?: boolean } }).jQuery
+        ) {
+          (window as { jQuery?: { migrateMute?: boolean } }).jQuery!.migrateMute = true;
         }
 
         window.addEventListener('error', handleWidgetError);
 
-        // Suppress Mixpanel errors
-        const originalConsoleError = console.error;
-        console.error = function (...args) {
-          if (args[0] && typeof args[0] === 'string' && args[0].includes('Mixpanel error')) {
-            console.warn('Mixpanel error suppressed:', args[0]);
-            return;
-          }
-          if (args[0] && typeof args[0] === 'string' && args[0].includes('registrationSuccess')) {
-            console.warn('Mindbody registration success error suppressed:', args[0]);
-            return;
-          }
-          originalConsoleError.apply(console, args);
-        };
-
         // Suppress jQuery errors related to null properties
         if ((window as WindowWithJQuery).jQuery) {
           (window as WindowWithJQuery).jQuery!.fn.error = function () {
-            console.warn('jQuery error suppressed in registration widget');
             return this;
           };
         }
       };
 
-      script.onerror = error => {
-        console.error('Failed to load Healcode registration script:', error);
+      script.onerror = () => {
+        // Handle script load error silently
       };
 
       document.head.appendChild(script);
@@ -223,13 +175,13 @@ const BookPage: FC = () => {
         if (existingScript && existingScript.parentNode) {
           try {
             existingScript.parentNode.removeChild(existingScript);
-          } catch (error) {
-            console.warn('Error removing healcode script:', error);
+          } catch {
+            // Silently handle script removal errors
           }
         }
       };
     }
-  }, [showRegistration]);
+  }, [showRegistration, handleWidgetError]);
 
   useEffect(() => {
     // Suppress jQuery Migrate warnings
@@ -365,8 +317,6 @@ const BookPage: FC = () => {
           )}
         </AnimatePresence>
       </motion.div>
-
-      <Footer />
     </div>
   );
 };

@@ -478,6 +478,10 @@ export const parallaxEffect = (element: string, speed = 0.5) => {
   });
 };
 
+interface LenisWithRAF extends Lenis {
+  rafId?: number;
+}
+
 // Smooth scroll setup with better error handling
 export function setupSmoothScroll() {
   if (typeof window === 'undefined') return null;
@@ -500,8 +504,7 @@ export function setupSmoothScroll() {
       try {
         lenis.raf(time);
         rafId = requestAnimationFrame(raf);
-      } catch (error) {
-        console.warn('Lenis RAF error:', error);
+      } catch {
         // Fallback to normal scrolling if Lenis fails
         return null;
       }
@@ -510,11 +513,10 @@ export function setupSmoothScroll() {
     rafId = requestAnimationFrame(raf);
 
     // Store the RAF ID for cleanup
-    (lenis as any).rafId = rafId;
+    (lenis as LenisWithRAF).rafId = rafId;
 
     return lenis;
-  } catch (error) {
-    console.warn('Failed to initialize Lenis smooth scroll:', error);
+  } catch {
     return null;
   }
 }
