@@ -2,11 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import * as Sentry from '@sentry/nextjs';
+import { trackEvent } from '@/lib/utils/analytics';
 import styles from './Newsletter.module.css';
-
-// Note: Mindbody widget may show Mixpanel errors in console:
-// "You must name your new library: init(token, config, name)"
-// This is a known issue with Mindbody's internal analytics and doesn't affect functionality.
 
 export default function Newsletter() {
   const widgetContainerRef = useRef<HTMLDivElement>(null);
@@ -121,15 +118,31 @@ export default function Newsletter() {
             const widget = widgetContainerRef.current?.querySelector('healcode-widget');
             if (widget && widget.children.length > 0) {
               setIsLoading(false);
+              // Track successful widget load
+              trackEvent('Newsletter Widget Loaded', {
+                widget_type: 'newsletter',
+                widget_id: 'ec59331b5f7',
+              });
             } else {
               // Wait a bit more
               setTimeout(() => {
                 const widgetCheck = widgetContainerRef.current?.querySelector('healcode-widget');
                 if (widgetCheck && widgetCheck.children.length > 0) {
                   setIsLoading(false);
+                  // Track successful widget load
+                  trackEvent('Newsletter Widget Loaded', {
+                    widget_type: 'newsletter',
+                    widget_id: 'ec59331b5f7',
+                  });
                 } else {
                   setHasError(true);
                   setIsLoading(false);
+                  // Track widget load failure
+                  trackEvent('Newsletter Widget Failed', {
+                    widget_type: 'newsletter',
+                    widget_id: 'ec59331b5f7',
+                    error: 'timeout',
+                  });
                 }
               }, 3000);
             }
@@ -155,6 +168,12 @@ export default function Newsletter() {
     setIsLoading(true);
     setHasError(false);
 
+    // Track retry attempt
+    trackEvent('Newsletter Widget Retry', {
+      widget_type: 'newsletter',
+      widget_id: 'ec59331b5f7',
+    });
+
     // Clear widget container
     if (widgetContainerRef.current) {
       widgetContainerRef.current.innerHTML = '';
@@ -176,6 +195,11 @@ export default function Newsletter() {
 
         setTimeout(() => {
           setIsLoading(false);
+          // Track retry success
+          trackEvent('Newsletter Widget Retry Success', {
+            widget_type: 'newsletter',
+            widget_id: 'ec59331b5f7',
+          });
         }, 2000);
       }
     };

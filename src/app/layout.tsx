@@ -8,6 +8,7 @@ import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButton';
 import { initializeSentryTracking } from '@/lib/utils/sentryTracking';
+import { initializeAnalytics } from '@/lib/utils/analytics';
 import './globals.css';
 
 const geistSans = Geist({
@@ -48,9 +49,10 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // Initialize Sentry tracking on client side
+  // Initialize tracking on client side
   if (typeof window !== 'undefined') {
     initializeSentryTracking();
+    initializeAnalytics(); // Fix Mixpanel "name your new library" error
   }
 
   return (
