@@ -330,6 +330,7 @@ const Benefits: FC = () => {
           fill
           className={styles.benefits__backgroundImage}
           priority
+          sizes="100vw"
         />
         <div className={styles.benefits__backgroundOverlay} />
       </motion.div>
@@ -395,6 +396,7 @@ const Benefits: FC = () => {
                     fill
                     className={styles.benefit__imageElement}
                     priority={index < 2}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className={styles.benefit__imageOverlay} />
 

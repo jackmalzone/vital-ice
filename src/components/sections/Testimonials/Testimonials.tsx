@@ -157,6 +157,7 @@ const Testimonials: FC = () => {
           fill
           className={styles.testimonials__backgroundImage}
           priority
+          sizes="100vw"
         />
         <div className={styles.testimonials__backgroundOverlay} />
       </div>
@@ -194,6 +195,7 @@ const Testimonials: FC = () => {
                   fill
                   className={styles.testimonial__image}
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className={styles.testimonial__imageOverlay} />
 

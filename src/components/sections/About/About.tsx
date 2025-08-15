@@ -16,6 +16,7 @@ const About: FC = () => {
           fill
           className={styles.about__backgroundImage}
           priority
+          sizes="100vw"
         />
         <div className={styles.about__overlay} />
       </div>
