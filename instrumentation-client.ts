@@ -64,7 +64,7 @@ Sentry.init({
   environment: process.env.NODE_ENV,
 
   // Debug mode for development
-  debug: process.env.NODE_ENV === 'development',
+  debug: false, // Disable debug in all environments to prevent warnings
 
   // Capture unhandled promise rejections
   attachStacktrace: true,
