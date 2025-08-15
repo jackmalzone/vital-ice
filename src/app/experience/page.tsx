@@ -14,6 +14,7 @@ import {
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
 import PanelZone from '@/components/ui/PanelZone/PanelZone';
+import { useNavigationLoading } from '@/components/providers/NavigationLoadingProvider';
 import styles from './page.module.css';
 
 const SERVICE_COLORS = {
@@ -134,8 +135,8 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
 
 const ExperiencePage: React.FC = () => {
   const router = useRouter();
+  const { startNavigation } = useNavigationLoading();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isStackedLayout, setIsStackedLayout] = useState<boolean>(true); // Default to stacked layout
 
   // Detect screen size for responsive panel rendering
@@ -172,14 +173,11 @@ const ExperiencePage: React.FC = () => {
   };
 
   const handleServiceSelect = (id: string) => {
-    if (isTransitioning) return;
+    // Start the navigation loading screen
+    startNavigation();
 
-    setIsTransitioning(true);
-
-    // Add a brief delay for the transition animation
-    setTimeout(() => {
-      router.push(`/services/${id}`);
-    }, 300);
+    // Navigate to the service page
+    router.push(`/services/${id}`);
   };
 
   const handleHover = (hoverIndex: number) => {
