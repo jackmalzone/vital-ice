@@ -299,6 +299,8 @@ export const faqData: FAQPage = {
 };
 
 // Helper function to generate structured data script
-export function generateStructuredData(data: Record<string, unknown> | Record<string, unknown>[]): string {
+export function generateStructuredData(
+  data: Record<string, unknown> | Record<string, unknown>[]
+): string {
   return JSON.stringify(data);
 }
