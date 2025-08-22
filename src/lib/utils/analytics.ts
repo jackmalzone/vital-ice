@@ -14,9 +14,87 @@ declare global {
   }
 }
 
+// Suppress specific Mindbody Mixpanel errors
+const suppressMindbodyErrors = () => {
+  if (typeof window === 'undefined') return;
+
+  const originalConsoleError = console.error;
+  const originalError = window.Error;
+
+  // Override Error constructor to catch Mindbody Mixpanel errors
+  window.Error = function (message: string) {
+    if (
+      typeof message === 'string' &&
+      (message.includes('Mixpanel error: You must name your new library') ||
+        message.includes('You must name your new library'))
+    ) {
+      // Return a silent error that won't be logged
+      const silentError = new originalError('Silent Mindbody error');
+      silentError.stack = undefined;
+      return silentError;
+    }
+    return new originalError(message);
+  } as typeof window.Error;
+
+  console.error = (...args) => {
+    // Check if this is the specific Mindbody Mixpanel error (multiple patterns)
+    if (
+      typeof args[0] === 'string' &&
+      (args[0].includes('Mixpanel error: "You must name your new library') ||
+        args[0].includes('Mixpanel error: You must name your new library') ||
+        args[0].includes('You must name your new library'))
+    ) {
+      // Suppress this specific error silently
+      return;
+    }
+
+    // Check if this is a Mindbody-related Mixpanel error
+    if (
+      args.length > 0 &&
+      typeof args[0] === 'string' &&
+      (args[0].includes('mixpanel-2-latest.min.js') ||
+        args[0].includes('application-59ae') ||
+        args[0].includes('mindbodyonline.com') ||
+        args[0].includes('healcode.js'))
+    ) {
+      // Suppress Mindbody-related Mixpanel errors
+      return;
+    }
+
+    // Check if the error stack trace contains Mindbody-related files
+    if (
+      args.length > 0 &&
+      typeof args[0] === 'string' &&
+      args[0].includes('Mixpanel error') &&
+      args.some(
+        arg =>
+          typeof arg === 'string' &&
+          (arg.includes('healcode.js') ||
+            arg.includes('application-59ae') ||
+            arg.includes('mindbodyonline.com'))
+      )
+    ) {
+      // Suppress Mindbody-related Mixpanel errors
+      return;
+    }
+
+    // Pass through all other errors normally
+    originalConsoleError.apply(console, args);
+  };
+
+  // Return cleanup function
+  return () => {
+    console.error = originalConsoleError;
+    window.Error = originalError;
+  };
+};
+
 // Initialize Mixpanel with proper configuration
 export const initializeAnalytics = () => {
   if (typeof window === 'undefined') return;
+
+  // Set up error suppression
+  const cleanupErrorSuppression = suppressMindbodyErrors();
 
   // Check if Mixpanel is already loaded
   if (window.mixpanel) {
@@ -37,6 +115,9 @@ export const initializeAnalytics = () => {
       console.warn('Mixpanel reinitialization failed:', error);
     }
   }
+
+  // Return cleanup function for potential use
+  return cleanupErrorSuppression;
 };
 
 // Track events

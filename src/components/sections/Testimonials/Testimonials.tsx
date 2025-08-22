@@ -152,7 +152,7 @@ const Testimonials: FC = () => {
       {/* Background Image */}
       <div className={styles.testimonials__background}>
         <Image
-          src="/images/texture_blacksand.jpg"
+          src="https://media.vitalicesf.com/texture_blacksand.jpg"
           alt="Black sand texture background"
           fill
           className={styles.testimonials__backgroundImage}

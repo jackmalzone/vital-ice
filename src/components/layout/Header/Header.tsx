@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { servicesData } from '@/lib/data/services';
 import { springConfigs } from '@/lib/utils/animations';
-import { useNavigationLoading } from '@/components/providers/NavigationLoadingProvider';
+
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
@@ -18,7 +18,6 @@ const NAV_LINKS = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { startNavigation } = useNavigationLoading();
 
   // Determine logo color based on current service page
   const getLogoColor = () => {
@@ -43,11 +42,6 @@ export default function Header() {
         href="/"
         className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`}
         aria-label="Home"
-        onClick={() => {
-          if (pathname !== '/') {
-            startNavigation();
-          }
-        }}
       >
         <VILogo className={styles.logo} color={getLogoColor()} />
       </Link>
@@ -74,11 +68,6 @@ export default function Header() {
                 <Link
                   href={link.href}
                   className={`${styles.desktopNavLink} ${pathname === link.href ? styles.active : ''}`}
-                  onClick={() => {
-                    if (pathname !== link.href) {
-                      startNavigation();
-                    }
-                  }}
                 >
                   {link.label}
                 </Link>
@@ -134,9 +123,6 @@ export default function Header() {
                       className={`${styles.overlayNavLink} ${pathname === link.href ? styles.active : ''}`}
                       onClick={() => {
                         closeMenu();
-                        if (pathname !== link.href) {
-                          startNavigation();
-                        }
                       }}
                     >
                       {link.label}

@@ -58,7 +58,7 @@ const RollingBookButton: FC = () => {
       handleScroll();
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     handleScroll(); // Check on mount
 

@@ -47,9 +47,12 @@ export default function NavigationLoadingProvider({ children }: NavigationLoadin
       setIsLoading(true);
 
       // Auto-stop loading after 800ms
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setIsLoading(false);
       }, 800);
+
+      // Return cleanup function
+      return () => clearTimeout(timer);
     }
   }, [hasInitialized, isInitialLoad, isLoading]);
 

@@ -97,8 +97,9 @@ const BookPage: FC = () => {
 
     script.onload = () => {
       // Suppress jQuery errors
-      if (typeof window !== 'undefined' && (window as WindowWithJQuery).jQuery) {
-        (window as WindowWithJQuery).jQuery!.fn.error = function () {
+      const jQuery = (window as WindowWithJQuery).jQuery;
+      if (typeof window !== 'undefined' && jQuery && jQuery.fn) {
+        jQuery.fn.error = function () {
           return this;
         };
       }
@@ -153,8 +154,9 @@ const BookPage: FC = () => {
         window.addEventListener('error', handleWidgetError);
 
         // Suppress jQuery errors related to null properties
-        if ((window as WindowWithJQuery).jQuery) {
-          (window as WindowWithJQuery).jQuery!.fn.error = function () {
+        const jQuery = (window as WindowWithJQuery).jQuery;
+        if (jQuery && jQuery.fn) {
+          jQuery.fn.error = function () {
             return this;
           };
         }

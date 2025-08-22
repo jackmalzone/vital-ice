@@ -32,7 +32,7 @@ const Benefits: FC = () => {
         clinical: 'Clinically studied to enhance resilience and stress regulation.',
         protocolId: 'COLD-01',
       },
-      image: '/images/coldplunge_woman.jpg',
+      image: 'https://media.vitalicesf.com/coldplunge_woman.jpg',
       alt: 'Frozen lake scene with surface breaking',
       icon: (
         <svg
@@ -69,7 +69,7 @@ const Benefits: FC = () => {
         clinical: 'Evidence-based approach to cellular regeneration and detoxification.',
         protocolId: 'INFR-02',
       },
-      image: '/images/sauna-infraredwide.jpg',
+      image: 'https://media.vitalicesf.com/sauna-infraredwide.jpg',
       alt: 'Warm interior glow with cedar panels',
       icon: (
         <svg
@@ -105,7 +105,7 @@ const Benefits: FC = () => {
         clinical: 'Centuries-old practice for cardiovascular health and stress relief.',
         protocolId: 'TRAD-03',
       },
-      image: '/images/sauna-traditional.jpg',
+      image: 'https://media.vitalicesf.com/sauna-traditional.jpg',
       alt: 'Steam-filled dark wood with water hissing on rock',
       icon: (
         <svg
@@ -160,7 +160,7 @@ const Benefits: FC = () => {
         clinical: 'Photobiomodulation for tissue repair and cellular regeneration.',
         protocolId: 'RLT-04',
       },
-      image: '/images/sunset-redhorizon.jpg',
+      image: 'https://media.vitalicesf.com/sunset-redhorizon.jpg',
       alt: 'Abstract light pulses or cellular microshot',
       icon: (
         <svg
@@ -196,7 +196,7 @@ const Benefits: FC = () => {
         clinical: 'Evidence-based approach to muscle recovery and tension relief.',
         protocolId: 'PERC-05',
       },
-      image: '/images/percussion_bicep.jpg',
+      image: 'https://media.vitalicesf.com/percussion_bicep.jpg',
       alt: 'Percussion massage device on muscle',
       icon: (
         <svg
@@ -252,7 +252,7 @@ const Benefits: FC = () => {
         clinical: 'Sequential compression for enhanced recovery and circulation.',
         protocolId: 'COMP-06',
       },
-      image: '/images/cells-bloodcells.jpg',
+      image: 'https://media.vitalicesf.com/cells-bloodcells.jpg',
       alt: 'Compression boots on legs',
       icon: (
         <svg
@@ -325,7 +325,7 @@ const Benefits: FC = () => {
       {/* Background Image */}
       <motion.div className={styles.benefits__background} style={{ y: backgroundY }}>
         <Image
-          src="/images/texture_blacksand.jpg"
+          src="https://media.vitalicesf.com/texture_blacksand.jpg"
           alt="Black sand texture background"
           fill
           className={styles.benefits__backgroundImage}

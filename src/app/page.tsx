@@ -1,20 +1,9 @@
-import Hero from '@/components/sections/Hero/Hero';
-import Services from '@/components/sections/Benefits/Benefits';
-import Testimonials from '@/components/sections/Testimonials/Testimonials';
-import NewsletterWrapper from '@/components/sections/Newsletter/NewsletterWrapper';
-import MissionStatement from '@/components/sections/MissionStatement/MissionStatement';
-import styles from './page.module.css';
+import { Metadata } from 'next';
+import { mergeMetadata } from '@/lib/seo/metadata';
+import HomePage from '@/components/pages/HomePage/HomePage';
+
+export const metadata: Metadata = mergeMetadata('home');
 
 export default function Home() {
-  return (
-    <>
-      <main className={styles.mainContainer}>
-        <Hero />
-        <MissionStatement />
-        <Services />
-        <Testimonials />
-        <NewsletterWrapper />
-      </main>
-    </>
-  );
+  return <HomePage />;
 }

@@ -11,7 +11,7 @@ const About: FC = () => {
       {/* Background Image */}
       <div className={styles.about__background}>
         <Image
-          src="/images/vision-forest.jpg"
+          src="https://media.vitalicesf.com/vision-forest.jpg"
           alt="Visionary forest scene"
           fill
           className={styles.about__backgroundImage}

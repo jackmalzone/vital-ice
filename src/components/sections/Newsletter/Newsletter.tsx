@@ -7,6 +7,7 @@ import styles from './Newsletter.module.css';
 
 export default function Newsletter() {
   const widgetContainerRef = useRef<HTMLDivElement>(null);
+  const widgetCreatedRef = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -24,19 +25,7 @@ export default function Newsletter() {
       (window as { jQuery?: { migrateMute?: boolean } }).jQuery!.migrateMute = true;
     }
 
-    // Override JSON.parse to prevent errors from Mindbody widgets
-    const originalJSONParse = JSON.parse;
-    JSON.parse = function (text, reviver) {
-      try {
-        return originalJSONParse.call(this, text, reviver);
-      } catch (error) {
-        // If it's a Mindbody-related error, suppress it
-        if (error instanceof Error && error.message && error.message.includes('not valid JSON')) {
-          return {}; // Return empty object as fallback
-        }
-        throw error; // Re-throw other errors
-      }
-    };
+    // Don't override JSON.parse as it's causing issues with widget functionality
 
     const loadWidget = () => {
       return Sentry.startSpan(
@@ -99,19 +88,25 @@ export default function Newsletter() {
     };
 
     const createWidget = () => {
+      // Prevent duplicate widget creation
+      if (widgetCreatedRef.current) {
+        return;
+      }
+
       try {
         if (widgetContainerRef.current) {
-          // Use the simplest approach - just set innerHTML with the exact HTML
-          widgetContainerRef.current.innerHTML = `
-            <healcode-widget 
-              data-type="prospects" 
-              data-widget-partner="object" 
-              data-widget-id="ec59331b5f7" 
-              data-widget-version="0"
-              data-widget-config="{}"
-              data-widget-options="{}">
-            </healcode-widget>
-          `;
+          // Clear any existing content
+          widgetContainerRef.current.innerHTML = '';
+
+          // Create widget element
+          const widgetElement = document.createElement('healcode-widget');
+          widgetElement.setAttribute('data-type', 'prospects');
+          widgetElement.setAttribute('data-widget-partner', 'object');
+          widgetElement.setAttribute('data-widget-id', 'ec59331b5f7');
+          widgetElement.setAttribute('data-widget-version', '0');
+
+          widgetContainerRef.current.appendChild(widgetElement);
+          widgetCreatedRef.current = true;
 
           // Check if widget loaded
           setTimeout(() => {
@@ -159,14 +154,15 @@ export default function Newsletter() {
 
     // Cleanup function
     return () => {
-      // Restore original JSON.parse
-      JSON.parse = originalJSONParse;
+      // Reset widget creation tracking
+      widgetCreatedRef.current = false;
     };
   }, []);
 
   const handleRetry = () => {
     setIsLoading(true);
     setHasError(false);
+    widgetCreatedRef.current = false; // Reset widget creation tracking
 
     // Track retry attempt
     trackEvent('Newsletter Widget Retry', {

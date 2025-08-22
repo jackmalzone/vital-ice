@@ -14,7 +14,7 @@ import {
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
 import PanelZone from '@/components/ui/PanelZone/PanelZone';
-import { useNavigationLoading } from '@/components/providers/NavigationLoadingProvider';
+// Removed unused import
 import styles from './page.module.css';
 
 const SERVICE_COLORS = {
@@ -48,7 +48,7 @@ interface ServiceNodeProps {
   index: number;
   onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (id: string) => void;
+  onSelect: (_id: string) => void;
   isHovered: boolean;
 }
 
@@ -135,7 +135,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
 
 const ExperiencePage: React.FC = () => {
   const router = useRouter();
-  const { startNavigation } = useNavigationLoading();
+  // Removed unused startNavigation
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isStackedLayout, setIsStackedLayout] = useState<boolean>(true); // Default to stacked layout
 
@@ -173,10 +173,7 @@ const ExperiencePage: React.FC = () => {
   };
 
   const handleServiceSelect = (id: string) => {
-    // Start the navigation loading screen
-    startNavigation();
-
-    // Navigate to the service page
+    // Navigate to the service page - let Next.js handle the loading naturally
     router.push(`/services/${id}`);
   };
 
