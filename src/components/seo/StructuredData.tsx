@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { generateStructuredData } from '@/lib/seo/structured-data';
 
 interface StructuredDataProps {
-  data: Record<string, unknown>;
+  data: Record<string, unknown> | Record<string, unknown>[];
   type?: 'application/ld+json' | 'application/json';
 }
 
