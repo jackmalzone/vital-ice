@@ -365,30 +365,6 @@ export const pageMetadata: Record<string, Metadata> = {
       images: ['https://media.vitalicesf.com/seo/desktop-faq.png'],
     },
   },
-  contact: {
-    title: 'Contact Vital Ice | Get in Touch',
-    description:
-      'Contact Vital Ice for questions, bookings, or partnerships. Located in San Francisco. Reach out to start your wellness journey.',
-    openGraph: {
-      title: 'Contact Vital Ice | Get in Touch',
-      description:
-        'Contact Vital Ice for questions, bookings, or partnerships. Located in San Francisco. Reach out to start your wellness journey.',
-      images: [
-        {
-          url: 'https://media.vitalicesf.com/seo/desktop-contact.png',
-          width: 1200,
-          height: 630,
-          alt: 'Contact Vital Ice - Get in touch with us',
-        },
-      ],
-    },
-    twitter: {
-      title: 'Contact Vital Ice | Get in Touch',
-      description:
-        'Contact Vital Ice for questions, bookings, or partnerships. Located in San Francisco. Reach out to start your wellness journey.',
-      images: ['https://media.vitalicesf.com/seo/desktop-contact.png'],
-    },
-  },
   partners: {
     title: 'Partners | Vital Ice Collaborations',
     description:
