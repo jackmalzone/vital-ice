@@ -36,7 +36,7 @@ const goldPartners: Partner[] = [
   {
     id: 'hyperice',
     name: 'Hyperice',
-    logo: '/images/partners/hyperice-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/hyperice-logo.png',
     description: 'Cutting-edge recovery tools we trust and use on site',
     website: 'https://hyperice.com',
     tier: 'gold',
@@ -45,7 +45,7 @@ const goldPartners: Partner[] = [
   {
     id: 'onsen',
     name: 'Onsen',
-    logo: '/images/partners/onsen-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/onsen-logo.png',
     description: 'Sustainable towel & robe company with Japanese craftsmanship roots',
     website: 'https://onsen.co',
     tier: 'gold',
@@ -54,7 +54,7 @@ const goldPartners: Partner[] = [
   {
     id: 'kion',
     name: 'Kion',
-    logo: '/images/partners/kion-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/kion-logo.png',
     description: 'High-quality amino acids & recovery-focused supplements',
     website: 'https://getkion.com',
     tier: 'gold',
@@ -63,7 +63,7 @@ const goldPartners: Partner[] = [
   {
     id: 'therabody',
     name: 'Therabody',
-    logo: '/images/partners/therabody-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/therabody-logo.png',
     description: 'Technology-forward recovery partner offering percussion tools',
     website: 'https://therabody.com',
     tier: 'gold',
@@ -72,7 +72,7 @@ const goldPartners: Partner[] = [
   {
     id: 'clearlight',
     name: 'Clearlight Saunas',
-    logo: '/images/partners/clearlight-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/clearlight-logo.png',
     description: 'Infrared sauna provider aligned with our standards',
     website: 'https://infraredsauna.com',
     tier: 'gold',
@@ -85,7 +85,7 @@ const silverPartners: Partner[] = [
   {
     id: 'bala',
     name: 'Bala',
-    logo: '/images/partners/bala-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/bala-logo.png',
     description: 'Weighted fitness accessories for pre-heat routines',
     website: 'https://balabala.com',
     tier: 'silver',
@@ -94,7 +94,7 @@ const silverPartners: Partner[] = [
   {
     id: 'elemental-labs',
     name: 'Elemental Labs',
-    logo: '/images/partners/elemental-labs-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/elemental-labs-logo.png',
     description: 'Electrolytes & hydration science',
     website: 'https://elementallabs.com',
     tier: 'silver',
@@ -103,7 +103,7 @@ const silverPartners: Partner[] = [
   {
     id: 'natural-stacks',
     name: 'Natural Stacks',
-    logo: '/images/partners/natural-stacks-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/natural-stacks-logo.png',
     description: 'Brain-forward supplements with clean sourcing',
     website: 'https://naturalstacks.com',
     tier: 'silver',
@@ -112,7 +112,7 @@ const silverPartners: Partner[] = [
   {
     id: 'four-sigmatic',
     name: 'Four Sigmatic',
-    logo: '/images/partners/four-sigmatic-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/four-sigmatic-logo.png',
     description: 'Mushroom-based wellness drinks',
     website: 'https://foursigmatic.com',
     tier: 'silver',
@@ -121,7 +121,7 @@ const silverPartners: Partner[] = [
   {
     id: 'alo-moves',
     name: 'Alo Moves',
-    logo: '/images/partners/alo-moves-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/alo-moves-logo.png',
     description: 'At-home yoga & mobility sessions we recommend',
     website: 'https://alomoves.com',
     tier: 'silver',
@@ -134,7 +134,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'equinox',
     name: 'Equinox',
-    logo: '/images/partners/equinox-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/equinox-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -143,7 +143,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'laird-superfood',
     name: 'Laird Superfood',
-    logo: '/images/partners/laird-superfood-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/laird-superfood-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -152,7 +152,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'whoop',
     name: 'WHOOP',
-    logo: '/images/partners/whoop-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/whoop-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -161,7 +161,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'calm',
     name: 'Calm',
-    logo: '/images/partners/calm-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/calm-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -170,7 +170,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'vuori',
     name: 'Vuori',
-    logo: '/images/partners/vuori-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/vuori-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -179,7 +179,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'seed',
     name: 'Seed',
-    logo: '/images/partners/seed-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/seed-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -188,7 +188,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'eight-sleep',
     name: 'Eight Sleep',
-    logo: '/images/partners/eight-sleep-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/eight-sleep-logo.png',
     description: '',
     website: '',
     tier: 'bronze',
@@ -197,7 +197,7 @@ const bronzePartners: Partner[] = [
   {
     id: 'athletic-brewing',
     name: 'Athletic Brewing Co.',
-    logo: '/images/partners/athletic-brewing-logo.png',
+    logo: 'https://media.vitalicesf.com/partners/athletic-brewing-logo.png',
     description: '',
     website: '',
     tier: 'bronze',

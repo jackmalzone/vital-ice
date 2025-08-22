@@ -17,7 +17,7 @@
   bottom: 0;
   background:
     linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('/images/stone_black-shine.jpg') center/cover no-repeat;
+    url('https://media.vitalicesf.com/stone_black-shine.jpg') center/cover no-repeat;
   opacity: 0.6;
   z-index: 0;
   pointer-events: none;

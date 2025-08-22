@@ -27,9 +27,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Controlled cold exposure for recovery & mental resilience',
     description:
       'An ancient practice, reimagined for modern recovery. Historic traditions from Nordic cultures and Japanese onsen, cold water immersion has been used for centuries to promote resilience, healing, and longevity. Cold plunging involves submerging the body in water typically between 39-55°F for a short duration (1-10 minutes at a time). The cold stimulates the nervous system, constricts blood vessels, and triggers powerful physiological responses.',
-    backgroundImage: '/images/coldplunge_woman.jpg',
-    heroImage: '/images/ice-vitalblue.jpg',
-    textureImage: '/images/ice_vertical-texture.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/coldplunge_woman.jpg',
+    heroImage: 'https://media.vitalicesf.com/ice-vitalblue.jpg',
+    textureImage: 'https://media.vitalicesf.com/ice_vertical-texture.jpg',
     accentColor: '#0040FF',
     benefits: [
       {
@@ -88,9 +88,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Deep tissue warming for detoxification & relaxation',
     description:
       'Infrared saunas introduce a modern, evidence-based approach to the ancient heat ritual. Unlike traditional saunas, which heat the air around you, infrared saunas use specific wavelengths of light, typically in the far-infrared range to warm the body directly. This allows for a deep, penetrating heat that stimulates the body at lower ambient temperatures (typically 120-150°F), making the experience more accessible and less taxing on the cardiovascular system.',
-    backgroundImage: '/images/sauna-infraredwide.jpg',
-    heroImage: '/images/sauna-infraredwide.jpg',
-    textureImage: '/images/embers_closeup.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/sauna-infraredwide.jpg',
+    heroImage: 'https://media.vitalicesf.com/sauna-infraredwide.jpg',
+    textureImage: 'https://media.vitalicesf.com/embers_closeup.jpg',
     accentColor: '#E74C3C',
     benefits: [
       {
@@ -150,9 +150,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Classic Finnish-style dry heat therapy',
     description:
       'Rooted in centuries of Nordic tradition, the traditional sauna is a centuries old method of recovery and revitalization. Heated between 160-200°F, it uses dry air and radiant heat to create a full-body sweat experience that promotes deep relaxation and physiological reset.',
-    backgroundImage: '/images/sauna-traditional.jpg',
-    heroImage: '/images/sauna-traditional.jpg',
-    textureImage: '/images/lavastones.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/sauna-traditional.jpg',
+    heroImage: 'https://media.vitalicesf.com/sauna-traditional.jpg',
+    textureImage: 'https://media.vitalicesf.com/lavastones.jpg',
     accentColor: '#F39C12',
     benefits: [
       {
@@ -211,9 +211,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Advanced compression therapy for circulation & recovery',
     description:
       'Compression boot therapy uses advanced pneumatic compression technology to enhance circulation and accelerate recovery. This non-invasive treatment applies rhythmic pressure to your legs, mimicking the natural muscle pump action to improve blood flow and lymphatic drainage. Perfect for athletes, active individuals, or anyone seeking improved circulation and faster recovery.',
-    backgroundImage: '/images/cells-bloodcells.jpg',
-    heroImage: '/images/stone_whitesky.jpg',
-    textureImage: '/images/texture_blacksand-landscape.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/cells-bloodcells.jpg',
+    heroImage: 'https://media.vitalicesf.com/stone_whitesky.jpg',
+    textureImage: 'https://media.vitalicesf.com/texture_blacksand-landscape.jpg',
     accentColor: '#E0E0E0',
     benefits: [
       {
@@ -271,9 +271,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Deep tissue percussion therapy for muscle recovery',
     description:
       'Percussion massage therapy uses advanced percussive technology to deliver deep tissue massage that targets muscle tension and promotes recovery. This innovative therapy combines the benefits of traditional massage with modern technology to provide more consistent and effective treatment. The percussive action helps break up muscle knots, improve blood flow, and accelerate recovery.',
-    backgroundImage: '/images/percussion_bicep.jpg',
-    heroImage: '/images/texture_blackmarble-cracks.jpg',
-    textureImage: '/images/texture_blackrock.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/percussion_bicep.jpg',
+    heroImage: 'https://media.vitalicesf.com/texture_blackmarble-cracks.jpg',
+    textureImage: 'https://media.vitalicesf.com/texture_blackrock.jpg',
     accentColor: '#2ECC71',
     benefits: [
       {
@@ -331,9 +331,9 @@ export const servicesData: Record<string, ServiceData> = {
     subtitle: 'Therapeutic light for cellular regeneration & skin health',
     description:
       "Red Light Therapy, scientifically known as photobiomodulation, is a non-invasive treatment that uses specific wavelengths of red and near-infrared light to stimulate cellular function and support tissue repair. Unlike ultraviolet light, which can damage the skin, red and infrared light penetrate safely beneath the surface — reaching muscles, joints, and even mitochondria (your cells' energy engine).",
-    backgroundImage: '/images/redlight_mask.jpg',
-    heroImage: '/images/redlight_jellyfish.jpg',
-    textureImage: '/images/light_blurryhues.jpg',
+    backgroundImage: 'https://media.vitalicesf.com/redlight_mask.jpg',
+    heroImage: 'https://media.vitalicesf.com/redlight_jellyfish.jpg',
+    textureImage: 'https://media.vitalicesf.com/light_blurryhues.jpg',
     accentColor: '#E91E63',
     benefits: [
       {

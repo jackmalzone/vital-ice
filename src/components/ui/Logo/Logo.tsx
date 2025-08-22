@@ -15,7 +15,7 @@ const Logo: FC<LogoProps> = ({ className = '', width, height, priority = false }
   return (
     <div className={`${styles.logo} ${className}`}>
       <Image
-        src="/images/logo-dark.png"
+        src="https://media.vitalicesf.com/logo-dark.png"
         alt="Vital Ice Logo"
         width={width || 300}
         height={height || 150}

@@ -45,7 +45,7 @@ const PerformanceDemoPage: FC = () => {
                   medium: '/videos/ambient-water-medium.mp4',
                   low: '/videos/ambient-water-low.mp4',
                 }}
-                imageSource="/images/hero-ambient-water.jpg"
+                imageSource="https://media.vitalicesf.com/hero-ambient-water.jpg"
                 alt="Ambient water background"
                 className={styles.testMedia}
               />
@@ -59,7 +59,7 @@ const PerformanceDemoPage: FC = () => {
                   medium: '/videos/indus-valley-ambient-720p.mp4',
                   low: '/videos/indus-valley-ambient-480p.mp4',
                 }}
-                imageSource="/images/indusValley.png"
+                imageSource="https://media.vitalicesf.com/indusValley.png"
                 alt="Indus Valley background"
                 className={styles.testMedia}
               />

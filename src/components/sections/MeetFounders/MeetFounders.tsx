@@ -10,7 +10,7 @@ const MeetFounders: FC = () => {
     {
       name: 'Sean',
       role: 'Co-Founder',
-      image: '/images/founder-sean.png',
+      image: 'https://media.vitalicesf.com/founder-sean.png',
       philosophy:
         "Recovery isn't just about physical healing—it's about creating moments of presence and clarity in our fast-paced world. I believe everyone deserves access to these ancient wellness practices reimagined for modern life.",
       linkedin: 'https://linkedin.com/in/sean-vitalice',
@@ -18,7 +18,7 @@ const MeetFounders: FC = () => {
     {
       name: 'Stephen',
       role: 'Co-Founder',
-      image: '/images/founder-stephen.jpg',
+      image: 'https://media.vitalicesf.com/founder-stephen.jpg',
       philosophy:
         "Technology should enhance our connection to natural healing, not replace it. We're building the bridge between cutting-edge wellness science and time-tested recovery practices.",
       linkedin: 'https://linkedin.com/in/stephen-vitalice',
@@ -26,7 +26,7 @@ const MeetFounders: FC = () => {
     {
       name: 'Barry',
       role: 'Co-Founder',
-      image: '/images/founder-barry.jpg',
+      image: 'https://media.vitalicesf.com/founder-barry.jpg',
       philosophy:
         'Community is the foundation of sustainable wellness. When people come together with shared intention, the healing potential multiplies exponentially.',
       linkedin: 'https://linkedin.com/in/barry-vitalice',

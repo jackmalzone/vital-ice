@@ -137,7 +137,7 @@ export const vitalIceBusiness: LocalBusiness = {
   ],
   image: [
     'https://media.vitalicesf.com/seo/desktop-home.png',
-    'https://vitalicesf.com/images/logo-dark.png',
+    'https://media.vitalicesf.com/logo-dark.png',
   ],
   priceRange: '$$',
   areaServed: {

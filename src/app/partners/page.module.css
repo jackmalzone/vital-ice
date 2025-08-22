@@ -33,7 +33,7 @@
   right: 0;
   bottom: 0;
   background:
-    url('/images/stone_whitesky.jpg') center 30% / cover,
+    url('https://media.vitalicesf.com/stone_whitesky.jpg') center 30% / cover,
     radial-gradient(circle at 20% 30%, rgba(0, 183, 181, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(158, 199, 197, 0.08) 0%, transparent 50%);
   background-blend-mode: overlay;
@@ -139,7 +139,7 @@
   right: 0;
   bottom: 0;
   background:
-    url('/images/ice_golden-reflections.jpg') center/cover,
+    url('https://media.vitalicesf.com/ice_golden-reflections.jpg') center/cover,
     radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 70% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 50%);
   background-blend-mode: overlay;
@@ -296,7 +296,7 @@
   right: 0;
   bottom: 0;
   background:
-    url('/images/ice_silver-texture.jpg') center/cover,
+    url('https://media.vitalicesf.com/ice_silver-texture.jpg') center/cover,
     radial-gradient(circle at 20% 40%, rgba(192, 192, 192, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 80% 60%, rgba(169, 169, 169, 0.08) 0%, transparent 50%);
   background-blend-mode: overlay;
@@ -384,7 +384,7 @@
   right: 0;
   bottom: 0;
   background:
-    url('/images/water_golden-wave.jpg') center/cover,
+    url('https://media.vitalicesf.com/water_golden-wave.jpg') center/cover,
     radial-gradient(circle at 30% 30%, rgba(205, 127, 50, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 70% 70%, rgba(184, 115, 51, 0.08) 0%, transparent 50%);
   background-blend-mode: overlay;
@@ -524,7 +524,7 @@
   right: 0;
   bottom: 0;
   background:
-    url('/images/texture_topographic-smooth.jpg') center/cover,
+    url('https://media.vitalicesf.com/texture_topographic-smooth.jpg') center/cover,
     radial-gradient(circle at 20% 50%, rgba(0, 183, 181, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 50%, rgba(158, 199, 197, 0.05) 0%, transparent 50%);
   background-blend-mode: overlay;
