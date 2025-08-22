@@ -152,7 +152,7 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/api
 ```bash
 # .env.staging
 NODE_ENV=staging
-NEXT_PUBLIC_API_URL=https://staging.vitalice.com/api
+NEXT_PUBLIC_API_URL=https://staging.vitalicesf.com/api
 ```
 
 #### **Production**
@@ -160,7 +160,7 @@ NEXT_PUBLIC_API_URL=https://staging.vitalice.com/api
 ```bash
 # .env.production
 NODE_ENV=production
-NEXT_PUBLIC_API_URL=https://vitalice.com/api
+NEXT_PUBLIC_API_URL=https://vitalicesf.com/api
 ```
 
 ## 📊 Performance Monitoring

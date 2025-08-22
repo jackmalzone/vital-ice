@@ -71,7 +71,7 @@ export const vitalIceBusiness: LocalBusiness = {
   name: 'Vital Ice',
   description:
     'Recovery and wellness through cold therapy, infrared sauna, and traditional healing practices.',
-  url: 'https://vitalice.com',
+  url: 'https://vitalicesf.com',
   telephone: '+1-415-555-0123', // Update with actual phone number
   address: {
     '@type': 'PostalAddress',
@@ -137,7 +137,7 @@ export const vitalIceBusiness: LocalBusiness = {
   ],
   image: [
     'https://media.vitalicesf.com/seo/desktop-home.png',
-    'https://vitalice.com/images/logo-dark.png',
+    'https://vitalicesf.com/images/logo-dark.png',
   ],
   priceRange: '$$',
   areaServed: {

@@ -28,14 +28,14 @@ export const baseMetadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://vitalice.com'),
+  metadataBase: new URL('https://vitalicesf.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://vitalice.com',
+    url: 'https://vitalicesf.com',
     siteName: 'Vital Ice',
     title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
     description:

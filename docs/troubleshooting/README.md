@@ -338,10 +338,10 @@ const videoUrl = `${cdnUrl}/videos/${filename}`;
 
 ```bash
 # Run Lighthouse audit
-npx lighthouse https://vitalice.com --output html --output-path ./lighthouse-report.html
+npx lighthouse https://vitalicesf.com --output html --output-path ./lighthouse-report.html
 
 # Check specific metrics
-npx lighthouse https://vitalice.com --only-categories=performance
+npx lighthouse https://vitalicesf.com --only-categories=performance
 ```
 
 ### **Core Web Vitals**

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/', '/_next/', '/private/'],
     },
-    sitemap: 'https://vitalice.com/sitemap.xml',
+    sitemap: 'https://vitalicesf.com/sitemap.xml',
   };
 }

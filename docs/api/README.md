@@ -9,7 +9,7 @@ This document provides comprehensive API documentation for the Vital Ice website
 ### **Base URL**
 
 - **Development**: `http://localhost:3000/api`
-- **Production**: `https://vitalice.com/api`
+- **Production**: `https://vitalicesf.com/api`
 
 ### **Authentication**
 
