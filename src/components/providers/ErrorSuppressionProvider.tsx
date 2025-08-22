@@ -15,7 +15,7 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
     const originalError = window.Error;
 
     // Override Error constructor completely
-    const CustomError = function (message?: string, ...args: unknown[]) {
+    const CustomError = function (message?: string, options?: ErrorOptions) {
       if (typeof message === 'string') {
         const msg = message.toLowerCase();
         if (
@@ -35,7 +35,7 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
           return silentError;
         }
       }
-      return new originalError(message, ...args);
+      return new originalError(message, options);
     } as typeof Error;
 
     // Copy Error constructor properties
