@@ -4,14 +4,10 @@
 declare global {
   interface Window {
     mixpanel?: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       init: (token: string, config?: Record<string, unknown>, name?: string) => void;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       track: (event: string, properties?: Record<string, unknown>) => void;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       identify: (id: string) => void;
       people: {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set: (properties: Record<string, unknown>) => void;
       };
     };

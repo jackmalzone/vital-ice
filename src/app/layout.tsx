@@ -152,7 +152,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* Preload critical assets */}
-        <link rel="preload" href="https://media.vitalicesf.com/logo-dark.png" as="image" type="image/png" />
+        <link
+          rel="preload"
+          href="https://media.vitalicesf.com/logo-dark.png"
+          as="image"
+          type="image/png"
+        />
         <link
           rel="preload"
           href="https://media.vitalicesf.com/coldplunge_woman.jpg"

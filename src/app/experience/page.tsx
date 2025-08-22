@@ -56,6 +56,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   service,
   angle,
   radius,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   index, // Used in transition delay calculation
   onHover,
   onLeave,
