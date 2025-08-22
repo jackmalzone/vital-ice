@@ -15,7 +15,7 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
     const originalError = window.Error;
 
     // Override Error constructor completely
-    window.Error = function (message, ...args) {
+    const CustomError = function (message?: string, ...args: unknown[]) {
       if (typeof message === 'string') {
         const msg = message.toLowerCase();
         if (
@@ -36,7 +36,14 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
         }
       }
       return new originalError(message, ...args);
-    };
+    } as typeof Error;
+
+    // Copy Error constructor properties
+    CustomError.captureStackTrace = Error.captureStackTrace;
+    CustomError.prepareStackTrace = Error.prepareStackTrace;
+    CustomError.stackTraceLimit = Error.stackTraceLimit;
+
+    window.Error = CustomError;
 
     // Nuclear console.error override
     console.error = function (...args) {
