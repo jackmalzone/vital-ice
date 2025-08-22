@@ -14,6 +14,7 @@ interface ServiceData {
   heroImage: string;
   textureImage?: string;
   accentColor: string;
+  tagline: string;
   benefits: Array<{
     title: string;
     description: string;
@@ -170,9 +171,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <blockquote className={styles.callout__quote}>
-              &ldquo;Step in cold. Step out clear.&rdquo;
-            </blockquote>
+            <blockquote className={styles.callout__quote}>&ldquo;{data.tagline}&rdquo;</blockquote>
             <div className={styles.callout__accent} style={{ backgroundColor: data.accentColor }} />
           </motion.div>
         </div>
@@ -232,13 +231,6 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
         viewport={{ once: true }}
       >
         <div className={styles.cta__container}>
-          <div className={styles.cta__background}>
-            <div
-              className={styles.cta__image}
-              style={{ backgroundImage: `url(${data.heroImage})` }}
-            />
-            <div className={styles.cta__overlay} />
-          </div>
           <div className={styles.cta__content}>
             <h2 className={styles.cta__title}>{data.ctaTitle}</h2>
             <p className={styles.cta__text}>{data.ctaText}</p>
@@ -247,7 +239,7 @@ const ServiceTemplate: FC<ServiceTemplateProps> = ({ data }) => {
               style={{ backgroundColor: data.accentColor }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open('https://mindbody.com', '_blank')}
+              onClick={() => (window.location.href = '/book')}
             >
               Book Now
             </motion.button>

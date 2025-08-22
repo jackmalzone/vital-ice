@@ -25,7 +25,11 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
           msg.includes('jquery') ||
           msg.includes('invalid storage entry') ||
           msg.includes('not valid json') ||
-          msg.includes('message channel closed')
+          msg.includes('message channel closed') ||
+          msg.includes('site.webmanifest') ||
+          msg.includes('manifest fetch') ||
+          msg.includes('429') ||
+          msg.includes('403')
         ) {
           // Return a completely silent error with no message
           const silentError = new originalError('');
@@ -63,8 +67,12 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
         allArgs.includes('message channel closed') ||
         allArgs.includes('silent error') ||
         allArgs.includes('429') ||
+        allArgs.includes('403') ||
         allArgs.includes('sentry') ||
-        allArgs.includes('ingest.us.sentry.io')
+        allArgs.includes('ingest.us.sentry.io') ||
+        allArgs.includes('site.webmanifest') ||
+        allArgs.includes('manifest fetch') ||
+        allArgs.includes('too many requests')
       ) {
         return; // Suppress completely
       }
@@ -84,7 +92,11 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
         allArgs.includes('mixpanel') ||
         allArgs.includes('mindbody') ||
         allArgs.includes('healcode') ||
-        allArgs.includes('jquery')
+        allArgs.includes('jquery') ||
+        allArgs.includes('site.webmanifest') ||
+        allArgs.includes('manifest fetch') ||
+        allArgs.includes('429') ||
+        allArgs.includes('403')
       ) {
         return; // Suppress completely
       }
@@ -99,11 +111,35 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
         .join(' ')
         .toLowerCase();
 
-      if (allArgs.includes('mixpanel error') || allArgs.includes('invalid storage entry')) {
+      if (
+        allArgs.includes('mixpanel error') ||
+        allArgs.includes('invalid storage entry') ||
+        allArgs.includes('site.webmanifest') ||
+        allArgs.includes('manifest fetch') ||
+        allArgs.includes('429') ||
+        allArgs.includes('403')
+      ) {
         return; // Suppress error logs
       }
 
       originalConsoleLog.apply(console, args);
+    };
+
+    // Suppress network requests for problematic URLs
+    const originalFetch = window.fetch;
+    window.fetch = function (input, init) {
+      const url = typeof input === 'string' ? input : input.url;
+
+      if (
+        url.includes('site.webmanifest') ||
+        url.includes('ingest.us.sentry.io') ||
+        url.includes('mixpanel')
+      ) {
+        // Return a rejected promise that won't log errors
+        return Promise.reject(new Error('Suppressed request'));
+      }
+
+      return originalFetch.call(this, input, init);
     };
 
     // Cleanup function
@@ -112,6 +148,7 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
       console.warn = originalConsoleWarn;
       console.log = originalConsoleLog;
       window.Error = originalError;
+      window.fetch = originalFetch;
     };
   }, []);
 

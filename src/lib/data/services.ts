@@ -7,6 +7,7 @@ export interface ServiceData {
   heroImage: string;
   textureImage?: string;
   accentColor: string;
+  tagline: string;
   benefits: Array<{
     title: string;
     description: string;
@@ -31,6 +32,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/ice-vitalblue.jpg',
     textureImage: 'https://media.vitalicesf.com/ice_vertical-texture.jpg',
     accentColor: '#0040FF',
+    tagline: 'Step in cold. Step out clear.',
     benefits: [
       {
         title: 'Nervous System Regulation',
@@ -92,6 +94,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/sauna-infraredwide.jpg',
     textureImage: 'https://media.vitalicesf.com/embers_closeup.jpg',
     accentColor: '#E74C3C',
+    tagline: 'Release the strain. Welcome the repair.',
     benefits: [
       {
         title: 'Deep Tissue Penetration',
@@ -154,6 +157,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/sauna-traditional.jpg',
     textureImage: 'https://media.vitalicesf.com/lavastones.jpg',
     accentColor: '#F39C12',
+    tagline: 'Embrace the heat. Emerge renewed.',
     benefits: [
       {
         title: 'Muscle Recovery',
@@ -215,6 +219,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/stone_whitesky.jpg',
     textureImage: 'https://media.vitalicesf.com/texture_blacksand-landscape.jpg',
     accentColor: '#E0E0E0',
+    tagline: 'Compress the stress. Release the relief.',
     benefits: [
       {
         title: 'Circulatory Support',
@@ -275,6 +280,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/texture_blackmarble-cracks.jpg',
     textureImage: 'https://media.vitalicesf.com/texture_blackrock.jpg',
     accentColor: '#2ECC71',
+    tagline: 'Break the tension. Build the strength.',
     benefits: [
       {
         title: 'Increased Circulation',
@@ -335,6 +341,7 @@ export const servicesData: Record<string, ServiceData> = {
     heroImage: 'https://media.vitalicesf.com/redlight_jellyfish.jpg',
     textureImage: 'https://media.vitalicesf.com/light_blurryhues.jpg',
     accentColor: '#E91E63',
+    tagline: 'Illuminate the healing. Ignite the recovery.',
     benefits: [
       {
         title: 'Cellular Energy Production',
