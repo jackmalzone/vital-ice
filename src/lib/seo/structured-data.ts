@@ -1,5 +1,5 @@
 // Structured Data (JSON-LD) for SEO
-export interface LocalBusiness {
+export interface LocalBusiness extends Record<string, unknown> {
   '@context': 'https://schema.org';
   '@type': 'LocalBusiness';
   name: string;
@@ -34,7 +34,7 @@ export interface LocalBusiness {
   };
 }
 
-export interface Service {
+export interface Service extends Record<string, unknown> {
   '@context': 'https://schema.org';
   '@type': 'Service';
   name: string;
@@ -51,7 +51,7 @@ export interface Service {
   image?: string;
 }
 
-export interface FAQPage {
+export interface FAQPage extends Record<string, unknown> {
   '@context': 'https://schema.org';
   '@type': 'FAQPage';
   mainEntity: Array<{
