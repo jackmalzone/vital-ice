@@ -48,7 +48,7 @@ interface ServiceNodeProps {
   index: number;
   onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (_id: string) => void;
+  onSelect: (id: string) => void;
   isHovered: boolean;
 }
 
