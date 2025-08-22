@@ -128,7 +128,8 @@ export default function ErrorSuppressionProvider({ children }: ErrorSuppressionP
     // Suppress network requests for problematic URLs
     const originalFetch = window.fetch;
     window.fetch = function (input, init) {
-      const url = typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString();
+      const url =
+        typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString();
 
       if (
         url.includes('site.webmanifest') ||
