@@ -26,7 +26,12 @@ export class MindbodyErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Only log to Sentry if it's NOT a Mindbody-related error
     if (!this.isMindbodyError(error)) {
-      Sentry.captureException(error, { extra: errorInfo });
+      Sentry.captureException(error, { 
+        extra: { 
+          componentStack: errorInfo.componentStack,
+          errorInfo: errorInfo 
+        } 
+      });
     }
   }
 
