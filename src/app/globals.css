@@ -15,11 +15,19 @@
   /* Colors */
   --color-primary: #00b7b5;
   --color-primary-light: #9ec7c5;
+  --color-primary-dark: #00d4d2;
   --color-background: #000000;
+  --color-background-dark: #1a1a1a;
   --color-surface: rgba(255, 255, 255, 0.05);
   --color-text: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.8);
   --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-bone: #ebede5;
+  --color-mist: #9ec7c5;
+  --color-arctic: #00b7b5;
+  --color-deluge: #0000e6;
+  --color-sun-ray: #f56f0d;
+  --color-void: #000000;
 
   /* Spacing */
   --spacing-xs: 0.25rem;

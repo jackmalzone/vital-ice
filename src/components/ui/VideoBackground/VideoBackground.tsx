@@ -291,7 +291,7 @@ const VideoBackground: FC<VideoBackgroundProps> = ({
         // Autoplay failed, but video is ready - no need to set isLoaded again
       });
     }
-  }, [isActive, isPlaying, videoSrc]);
+  }, [isActive, isPlaying]);
 
   return (
     <div className={styles.videoContainer}>

@@ -3,7 +3,7 @@
 import { FC, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useAdaptiveMedia } from '@/lib/utils/performanceDetection';
+import { getBestVideoSource } from '@/lib/utils/videoFormat';
 import styles from './AdaptiveMedia.module.css';
 
 interface AdaptiveMediaProps {
@@ -38,10 +38,12 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   onLoad,
   onError,
 }) => {
-  const { mediaSource, mediaType, strategy, isLoading } = useAdaptiveMedia(
-    videoSources,
-    imageSource
-  );
+  // Simple video format detection
+  const videoSource = getBestVideoSource(videoSources);
+  const mediaSource = videoSource || imageSource;
+  const mediaType = videoSource ? 'video' : 'image';
+  const strategy = { useVideo: !!videoSource };
+  const isLoading = false;
   const [hasError, setHasError] = useState(false);
   const [preferredFormat, setPreferredFormat] = useState<'webm' | 'mp4'>('mp4');
 

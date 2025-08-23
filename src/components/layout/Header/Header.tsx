@@ -1,11 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { servicesData } from '@/lib/data/services';
 import { springConfigs } from '@/lib/utils/animations';
+import { useNavigation } from '@/lib/store/AppStore';
 
 import styles from './Header.module.css';
 
@@ -15,8 +16,8 @@ const NAV_LINKS = [
   { label: 'Our Story', href: '/about' },
 ];
 
-export default function Header() {
-  const [open, setOpen] = useState(false);
+const Header: FC = () => {
+  const { isMenuOpen, toggleMenu } = useNavigation();
   const pathname = usePathname();
 
   // Determine logo color based on current service page
@@ -33,14 +34,16 @@ export default function Header() {
   };
 
   const closeMenu = () => {
-    setOpen(false);
+    if (isMenuOpen) {
+      toggleMenu();
+    }
   };
 
   return (
     <header className={styles.header}>
       <Link
         href="/"
-        className={`${styles.logoLink} ${open ? styles.logoLinkOpen : ''}`}
+        className={`${styles.logoLink} ${isMenuOpen ? styles.logoLinkOpen : ''}`}
         aria-label="Home"
       >
         <VILogo className={styles.logo} color={getLogoColor()} />
@@ -79,12 +82,10 @@ export default function Header() {
 
       {/* Mobile Menu Button - Ice Cube */}
       <button
-        className={`${styles.iceCube} ${open ? styles.active : ''} ${open ? styles.iceCubeOpen : ''}`}
+        className={`${styles.iceCube} ${isMenuOpen ? styles.active : ''} ${isMenuOpen ? styles.iceCubeOpen : ''}`}
         aria-label="Open navigation menu"
-        aria-expanded={open}
-        onClick={() => {
-          setOpen(v => !v);
-        }}
+        aria-expanded={isMenuOpen}
+        onClick={toggleMenu}
       >
         <div className={styles.iceCubeContainer}>
           {/* Ice Cube Faces */}
@@ -98,7 +99,7 @@ export default function Header() {
       </button>
 
       {/* Mobile Overlay Menu */}
-      {open && (
+      {isMenuOpen && (
         <div className={styles.overlayMenu} onClick={closeMenu}>
           <nav className={styles.overlayNav} onClick={e => e.stopPropagation()}>
             <ul className={styles.overlayNavList}>
@@ -158,4 +159,6 @@ export default function Header() {
       )}
     </header>
   );
-}
+};
+
+export default Header;

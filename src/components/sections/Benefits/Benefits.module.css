@@ -355,7 +355,7 @@
   overflow: hidden;
 }
 
-/* Shader overlay for protocol and effect sections */
+/* CSS gradient overlay replacing ShaderPanel */
 .benefit__shaderOverlay {
   position: absolute;
   top: 0;
@@ -365,12 +365,20 @@
   z-index: 1;
   pointer-events: none;
   opacity: 0.3;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 10, 20, 0.1) 0%, transparent 70%);
+  animation: subtleShift 8s ease-in-out infinite;
 }
 
-.benefit__shaderOverlay canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
+@keyframes subtleShift {
+  0%,
+  100% {
+    transform: translateX(0px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(2px);
+    opacity: 0.35;
+  }
 }
 
 /* Enhanced Effect Section */

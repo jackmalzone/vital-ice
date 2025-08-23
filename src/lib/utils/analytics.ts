@@ -4,11 +4,11 @@
 declare global {
   interface Window {
     mixpanel?: {
-      init: (token: string, config?: Record<string, unknown>, name?: string) => void;
-      track: (event: string, properties?: Record<string, unknown>) => void;
-      identify: (id: string) => void;
+      init: (_token: string, _config?: Record<string, unknown>, _name?: string) => void;
+      track: (_event: string, _properties?: Record<string, unknown>) => void;
+      identify: (_id: string) => void;
       people: {
-        set: (properties: Record<string, unknown>) => void;
+        set: (_properties: Record<string, unknown>) => void;
       };
     };
   }

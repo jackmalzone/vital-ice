@@ -126,11 +126,15 @@ export const initializeAnalytics = () => {
     // If Mixpanel is already initialized, reinitialize with proper name
     try {
       // This will fix the "You must name your new library" error
-      window.mixpanel.init('YOUR_PROJECT_TOKEN', {
-        debug: false,
-        track_pageview: true,
-        persistence: 'localStorage',
-      }, 'default'); // ← This is the required name parameter!
+      window.mixpanel.init(
+        'YOUR_PROJECT_TOKEN',
+        {
+          debug: false,
+          track_pageview: true,
+          persistence: 'localStorage',
+        },
+        'default'
+      ); // ← This is the required name parameter!
     } catch (error) {
       console.warn('Mixpanel reinitialization failed:', error);
     }
@@ -162,14 +166,14 @@ healcodeScript.async = true;
 
 ## Key Differences from Failed Approaches
 
-| Approach                       | Result             | Why It Failed                                               |
-| ------------------------------ | ------------------ | ----------------------------------------------------------- |
-| Broad error event listeners    | ❌ Page freezing   | Interfered with Next.js internal error handling             |
-| Global console.error override  | ❌ Page freezing   | Blocked critical Next.js error messages                     |
-| No error suppression           | ❌ Console clutter | Mixpanel errors flooded console                             |
-| **Minimal error suppression**  | ✅ **Working**     | Only suppresses JSON errors, allows Mixpanel errors through |
-| **Fixed hydration mismatches** | ✅ **Working**     | Prevents navigation delays and redirects                    |
-| **Proper Mixpanel initialization** | ✅ **Working** | Fixes root cause with required `name` parameter             |
+| Approach                           | Result             | Why It Failed                                               |
+| ---------------------------------- | ------------------ | ----------------------------------------------------------- |
+| Broad error event listeners        | ❌ Page freezing   | Interfered with Next.js internal error handling             |
+| Global console.error override      | ❌ Page freezing   | Blocked critical Next.js error messages                     |
+| No error suppression               | ❌ Console clutter | Mixpanel errors flooded console                             |
+| **Minimal error suppression**      | ✅ **Working**     | Only suppresses JSON errors, allows Mixpanel errors through |
+| **Fixed hydration mismatches**     | ✅ **Working**     | Prevents navigation delays and redirects                    |
+| **Proper Mixpanel initialization** | ✅ **Working**     | Fixes root cause with required `name` parameter             |
 
 ## Important Notes
 
@@ -220,6 +224,7 @@ healcodeScript.async = true;
 The Mindbody widget navigation issue has been successfully resolved. The key was fixing the hydration mismatch errors that were causing navigation delays, combined with proper Mixpanel initialization that fixes the root cause of the error.
 
 **All issues resolved:**
+
 - ✅ Navigation delays (hydration mismatch fixed)
 - ✅ Page freezing (minimal error suppression)
 - ✅ Mixpanel errors (proper initialization with name parameter)

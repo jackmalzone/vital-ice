@@ -87,9 +87,7 @@ const nextConfig: NextConfig = {
       // Filter out specific warnings
       config.stats = {
         ...config.stats,
-        warningsFilter: [
-          /Serializing big strings.*impacts deserialization performance/,
-        ],
+        warningsFilter: [/Serializing big strings.*impacts deserialization performance/],
       };
     }
 

@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Benefits.module.css';
-import ShaderPanel from './ShaderPanel';
+// ShaderPanel replaced with CSS gradients
 
 const Benefits: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -461,7 +461,7 @@ const Benefits: FC = () => {
                     {benefit.tagline}
                   </motion.p>
 
-                  {/* Protocol Section with ShaderPanel */}
+                  {/* Protocol Section with CSS gradient */}
                   <motion.div
                     className={styles.benefit__protocol}
                     initial={{ opacity: 0, y: 8 }}
@@ -474,7 +474,7 @@ const Benefits: FC = () => {
                     }}
                   >
                     <div className={styles.benefit__shaderOverlay}>
-                      <ShaderPanel />
+                      {/* CSS gradient replaces ShaderPanel */}
                     </div>
                     <div className={styles.benefit__protocolContent}>
                       <h4 className={styles.benefit__protocolTitle}>PROTOCOL</h4>
@@ -501,7 +501,7 @@ const Benefits: FC = () => {
                     </div>
                   </motion.div>
 
-                  {/* Effect Section with ShaderPanel */}
+                  {/* Effect Section with CSS gradient */}
                   <motion.div
                     className={styles.benefit__effect}
                     initial={{ opacity: 0, y: 8 }}
@@ -514,7 +514,7 @@ const Benefits: FC = () => {
                     }}
                   >
                     <div className={styles.benefit__shaderOverlay}>
-                      <ShaderPanel />
+                      {/* CSS gradient replaces ShaderPanel */}
                     </div>
                     <div className={styles.benefit__effectContent}>
                       <h4 className={styles.benefit__effectTitle}>EFFECT</h4>

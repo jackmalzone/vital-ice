@@ -1,0 +1,204 @@
+/* Centralized Widget Styles */
+.widgetContainer {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+.widgetContent {
+  width: 100%;
+  min-height: 200px;
+}
+
+/* Loading State */
+.loadingState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid rgba(0, 183, 181, 0.8);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error State */
+.errorState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.retryButton {
+  background: rgba(0, 183, 181, 0.2);
+  color: rgba(0, 183, 181, 0.8);
+  border: 1px solid rgba(0, 183, 181, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.retryButton:hover {
+  background: rgba(0, 183, 181, 0.3);
+  color: rgba(0, 183, 181, 1);
+  border-color: rgba(0, 183, 181, 0.5);
+}
+
+/* Mindbody Widget Styles */
+.widgetContainer :global(healcode-widget) {
+  color: #ffffff !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+}
+
+/* Make all text white in healcode widget */
+.widgetContainer :global(healcode-widget *),
+.widgetContainer :global(healcode-widget h1),
+.widgetContainer :global(healcode-widget h2),
+.widgetContainer :global(healcode-widget h3),
+.widgetContainer :global(healcode-widget h4),
+.widgetContainer :global(healcode-widget h5),
+.widgetContainer :global(healcode-widget h6),
+.widgetContainer :global(healcode-widget p),
+.widgetContainer :global(healcode-widget span),
+.widgetContainer :global(healcode-widget label),
+.widgetContainer :global(healcode-widget div) {
+  color: #ffffff !important;
+}
+
+/* Style form inputs */
+.widgetContainer :global(healcode-widget input),
+.widgetContainer :global(healcode-widget select),
+.widgetContainer :global(healcode-widget textarea) {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+  padding: 1rem 0 !important;
+  outline: none !important;
+  transition: border-bottom-color 0.3s ease !important;
+}
+
+.widgetContainer :global(healcode-widget input:focus),
+.widgetContainer :global(healcode-widget select:focus),
+.widgetContainer :global(healcode-widget textarea:focus) {
+  border-bottom-color: rgba(0, 183, 181, 0.8) !important;
+}
+
+.widgetContainer :global(healcode-widget input::placeholder) {
+  color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  font-weight: 300 !important;
+}
+
+/* Style buttons */
+.widgetContainer :global(healcode-widget button) {
+  background: transparent !important;
+  color: rgba(0, 183, 181, 0.8) !important;
+  border: none !important;
+  font-weight: 400 !important;
+  font-size: 1.1rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 1rem 2rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.widgetContainer :global(healcode-widget button:hover) {
+  color: rgba(0, 183, 181, 1) !important;
+}
+
+/* Style validation/error messages with sauna orange */
+.widgetContainer :global(healcode-widget .error),
+.widgetContainer :global(healcode-widget .validation-error),
+.widgetContainer :global(healcode-widget .error-message),
+.widgetContainer :global(healcode-widget .form-error),
+.widgetContainer :global(healcode-widget span[class*='error']),
+.widgetContainer :global(healcode-widget div[class*='error']),
+.widgetContainer :global(healcode-widget .message),
+.widgetContainer :global(healcode-widget .alert),
+.widgetContainer :global(healcode-widget .notification) {
+  color: #f56f0d !important;
+  font-size: 0.9rem !important;
+  font-weight: 300 !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Style success messages */
+.widgetContainer :global(healcode-widget .success),
+.widgetContainer :global(healcode-widget .success-message),
+.widgetContainer :global(healcode-widget .form-success) {
+  color: rgba(0, 183, 181, 0.8) !important;
+  font-size: 0.9rem !important;
+  font-weight: 300 !important;
+  margin-top: 0.5rem !important;
+}
+
+/* Hide any unwanted elements */
+.widgetContainer :global(healcode-widget .hidden),
+.widgetContainer :global(healcode-widget [style*='display: none']) {
+  display: none !important;
+}
+
+/* Ensure proper spacing */
+.widgetContainer :global(healcode-widget form) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.widgetContainer :global(healcode-widget .form-group) {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .widgetContainer :global(healcode-widget input),
+  .widgetContainer :global(healcode-widget select),
+  .widgetContainer :global(healcode-widget textarea) {
+    font-size: 1rem !important;
+    padding: 0.8rem 0 !important;
+  }
+
+  .widgetContainer :global(healcode-widget button) {
+    font-size: 1rem !important;
+    padding: 0.8rem 1.5rem !important;
+  }
+}

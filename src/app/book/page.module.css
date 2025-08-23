@@ -62,95 +62,6 @@
   letter-spacing: 0.1em;
 }
 
-/* Style Mindbody widget */
-.widgetContainer :global(.mindbody-widget) {
-  width: 100%;
-  max-width: 800px;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-  color: #ffffff;
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid rgba(0, 183, 181, 0.3);
-  box-shadow:
-    0 0 20px rgba(0, 183, 181, 0.2),
-    0 0 40px rgba(0, 183, 181, 0.1),
-    inset 0 0 20px rgba(0, 183, 181, 0.05);
-}
-
-.widgetContainer :global(.mindbody-widget *) {
-  color: #ffffff;
-}
-
-.widgetContainer :global(.mindbody-widget input),
-.widgetContainer :global(.mindbody-widget select),
-.widgetContainer :global(.mindbody-widget textarea) {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-}
-
-.widgetContainer :global(.mindbody-widget button) {
-  background: #00b7b5;
-  color: #000000;
-  border: none;
-  font-family: 'Inter', sans-serif;
-}
-
-/* Style widget containers and sections */
-.widgetContainer :global(.mindbody-widget > div),
-.widgetContainer :global(.mindbody-widget form),
-.widgetContainer :global(.mindbody-widget section) {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
-  color: #ffffff !important;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hero {
-    padding: 60px 20px 30px;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .comingSoonContainer {
-    padding: 20px;
-    z-index: 10;
-  }
-
-  .comingSoonTitle {
-    font-size: 2rem;
-  }
-
-  .logo {
-    width: 150px;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .comingSoonContainer {
-    padding: 15px;
-  }
-
-  .comingSoonTitle {
-    font-size: 1.8rem;
-  }
-
-  .logo {
-    width: 120px;
-  }
-}
-
 /* Registration Section */
 .registrationSection {
   padding: 40px 24px;
@@ -269,21 +180,6 @@
   margin-top: 0.5rem !important;
 }
 
-@media (max-width: 768px) {
-  .registrationSection {
-    padding: 20px;
-  }
-
-  .registrationButton {
-    font-size: 1rem;
-    padding: 14px 24px;
-  }
-
-  .registrationWidget {
-    padding: 20px;
-  }
-}
-
 .widgetError {
   text-align: center;
   padding: 20px;
@@ -312,4 +208,63 @@
 .retryButton:hover {
   background: rgba(0, 183, 181, 1);
   transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px 30px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .comingSoonContainer {
+    padding: 20px;
+    z-index: 10;
+  }
+
+  .comingSoonTitle {
+    font-size: 2rem;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .registrationSection {
+    padding: 20px;
+  }
+
+  .registrationButton {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+
+  .registrationWidget {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .comingSoonContainer {
+    padding: 15px;
+  }
+
+  .comingSoonTitle {
+    font-size: 1.8rem;
+  }
+
+  .logo {
+    width: 120px;
+  }
 }

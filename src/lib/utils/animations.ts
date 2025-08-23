@@ -1,12 +1,7 @@
 'use client';
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { Variants } from 'framer-motion';
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
 
 // Initialize Lenis for smooth scrolling
 export const initLenis = () => {
@@ -450,33 +445,7 @@ export const animations = {
   springConfigs,
 };
 
-// GSAP animations
-export const scrollReveal = (element: string, options = {}) => {
-  gsap.from(element, {
-    y: 50,
-    opacity: 0,
-    duration: 1,
-    scrollTrigger: {
-      trigger: element,
-      start: 'top 80%',
-      toggleActions: 'play none none reverse',
-    },
-    ...options,
-  });
-};
-
-export const parallaxEffect = (element: string, speed = 0.5) => {
-  gsap.to(element, {
-    yPercent: speed * 100,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: element,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
-};
+// GSAP functions removed - not used anywhere in the app
 
 interface LenisWithRAF extends Lenis {
   rafId?: number;

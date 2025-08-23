@@ -1,25 +1,13 @@
 'use client';
 
-import { FC, useEffect, useState, useCallback } from 'react';
+import { FC, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Widget } from '@/components/ui/Widget/Widget';
 import Logo from '@/components/ui/Logo/Logo';
 import styles from './page.module.css';
 
-// Type definitions for external libraries
-interface JQuery {
-  fn: {
-    error: () => unknown;
-  };
-}
-
-interface WindowWithJQuery extends Window {
-  jQuery?: JQuery;
-}
-
 const BookPage: FC = () => {
   const [showRegistration, setShowRegistration] = useState(false);
-  const [widgetError, setWidgetError] = useState(false);
-  const [widgetKey, setWidgetKey] = useState(Date.now());
 
   // Function to reset the registration form
   const resetRegistrationForm = () => {
@@ -63,152 +51,14 @@ const BookPage: FC = () => {
       }
     });
 
-    // Force widget to reload with new key
-    setWidgetKey(Date.now());
-    setWidgetError(false);
+    // Force widget to reload by toggling registration state
+    setShowRegistration(false);
+    setTimeout(() => setShowRegistration(true), 100);
   };
 
-  // Error boundary for React rendering errors
-  const handleWidgetError = useCallback(() => {
-    setWidgetError(true);
-  }, []);
-
-  // Global error handler for React child errors
-  useEffect(() => {
-    const handleError = (event: ErrorEvent) => {
-      const errorMessage = event.message || '';
-      if (errorMessage.includes('Objects are not valid as a React child')) {
-        setWidgetError(true);
-      }
-    };
-
-    window.addEventListener('error', handleError);
-
-    return () => {
-      window.removeEventListener('error', handleError);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Load Mindbody script
-    const script = document.createElement('script');
-    script.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js';
-    script.async = true;
-
-    script.onload = () => {
-      // Suppress jQuery errors
-      const jQuery = (window as WindowWithJQuery).jQuery;
-      if (typeof window !== 'undefined' && jQuery && jQuery.fn) {
-        jQuery.fn.error = function () {
-          return this;
-        };
-      }
-    };
-
-    script.onerror = () => {
-      setWidgetError(true);
-    };
-
-    document.head.appendChild(script);
-
-    return () => {
-      // Cleanup script if component unmounts
-      const existingScript = document.querySelector(
-        'script[src="https://brandedweb.mindbodyonline.com/embed/widget.js"]'
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (showRegistration) {
-      // Load healcode script for registration widget
-      const script = document.createElement('script');
-      script.src = 'https://widgets.mindbodyonline.com/javascripts/healcode.js';
-      script.type = 'text/javascript';
-      script.async = true;
-
-      script.onload = () => {
-        // Add error boundary for Mindbody widget JSON parsing errors
-        const handleWidgetError = (event: ErrorEvent) => {
-          if (
-            event.error &&
-            event.error.message &&
-            event.error.message.includes('not valid JSON')
-          ) {
-            event.preventDefault();
-            return false;
-          }
-        };
-
-        // Suppress jQuery Migrate warnings from third-party widgets
-        if (
-          typeof window !== 'undefined' &&
-          (window as { jQuery?: { migrateMute?: boolean } }).jQuery
-        ) {
-          (window as { jQuery?: { migrateMute?: boolean } }).jQuery!.migrateMute = true;
-        }
-
-        window.addEventListener('error', handleWidgetError);
-
-        // Suppress jQuery errors related to null properties
-        const jQuery = (window as WindowWithJQuery).jQuery;
-        if (jQuery && jQuery.fn) {
-          jQuery.fn.error = function () {
-            return this;
-          };
-        }
-      };
-
-      script.onerror = () => {
-        // Handle script load error silently
-      };
-
-      document.head.appendChild(script);
-
-      return () => {
-        // Remove error handler
-        window.removeEventListener('error', handleWidgetError);
-
-        // Clean up script when component unmounts
-        const existingScript = document.querySelector('script[src*="healcode.js"]');
-        if (existingScript && existingScript.parentNode) {
-          try {
-            existingScript.parentNode.removeChild(existingScript);
-          } catch {
-            // Silently handle script removal errors
-          }
-        }
-      };
-    }
-  }, [showRegistration, handleWidgetError]);
-
-  useEffect(() => {
-    // Suppress jQuery Migrate warnings
-    if (typeof window !== 'undefined') {
-      (window as { jQuery?: { migrateMute?: boolean } }).jQuery = {
-        ...(window as { jQuery?: { migrateMute?: boolean } }).jQuery,
-        migrateMute: true,
-      };
-    }
-
-    // Add error handler for widget JSON parsing errors
-    const handleGlobalError = (event: ErrorEvent) => {
-      // Only handle JSON parsing errors from Mindbody widgets
-      if (event.message.includes('JSON') && event.message.includes('undefined')) {
-        // Prevent the error from being logged to console
-        event.preventDefault();
-      }
-    };
-
-    window.addEventListener('error', handleGlobalError);
-
-    return () => {
-      window.removeEventListener('error', handleGlobalError);
-    };
-  }, []);
+  const handleWidgetError = () => {
+    setShowRegistration(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -265,41 +115,12 @@ const BookPage: FC = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
-              onError={handleWidgetError}
             >
               <h3 className={styles.registrationHeader}>
                 New To Our Studio? Register with Mindbody.
               </h3>
-              {!widgetError ? (
-                <div
-                  key={`registration-widget-${widgetKey}`}
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      '<healcode-widget data-type="registrations" data-widget-partner="object" data-widget-id="ec161013b5f7" data-widget-version="0"></healcode-widget>',
-                  }}
-                  onError={handleWidgetError}
-                  onLoad={() => {
-                    // Widget loaded successfully
-                  }}
-                />
-              ) : (
-                <div className={styles.widgetError}>
-                  <p>Registration widget temporarily unavailable. Please try again later.</p>
-                  <button
-                    onClick={() => {
-                      setWidgetError(false);
-                      // Force re-render with new key
-                      setTimeout(() => {
-                        const event = new Event('resize');
-                        window.dispatchEvent(event);
-                      }, 100);
-                    }}
-                    className={styles.retryButton}
-                  >
-                    Retry
-                  </button>
-                </div>
-              )}
+
+              <Widget type="registration" onError={handleWidgetError} />
 
               {/* Reset Form Button */}
               <div style={{ textAlign: 'center', marginTop: '1rem' }}>

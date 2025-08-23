@@ -206,73 +206,7 @@
   cursor: not-allowed;
 }
 
-/* Style healcode widget to match newsletter design */
-.widgetContainer :global(healcode-widget) {
-  color: #ffffff !important;
-  background: transparent !important;
-}
-
-.widgetContainer :global(healcode-widget *) {
-  color: #ffffff !important;
-}
-
-.widgetContainer :global(healcode-widget input),
-.widgetContainer :global(healcode-widget select),
-.widgetContainer :global(healcode-widget textarea) {
-  background: transparent !important;
-  border: none !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
-  font-size: 1.2rem !important;
-  font-weight: 300 !important;
-  padding: 1rem 0 !important;
-  outline: none !important;
-}
-
-.widgetContainer :global(healcode-widget input:focus),
-.widgetContainer :global(healcode-widget select:focus),
-.widgetContainer :global(healcode-widget textarea:focus) {
-  border-bottom-color: rgba(0, 183, 181, 0.8) !important;
-}
-
-.widgetContainer :global(healcode-widget input::placeholder) {
-  color: rgba(255, 255, 255, 0.4) !important;
-  opacity: 1 !important;
-  font-weight: 300 !important;
-}
-
-.widgetContainer :global(healcode-widget button) {
-  background: transparent !important;
-  color: rgba(0, 183, 181, 0.8) !important;
-  border: none !important;
-  font-weight: 400 !important;
-  font-size: 1.1rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  padding: 1rem 2rem !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-}
-
-.widgetContainer :global(healcode-widget button:hover) {
-  color: rgba(0, 183, 181, 1) !important;
-}
-
-/* Style validation/error messages with sauna orange */
-.widgetContainer :global(healcode-widget .error),
-.widgetContainer :global(healcode-widget .validation-error),
-.widgetContainer :global(healcode-widget .error-message),
-.widgetContainer :global(healcode-widget .form-error),
-.widgetContainer :global(healcode-widget span[class*='error']),
-.widgetContainer :global(healcode-widget div[class*='error']),
-.widgetContainer :global(healcode-widget .message),
-.widgetContainer :global(healcode-widget .alert),
-.widgetContainer :global(healcode-widget .notification) {
-  color: #f56f0d !important; /* Sauna orange */
-  font-size: 0.9rem !important;
-  font-weight: 400 !important;
-  margin-top: 0.5rem !important;
-}
+/* Widget styling now handled by centralized Widget component */
 
 @media (max-width: 768px) {
   .content {

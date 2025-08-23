@@ -45,10 +45,10 @@ interface ServiceNodeProps {
   };
   angle: number;
   radius: number;
-  index: number;
+  index: number; // Used in transition delay calculation
   onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (id: string) => void;
+  onSelect: (id: string) => void; // Used in onClick handler
   isHovered: boolean;
 }
 
@@ -56,7 +56,6 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   service,
   angle,
   radius,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   index, // Used in transition delay calculation
   onHover,
   onLeave,
