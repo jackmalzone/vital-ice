@@ -238,8 +238,8 @@ const AboutPageClient: React.FC = () => {
                             <button
                               className={styles.team__readMore}
                               onClick={() =>
-                              setExpandedFounders((prev: number[]) => [...prev, index])
-                            }
+                                setExpandedFounders((prev: number[]) => [...prev, index])
+                              }
                             >
                               ... Read More
                             </button>
