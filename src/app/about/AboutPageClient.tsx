@@ -224,9 +224,10 @@ const AboutPageClient: React.FC = () => {
                           ))}
                           <button
                             className={styles.team__readLess}
-                            onClick={() =>
-                              setExpandedFounders((prev: number[]) => prev.filter(i => i !== index))
-                            }
+                            onClick={() => {
+                              const currentFounders = expandedFounders;
+                              setExpandedFounders(currentFounders.filter(i => i !== index));
+                            }}
                           >
                             Read Less
                           </button>
@@ -237,9 +238,10 @@ const AboutPageClient: React.FC = () => {
                             {member.shortBio}
                             <button
                               className={styles.team__readMore}
-                              onClick={() =>
-                                setExpandedFounders((prev: number[]) => [...prev, index])
-                              }
+                              onClick={() => {
+                                const currentFounders = expandedFounders;
+                                setExpandedFounders([...currentFounders, index]);
+                              }}
                             >
                               ... Read More
                             </button>
