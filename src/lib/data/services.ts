@@ -218,7 +218,7 @@ export const servicesData: Record<string, ServiceData> = {
     backgroundImage: 'https://media.vitalicesf.com/cells-bloodcells.jpg',
     heroImage: 'https://media.vitalicesf.com/stone_whitesky.jpg',
     textureImage: 'https://media.vitalicesf.com/texture_blacksand-landscape.jpg',
-    accentColor: '#E0E0E0',
+    accentColor: '#8B5CF6',
     tagline: 'Compress the stress. Release the relief.',
     benefits: [
       {

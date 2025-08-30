@@ -1,11 +1,15 @@
-'use client';
+import { Metadata } from 'next';
+import { mergeMetadata } from '@/lib/seo/metadata';
+import ColdPlungePageClient from './ColdPlungePageClient';
 
-import { FC } from 'react';
-import ServiceTemplate from '@/components/shared/ServiceTemplate/ServiceTemplate';
-import { servicesData } from '@/lib/data/services';
+// Export metadata for the cold plunge service page
+export const metadata: Metadata = mergeMetadata('cold-plunge');
 
-const ColdPlungePage: FC = () => {
-  return <ServiceTemplate data={servicesData['cold-plunge']} />;
+// Enable ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
+const ColdPlungePage = () => {
+  return <ColdPlungePageClient />;
 };
 
 export default ColdPlungePage;

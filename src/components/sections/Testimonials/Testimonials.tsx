@@ -1,12 +1,13 @@
 'use client';
 
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useNavigation } from '@/lib/store/AppStore';
 import styles from './Testimonials.module.css';
 
 const Testimonials: FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { currentTestimonialIndex, setCurrentTestimonialIndex } = useNavigation();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const testimonials = [
@@ -126,7 +127,7 @@ const Testimonials: FC = () => {
   useEffect(() => {
     const nextTestimonial = () => {
       setTimeout(() => {
-        setCurrentIndex(prev => (prev + 1) % testimonials.length);
+        setCurrentTestimonialIndex((currentTestimonialIndex + 1) % testimonials.length);
       }, 400);
     };
 
@@ -136,14 +137,14 @@ const Testimonials: FC = () => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [currentIndex, testimonials.length]);
+  }, [currentTestimonialIndex, testimonials.length, setCurrentTestimonialIndex]);
 
   const handleDotClick = (index: number) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
     setTimeout(() => {
-      setCurrentIndex(index);
+      setCurrentTestimonialIndex(index);
     }, 400);
   };
 
@@ -171,7 +172,7 @@ const Testimonials: FC = () => {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={currentIndex}
+          key={currentTestimonialIndex}
           className={styles.testimonial__section}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -190,8 +191,8 @@ const Testimonials: FC = () => {
             >
               <div className={styles.testimonial__imageContainer}>
                 <Image
-                  src={testimonials[currentIndex].image}
-                  alt={`${testimonials[currentIndex].author} testimonial`}
+                  src={testimonials[currentTestimonialIndex].image}
+                  alt={`${testimonials[currentTestimonialIndex].author} testimonial`}
                   fill
                   className={styles.testimonial__image}
                   priority
@@ -202,7 +203,7 @@ const Testimonials: FC = () => {
                 {/* Floating Accent Elements */}
                 <motion.div
                   className={styles.testimonial__accentElement}
-                  style={{ background: testimonials[currentIndex].accent }}
+                  style={{ background: testimonials[currentTestimonialIndex].accent }}
                   animate={{
                     y: [0, -10, 0],
                     opacity: [0.3, 0.6, 0.3],
@@ -231,7 +232,7 @@ const Testimonials: FC = () => {
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ delay: 0.3, duration: 0.6, ease: 'backOut' }}
-                  style={{ color: testimonials[currentIndex].accent }}
+                  style={{ color: testimonials[currentTestimonialIndex].accent }}
                 >
                   &quot;
                 </motion.div>
@@ -242,7 +243,7 @@ const Testimonials: FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                 >
-                  {testimonials[currentIndex].quote.replace(/"/g, '&quot;')}
+                  {testimonials[currentTestimonialIndex].quote.replace(/"/g, '&quot;')}
                 </motion.blockquote>
 
                 <motion.div
@@ -252,10 +253,10 @@ const Testimonials: FC = () => {
                   transition={{ delay: 0.7, duration: 0.8 }}
                 >
                   <cite className={styles.testimonial__name}>
-                    {testimonials[currentIndex].author}
+                    {testimonials[currentTestimonialIndex].author}
                   </cite>
                   <span className={styles.testimonial__role}>
-                    {testimonials[currentIndex].role}
+                    {testimonials[currentTestimonialIndex].role}
                   </span>
                 </motion.div>
               </div>
@@ -274,7 +275,7 @@ const Testimonials: FC = () => {
         {testimonials.map((testimonial, index) => (
           <motion.button
             key={index}
-            className={`${styles.testimonial__dot} ${index === currentIndex ? styles.active : ''}`}
+            className={`${styles.testimonial__dot} ${index === currentTestimonialIndex ? styles.active : ''}`}
             onClick={() => handleDotClick(index)}
             aria-label={`Go to testimonial ${index + 1}`}
             whileHover={{ scale: 1.2 }}

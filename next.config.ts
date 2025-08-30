@@ -61,6 +61,15 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
+          // SEO and Performance headers
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400',
+          },
         ],
       },
       {
@@ -69,6 +78,24 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
           },
         ],
       },
@@ -89,6 +116,17 @@ const nextConfig: NextConfig = {
         ...config.stats,
         warningsFilter: [/Serializing big strings.*impacts deserialization performance/],
       };
+
+      // Improve CSS HMR stability
+      config.module.rules.forEach((rule: any) => {
+        if (rule.oneOf) {
+          rule.oneOf.forEach((oneOfRule: any) => {
+            if (oneOfRule.sideEffects === false) {
+              oneOfRule.sideEffects = true;
+            }
+          });
+        }
+      });
     }
 
     return config;

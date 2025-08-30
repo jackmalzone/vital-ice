@@ -1,9 +1,10 @@
 'use client';
 
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { getBestVideoSource } from '@/lib/utils/videoFormat';
+import { usePerformance } from '@/lib/store/AppStore';
 import styles from './AdaptiveMedia.module.css';
 
 interface AdaptiveMediaProps {
@@ -44,8 +45,8 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   const mediaType = videoSource ? 'video' : 'image';
   const strategy = { useVideo: !!videoSource };
   const isLoading = false;
-  const [hasError, setHasError] = useState(false);
-  const [preferredFormat, setPreferredFormat] = useState<'webm' | 'mp4'>('mp4');
+  const { performanceProfile, setPreferredVideoFormat, setMediaError } = usePerformance();
+  const { preferredVideoFormat, hasMediaError } = performanceProfile;
 
   // Detect preferred video format based on device and performance
   useEffect(() => {
@@ -74,9 +75,9 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
         (isMobile || isLowEndDevice || hasSlowConnection) &&
         (canPlayWebM !== '' || canPlayWebM9 !== '')
       ) {
-        setPreferredFormat('webm');
+        setPreferredVideoFormat('webm');
       } else {
-        setPreferredFormat('mp4');
+        setPreferredVideoFormat('mp4');
       }
     };
 
@@ -88,7 +89,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
     if (!strategy?.useVideo) return null;
 
     // If WebM is preferred and available, use it
-    if (preferredFormat === 'webm' && videoSources.webm) {
+    if (preferredVideoFormat === 'webm' && videoSources.webm) {
       return videoSources.webm;
     }
 
@@ -100,7 +101,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
 
   // Fallback to image if video fails
   const handleVideoError = () => {
-    setHasError(true);
+    setMediaError(true);
     onError?.();
   };
 
@@ -113,13 +114,13 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   };
 
   const handleImageError = () => {
-    setHasError(true);
+    setMediaError(true);
     onError?.();
   };
 
   // Reset error state when media source changes
   useEffect(() => {
-    setHasError(false);
+    setMediaError(false);
   }, [mediaSource]);
 
   if (isLoading) {
@@ -131,7 +132,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
   }
 
   // If video failed or strategy doesn't use video, show image
-  if (mediaType === 'image' || hasError) {
+  if (mediaType === 'image' || hasMediaError) {
     return (
       <motion.div
         className={`${styles.imageContainer} ${className}`}
@@ -162,7 +163,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
       transition={{ duration: 0.5 }}
     >
       <AnimatePresence mode="wait">
-        {!hasError ? (
+        {!hasMediaError ? (
           <motion.video
             key="video"
             className={styles.video}
@@ -180,7 +181,7 @@ const AdaptiveMedia: FC<AdaptiveMediaProps> = ({
             transition={{ duration: 0.3 }}
           >
             {/* WebM format for better mobile performance - prioritize if preferred */}
-            {preferredFormat === 'webm' && videoSources.webm && (
+            {preferredVideoFormat === 'webm' && videoSources.webm && (
               <source src={videoSources.webm} type="video/webm" />
             )}
             {/* MP4 fallback - always include for compatibility */}

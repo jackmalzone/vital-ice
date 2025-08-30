@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { WidgetManager } from '@/lib/widgets/WidgetManager';
 import styles from './Widget.module.css';
 
@@ -16,17 +16,25 @@ export const Widget: FC<WidgetProps> = ({ type, className, onError, onLoad, onLo
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [widgetHTML, setWidgetHTML] = useState('');
-  const [widgetKey] = useState(`${type}-${Date.now()}`);
+  const widgetKeyRef = useRef(`${type}-${Date.now()}`);
+  const widgetKey = widgetKeyRef.current;
+
+  // Store callbacks in refs to avoid dependency issues
+  const onErrorRef = useRef(onError);
+  const onLoadRef = useRef(onLoad);
+  const onLoadingRef = useRef(onLoading);
+
+  // Update refs when callbacks change
+  onErrorRef.current = onError;
+  onLoadRef.current = onLoad;
+  onLoadingRef.current = onLoading;
 
   useEffect(() => {
     const loadWidget = async () => {
       try {
         setIsLoading(true);
-        setHasError(false); // Reset error state when starting to load
-        onLoading?.();
-
-        // Add a small delay to ensure DOM is ready
-        await new Promise(resolve => setTimeout(resolve, 100));
+        setHasError(false);
+        onLoadingRef.current?.();
 
         // Create a temporary container
         const tempContainer = document.createElement('div');
@@ -40,17 +48,17 @@ export const Widget: FC<WidgetProps> = ({ type, className, onError, onLoad, onLo
           setWidgetHTML(html);
           setIsLoading(false);
           setHasError(false);
-          onLoad?.();
+          onLoadRef.current?.();
         } else {
           setIsLoading(false);
           setHasError(true);
-          onError?.();
+          onErrorRef.current?.();
         }
       } catch (error) {
         console.error(`Failed to load ${type} widget:`, error);
         setIsLoading(false);
         setHasError(true);
-        onError?.();
+        onErrorRef.current?.();
       }
     };
 
@@ -61,12 +69,12 @@ export const Widget: FC<WidgetProps> = ({ type, className, onError, onLoad, onLo
       // Reset widget state when component unmounts
       WidgetManager.resetWidget(widgetKey);
     };
-  }, [type, widgetKey, onError, onLoad, onLoading]);
+  }, [type]);
 
   const handleRetry = async () => {
     setHasError(false);
     setIsLoading(true);
-    onLoading?.();
+    onLoadingRef.current?.();
 
     try {
       // Create a temporary container
@@ -80,17 +88,17 @@ export const Widget: FC<WidgetProps> = ({ type, className, onError, onLoad, onLo
         setWidgetHTML(html);
         setIsLoading(false);
         setHasError(false);
-        onLoad?.();
+        onLoadRef.current?.();
       } else {
         setIsLoading(false);
         setHasError(true);
-        onError?.();
+        onErrorRef.current?.();
       }
     } catch (error) {
       console.error(`Failed to retry ${type} widget:`, error);
       setIsLoading(false);
       setHasError(true);
-      onError?.();
+      onErrorRef.current?.();
     }
   };
 

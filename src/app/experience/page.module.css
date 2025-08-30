@@ -792,8 +792,8 @@
   .mainGrid {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 2.5rem;
+    padding: 2rem;
     min-height: auto;
   }
 
@@ -802,7 +802,7 @@
     grid-row: 1;
     width: 500px;
     height: 500px;
-    margin: 1rem 0;
+    margin: 1.5rem auto;
   }
 
   .panelContent {
@@ -814,21 +814,22 @@
     font-size: 0.85rem;
   }
 
-  /* Show single panel zone */
-  .panelZone--stacked {
-    display: flex;
+  /* Stacked Panel Zone */
+  .panelZoneStacked {
     grid-column: 1;
     grid-row: 2;
+    display: flex;
     justify-content: center;
-    padding: 1rem;
+    align-items: center;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .mainGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 2rem;
+    padding: 1.5rem;
   }
 
   .radialMenu {
@@ -836,6 +837,7 @@
     height: 400px;
     aspect-ratio: 1;
     grid-column: 1;
+    margin: 1rem auto;
   }
 
   .serviceIconInner {
@@ -876,12 +878,16 @@
 }
 
 @media (max-width: 480px) {
+  .mainGrid {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
   .radialMenu {
     width: 300px;
     height: 300px;
-    top: 55%;
     aspect-ratio: 1;
-    padding: 60px 0;
+    margin: 1rem auto;
   }
 
   .serviceIconInner {

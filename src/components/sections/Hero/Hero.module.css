@@ -64,7 +64,7 @@
 .hero__logoContainer {
   position: relative;
   z-index: 2;
-  margin: 1rem 0 0.75rem 0;
+  margin: 0.5rem 0 2rem 0;
   text-align: center;
   min-height: 60px; /* Ensure container has height */
 }
@@ -81,18 +81,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0;
   position: relative;
 }
 
 .hero__location {
   font-family: 'Inter', sans-serif;
   font-size: clamp(0.875rem, 2vw, 1rem);
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-weight: 300;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  opacity: 0.8;
-  margin-bottom: 0.5rem;
+  opacity: 0.5;
+  margin-bottom: 2rem;
 }
 
 /* .hero__glassmorphicBackground {
@@ -109,19 +109,19 @@
 } */
 
 .heroLogo {
-  width: clamp(280px, 20vw, 400px);
+  width: clamp(300px, 22vw, 420px);
   height: auto;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.7));
 }
 
 .hero__headline {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin: 0;
-  line-height: 0.9;
+  line-height: 1.2;
   /* Color and text-shadow now controlled by dynamic styling */
 }
 
@@ -140,24 +140,71 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
+  padding: 1.125rem 2.5rem;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
   border-radius: 50px;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   cursor: pointer;
-  margin-top: 0;
+  margin-top: 1.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   /* Color, background, and border now controlled by dynamic styling */
 }
 
 .hero__buttonText {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
   letter-spacing: 0.02em;
+  position: relative;
+  width: 100%;
+}
+
+.hero__buttonTextDefault,
+.hero__buttonTextHover {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.hero__buttonTextDefault {
+  opacity: 1;
+  transform: translateY(0);
+  letter-spacing: 0.1em;
+}
+
+.hero__buttonTextHover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow:
+    0 0 10px rgba(80, 180, 255, 0.8),
+    0 0 20px rgba(80, 180, 255, 0.6),
+    0 0 30px rgba(80, 180, 255, 0.4),
+    0 0 40px rgba(80, 180, 255, 0.2);
+}
+
+.hero__button:hover .hero__buttonTextDefault {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.hero__button:hover .hero__buttonTextHover {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .hero__button:hover {
@@ -165,14 +212,6 @@
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-.hero__buttonIcon {
-  transition: transform 0.3s ease;
-}
-
-.hero__button:hover .hero__buttonIcon {
-  transform: translateX(4px);
 }
 
 .hero__scrollIndicator {
@@ -219,13 +258,18 @@
   }
 
   .heroLogo {
-    width: clamp(240px, 30vw, 280px);
+    width: clamp(260px, 32vw, 300px);
     height: auto;
   }
 
   .hero__button {
-    padding: 0.875rem 1.75rem;
+    padding: 1rem 2rem;
     font-size: 0.875rem;
+  }
+
+  .hero__location {
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+    margin-bottom: 1.5rem;
   }
 }
 

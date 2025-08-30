@@ -1,11 +1,15 @@
-'use client';
+import { Metadata } from 'next';
+import { mergeMetadata } from '@/lib/seo/metadata';
+import TraditionalSaunaPageClient from './TraditionalSaunaPageClient';
 
-import { FC } from 'react';
-import ServiceTemplate from '@/components/shared/ServiceTemplate/ServiceTemplate';
-import { servicesData } from '@/lib/data/services';
+// Export metadata for the traditional sauna service page
+export const metadata: Metadata = mergeMetadata('traditional-sauna');
 
-const TraditionalSaunaPage: FC = () => {
-  return <ServiceTemplate data={servicesData['traditional-sauna']} />;
+// Enable ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
+const TraditionalSaunaPage = () => {
+  return <TraditionalSaunaPageClient />;
 };
 
 export default TraditionalSaunaPage;

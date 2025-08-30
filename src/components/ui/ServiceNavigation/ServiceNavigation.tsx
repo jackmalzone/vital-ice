@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { servicesData } from '@/lib/data/services';
 import { springConfigs } from '@/lib/utils/animations';
+import { useNavigation } from '@/lib/store/AppStore';
 import styles from './ServiceNavigation.module.css';
 
 const serviceOrder = [
@@ -22,13 +22,13 @@ const SERVICE_COLORS = {
   'infrared-sauna': '#ff3e36', // Fire/Light - Blood Orange
   'traditional-sauna': '#d45700', // Earth/Wood - Deep Umber
   'red-light-therapy': '#e63e80', // Light - Rose Gold
-  'compression-boots': '#80cbc4', // Air - Pale Silver
+  'compression-boots': '#8B5CF6', // Air - Pale Silver
   'percussion-massage': '#64b5f6', // Motion - Electric Cyan
 };
 
 export default function ServiceNavigation() {
   const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { isServiceSidebarOpen, setServiceSidebarOpen } = useNavigation();
 
   // Get current service index
   const currentServiceId = pathname.split('/').pop();
@@ -51,7 +51,7 @@ export default function ServiceNavigation() {
       {/* Sidebar Toggle Button */}
       <button
         className={styles.sidebarToggle}
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        onClick={() => setServiceSidebarOpen(!isServiceSidebarOpen)}
         aria-label="Toggle service navigation"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -104,12 +104,12 @@ export default function ServiceNavigation() {
       )}
 
       {/* Sidebar */}
-      <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
+      <div className={`${styles.sidebar} ${isServiceSidebarOpen ? styles.open : ''}`}>
         <div className={styles.sidebarHeader}>
           <h3>Services</h3>
           <button
             className={styles.closeButton}
-            onClick={() => setIsSidebarOpen(false)}
+            onClick={() => setServiceSidebarOpen(false)}
             aria-label="Close navigation"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -148,7 +148,7 @@ export default function ServiceNavigation() {
                 <Link
                   href={`/services/${serviceId}`}
                   className={`${styles.sidebarLink} ${isActive ? styles.active : ''}`}
-                  onClick={() => setIsSidebarOpen(false)}
+                  onClick={() => setServiceSidebarOpen(false)}
                 >
                   <div className={styles.serviceIcon} style={{ backgroundColor: serviceColor }}>
                     {service.title.charAt(0)}
@@ -165,7 +165,9 @@ export default function ServiceNavigation() {
       </div>
 
       {/* Backdrop */}
-      {isSidebarOpen && <div className={styles.backdrop} onClick={() => setIsSidebarOpen(false)} />}
+      {isServiceSidebarOpen && (
+        <div className={styles.backdrop} onClick={() => setServiceSidebarOpen(false)} />
+      )}
     </>
   );
 }

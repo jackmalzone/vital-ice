@@ -72,7 +72,7 @@
   background: linear-gradient(90deg, #00b7b5 0%, #9ec7c5 100%);
   border-radius: 2px;
   transition:
-    width 0.1s ease,
+    width 0.05s ease-out,
     opacity 0.2s ease;
   box-shadow: 0 0 10px rgba(0, 183, 181, 0.4);
   min-width: 1px; /* Ensure it's always visible when progress > 0 */

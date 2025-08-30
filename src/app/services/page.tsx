@@ -5,6 +5,9 @@ import ServicesPageClient from './ServicesPageClient';
 // Export metadata for the services page
 export const metadata: Metadata = mergeMetadata('services');
 
+// Enable ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
 const ServicesPage = () => {
   return <ServicesPageClient />;
 };

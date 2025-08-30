@@ -1,11 +1,12 @@
 'use client';
 
-import { FC, useState, useEffect, useCallback } from 'react';
+import { FC, useEffect, useCallback, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import * as Sentry from '@sentry/nextjs';
 import VideoBackground from '@/components/ui/VideoBackground/VideoBackground';
 import Logo from '@/components/ui/Logo/Logo';
 import { textRevealVariants, buttonVariants, springConfigs } from '@/lib/utils/animations';
+import { usePerformance } from '@/lib/store/AppStore';
 import styles from './Hero.module.css';
 
 // Video rotation system - alternating cold and hot videos with WebM support
@@ -61,29 +62,31 @@ const VIDEOS = [
   },
 ];
 
-// Simplified text color schemes - all white with varying shadow strength
+// Enhanced text color schemes with better contrast and readability
 const TEXT_THEMES = {
   standard: {
     headline: '#ffffff',
-    subhead: 'rgba(255, 255, 255, 0.95)',
+    subhead: 'rgba(255, 255, 255, 0.9)',
     button: '#ffffff',
-    buttonBg: 'rgba(255, 255, 255, 0.08)',
-    buttonBorder: 'rgba(255, 255, 255, 0.15)',
-    textShadow: '0 1px 3px rgba(0, 0, 0, 0.4)',
+    buttonBg: 'rgba(255, 255, 255, 0.12)',
+    buttonBorder: 'rgba(255, 255, 255, 0.25)',
+    textShadow: '0 2px 6px rgba(0, 0, 0, 0.5)',
   },
   enhanced: {
     headline: '#ffffff',
-    subhead: 'rgba(255, 255, 255, 0.95)',
+    subhead: 'rgba(255, 255, 255, 0.9)',
     button: '#ffffff',
-    buttonBg: 'rgba(255, 255, 255, 0.08)',
-    buttonBorder: 'rgba(255, 255, 255, 0.15)',
-    textShadow: '0 2px 8px rgba(0, 0, 0, 0.6)', // Stronger shadow for light backgrounds
+    buttonBg: 'rgba(255, 255, 255, 0.12)',
+    buttonBorder: 'rgba(255, 255, 255, 0.25)',
+    textShadow: '0 3px 12px rgba(0, 0, 0, 0.7)', // Stronger shadow for light backgrounds
   },
 };
 
 const Hero: FC = () => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const { performanceProfile, updatePerformanceProfile } = usePerformance();
+  const { currentVideoIndex } = performanceProfile;
   const { scrollYProgress } = useScroll();
+  const currentVideoIndexRef = useRef(currentVideoIndex);
 
   // Get current video theme
   const currentVideo = VIDEOS[currentVideoIndex];
@@ -96,6 +99,11 @@ const Hero: FC = () => {
   const blurAmount = useTransform(scrollYProgress, [0, 0.1], [isMobile ? 0 : 8, 0]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, isMobile ? 1 : 0.8]);
   const textY = useTransform(scrollYProgress, [0, 0.1], [0, isMobile ? 0 : -20]);
+
+  // Update ref when currentVideoIndex changes
+  useEffect(() => {
+    currentVideoIndexRef.current = currentVideoIndex;
+  }, [currentVideoIndex]);
 
   // Simple video rotation - no complex performance detection
   useEffect(() => {
@@ -115,9 +123,11 @@ const Hero: FC = () => {
               name: 'Video Switch',
             },
             switchSpan => {
-              switchSpan.setAttribute('from_index', currentVideoIndex);
-              switchSpan.setAttribute('to_index', (currentVideoIndex + 1) % VIDEOS.length);
-              setCurrentVideoIndex(prev => (prev + 1) % VIDEOS.length);
+              const currentIndex = currentVideoIndexRef.current;
+              const nextIndex = (currentIndex + 1) % VIDEOS.length;
+              switchSpan.setAttribute('from_index', currentIndex);
+              switchSpan.setAttribute('to_index', nextIndex);
+              updatePerformanceProfile({ currentVideoIndex: nextIndex });
             }
           );
         }, 8000);
@@ -127,7 +137,7 @@ const Hero: FC = () => {
         };
       }
     );
-  }, [currentVideoIndex]);
+  }, [updatePerformanceProfile]);
 
   return (
     <section id="home" className={styles.hero}>
@@ -206,6 +216,21 @@ const Hero: FC = () => {
             <Logo className={styles.heroLogo} priority={true} />
           </motion.div>
 
+          <motion.h1
+            className={styles.hero__headline}
+            style={{
+              color: currentTheme.headline,
+              textShadow: currentTheme.textShadow,
+            }}
+            variants={textRevealVariants}
+            transition={{
+              ...springConfigs.responsive,
+              duration: 0.8,
+            }}
+          >
+            Live Better — Together.
+          </motion.h1>
+
           <motion.button
             className={styles.hero__button}
             style={{
@@ -229,35 +254,8 @@ const Hero: FC = () => {
               whileHover={{ scale: 1.02 }}
               transition={springConfigs.quick}
             >
-              Stay in the Loop
-            </motion.span>
-            <motion.span
-              className={styles.hero__buttonIcon}
-              aria-hidden="true"
-              animate={{
-                x: [0, 4, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 5L12 10L7 15"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <span className={styles.hero__buttonTextDefault}>COMING SOON</span>
+              <span className={styles.hero__buttonTextHover}>Stay In The Loop</span>
             </motion.span>
           </motion.button>
         </motion.div>

@@ -12,7 +12,8 @@ import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButt
 import StructuredData from '@/components/seo/StructuredData';
 import { initializeSentryTracking } from '@/lib/utils/sentryTracking';
 import { initializeAnalytics } from '@/lib/utils/analytics';
-import { vitalIceBusiness } from '@/lib/seo/structured-data';
+import { getPageSchema } from '@/lib/seo/structured-data';
+import { mergeMetadata } from '@/lib/seo/metadata';
 import './globals.css';
 
 const geistSans = Geist({
@@ -24,8 +25,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
 });
-
-import { mergeMetadata } from '@/lib/seo/metadata';
 
 export const metadata = mergeMetadata('home');
 
@@ -67,10 +66,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="image/jpeg"
         />
 
-        {/* DNS prefetch for external domains */}
+        {/* DNS prefetch and preconnect for external domains */}
         <link rel="dns-prefetch" href="//media.vitalicesf.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect" href="https://media.vitalicesf.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* Mindbody error suppression - minimal and targeted */}
         <script
@@ -87,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     message.includes('not valid json') ||
                     message.includes('message channel closed') ||
                     message.includes('cannot read properties of null') ||
-                    message.includes('reading \'match\'') ||
+                    message.includes('reading \\'match\\'') ||
                     message.includes('removechild') ||
                     message.includes('hotmodulereplacement') ||
                     message.includes('mini-css-extract-plugin')) {
@@ -118,7 +120,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
         {/* Structured Data */}
-        <StructuredData data={vitalIceBusiness} />
+        <StructuredData data={getPageSchema('home')} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ErrorSuppressionProvider>

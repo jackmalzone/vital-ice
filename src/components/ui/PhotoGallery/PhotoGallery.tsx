@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useNavigation } from '@/lib/store/AppStore';
 import styles from './PhotoGallery.module.css';
 
 interface PhotoGalleryProps {
@@ -118,7 +119,7 @@ const galleryImages = [
 ];
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { currentPhotoGalleryIndex, setCurrentPhotoGalleryIndex } = useNavigation();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Auto-advance images - simplified for mobile performance
@@ -128,7 +129,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
     }
 
     intervalRef.current = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % galleryImages.length);
+      setCurrentPhotoGalleryIndex((currentPhotoGalleryIndex + 1) % galleryImages.length);
     }, 6000); // Change every 6 seconds
 
     return () => {
@@ -143,7 +144,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
     return <div className={`${styles.photoGallery} ${className}`} />;
   }
 
-  const currentImage = galleryImages[currentImageIndex] || galleryImages[0];
+  const currentImage = galleryImages[currentPhotoGalleryIndex] || galleryImages[0];
 
   return (
     <div className={`${styles.photoGallery} ${className}`}>
@@ -169,8 +170,8 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ className = '' }) => {
           {galleryImages.map((_, index) => (
             <button
               key={index}
-              className={`${styles.dot} ${index === currentImageIndex ? styles.active : ''}`}
-              onClick={() => setCurrentImageIndex(index)}
+              className={`${styles.dot} ${index === currentPhotoGalleryIndex ? styles.active : ''}`}
+              onClick={() => setCurrentPhotoGalleryIndex(index)}
               aria-label={`Go to image ${index + 1}`}
             />
           ))}

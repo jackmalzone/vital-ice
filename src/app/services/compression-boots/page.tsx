@@ -1,11 +1,15 @@
-'use client';
+import { Metadata } from 'next';
+import { mergeMetadata } from '@/lib/seo/metadata';
+import CompressionBootsPageClient from './CompressionBootsPageClient';
 
-import { FC } from 'react';
-import ServiceTemplate from '@/components/shared/ServiceTemplate/ServiceTemplate';
-import { servicesData } from '@/lib/data/services';
+// Export metadata for the compression boots service page
+export const metadata: Metadata = mergeMetadata('compression-boots');
 
-const CompressionBootsPage: FC = () => {
-  return <ServiceTemplate data={servicesData['compression-boots']} />;
+// Enable ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
+const CompressionBootsPage = () => {
+  return <CompressionBootsPageClient />;
 };
 
 export default CompressionBootsPage;

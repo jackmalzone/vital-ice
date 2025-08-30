@@ -3,6 +3,11 @@
   position: relative;
   width: 100%;
   min-height: 200px;
+  /* Prevent scroll interference */
+  transform: translateZ(0);
+  will-change: auto;
+  /* Ensure widget stays stable during scroll */
+  contain: layout style paint;
 }
 
 .widgetContent {
@@ -84,6 +89,11 @@
   position: relative !important;
   z-index: 2 !important;
   width: 100% !important;
+  /* Prevent scroll interference */
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  /* Ensure widget stays stable during scroll */
+  contain: layout style paint !important;
 }
 
 /* Make all text white in healcode widget */

@@ -1,11 +1,15 @@
-'use client';
+import { Metadata } from 'next';
+import { mergeMetadata } from '@/lib/seo/metadata';
+import InfraredSaunaPageClient from './InfraredSaunaPageClient';
 
-import { FC } from 'react';
-import ServiceTemplate from '@/components/shared/ServiceTemplate/ServiceTemplate';
-import { servicesData } from '@/lib/data/services';
+// Export metadata for the infrared sauna service page
+export const metadata: Metadata = mergeMetadata('infrared-sauna');
 
-const InfraredSaunaPage: FC = () => {
-  return <ServiceTemplate data={servicesData['infrared-sauna']} />;
+// Enable ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
+const InfraredSaunaPage = () => {
+  return <InfraredSaunaPageClient />;
 };
 
 export default InfraredSaunaPage;

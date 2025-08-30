@@ -3,8 +3,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import StructuredData from '@/components/seo/StructuredData';
-import { services, faqData } from '@/lib/seo/structured-data';
+import PageSchema from '@/components/seo/PageSchema';
 import styles from './page.module.css';
 
 const servicesData = [
@@ -73,10 +72,7 @@ const servicesData = [
 const ServicesPageClient: FC = () => {
   return (
     <>
-      {/* Structured Data for Services */}
-      <StructuredData data={Object.values(services)} />
-      <StructuredData data={faqData} />
-
+      <PageSchema pageKey="services" />
       <div className={styles.container}>
         <motion.div
           className={styles.header}

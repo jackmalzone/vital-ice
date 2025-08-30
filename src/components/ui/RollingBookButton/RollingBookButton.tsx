@@ -1,13 +1,14 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import * as Sentry from '@sentry/nextjs';
 import { FaBug } from 'react-icons/fa';
+import { useNavigation } from '@/lib/store/AppStore';
 import styles from './RollingBookButton.module.css';
 
 const RollingBookButton: FC = () => {
-  const [isNearFooter, setIsNearFooter] = useState(false);
+  const { isRollingButtonNearFooter, setRollingButtonNearFooter } = useNavigation();
 
   useEffect(() => {
     let ticking = false;
@@ -37,7 +38,7 @@ const RollingBookButton: FC = () => {
             const footerTop = footerRect.top;
 
             const shouldBeAboveFooter = buttonBottom + buttonHeight + buffer > footerTop;
-            setIsNearFooter(shouldBeAboveFooter);
+            setRollingButtonNearFooter(shouldBeAboveFooter);
 
             // Set CSS custom property for precise positioning
             if (shouldBeAboveFooter) {
@@ -88,7 +89,7 @@ const RollingBookButton: FC = () => {
 
   return (
     <motion.div
-      className={`${styles.rollingBookContainer} ${isNearFooter ? styles.aboveFooter : ''}`}
+      className={`${styles.rollingBookContainer} ${isRollingButtonNearFooter ? styles.aboveFooter : ''}`}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}

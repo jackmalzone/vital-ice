@@ -7,7 +7,7 @@ export const baseMetadata: Metadata = {
     template: '%s | Vital Ice',
   },
   description:
-    'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+    'Live Better — Together | Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
   keywords: [
     'cold therapy',
     'cold plunge',
@@ -39,7 +39,7 @@ export const baseMetadata: Metadata = {
     siteName: 'Vital Ice',
     title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
     description:
-      'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
     images: [
       {
         url: 'https://media.vitalicesf.com/seo/desktop-home.png',
@@ -53,7 +53,7 @@ export const baseMetadata: Metadata = {
     card: 'summary_large_image',
     title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
     description:
-      'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
     images: ['https://media.vitalicesf.com/seo/desktop-home.png'],
     creator: '@vitalice',
   },
@@ -69,7 +69,7 @@ export const baseMetadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'qjdR8QIwsHjJVUxPM87Lq5JmCC1APtOSHqcIy0qw1nA',
     yandex: 'your-yandex-verification-code',
     yahoo: 'your-yahoo-verification-code',
   },
@@ -80,11 +80,11 @@ export const pageMetadata: Record<string, Metadata> = {
   home: {
     title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
     description:
-      'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
     openGraph: {
       title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
       description:
-        'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
       images: [
         {
           url: 'https://media.vitalicesf.com/seo/desktop-home.png',
@@ -97,7 +97,7 @@ export const pageMetadata: Record<string, Metadata> = {
     twitter: {
       title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
       description:
-        'Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
       images: ['https://media.vitalicesf.com/seo/desktop-home.png'],
     },
   },
@@ -149,30 +149,7 @@ export const pageMetadata: Record<string, Metadata> = {
       images: ['https://media.vitalicesf.com/seo/desktop-services.png'],
     },
   },
-  contact: {
-    title: 'Contact Vital Ice | Book Your Recovery Session',
-    description:
-      'Contact Vital Ice to book your recovery session. Located in San Francisco. Call us or book online for cold therapy, sauna, and wellness services.',
-    openGraph: {
-      title: 'Contact Vital Ice | Book Your Recovery Session',
-      description:
-        'Contact Vital Ice to book your recovery session. Located in San Francisco. Call us or book online for cold therapy, sauna, and wellness services.',
-      images: [
-        {
-          url: 'https://media.vitalicesf.com/seo/desktop-contact.png',
-          width: 1200,
-          height: 630,
-          alt: 'Contact Vital Ice - Book your recovery session',
-        },
-      ],
-    },
-    twitter: {
-      title: 'Contact Vital Ice | Book Your Recovery Session',
-      description:
-        'Contact Vital Ice to book your recovery session. Located in San Francisco. Call us or book online for cold therapy, sauna, and wellness services.',
-      images: ['https://media.vitalicesf.com/seo/desktop-contact.png'],
-    },
-  },
+
   'cold-plunge': {
     title: 'Cold Plunge Therapy | Vital Ice San Francisco',
     description:
@@ -435,6 +412,54 @@ export const pageMetadata: Record<string, Metadata> = {
       description:
         'Choose your wellness experience at Vital Ice. Interactive service selection for cold therapy, sauna, red light therapy, and more recovery options.',
       images: ['https://media.vitalicesf.com/seo/desktop-experience.png'],
+    },
+  },
+  careers: {
+    title: 'Careers | Join Our Team | Vital Ice',
+    description:
+      'Join the Vital Ice team and help us build the future of recovery and wellness. View current job openings and career opportunities in San Francisco.',
+    openGraph: {
+      title: 'Careers | Join Our Team | Vital Ice',
+      description:
+        'Join the Vital Ice team and help us build the future of recovery and wellness. View current job openings and career opportunities in San Francisco.',
+      images: [
+        {
+          url: 'https://media.vitalicesf.com/seo/desktop-careers.png',
+          width: 1200,
+          height: 630,
+          alt: 'Vital Ice careers and job opportunities',
+        },
+      ],
+    },
+    twitter: {
+      title: 'Careers | Join Our Team | Vital Ice',
+      description:
+        'Join the Vital Ice team and help us build the future of recovery and wellness. View current job openings and career opportunities in San Francisco.',
+      images: ['https://media.vitalicesf.com/seo/desktop-careers.png'],
+    },
+  },
+  'client-policy': {
+    title: 'Client Policy | Vital Ice Terms & Conditions',
+    description:
+      'Review Vital Ice client policies, terms and conditions, liability waivers, and facility rules. Ensure a safe and enjoyable wellness experience.',
+    openGraph: {
+      title: 'Client Policy | Vital Ice Terms & Conditions',
+      description:
+        'Review Vital Ice client policies, terms and conditions, liability waivers, and facility rules. Ensure a safe and enjoyable wellness experience.',
+      images: [
+        {
+          url: 'https://media.vitalicesf.com/seo/desktop-client-policy.png',
+          width: 1200,
+          height: 630,
+          alt: 'Vital Ice client policies and terms',
+        },
+      ],
+    },
+    twitter: {
+      title: 'Client Policy | Vital Ice Terms & Conditions',
+      description:
+        'Review Vital Ice client policies, terms and conditions, liability waivers, and facility rules. Ensure a safe and enjoyable wellness experience.',
+      images: ['https://media.vitalicesf.com/seo/desktop-client-policy.png'],
     },
   },
 };
