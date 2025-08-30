@@ -225,7 +225,7 @@ const AboutPageClient: React.FC = () => {
                           <button
                             className={styles.team__readLess}
                             onClick={() =>
-                              setExpandedFounders(prev => prev.filter(i => i !== index))
+                              setExpandedFounders((prev: number[]) => prev.filter(i => i !== index))
                             }
                           >
                             Read Less
@@ -237,7 +237,7 @@ const AboutPageClient: React.FC = () => {
                             {member.shortBio}
                             <button
                               className={styles.team__readMore}
-                              onClick={() => setExpandedFounders(prev => [...prev, index])}
+                              onClick={() => setExpandedFounders((prev: number[]) => [...prev, index])}
                             >
                               ... Read More
                             </button>
