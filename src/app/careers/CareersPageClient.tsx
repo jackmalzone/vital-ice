@@ -9,13 +9,12 @@ const CareersPageClient: React.FC = () => {
   const { expandedJobs, setExpandedJobs } = useUserPreferences();
 
   const handleToggleJobExpansion = (jobTitle: string) => {
-    setExpandedJobs(prev => {
-      if (prev.includes(jobTitle)) {
-        return prev.filter(job => job !== jobTitle);
-      } else {
-        return [...prev, jobTitle];
-      }
-    });
+    const currentJobs = expandedJobs;
+    if (currentJobs.includes(jobTitle)) {
+      setExpandedJobs(currentJobs.filter(job => job !== jobTitle));
+    } else {
+      setExpandedJobs([...currentJobs, jobTitle]);
+    }
   };
 
   const jobOpenings = [
