@@ -4,6 +4,14 @@ A modern, immersive wellness website for Vital Ice, a San Francisco-based recove
 
 ## 🚀 Features
 
+### **State Management & Architecture**
+
+- **Zustand Integration**: Centralized state management for improved performance
+- **Selective State Subscriptions**: Optimized re-renders with targeted state updates
+- **Persistent UI State**: Navigation positions, form states, and user preferences
+- **Widget Management**: Centralized Mindbody widget loading and error handling
+- **Performance Optimization**: Reduced bundle size by removing unused dependencies
+
 ### **Immersive Design & Experience**
 
 - **Cinematic Hero Section**: Rotating video backgrounds with ambient water themes
@@ -71,12 +79,14 @@ A modern, immersive wellness website for Vital Ice, a San Francisco-based recove
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
+- **State Management**: Zustand (centralized state management)
 - **Styling**: CSS Modules with BEM methodology
-- **Animations**: Framer Motion + GSAP ScrollTrigger
+- **Animations**: Framer Motion
 - **Forms**: EmailJS/Resend
 - **Analytics**: Plausible/Google Analytics
 - **Hosting**: Vercel
 - **Performance**: Image optimization, lazy loading, code splitting
+- **Error Tracking**: Sentry integration
 
 ## 🏗️ Project Structure
 
@@ -265,6 +275,14 @@ src/
 
 ## 📊 Performance
 
+### **Recent Optimizations**
+
+- **Bundle Size Reduction**: Removed Three.js, GSAP, and other heavy dependencies
+- **State Management**: Migrated to Zustand for better performance and maintainability
+- **Widget Stability**: Fixed Mindbody widget reloading issues with selective state subscriptions
+- **Loading Experience**: Improved loading screen with smooth progress animation
+- **Responsive Design**: Streamlined breakpoints and improved mobile experience
+
 ### **Optimization Targets**
 
 - Lighthouse score > 90
@@ -350,6 +368,25 @@ src/
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🔧 Recent Improvements
+
+### **Major Refactor (December 2024)**
+
+- **State Management Migration**: Complete migration to Zustand for centralized state management
+- **Performance Optimization**: Removed heavy dependencies (Three.js, GSAP) for faster loading
+- **Widget Stability**: Fixed critical Mindbody widget reloading issues
+- **Responsive Design**: Improved Experience page layout with streamlined breakpoints
+- **Loading Experience**: Enhanced loading screen with smooth progress animation
+- **Code Quality**: Comprehensive linting, formatting, and TypeScript improvements
+- **Documentation**: Updated project documentation and fix records
+
+### **Build & Deployment**
+
+- **Vercel Integration**: Automated deployment with build optimization
+- **Error Tracking**: Sentry integration for production error monitoring
+- **TypeScript Compliance**: Strict TypeScript configuration with explicit type annotations
+- **Prettier Formatting**: Consistent code formatting across the project
 
 ## 📝 Development Commands
 
