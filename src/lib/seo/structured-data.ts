@@ -70,7 +70,7 @@ export const vitalIceBusiness: LocalBusiness = {
   '@type': 'LocalBusiness',
   name: 'Vital Ice',
   description:
-    'Live Better — Together. Recovery and wellness through cold therapy, infrared sauna, and traditional healing practices.',
+    'Live Better — Together. Recovery and wellness through cold therapy, red light therapy, sauna, and traditional healing practices.',
   url: 'https://vitalicesf.com',
   telephone: '+1-415-555-0123', // Update with actual phone number
   address: {
@@ -393,7 +393,7 @@ export const vitalIceOrganization: Organization = {
   '@type': 'Organization',
   name: 'Vital Ice',
   description:
-    'Live Better — Together. Leading wellness and recovery center in San Francisco specializing in cold therapy, sauna, and holistic healing practices.',
+    'Live Better — Together. Leading wellness and recovery center in San Francisco specializing in cold therapy, red light therapy, sauna, and holistic healing practices.',
   url: 'https://vitalicesf.com',
   logo: 'https://media.vitalicesf.com/logo-dark.png',
   sameAs: [

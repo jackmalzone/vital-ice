@@ -3,11 +3,11 @@ import { Metadata } from 'next';
 // Base metadata configuration
 export const baseMetadata: Metadata = {
   title: {
-    default: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+    default: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
     template: '%s | Vital Ice',
   },
   description:
-    'Live Better — Together | Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+    "Live Better — Together. San Francisco's premier wellness center offering cold plunge therapy, red light therapy, and sauna sessions. Experience transformative recovery and community wellness.",
   keywords: [
     'cold therapy',
     'cold plunge',
@@ -37,9 +37,9 @@ export const baseMetadata: Metadata = {
     locale: 'en_US',
     url: 'https://vitalicesf.com',
     siteName: 'Vital Ice',
-    title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+    title: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
     description:
-      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      "Live Better — Together. San Francisco's premier wellness center offering cold plunge therapy, red light therapy, and sauna sessions. Experience transformative recovery and community wellness.",
     images: [
       {
         url: 'https://media.vitalicesf.com/seo/desktop-home.png',
@@ -51,9 +51,9 @@ export const baseMetadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+    title: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
     description:
-      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      "Live Better — Together. San Francisco's premier wellness center offering cold plunge therapy, red light therapy, and sauna sessions. Experience transformative recovery and community wellness.",
     images: ['https://media.vitalicesf.com/seo/desktop-home.png'],
     creator: '@vitalice',
   },
@@ -78,13 +78,13 @@ export const baseMetadata: Metadata = {
 // Page-specific metadata configurations
 export const pageMetadata: Record<string, Metadata> = {
   home: {
-    title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+    title: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
     description:
-      'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+      "Live Better — Together. San Francisco's premier wellness center offering cold plunge therapy, red light therapy, and sauna sessions. Experience transformative recovery and community wellness.",
     openGraph: {
-      title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+      title: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
       description:
-        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, red light therapy, sauna, and traditional healing practices. Located in San Francisco.',
       images: [
         {
           url: 'https://media.vitalicesf.com/seo/desktop-home.png',
@@ -95,9 +95,9 @@ export const pageMetadata: Record<string, Metadata> = {
       ],
     },
     twitter: {
-      title: 'Vital Ice | Recovery & Wellness Through Cold Therapy',
+      title: 'Vital Ice | Cold Plunge, Red Light Therapy & Sauna in San Francisco',
       description:
-        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, infrared sauna, and traditional healing practices. Located in San Francisco.',
+        'Live Better — Together. Experience transformative recovery and wellness through cold therapy, red light therapy, sauna, and traditional healing practices. Located in San Francisco.',
       images: ['https://media.vitalicesf.com/seo/desktop-home.png'],
     },
   },
