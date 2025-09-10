@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
@@ -13,28 +13,27 @@ import {
 } from 'react-icons/gi';
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
+import { SmartPanel } from '@/components/ui/SmartPanel/SmartPanel';
 import styles from './page.module.css';
 
 const SERVICE_COLORS = {
-  'cold-plunge': '#00bcd4', // Water - Vital Ice Blue
-  'infrared-sauna': '#ff3e36', // Fire/Light - Blood Orange
-  'traditional-sauna': '#d45700', // Earth/Wood - Deep Umber
-  'red-light-therapy': '#e63e80', // Light - Rose Gold
-  'compression-boots': '#80cbc4', // Air - Pale Silver
-  'percussion-massage': '#64b5f6', // Motion - Electric Cyan
+  'cold-plunge': '#00bcd4',
+  'infrared-sauna': '#ff3e36',
+  'traditional-sauna': '#d45700',
+  'red-light-therapy': '#e63e80',
+  'compression-boots': '#80cbc4',
+  'percussion-massage': '#64b5f6',
 };
 
-// React Icons for each service
 const ServiceIcons = {
-  'cold-plunge': <GiSnowflake1 size={24} />,
-  'infrared-sauna': <GiFire size={24} />,
-  'traditional-sauna': <GiCampfire size={24} />,
-  'red-light-therapy': <GiLightningTrio size={24} />,
-  'compression-boots': <GiLeg size={24} />,
-  'percussion-massage': <GiVibratingBall size={24} />,
+  'cold-plunge': GiSnowflake1,
+  'infrared-sauna': GiFire,
+  'traditional-sauna': GiCampfire,
+  'red-light-therapy': GiLightningTrio,
+  'compression-boots': GiLeg,
+  'percussion-massage': GiVibratingBall,
 } as const;
 
-// Enhanced Service Node Component
 interface ServiceNodeProps {
   service: {
     id: string;
@@ -43,10 +42,10 @@ interface ServiceNodeProps {
   };
   angle: number;
   radius: number;
-  index: number; // Used in transition delay calculation
-  onHover: (index: number) => void;
+  index: number;
+  onHover: (_index: number) => void;
   onLeave: () => void;
-  onSelect: (id: string) => void; // Used in onClick handler
+  onSelect: (_id: string) => void;
   isHovered: boolean;
 }
 
@@ -54,7 +53,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   service,
   angle,
   radius,
-  index, // Used in transition delay calculation
+  index,
   onHover,
   onLeave,
   onSelect,
@@ -67,6 +66,7 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
   return (
     <motion.div
       className={styles.serviceNode}
+      data-service-index={index}
       style={
         {
           '--x': `${x}px`,
@@ -109,13 +109,12 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
           }}
         >
           {(() => {
-            const icon = ServiceIcons[service.id as keyof typeof ServiceIcons];
-            return icon || <GiSnowflake1 size={24} />;
+            const IconComponent = ServiceIcons[service.id as keyof typeof ServiceIcons];
+            return IconComponent ? <IconComponent size={24} /> : <GiSnowflake1 size={24} />;
           })()}
         </div>
       </div>
 
-      {/* Trailing particles effect */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -133,26 +132,8 @@ const ServiceNode: React.FC<ServiceNodeProps> = ({
 
 const ExperiencePage: React.FC = () => {
   const router = useRouter();
-  // Removed unused startNavigation
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [isStackedLayout, setIsStackedLayout] = useState<boolean>(true); // Default to stacked layout
 
-  // Detect screen size for responsive panel rendering
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const isStacked = window.innerWidth <= 1200;
-      setIsStackedLayout(isStacked);
-    };
-
-    // Only run on client side
-    if (typeof window !== 'undefined') {
-      checkScreenSize();
-      window.addEventListener('resize', checkScreenSize);
-      return () => window.removeEventListener('resize', checkScreenSize);
-    }
-  }, []);
-
-  // Service data for the radial menu
   const services = [
     servicesData['cold-plunge'],
     servicesData['infrared-sauna'],
@@ -162,16 +143,22 @@ const ExperiencePage: React.FC = () => {
     servicesData['percussion-massage'],
   ];
 
-  // Get the current logo color based on hovered service
-  const getLogoColor = () => {
-    if (hoveredIndex === null) return '#ffffff'; // Default white
+  const serviceDescriptions = {
+    'cold-plunge': 'Cold water immersion therapy for muscle recovery and inflammation reduction',
+    'infrared-sauna': 'Infrared heat therapy for detoxification and stress relief',
+    'traditional-sauna': 'Finnish sauna therapy for cardiovascular health and wellness',
+    'red-light-therapy': 'Red light phototherapy for skin health and muscle recovery',
+    'compression-boots': 'Compression therapy for improved circulation and recovery',
+    'percussion-massage': 'Percussive massage therapy for deep tissue muscle relief',
+  };
 
+  const getLogoColor = () => {
+    if (hoveredIndex === null) return '#ffffff';
     const serviceId = services[hoveredIndex]?.id;
     return SERVICE_COLORS[serviceId as keyof typeof SERVICE_COLORS] || '#ffffff';
   };
 
   const handleServiceSelect = (id: string) => {
-    // Navigate to the service page - let Next.js handle the loading naturally
     router.push(`/services/${id}`);
   };
 
@@ -183,9 +170,18 @@ const ExperiencePage: React.FC = () => {
     setHoveredIndex(null);
   };
 
+  const getPanelSideForIndex = (index: number | null) => {
+    if (index === null) return 'right';
+    const rightSideIndices = [0, 1, 5];
+    const isRightSide = rightSideIndices.includes(index);
+    return isRightSide ? 'right' : 'left';
+  };
+
+  const hoveredService = hoveredIndex !== null ? services[hoveredIndex] : null;
+  const panelSide = getPanelSideForIndex(hoveredIndex);
+
   return (
     <div className={styles.experiencePage}>
-      {/* Page Title - Separate Container */}
       <motion.div
         className={styles.pageTitle}
         initial={{ opacity: 0, y: 20 }}
@@ -198,58 +194,8 @@ const ExperiencePage: React.FC = () => {
         </p>
       </motion.div>
 
-      {/* Main Content Grid */}
-      <div className={styles.mainGrid}>
-        {/* Left Service Panels - Only render in desktop layout */}
-        {!isStackedLayout && (
-          <div className={styles.leftPanels}>
-            {/* Compression Boots */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 4 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color':
-                    hoveredIndex === 4 ? SERVICE_COLORS['compression-boots'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>COMPRESSION BOOTS</span>
-            </div>
-
-            {/* Red Light Therapy */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 3 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color':
-                    hoveredIndex === 3 ? SERVICE_COLORS['red-light-therapy'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>RED LIGHT THERAPY</span>
-            </div>
-
-            {/* Traditional Sauna */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 2 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color':
-                    hoveredIndex === 2 ? SERVICE_COLORS['traditional-sauna'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>TRADITIONAL SAUNA</span>
-            </div>
-          </div>
-        )}
-
-        {/* Radial Service Menu */}
+      <div className={styles.mainGridNew}>
         <div className={styles.radialMenu}>
-          {/* Background Ring */}
           <motion.div
             className={styles.backgroundRing}
             animate={{ rotate: 360 }}
@@ -260,7 +206,6 @@ const ExperiencePage: React.FC = () => {
             }}
           />
 
-          {/* Central VI Logo */}
           <motion.div
             className={styles.centralLogo}
             animate={{
@@ -282,10 +227,11 @@ const ExperiencePage: React.FC = () => {
             />
           </motion.div>
 
-          {/* Service Nodes */}
           {services.map((service, index) => {
-            const angle = index * 60 * (Math.PI / 180); // 60 degrees apart
-            const radius = 160; // Distance from center - adjusted to match ring size
+            if (!service) return null;
+
+            const angle = index * 60 * (Math.PI / 180);
+            const radius = 160;
 
             return (
               <ServiceNode
@@ -302,77 +248,53 @@ const ExperiencePage: React.FC = () => {
             );
           })}
         </div>
-
-        {/* Right Service Panels - Only render in desktop layout */}
-        {!isStackedLayout && (
-          <div className={styles.rightPanels}>
-            {/* Percussion Massage */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 5 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color':
-                    hoveredIndex === 5 ? SERVICE_COLORS['percussion-massage'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>PERCUSSION MASSAGE</span>
-            </div>
-
-            {/* Cold Plunge */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 0 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color': hoveredIndex === 0 ? SERVICE_COLORS['cold-plunge'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>COLD PLUNGE</span>
-            </div>
-
-            {/* Infrared Sauna */}
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex === 1 ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color':
-                    hoveredIndex === 1 ? SERVICE_COLORS['infrared-sauna'] : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>INFRARED SAUNA</span>
-            </div>
-          </div>
-        )}
-
-        {/* Stacked Panel Zone - Only render in stacked layout */}
-        {isStackedLayout && (
-          <div className={styles.panelZoneStacked}>
-            <div
-              className={`${styles.servicePanel} ${hoveredIndex !== null ? styles.active : ''}`}
-              style={
-                {
-                  '--accent-color': hoveredIndex !== null ? getLogoColor() : '#00bcd4',
-                } as React.CSSProperties
-              }
-            >
-              <span className={styles.panelDot} />
-              <span className={styles.panelStatusText}>
-                {hoveredIndex !== null ? services[hoveredIndex]?.title.toUpperCase() : 'STANDBY'}
-              </span>
-            </div>
-          </div>
-        )}
       </div>
 
-      {/* Spacing before footer */}
+      {hoveredService && hoveredService.id && (
+        <SmartPanel
+          isVisible={hoveredIndex !== null}
+          title=""
+          accentColor={
+            SERVICE_COLORS[hoveredService.id as keyof typeof SERVICE_COLORS] || '#00bcd4'
+          }
+          anchorSelector={`[data-service-index="${hoveredIndex}"]`}
+          panelSide={panelSide}
+        >
+          <div>
+            <h3
+              style={{
+                margin: '0 0 12px 0',
+                fontSize: '1.4rem',
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontWeight: '400',
+                color: SERVICE_COLORS[hoveredService.id as keyof typeof SERVICE_COLORS],
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                textAlign: 'left',
+                lineHeight: '1.2',
+              }}
+            >
+              {hoveredService.title}
+            </h3>
+            <p
+              style={{
+                margin: 0,
+                fontSize: '0.95rem',
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: '400',
+                color: 'rgba(255, 255, 255, 0.9)',
+                lineHeight: '1.4',
+                textAlign: 'left',
+              }}
+            >
+              {serviceDescriptions[hoveredService.id as keyof typeof serviceDescriptions]}
+            </p>
+          </div>
+        </SmartPanel>
+      )}
+
       <div className={styles.footerSpacing} />
 
-      {/* Floating Particles */}
       <div className={styles.particles}>
         {[...Array(12)].map((_, i) => (
           <motion.div
