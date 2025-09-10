@@ -17,7 +17,12 @@
     "deploy": "gh-pages -d out",
     "sentry:release": "node scripts/sentry-release.js",
     "sentry:sourcemaps": "npx @sentry/cli releases files $npm_package_version upload-sourcemaps .next --url-prefix '~/_next'",
-    "r2:cors": "node scripts/setup-r2-cors.js"
+    "r2:cors": "node scripts/setup-r2-cors.js",
+    "docs:update": "node scripts/update-docs.js",
+    "docs:validate": "node scripts/validate-docs.js",
+    "docs:dashboard": "open docs/dashboard.html",
+    "docs:check": "npm run docs:validate && npm run docs:update",
+    "docs:index": "node scripts/generate-docs-index.js"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.5.0",
