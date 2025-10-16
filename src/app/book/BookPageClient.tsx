@@ -81,9 +81,24 @@ const BookPageClient: FC = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
+        <div className={styles.backgroundText}>Coming Soon</div>
         <div className={styles.comingSoonContent}>
           <Logo className={styles.logo} width={200} height={100} />
-          <h2 className={styles.comingSoonTitle}>Coming Soon</h2>
+          <h2 className={styles.comingSoonTitle}>Founding Memberships Available</h2>
+          <motion.button
+            className={styles.emailButton}
+            onClick={() =>
+              window.open(
+                'mailto:info@vitalicesf.com?subject=Founding Membership Inquiry',
+                '_blank'
+              )
+            }
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            Email for Details
+          </motion.button>
         </div>
       </motion.div>
 

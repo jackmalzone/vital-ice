@@ -39,11 +39,30 @@
   justify-content: center;
   align-items: center;
   min-height: 600px;
+  position: relative;
+}
+
+.backgroundText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.03);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
 }
 
 .comingSoonContent {
   text-align: center;
   max-width: 400px;
+  position: relative;
+  z-index: 2;
 }
 
 .logo {
@@ -54,12 +73,35 @@
 
 .comingSoonTitle {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 400;
   color: #00b7b5;
-  margin: 0;
+  margin: 0 0 2.5rem 0;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.emailButton {
+  background: rgba(0, 183, 181, 0.1);
+  color: #00b7b5;
+  border: 2px solid #00b7b5;
+  border-radius: 6px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(10px);
+}
+
+.emailButton:hover {
+  background: #00b7b5;
+  color: #000000;
+  transform: translateY(-1px);
 }
 
 /* Registration Section */
@@ -229,8 +271,17 @@
     z-index: 10;
   }
 
+  .backgroundText {
+    font-size: 5rem;
+  }
+
   .comingSoonTitle {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .emailButton {
+    font-size: 0.9rem;
+    padding: 12px 24px;
   }
 
   .logo {
@@ -260,8 +311,18 @@
     padding: 15px;
   }
 
+  .backgroundText {
+    font-size: 3.5rem;
+    letter-spacing: 0.1em;
+  }
+
   .comingSoonTitle {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .emailButton {
+    font-size: 0.85rem;
+    padding: 10px 20px;
   }
 
   .logo {

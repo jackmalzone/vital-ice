@@ -102,6 +102,103 @@
   transform: scale(1.1) !important;
 }
 
+/* Expanded button styles */
+.expandedButton {
+  width: auto !important;
+  min-width: 280px !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 25px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0.75rem !important;
+  position: relative !important;
+}
+
+.expandedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.expandedText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.newLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000000;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.foundingText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.expandedBookButton {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.expandedBookButton:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: translateX(2px);
+}
+
+.expandedControls {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.collapseButton,
+.dismissButton {
+  background: none;
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.collapseButton:hover,
+.dismissButton:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.8);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .rollingBookContainer {
@@ -112,6 +209,20 @@
   .rollingBookButton {
     padding: 0.875rem 1.25rem;
     font-size: 0.9rem;
+  }
+
+  .expandedButton {
+    min-width: 240px !important;
+    padding: 0.875rem 1.25rem !important;
+  }
+
+  .foundingText {
+    font-size: 0.85rem;
+  }
+
+  .expandedBookButton {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
   }
 }
 
@@ -124,5 +235,19 @@
   .rollingBookButton {
     padding: 0.75rem 1rem;
     font-size: 0.85rem;
+  }
+
+  .expandedButton {
+    min-width: 200px !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .foundingText {
+    font-size: 0.8rem;
+  }
+
+  .expandedBookButton {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.7rem;
   }
 }

@@ -9,6 +9,7 @@ import { MindbodyErrorBoundary } from '@/components/providers/MindbodyErrorBound
 import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import RollingBookButton from '@/components/ui/RollingBookButton/RollingBookButton';
+
 import StructuredData from '@/components/seo/StructuredData';
 import { initializeSentryTracking } from '@/lib/utils/sentryTracking';
 import { initializeAnalytics } from '@/lib/utils/analytics';
@@ -86,6 +87,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     message.includes('mindbody') ||
                     message.includes('healcode') ||
                     message.includes('jquery') ||
+                    message.includes('consumer_visitor') ||
+                    message.includes('has already been declared') ||
+                    message.includes('syntaxerror: identifier') ||
                     message.includes('not valid json') ||
                     message.includes('message channel closed') ||
                     message.includes('cannot read properties of null') ||
@@ -107,6 +111,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     message.includes('mindbody') ||
                     message.includes('healcode') ||
                     message.includes('jquery') ||
+                    message.includes('consumer_visitor') ||
+                    message.includes('has already been declared') ||
                     message.includes('cannot read properties of null') ||
                     message.includes('removechild') ||
                     message.includes('hotmodulereplacement')) {
