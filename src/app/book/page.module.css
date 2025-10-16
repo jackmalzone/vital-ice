@@ -32,7 +32,7 @@
   margin: 0 auto;
 }
 
-.comingSoonContainer {
+.foundingSection {
   flex: 1;
   padding: 40px 24px;
   display: flex;
@@ -56,11 +56,14 @@
   z-index: 1;
   pointer-events: none;
   user-select: none;
+  text-align: center;
+  white-space: nowrap;
+  width: max-content;
 }
 
-.comingSoonContent {
+.foundingContent {
   text-align: center;
-  max-width: 400px;
+  max-width: 600px;
   position: relative;
   z-index: 2;
 }
@@ -71,37 +74,350 @@
   margin-bottom: 2rem;
 }
 
-.comingSoonTitle {
+.foundingTitle {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2.2rem;
   font-weight: 400;
   color: #00b7b5;
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 1rem 0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   line-height: 1.2;
 }
 
-.emailButton {
+.foundingSubtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 3rem 0;
+  font-weight: 300;
+}
+
+.pricingDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.membershipType {
+  background: rgba(0, 183, 181, 0.05);
+  border: 2px solid rgba(0, 183, 181, 0.4);
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.membershipType:hover {
+  background: rgba(0, 183, 181, 0.08);
+  border-color: rgba(0, 183, 181, 0.6);
+}
+
+.typeTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #00b7b5;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.membershipContent {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.membershipInfo {
+  flex: 1;
+  text-align: left;
+}
+
+.typeDescription {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.priceColumn {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.priceBox {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.priceBox:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(0, 183, 181, 0.4);
+}
+
+.waveTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #00b7b5;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.benefitsSection {
+  margin-bottom: 3rem;
+}
+
+.benefitsSection:hover::after {
+  opacity: 1;
+  animation: benefitsSectionPulse 2s ease-in-out infinite;
+}
+
+@keyframes benefitsSectionPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.benefitsToggle {
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.benefitsToggle:hover {
+  border-bottom-color: rgba(0, 183, 181, 0.7);
+  color: #00b7b5;
+  transform: translateY(-1px);
+}
+
+.toggleIcon {
+  font-size: 0.8rem;
+  color: #00b7b5;
+  transition: all 0.3s ease;
+}
+
+.toggleIcon.expanded {
+  transform: rotate(180deg);
+}
+
+.benefitsToggle:hover .toggleIcon {
+  transform: scale(1.1) translateY(-1px);
+  color: #9ec7c5;
+}
+
+.benefitsToggle:hover .toggleIcon.expanded {
+  transform: rotate(180deg) scale(1.1) translateY(-1px);
+}
+
+.benefitsContent {
+  overflow: hidden;
+  background: none;
+}
+
+.benefitsList {
+  padding: 1.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.benefit:hover {
+  background: rgba(0, 183, 181, 0.05);
+  border-bottom-color: rgba(0, 183, 181, 0.3);
+  transform: translateX(4px);
+}
+
+.benefit:last-child {
+  border-bottom: none;
+}
+
+.benefitIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #00b7b5;
+  flex-shrink: 0;
+  transition: all 0.4s ease;
+}
+
+/* Unique icon animations on hover */
+.benefit:hover .benefitIcon {
+  color: #9ec7c5;
+}
+
+/* Check icon - bounce animation */
+.benefit:nth-child(1):hover .benefitIcon {
+  animation: bounceCheck 0.6s ease-in-out;
+}
+
+@keyframes bounceCheck {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+/* Lock icon - shake and glow */
+.benefit:nth-child(2):hover .benefitIcon {
+  animation: lockShake 0.5s ease-in-out;
+  filter: drop-shadow(0 0 8px rgba(0, 183, 181, 0.6));
+}
+
+@keyframes lockShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  75% {
+    transform: translateX(2px) rotate(2deg);
+  }
+}
+
+/* Flash icon - pulse and rotate */
+.benefit:nth-child(3):hover .benefitIcon {
+  animation: flashPulse 0.8s ease-in-out;
+}
+
+@keyframes flashPulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+/* Card icon - flip animation */
+.benefit:nth-child(4):hover .benefitIcon {
+  animation: cardFlip 0.6s ease-in-out;
+}
+
+@keyframes cardFlip {
+  0%,
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+  50% {
+    transform: rotateY(180deg) scale(1.1);
+  }
+}
+
+.benefit strong {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.benefit p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+.benefit:hover strong {
+  color: #00b7b5;
+  transform: translateX(2px);
+}
+
+.benefit:hover p {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateX(2px);
+}
+
+.ctaButton {
   background: rgba(0, 183, 181, 0.1);
   color: #00b7b5;
   border: 2px solid #00b7b5;
-  border-radius: 6px;
-  padding: 14px 28px;
-  font-size: 1rem;
-  font-weight: 400;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-family: 'Inter', sans-serif;
   backdrop-filter: blur(10px);
+  font-family: 'Inter', sans-serif;
 }
 
-.emailButton:hover {
+.ctaButton:hover {
   background: #00b7b5;
   color: #000000;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 183, 181, 0.4);
 }
 
 /* Registration Section */
@@ -266,22 +582,71 @@
     font-size: 1rem;
   }
 
-  .comingSoonContainer {
+  .foundingSection {
     padding: 20px;
     z-index: 10;
   }
 
   .backgroundText {
     font-size: 5rem;
+    letter-spacing: 0.15em;
   }
 
-  .comingSoonTitle {
+  .foundingTitle {
     font-size: 1.8rem;
   }
 
-  .emailButton {
+  .foundingSubtitle {
+    font-size: 1rem;
+  }
+
+  .pricingDisplay {
+    gap: 2rem;
+  }
+
+  .membershipType {
+    padding: 2rem;
+  }
+
+  .typeTitle {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .membershipContent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .membershipInfo {
+    text-align: center;
+  }
+
+  .typeDescription {
     font-size: 0.9rem;
-    padding: 12px 24px;
+  }
+
+  .priceColumn {
+    justify-content: center;
+  }
+
+  .price {
+    font-size: 1.6rem;
+  }
+
+  .benefitsToggle {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .benefitsList {
+    padding: 1.25rem 0 0 0;
+  }
+
+  .ctaButton {
+    font-size: 1rem;
+    padding: 14px 24px;
   }
 
   .logo {
@@ -307,17 +672,95 @@
     font-size: 2rem;
   }
 
-  .comingSoonContainer {
+  .foundingSection {
     padding: 15px;
   }
 
   .backgroundText {
     font-size: 3.5rem;
     letter-spacing: 0.1em;
+    white-space: normal;
+    width: 90vw;
+    max-width: 400px;
   }
 
-  .comingSoonTitle {
+  .foundingTitle {
     font-size: 1.6rem;
+  }
+
+  .foundingSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .membershipType {
+    padding: 1.5rem;
+  }
+
+  .typeTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .membershipContent {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .membershipInfo {
+    text-align: center;
+  }
+
+  .typeDescription {
+    font-size: 0.85rem;
+  }
+
+  .priceColumn {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .priceBox {
+    padding: 0.875rem 1rem;
+    min-width: 70px;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
+
+  .waveTitle {
+    font-size: 0.7rem;
+  }
+
+  .benefitsToggle {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .benefitsList {
+    padding: 1rem 0 0 0;
+  }
+
+  .benefit {
+    gap: 0.75rem;
+  }
+
+  .benefitIcon {
+    font-size: 1.25rem;
+  }
+
+  .benefit strong {
+    font-size: 0.9rem;
+  }
+
+  .benefit p {
+    font-size: 0.8rem;
+  }
+
+  .ctaButton {
+    font-size: 0.9rem;
+    padding: 12px 20px;
   }
 
   .emailButton {
