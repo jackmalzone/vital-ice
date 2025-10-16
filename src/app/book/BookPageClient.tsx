@@ -111,7 +111,7 @@ const BookPageClient: FC = () => {
           <Logo className={styles.logo} width={200} height={100} />
           <h2 className={styles.foundingTitle}>Founding Memberships Available</h2>
           <p className={styles.foundingSubtitle}>
-            Limited presale opportunity with exclusive benefits
+            <strong>Limited</strong> presale opportunity with exclusive benefits
           </p>
 
           {/* Unified Pricing Display */}
@@ -122,6 +122,9 @@ const BookPageClient: FC = () => {
                 <div className={styles.membershipInfo}>
                   <p className={styles.typeDescription}>
                     Access to shared recovery space with cold plunge, saunas, and recovery equipment
+                  </p>
+                  <p className={styles.limitedText}>
+                    <strong>Limited availability</strong>
                   </p>
                 </div>
                 <div className={styles.priceColumn}>
@@ -143,6 +146,9 @@ const BookPageClient: FC = () => {
                   <p className={styles.typeDescription}>
                     Exclusive access to private recovery room with personalized experience and
                     priority booking
+                  </p>
+                  <p className={styles.limitedText}>
+                    <strong>Extremely limited availability</strong>
                   </p>
                 </div>
                 <div className={styles.priceColumn}>
