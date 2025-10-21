@@ -57,7 +57,7 @@ interface ServiceNodeProps {
   index: number;
   onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: () => void;
+  onSelect: (id: string) => void;
   isHovered: boolean;
 }
 
@@ -229,7 +229,7 @@ const ExperiencePage: React.FC = () => {
               Our main community space features a large 10-person infrared sauna and a large
               10-person traditional sauna, offering both modern and classic heat experiences. The
               area also includes a rinse shower and three barrel-style cold plunges, set at
-              incremental temperatures. It's a comfortable, open environment built for shared
+              incremental temperatures. It&apos;s a comfortable, open environment built for shared
               recovery and connection.
             </p>
             <div className={styles.spaceFeatures}>
