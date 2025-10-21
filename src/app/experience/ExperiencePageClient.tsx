@@ -11,6 +11,18 @@ import {
   GiLeg,
   GiVibratingBall,
 } from 'react-icons/gi';
+import {
+  FaUsers,
+  FaUserFriends,
+  FaFire,
+  FaSnowflake,
+  FaShower,
+  FaBed,
+  FaBox,
+  FaDumbbell,
+  FaSpa,
+  FaStore,
+} from 'react-icons/fa';
 import { servicesData } from '@/lib/data/services';
 import VILogo from '@/components/ui/Logo/VILogo';
 import { SmartPanel } from '@/components/ui/SmartPanel/SmartPanel';
@@ -43,9 +55,9 @@ interface ServiceNodeProps {
   angle: number;
   radius: number;
   index: number;
-  onHover: (_index: number) => void;
+  onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (_id: string) => void;
+  onSelect: () => void;
   isHovered: boolean;
 }
 
@@ -182,13 +194,163 @@ const ExperiencePage: React.FC = () => {
 
   return (
     <div className={styles.experiencePage}>
+      {/* Facility Overview Section */}
+      <motion.div
+        className={styles.facilityOverview}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
+      >
+        <motion.div
+          className={styles.overviewHeader}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <h1 className={styles.overviewTitle}>Your Recovery Journey</h1>
+          <p className={styles.overviewSubtitle}>Discover spaces designed for transformation</p>
+        </motion.div>
+
+        <div className={styles.spacesContainer}>
+          {/* Community Space */}
+          <motion.div
+            className={styles.spaceNode}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.0, delay: 0.8 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className={styles.spaceIcon}>
+              <FaUsers size={32} />
+            </div>
+            <h3 className={styles.spaceTitle}>Community Space</h3>
+            <p className={styles.spaceCapacity}>Up to 10 guests</p>
+            <p className={styles.spaceDescription}>
+              Our main community space features a large 10-person infrared sauna and a large
+              10-person traditional sauna, offering both modern and classic heat experiences. The
+              area also includes a rinse shower and three barrel-style cold plunges, set at
+              incremental temperatures. It's a comfortable, open environment built for shared
+              recovery and connection.
+            </p>
+            <div className={styles.spaceFeatures}>
+              <div className={styles.feature}>
+                <FaFire className={styles.featureIcon} />
+                <span>10-person infrared sauna</span>
+              </div>
+              <div className={styles.feature}>
+                <FaFire className={styles.featureIcon} />
+                <span>10-person traditional sauna</span>
+              </div>
+              <div className={styles.feature}>
+                <FaSnowflake className={styles.featureIcon} />
+                <span>Three barrel-style cold plunges</span>
+              </div>
+              <div className={styles.feature}>
+                <FaShower className={styles.featureIcon} />
+                <span>Rinse shower</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Private Spaces */}
+          <motion.div
+            className={styles.spaceNode}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.0, delay: 1.0 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className={styles.spaceIcon}>
+              <FaUserFriends size={32} />
+            </div>
+            <h3 className={styles.spaceTitle}>Private Spaces</h3>
+            <p className={styles.spaceCapacity}>2 to 4 guests</p>
+            <p className={styles.spaceDescription}>
+              Two intimate private rooms provide a comfortable, self-contained environment for two
+              to four guests. Each space is equipped with an infrared sauna, a lay-down cold plunge,
+              a rinse shower, and convenient personal storage.
+            </p>
+            <div className={styles.spaceFeatures}>
+              <div className={styles.feature}>
+                <FaFire className={styles.featureIcon} />
+                <span>Infrared sauna</span>
+              </div>
+              <div className={styles.feature}>
+                <FaBed className={styles.featureIcon} />
+                <span>Lay-down cold plunge</span>
+              </div>
+              <div className={styles.feature}>
+                <FaShower className={styles.featureIcon} />
+                <span>Rinse shower</span>
+              </div>
+              <div className={styles.feature}>
+                <FaBox className={styles.featureIcon} />
+                <span>Personal storage</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Additional Facilities */}
+        <motion.div
+          className={styles.additionalFacilities}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 1.2 }}
+        >
+          <div className={styles.facilitySection}>
+            <h4 className={styles.facilityTitle}>Stretch & Recovery Zone</h4>
+            <p className={styles.facilitiesDescription}>
+              Adjacent to the private rooms is the stretch and recovery zone that combines
+              performance and relaxation featuring percussion massagers, compression boots, red
+              light therapy masks, and mobility essentials like mats, bands, and rollers to help you
+              loosen up and rejuvenate.
+            </p>
+          </div>
+
+          <div className={styles.facilitySection}>
+            <h4 className={styles.facilityTitle}>Complete Experience</h4>
+            <p className={styles.facilitiesDescription}>
+              To complete the experience, you will enjoy access to luxury men&apos;s and
+              women&apos;s locker rooms, an all-gender ADA-accessible suite, plush towel service,
+              filtered hydration, hygiene & personal care amenities, and refreshments.
+            </p>
+            <p className={styles.facilitiesDescription}>
+              Our reception area offers a curated mix of wellness products, apparel, and supplements
+              to help you support your recovery and wellbeing beyond your visit.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Enhancement Zones */}
+        <motion.div
+          className={styles.enhancementZones}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.0, delay: 1.2 }}
+        >
+          <div className={styles.zoneNode}>
+            <FaDumbbell className={styles.zoneIcon} />
+            <span className={styles.zoneLabel}>Recovery Zone</span>
+          </div>
+          <div className={styles.zoneNode}>
+            <FaSpa className={styles.zoneIcon} />
+            <span className={styles.zoneLabel}>Premium Facilities</span>
+          </div>
+          <div className={styles.zoneNode}>
+            <FaStore className={styles.zoneIcon} />
+            <span className={styles.zoneLabel}>Wellness Retail</span>
+          </div>
+        </motion.div>
+      </motion.div>
+
       <motion.div
         className={styles.pageTitle}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
       >
-        <h1 className={styles.pageTitleHeading}>Choose Your Experience</h1>
+        <h2 className={styles.pageTitleHeading}>Choose Your Experience</h2>
         <p className={styles.pageTitleSubheading}>
           Select a service to begin your recovery journey
         </p>

@@ -1006,3 +1006,306 @@
     font-size: 0.7rem;
   }
 }
+
+/* Facility Overview Section - Ethereal Style */
+.facilityOverview {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 2rem 8rem;
+  text-align: center;
+}
+
+.overviewHeader {
+  margin-bottom: 6rem;
+}
+
+.overviewTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.overviewSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  font-weight: 300;
+}
+
+.spacesContainer {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-bottom: 6rem;
+}
+
+.spaceNode {
+  text-align: center;
+  max-width: 280px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.spaceNode:hover {
+  transform: translateY(-4px);
+}
+
+.spaceIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.4s ease;
+}
+
+.spaceNode:hover .spaceIcon {
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.spaceTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.spaceDescription {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin: 0 0 2rem 0;
+  font-weight: 300;
+}
+
+.spaceFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.featureIcon {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.enhancementZones {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  opacity: 0.8;
+}
+
+.zoneNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.zoneNode:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.zoneIcon {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.zoneNode:hover .zoneIcon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.zoneLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 300;
+}
+
+/* Responsive Design for Facility Overview */
+@media (max-width: 768px) {
+  .facilityOverview {
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  .overviewTitle {
+    font-size: 2.7rem;
+  }
+
+  .overviewSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .spacesContainer {
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .spaceNode {
+    max-width: 320px;
+  }
+
+  .enhancementZones {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .facilityOverview {
+    padding: 3rem 1rem 4rem;
+  }
+
+  .overviewHeader {
+    margin-bottom: 4rem;
+  }
+
+  .overviewTitle {
+    font-size: 2.2rem;
+  }
+
+  .overviewSubtitle {
+    font-size: 1rem;
+  }
+
+  .spacesContainer {
+    gap: 3rem;
+  }
+
+  .spaceNode {
+    max-width: 280px;
+  }
+
+  .spaceIcon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .spaceTitle {
+    font-size: 1.3rem;
+  }
+
+  .spaceDescription {
+    font-size: 0.95rem;
+  }
+
+  .enhancementZones {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .feature {
+    font-size: 0.8rem;
+  }
+
+  .zoneLabel {
+    font-size: 0.75rem;
+  }
+}
+
+/* Additional Facilities Section */
+.additionalFacilities {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.facilitySection {
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.facilityTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.facilitiesDescription {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  font-weight: 300;
+  text-align: center;
+}
+
+.spaceCapacity {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(0, 188, 212, 0.8);
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive for Additional Facilities */
+@media (max-width: 768px) {
+  .additionalFacilities {
+    padding: 0 1.5rem;
+  }
+
+  .facilityTitle {
+    font-size: 1.3rem;
+  }
+
+  .facilitiesDescription {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .additionalFacilities {
+    padding: 0 1rem;
+  }
+
+  .facilitySection {
+    margin-bottom: 2rem;
+  }
+
+  .facilityTitle {
+    font-size: 1.2rem;
+  }
+
+  .facilitiesDescription {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
