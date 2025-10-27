@@ -144,8 +144,8 @@ const BookPageClient: FC = () => {
               <div className={styles.membershipContent}>
                 <div className={styles.membershipInfo}>
                   <p className={styles.typeDescription}>
-                    Exclusive access to private recovery room with personalized experience and
-                    priority booking
+                    Exclusive access to our private recovery suites with cold plunge, infrared
+                    sauna, and recovery equipment
                   </p>
                   <p className={styles.limitedText}>
                     <strong>Extremely limited availability</strong>

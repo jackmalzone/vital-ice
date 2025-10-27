@@ -57,7 +57,7 @@ interface ServiceNodeProps {
   index: number;
   onHover: (index: number) => void;
   onLeave: () => void;
-  onSelect: (id: string) => void;
+  onSelect: () => void;
   isHovered: boolean;
 }
 
@@ -224,7 +224,7 @@ const ExperiencePage: React.FC = () => {
               <FaUsers size={32} />
             </div>
             <h3 className={styles.spaceTitle}>Community Space</h3>
-            <p className={styles.spaceCapacity}>Up to 10 guests</p>
+            <p className={styles.spaceCapacity}>Up to 20 guests</p>
             <p className={styles.spaceDescription}>
               Our main community space features a large 10-person infrared sauna and a large
               10-person traditional sauna, offering both modern and classic heat experiences. The
